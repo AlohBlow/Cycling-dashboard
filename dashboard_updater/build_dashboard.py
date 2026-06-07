@@ -6,12 +6,14 @@ Or via:        scheduler.py  (twice daily)
 
 import logging
 import sys
+import os
 from datetime import datetime
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader
+# Add dashboard_updater to path so imports work correctly
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-sys.path.insert(0, str(Path(__file__).parent))
+from jinja2 import Environment, FileSystemLoader
 import intervals_client as iv
 import xert_client as xr
 from config import XERT_EMAIL
