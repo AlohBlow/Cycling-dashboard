@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r dashboard_updater/requirements.txt
 
+      - name: Debug — list files
+        run: ls -la dashboard_updater/
+
       - name: Build dashboard
         env:
           INTERVALS_ATHLETE_ID: ${{ secrets.INTERVALS_ATHLETE_ID }}
