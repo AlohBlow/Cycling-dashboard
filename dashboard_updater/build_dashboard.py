@@ -10,8 +10,17 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+# Debug: Print current working directory and file location
+print(f"DEBUG: __file__ = {__file__}")
+print(f"DEBUG: __file__ abspath = {os.path.abspath(__file__)}")
+print(f"DEBUG: cwd = {os.getcwd()}")
+print(f"DEBUG: sys.path[0:3] = {sys.path[0:3]}")
+
 # Add dashboard_updater to path so imports work correctly
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+dashboard_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, dashboard_path)
+print(f"DEBUG: Added to sys.path: {dashboard_path}")
+print(f"DEBUG: config.py exists? {os.path.exists(os.path.join(dashboard_path, 'config.py'))}")
 
 from jinja2 import Environment, FileSystemLoader
 import intervals_client as iv
