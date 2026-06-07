@@ -1,0 +1,51 @@
+name: Update Dashboard
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 09:00 SGT (UTC+8)
+    - cron: '0 10 * * *'  # 18:00 SGT
+  workflow_dispatch:        # manual trigger from GitHub Actions tab
+
+# Allow the workflow to push the updated index.html back to the repo
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: dashboard_updater/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r dashboard_updater/requirements.txt
+
+      - name: Build dashboard
+        env:
+          INTERVALS_ATHLETE_ID: ${{ secrets.INTERVALS_ATHLETE_ID }}
+          INTERVALS_API_KEY:    ${{ secrets.INTERVALS_API_KEY }}
+          XERT_EMAIL:           ${{ secrets.XERT_EMAIL }}
+          XERT_PASSWORD:        ${{ secrets.XERT_PASSWORD }}
+          ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python dashboard_updater/build_dashboard.py
+
+      - name: Commit and push index.html
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          # Only commit if index.html actually changed
+          if git diff --staged --quiet; then
+            echo "No changes to index.html — skipping commit."
+          else
+            git commit -m "chore: dashboard update $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

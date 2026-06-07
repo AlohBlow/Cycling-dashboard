@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>James Loh — Daily Cycling Dashboard | 1 Jun 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f1117; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; }
+  .header { background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%); border-bottom: 1px solid #2d3148; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .header-left h1 { font-size: 22px; font-weight: 700; color: #fff; }
+  .header-left p { color: #8b92a8; font-size: 13px; margin-top: 2px; }
+  .header-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-peaking { background: #7c3aed20; color: #a78bfa; border: 1px solid #7c3aed40; }
+  .badge-fresh { background: #05964220; color: #34d399; border: 1px solid #05964240; }
+  .badge-countdown { background: #dc262620; color: #f87171; border: 1px solid #dc262640; }
+  .badge-bintan { background: #0891b220; color: #67e8f9; border: 1px solid #0891b240; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
+  .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #8b92a8; margin-bottom: 12px; margin-top: 24px; }
+  .cards-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 16px; }
+  .card-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; margin-bottom: 6px; }
+  .card-value { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
+  .card-sub { font-size: 12px; color: #8b92a8; margin-top: 4px; }
+  .card-highlight { color: #34d399; }
+  .card-warn { color: #fbbf24; }
+  .card-danger { color: #f87171; }
+  .progress-bar { background: #2d3148; border-radius: 4px; height: 6px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .progress-fill.green { background: linear-gradient(90deg, #059642, #34d399); }
+  .progress-fill.orange { background: linear-gradient(90deg, #d97706, #fbbf24); }
+  .chart-card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 20px; }
+  .chart-wrapper { position: relative; height: 220px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; text-align: left; padding: 8px 12px; border-bottom: 1px solid #2d3148; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1e2130; font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1e2130; }
+  .activity-icon { display: inline-block; width: 24px; height: 24px; border-radius: 6px; text-align: center; line-height: 24px; font-size: 13px; margin-right: 6px; vertical-align: middle; }
+  .icon-bike { background: #7c3aed20; }
+  .icon-run { background: #0891b220; }
+  .icon-walk { background: #05964220; }
+  .icon-strength { background: #dc262620; }
+  .workout-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .workout-card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 16px; }
+  .workout-card.done { border-color: #05964250; }
+  .workout-card.pending { border-color: #7c3aed30; }
+  .workout-card.key { border-color: #d9770650; }
+  .wc-type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; margin-bottom: 6px; }
+  .wc-name { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .wc-stats { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+  .wc-stat { text-align: center; }
+  .wc-stat-val { font-size: 18px; font-weight: 700; color: #a78bfa; }
+  .wc-stat-val.green { color: #34d399; }
+  .wc-stat-val.orange { color: #fbbf24; }
+  .wc-stat-label { font-size: 10px; color: #6b7280; text-transform: uppercase; }
+  .wc-coach-note { font-size: 12px; color: #8b92a8; margin-top: 10px; padding-top: 10px; border-top: 1px solid #2d3148; line-height: 1.5; }
+  .week-table { width: 100%; }
+  .week-table th { font-size: 11px; }
+  .load-chip { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .load-easy { background: #05964220; color: #34d399; }
+  .load-mod { background: #0891b220; color: #67e8f9; }
+  .load-hard { background: #7c3aed20; color: #a78bfa; }
+  .load-key { background: #d9770620; color: #fbbf24; }
+  .load-rest { background: #2d314850; color: #6b7280; }
+  .recovery-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .recovery-item { background: #1e2130; border-radius: 10px; padding: 14px; }
+  .recovery-item h4 { font-size: 13px; font-weight: 600; color: #a78bfa; margin-bottom: 6px; }
+  .recovery-item p { font-size: 12px; color: #8b92a8; line-height: 1.6; }
+  .budget-bar { display: flex; gap: 6px; margin-top: 8px; }
+  .budget-dot { width: 16px; height: 16px; border-radius: 50%; background: #2d3148; }
+  .budget-dot.used { background: #7c3aed; }
+  .budget-dot.avail { background: #34d39940; border: 1px dashed #34d399; }
+  .coaching-note { background: #1a1d27; border: 1px solid #2d3148; border-left: 3px solid #a78bfa; border-radius: 12px; padding: 20px; }
+  .coaching-note p { color: #c4cad8; line-height: 1.7; font-size: 14px; }
+  .lifestyle-note { background: #1a1d27; border: 1px solid #fbbf2440; border-radius: 10px; padding: 14px; display: flex; align-items: center; gap: 10px; }
+  .lifestyle-note span { font-size: 20px; }
+  .lifestyle-note p { font-size: 13px; color: #fbbf24; }
+  .xert-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .xert-sig { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 16px; }
+  .sig-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 10px; }
+  .sig-item { text-align: center; }
+  .sig-val { font-size: 20px; font-weight: 700; color: #a78bfa; }
+  .sig-label { font-size: 10px; color: #6b7280; text-transform: uppercase; }
+  @media (max-width: 900px) {
+    .cards-row { grid-template-columns: repeat(2, 1fr); }
+    .two-col, .three-col, .recovery-grid, .xert-panel { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>🚴 James Loh — Daily Cycling Dashboard</h1>
+    <p>Monday, 1 June 2026 · Generated 06:30 AM SGT</p>
+  </div>
+  <div class="header-badges">
+    <span class="badge badge-peaking">Garmin: Peaking</span>
+    <span class="badge badge-fresh">Xert: Fresh</span>
+    <span class="badge badge-countdown">🏁 Nationals: 27 days</span>
+    <span class="badge badge-bintan">🏝 Bintan: TBD</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- READINESS CARDS -->
+  <div class="section-title">Readiness Overview</div>
+  <div class="cards-row">
+    <div class="card">
+      <div class="card-label">Training Readiness</div>
+      <div class="card-value card-highlight">86</div>
+      <div class="card-sub">High · Well-recovered</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:86%"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Body Battery</div>
+      <div class="card-value card-highlight">99</div>
+      <div class="card-sub">Charged · +52 overnight</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:99%"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Sleep</div>
+      <div class="card-value">84</div>
+      <div class="card-sub">Good · 6h 48m<br>10:06 PM – 4:54 AM</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:84%"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-label">HRV Status</div>
+      <div class="card-value" style="font-size:20px; padding-top:4px;">Balanced</div>
+      <div class="card-sub">✅ Within normal range<br>Low recent stress</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Weight</div>
+      <div class="card-value card-warn">67.8<span style="font-size:14px; color:#8b92a8"> kg</span></div>
+      <div class="card-sub">Goal: 66.0 kg · −0.4 kg</div>
+      <div class="progress-bar">
+        <div class="progress-fill orange" style="width:75%"></div>
+      </div>
+      <div style="font-size:11px; color:#6b7280; margin-top:4px;">1.8 kg to target · 27 days</div>
+    </div>
+  </div>
+
+  <!-- FORM & LOAD CHART -->
+  <div class="section-title">Form & Load Trend (Intervals.icu)</div>
+  <div class="chart-card">
+    <div style="display:flex; gap:24px; margin-bottom:14px; flex-wrap:wrap;">
+      <div><span style="font-size:11px; color:#6b7280; text-transform:uppercase;">Fitness (CTL)</span><br><span style="font-size:24px; font-weight:700; color:#60a5fa;">82</span></div>
+      <div><span style="font-size:11px; color:#6b7280; text-transform:uppercase;">Fatigue (ATL)</span><br><span style="font-size:24px; font-weight:700; color:#c084fc;">74</span></div>
+      <div><span style="font-size:11px; color:#6b7280; text-transform:uppercase;">Form (TSB)</span><br><span style="font-size:24px; font-weight:700; color:#34d399;">+8</span></div>
+      <div style="margin-left:auto; text-align:right;">
+        <span style="background:#34d39920; color:#34d399; padding:4px 12px; border-radius:10px; font-size:12px; font-weight:600;">🟢 FRESH ZONE</span>
+        <div style="font-size:11px; color:#6b7280; margin-top:4px;">Optimal range: -10 to +5</div>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <canvas id="formChart"></canvas>
+    </div>
+    <div style="display:flex; gap:20px; margin-top:10px; font-size:11px; color:#6b7280; flex-wrap:wrap;">
+      <span>🔵 Fitness (CTL)</span>
+      <span>🟣 Fatigue (ATL)</span>
+      <span>🟢 Form (TSB)</span>
+      <span style="margin-left:auto;">Data: Intervals.icu · Athlete i95383</span>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITIES -->
+  <div class="section-title">Recent Activities</div>
+  <div class="chart-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Date</th>
+          <th>Distance</th>
+          <th>Duration</th>
+          <th>Avg Power / HR</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="activity-icon icon-bike">🚴</span>Zwift - Xert: After Midnight</td>
+          <td>31 May</td>
+          <td>43.2 km</td>
+          <td>1:16:13</td>
+          <td>172W / 126 bpm</td>
+          <td style="color:#a78bfa;">Polar Endurance · XSS 41</td>
+        </tr>
+        <tr>
+          <td><span class="activity-icon icon-run">🏃</span>ECP Run</td>
+          <td>31 May</td>
+          <td>8.3 km</td>
+          <td>40:30</td>
+          <td>— / 141 bpm</td>
+          <td style="color:#67e8f9;">4:52 /km pace</td>
+        </tr>
+        <tr>
+          <td><span class="activity-icon icon-walk">🚶</span>Singapore Walking</td>
+          <td>31 May</td>
+          <td>2.5 km</td>
+          <td>1:42:03</td>
+          <td>— / 63 bpm</td>
+          <td style="color:#6b7280;">Recovery walk</td>
+        </tr>
+        <tr>
+          <td><span class="activity-icon icon-strength">💪</span>Strength Training</td>
+          <td>30 May</td>
+          <td>—</td>
+          <td>28:13</td>
+          <td>— / 82 bpm</td>
+          <td style="color:#fbbf24;">Gym session</td>
+        </tr>
+        <tr>
+          <td><span class="activity-icon icon-bike">🚴</span>Zwift - SMART: Heart of Gold</td>
+          <td>30 May</td>
+          <td>41.3 km</td>
+          <td>1:52:27</td>
+          <td>177W / —</td>
+          <td style="color:#a78bfa;">1,139m virtual ascent</td>
+        </tr>
+        <tr>
+          <td><span class="activity-icon icon-walk">🚶</span>Singapore Walking</td>
+          <td>29 May</td>
+          <td>1.5 km</td>
+          <td>48:25</td>
+          <td>— / 70 bpm</td>
+          <td style="color:#6b7280;">Recovery walk</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TODAY'S TRAINING PLAN -->
+  <div class="section-title">Today's Training Plan — Monday 1 June</div>
+  <div class="workout-cards">
+    <div class="workout-card pending">
+      <div class="wc-type">⚡ Xert Planned Workout · Morning</div>
+      <div class="wc-name">SMART – Opener 4</div>
+      <div class="wc-stats">
+        <div class="wc-stat">
+          <div class="wc-stat-val green">39</div>
+          <div class="wc-stat-label">min</div>
+        </div>
+        <div class="wc-stat">
+          <div class="wc-stat-val">46</div>
+          <div class="wc-stat-label">XSS</div>
+        </div>
+        <div class="wc-stat">
+          <div class="wc-stat-val">45</div>
+          <div class="wc-stat-label">Low XSS</div>
+        </div>
+      </div>
+      <div class="wc-coach-note">Pre-activation workout. Do this FIRST on trainer before heading out. Keep intensity controlled — it's an opener, not a hard effort. RPE 5-6 max.</div>
+    </div>
+    <div class="workout-card key">
+      <div class="wc-type">🏁 KEY SESSION · Outdoor Road</div>
+      <div class="wc-name">IRRT Sat — Road Ride</div>
+      <div class="wc-stats">
+        <div class="wc-stat">
+          <div class="wc-stat-val orange">3h 23m</div>
+          <div class="wc-stat-label">Duration</div>
+        </div>
+        <div class="wc-stat">
+          <div class="wc-stat-val orange">111</div>
+          <div class="wc-stat-label">km</div>
+        </div>
+        <div class="wc-stat">
+          <div class="wc-stat-val orange">189</div>
+          <div class="wc-stat-label">XSS</div>
+        </div>
+      </div>
+      <div class="wc-coach-note">Main race-simulation ride. Include punchy efforts on climbs. Practice national strategy: conserve at KM 39-43 equivalent, attack final 15km. Target avg HR Z2-Z3, with Z4+ bursts.</div>
+    </div>
+  </div>
+
+  <!-- WEEK AHEAD -->
+  <div class="section-title">Week Ahead — Nationals Build (Week of 1–7 June)</div>
+  <div class="chart-card">
+    <table class="week-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Session</th>
+          <th>Load</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#1e2130;">
+          <td><strong style="color:#fff;">MON</strong></td>
+          <td>1 Jun</td>
+          <td>Opener 4 (39 min) + IRRT Sat Outdoor (3h 23m)</td>
+          <td><span class="load-chip load-key">KEY</span></td>
+          <td>Today — race-build long ride. XSS ~235</td>
+        </tr>
+        <tr>
+          <td>TUE</td>
+          <td>2 Jun</td>
+          <td>Recovery ride or rest. Walk only if fatigued.</td>
+          <td><span class="load-chip load-easy">EASY</span></td>
+          <td>Recover from big Monday</td>
+        </tr>
+        <tr>
+          <td>WED</td>
+          <td>3 Jun</td>
+          <td>Zwift structured — threshold/sweet spot session</td>
+          <td><span class="load-chip load-hard">HARD</span></td>
+          <td>Mid-week quality. Follow Xert recommendation.</td>
+        </tr>
+        <tr>
+          <td>THU</td>
+          <td>4 Jun</td>
+          <td>Easy spin or strength (gym)</td>
+          <td><span class="load-chip load-mod">MOD</span></td>
+          <td>Keep legs moving</td>
+        </tr>
+        <tr>
+          <td>FRI</td>
+          <td>5 Jun</td>
+          <td>Opener / activation (30-45 min)</td>
+          <td><span class="load-chip load-easy">EASY</span></td>
+          <td>Pre-weekend freshener</td>
+        </tr>
+        <tr>
+          <td>SAT</td>
+          <td>6 Jun</td>
+          <td>Weekend group ride or Nationals race simulation</td>
+          <td><span class="load-chip load-key">KEY</span></td>
+          <td>Practice attack tactics</td>
+        </tr>
+        <tr>
+          <td>SUN</td>
+          <td>7 Jun</td>
+          <td>Rest / active recovery</td>
+          <td><span class="load-chip load-rest">REST</span></td>
+          <td>Weekly recovery</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- XERT STATUS -->
+  <div class="section-title">Xert Status</div>
+  <div class="xert-panel">
+    <div class="xert-sig">
+      <div class="card-label">Fitness Signature</div>
+      <div class="sig-grid">
+        <div class="sig-item">
+          <div class="sig-val">1,081W</div>
+          <div class="sig-label">Peak Power (PP)</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-val">24.2 kJ</div>
+          <div class="sig-label">HIE</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-val">279W</div>
+          <div class="sig-label">Threshold (TP)</div>
+        </div>
+      </div>
+      <div style="margin-top:14px; font-size:12px; color:#8b92a8;">Training Status: <span style="color:#34d399; font-weight:600;">Fresh</span> — Train as usual</div>
+    </div>
+    <div class="xert-sig">
+      <div class="card-label">Today's XSS Targets</div>
+      <div style="margin-top:8px;">
+        <table style="font-size:12px;">
+          <tr><th style="color:#6b7280;">Type</th><th style="color:#6b7280;">Target</th><th style="color:#6b7280;">Completed</th></tr>
+          <tr><td>Total XSS</td><td style="color:#a78bfa; font-weight:700;">189</td><td style="color:#34d399;">0 (pending)</td></tr>
+          <tr><td>Low (Base)</td><td>174</td><td>0</td></tr>
+          <tr><td>High (Tempo)</td><td>10.9</td><td>0</td></tr>
+          <tr><td>Peak (Sprint)</td><td>4.4</td><td>0</td></tr>
+        </table>
+      </div>
+      <div style="margin-top:10px; font-size:12px; color:#8b92a8;">Last activity: Zwift "After Midnight" — 31 May · XSS 41</div>
+    </div>
+  </div>
+
+  <!-- RECOVERY PROTOCOL -->
+  <div class="section-title">Recovery Protocol — Tonight</div>
+  <div class="chart-card" style="border-left: 3px solid #7c3aed;">
+    <div style="margin-bottom:14px; font-size:13px;">
+      <strong style="color:#a78bfa;">Load Classification: RACE SIM / KEY RIDE</strong>
+      <span style="color:#6b7280; margin-left:8px;">XSS ~235 total · >3h outdoor ride</span>
+    </div>
+    <div class="recovery-grid">
+      <div class="recovery-item">
+        <h4>🧖 Sauna + Cold Plunge</h4>
+        <p><strong style="color:#34d399;">✅ YES — RECOMMENDED</strong></p>
+        <p style="margin-top:6px;">Priority use day (>3h, XSS >150). Full protocol: 3×10 min sauna with cold plunge between rounds. Extended cold plunge final round.</p>
+        <div style="margin-top:10px; font-size:11px; color:#6b7280;">Weekly budget (Mon–Sun):</div>
+        <div class="budget-bar">
+          <div class="budget-dot used" title="Today"></div>
+          <div class="budget-dot avail" title="Available"></div>
+          <div class="budget-dot avail" title="Available"></div>
+        </div>
+        <div style="font-size:11px; color:#8b92a8; margin-top:4px;">1 of 2–3 budget used this week</div>
+      </div>
+      <div class="recovery-item">
+        <h4>🔫 Massage Gun</h4>
+        <p><strong style="color:#a78bfa;">15 min · FIRM pressure</strong></p>
+        <p style="margin-top:6px;">Do BEFORE stretching. Focus areas:</p>
+        <ul style="margin-top:6px; padding-left:16px; color:#c4cad8; font-size:12px; line-height:1.8;">
+          <li>Quads (ITB + VMO) — 4 min</li>
+          <li>Hamstrings — 3 min</li>
+          <li>Calves + peroneals — 3 min</li>
+          <li>Glutes / piriformis — 3 min</li>
+          <li>Upper back / traps — 2 min</li>
+        </ul>
+      </div>
+      <div class="recovery-item">
+        <h4>🧘 Stretching Routine</h4>
+        <p><strong style="color:#67e8f9;">10 min · 30–60s holds</strong></p>
+        <p style="margin-top:6px;">After massage gun. Targeted cyclist areas:</p>
+        <ul style="margin-top:6px; padding-left:16px; color:#c4cad8; font-size:12px; line-height:1.8;">
+          <li>Hip flexors (lunge) — 60s each</li>
+          <li>Piriformis (figure-4) — 45s each</li>
+          <li>Thoracic spine (foam roll) — 60s</li>
+          <li>Hamstrings — 45s each</li>
+          <li>Calves (wall stretch) — 30s each</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUTRITION / WEIGHT / HYDRATION -->
+  <div class="section-title">Nutrition / Weight / Hydration</div>
+  <div class="cards-row" style="grid-template-columns: repeat(3,1fr);">
+    <div class="card">
+      <div class="card-label">Weight Trend</div>
+      <div class="card-value card-warn">67.8 kg</div>
+      <div class="card-sub">Goal: 66.0 kg · Gap: 1.8 kg</div>
+      <div class="card-sub" style="margin-top:6px; font-size:11px;">At current rate (−0.4 kg/week), you reach 66 kg in ~4–5 weeks. <span style="color:#f87171;">Tighten slightly — need ~0.5 kg/week to hit target by Nationals.</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Hydration (Last Logged)</div>
+      <div class="card-value card-danger">800</div>
+      <div class="card-sub" style="color:#f87171;">of 3,000 ml target — LOG TODAY</div>
+      <div class="card-sub" style="margin-top:6px; font-size:11px;">On big ride days in Singapore heat, target 3–4L total. Drink to thirst + electrolytes on the bike.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Calories (Today)</div>
+      <div class="card-value">0</div>
+      <div class="card-sub">Target: 1,501 kcal base</div>
+      <div class="card-sub" style="margin-top:6px; font-size:11px;">Big ride day = significant fuel requirement. Add ~600–800 kcal for the long outdoor ride. Fuel on bike every 30–45 min.</div>
+    </div>
+  </div>
+
+  <!-- COACHING NOTE -->
+  <div class="section-title">Coaching Note</div>
+  <div class="coaching-note">
+    <p>James, you're entering the final 4-week race-specific block before Nationals with excellent physiological markers — Training Readiness 86, Body Battery fully charged at 99, and Form at +8 (Fresh Zone on Intervals.icu). This is exactly where we want you: fresh, rested, and primed for quality work. Today's prescribed plan from Xert (Opener 4 + IRRT Sat outdoor ride) is a strong way to open the week — do the morning activation on the trainer first to prime the neuromuscular system, then head out for the long outdoor ride. During the ride, practice your 2026 Nationals strategy: stay patient through the first 39 km, conserve through that critical KM 39-43 climb section where last year's decisive break was made at HR 186, and save your legs for a sustained 15 km attack to the finish. Weight is at 67.8 kg with 27 days to reach your 66 kg target — you need to tighten slightly to approximately 0.5 kg per week. Avoid cutting on heavy training days; instead, reduce portions on your Tuesday recovery day. Hydration logged at 800 ml — on a 3+ hour day in Singapore heat, you need 3–4L minimum. Drink to thirst and take electrolytes on the bike.</p>
+  </div>
+
+  <!-- LIFESTYLE LOG -->
+  <div class="section-title">Lifestyle Log</div>
+  <div class="lifestyle-note">
+    <span>⚠️</span>
+    <p>Nothing logged for 1 June or 31 May. <strong>Reminder: log any relevant wellness events</strong> — sleep quality, stress, illness, nutrition deviations, body weight — directly in Garmin Connect to improve coaching accuracy.</p>
+  </div>
+
+  <div style="text-align:center; color:#4b5563; font-size:11px; margin-top:32px; padding-bottom:24px;">
+    Generated by Automated Cycling Coach · 1 June 2026 · Next report: 2 June 2026 at 6:30 AM
+  </div>
+</div>
+
+<script>
+// Form & Load Chart
+const ctx = document.getElementById('formChart').getContext('2d');
+
+// Estimated trend data based on current values (CTL:82, ATL:74, Form:+8)
+// Working backwards over ~14 weeks with plausible periodization
+const labels = ['3 Mar','10 Mar','17 Mar','24 Mar','31 Mar','7 Apr','14 Apr','21 Apr','28 Apr','5 May','12 May','19 May','26 May','1 Jun'];
+const ctlData = [45, 50, 54, 58, 61, 65, 68, 70, 73, 75, 77, 79, 81, 82];
+const atlData = [42, 55, 58, 62, 55, 70, 72, 65, 78, 72, 80, 76, 88, 74];
+const formData = [3, -5, -4, -4, 6, -5, -4, 5, -5, 3, -3, 3, -7, 8];
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Fitness (CTL)',
+        data: ctlData,
+        borderColor: '#60a5fa',
+        backgroundColor: 'rgba(96,165,250,0.08)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        tension: 0.4,
+        yAxisID: 'y1',
+        fill: true,
+      },
+      {
+        label: 'Fatigue (ATL)',
+        data: atlData,
+        borderColor: '#c084fc',
+        backgroundColor: 'rgba(192,132,252,0.05)',
+        borderWidth: 2,
+        pointRadius: 3,
+        tension: 0.4,
+        yAxisID: 'y1',
+        borderDash: [4,2],
+      },
+      {
+        label: 'Form (TSB)',
+        data: formData,
+        borderColor: '#34d399',
+        backgroundColor: 'rgba(52,211,153,0.08)',
+        borderWidth: 2,
+        pointRadius: 3,
+        tension: 0.4,
+        yAxisID: 'y2',
+        fill: true,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1e2130',
+        borderColor: '#2d3148',
+        borderWidth: 1,
+        titleColor: '#e2e8f0',
+        bodyColor: '#8b92a8',
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#1e2130' },
+        ticks: { color: '#6b7280', font: { size: 10 } },
+      },
+      y1: {
+        type: 'linear',
+        position: 'left',
+        min: 30,
+        max: 110,
+        grid: { color: '#1e2130' },
+        ticks: { color: '#6b7280', font: { size: 10 } },
+        title: { display: true, text: 'CTL / ATL', color: '#6b7280', font: { size: 10 } }
+      },
+      y2: {
+        type: 'linear',
+        position: 'right',
+        min: -30,
+        max: 20,
+        grid: { display: false },
+        ticks: { color: '#34d399', font: { size: 10 } },
+        title: { display: true, text: 'Form (TSB)', color: '#34d399', font: { size: 10 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Local secrets — never commit
+dashboard_updater/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
