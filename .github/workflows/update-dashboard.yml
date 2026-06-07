@@ -35,7 +35,7 @@ jobs:
           XERT_EMAIL:           ${{ secrets.XERT_EMAIL }}
           XERT_PASSWORD:        ${{ secrets.XERT_PASSWORD }}
           ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python dashboard_updater/build_dashboard.py
+        run: cd dashboard_updater && python build_dashboard.py
 
       - name: Commit and push index.html
         run: |
