@@ -1,11 +1,9 @@
 """
-Generates coaching notes using Claude API based on live training data.
+Generates coaching notes based on live training data (template-based, no API required).
 """
 
 import logging
 from datetime import date, datetime, timedelta
-
-from anthropic import Anthropic
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +15,6 @@ def _format_hrv_trend(hrv_list):
     if not hrv_list:
         return "No HRV data available"
 
-    # Get last 3 readings
     recent = hrv_list[-3:] if len(hrv_list) >= 3 else hrv_list
     trend_str = " → ".join(str(entry.get("hrv", "—")) for entry in recent)
     return trend_str
@@ -36,6 +33,40 @@ def _get_activity_by_date(activities, target_date):
     return None
 
 
+def _assess_tsb(tsb):
+    """Assess training readiness based on TSB value."""
+    if tsb is None:
+        return "maintain current load"
+    if tsb < -30:
+        return "risk of overtraining — prioritize recovery"
+    if tsb < -10:
+        return "optimal for intensity work"
+    if tsb < 0:
+        return "slightly fatigued — moderate effort today"
+    if tsb < 15:
+        return "fresh — good for tempo or threshold"
+    return "very fresh — ready for hard efforts"
+
+
+def _assess_hrv(hrv_list):
+    """Assess recovery status from HRV data."""
+    if not hrv_list:
+        return "No HRV data available"
+
+    vals = [v['hrv'] for v in hrv_list if v.get('hrv')]
+    if not vals:
+        return "HRV data incomplete"
+
+    latest = vals[-1]
+    avg = sum(vals) / len(vals) if vals else 0
+
+    if latest > avg * 1.1:
+        return "elevated — excellent recovery status"
+    if latest < avg * 0.9:
+        return "suppressed — still recovering"
+    return "stable — normal recovery"
+
+
 def generate_coaching_note(
     ctl,
     atl,
@@ -46,14 +77,14 @@ def generate_coaching_note(
     xss_remaining_today=None,
 ):
     """
-    Generate a coaching note using Claude API.
+    Generate a data-driven coaching note using template logic.
 
     Args:
         ctl: Chronic Training Load (float)
         atl: Acute Training Load (float)
         tsb_raw: Training Stress Balance = CTL - ATL (float)
-        xert_status: Dict with Xert data (tp, status_label, status_css, etc.)
-        hrv_list: List of dicts with HRV data (each with 'date' and 'hrv')
+        xert_status: Dict with Xert data (may be None if API unavailable)
+        hrv_list: List of dicts with HRV data
         activities: List of dicts with activity data
         xss_remaining_today: Float, XSS remaining for today (optional)
 
@@ -65,64 +96,62 @@ def generate_coaching_note(
     yesterday = today - timedelta(days=1)
     days_to_race = max(0, (RACE_DATE - today).days)
 
-    # Get yesterday's and today's activities
+    # Get activities
     yesterday_act = _get_activity_by_date(activities, yesterday)
     today_act = _get_activity_by_date(activities, today)
 
-    # Format HRV trend
+    # Format data
     hrv_trend = _format_hrv_trend(hrv_list)
+    hrv_status = _assess_hrv(hrv_list)
+    tsb_status = _assess_tsb(tsb_raw)
 
-    # Xert status
-    xert_label = xert_status.get("status_label", "Active") if xert_status else "Not configured"
-    xert_tp = xert_status.get("tp", "—") if xert_status else "—"
-    xert_color = xert_status.get("status_css", "muted") if xert_status else "muted"
+    # Build note
+    paragraphs = []
 
-    # Build the prompt for Claude
-    prompt = f"""You are a professional cycling coach. Based on the athlete's current training metrics, write a concise 4-paragraph coaching note.
+    # Paragraph 1: Yesterday's Execution
+    if yesterday_act:
+        act_name = yesterday_act.get('name', 'Activity')
+        xss = yesterday_act.get('xss', 0)
+        dist = yesterday_act.get('distance_km', '—')
+        p1 = f"Yesterday's {act_name} ({xss:.0f} XSS, {dist} km) fits your current {atl:.1f} ATL load. You're accumulating fatigue — CTL sitting at {ctl:.1f} suggests you're building fitness while managing acute stress."
+    else:
+        p1 = f"You skipped yesterday, which is wise with ATL at {atl:.1f}. Your CTL sits at {ctl:.1f}, so recovery days are valuable in this build phase."
 
-ATHLETE METRICS (Today: {today.strftime("%Y-%m-%d")}):
-- CTL (Chronic Training Load): {ctl}
-- ATL (Acute Training Load): {atl}
-- TSB (Training Stress Balance): {tsb_raw}
-- Xert Training Status: {xert_label} (color: {xert_color}, TP: {xert_tp})
-- HRV Trend (last 3 days): {hrv_trend}
+    paragraphs.append(p1)
 
-RECENT ACTIVITIES:
-- Yesterday ({yesterday.strftime("%Y-%m-%d")}): {yesterday_act.get('name', 'No activity recorded') if yesterday_act else 'No activity recorded'}{f" ({yesterday_act.get('xss', 0):.0f} XSS, {yesterday_act.get('distance_km', '—')} km)" if yesterday_act else ""}
-- Today ({today.strftime("%Y-%m-%d")}): {today_act.get('name', 'No activity recorded') if today_act else 'No activity recorded'}{f" ({today_act.get('xss', 0):.0f} XSS, {today_act.get('distance_km', '—')} km)" if today_act else ""}
+    # Paragraph 2: Current Recovery Status
+    p2 = f"Today's TSB is {tsb_raw:+.1f} ({tsb_status}). HRV trend shows {hrv_status}. Your body needs attention to both training stress (ATL) and fitness base (CTL) — this balance is critical {days_to_race} days from race day."
+    paragraphs.append(p2)
 
-RACE COUNTDOWN: {days_to_race} days until race ({RACE_DATE.strftime("%B %d")})
-XSS Remaining Today: {xss_remaining_today if xss_remaining_today else "Not available"}
+    # Paragraph 3: Today's Priority
+    if tsb_raw < -20:
+        priority = "Focus on quality over quantity. One hard effort if you feel sharp; otherwise, easy/recovery pace."
+    elif tsb_raw < 0:
+        priority = "Push intensity today if HRV allows. You're in the sweet spot for threshold or VO₂ work."
+    else:
+        priority = "Build aerobic base with steady effort. Save hard intervals for when TSB is lower."
 
-WRITE A COACHING NOTE with these 4 paragraphs:
-1. Yesterday's Execution: Comment on yesterday's activity quality, intensity, and how it aligns with the athlete's TSB/recovery state.
-2. Current Recovery Status: Assess current CTL, ATL, TSB, HRV status, and what the athlete's body is telling us about readiness.
-3. Today's Priority: Prescribe what today should look like (intensity, focus, or rest) based on TSB, HRV, and race countdown.
-4. Race Build Context: Situate this moment in the larger race prep—how many weeks out, what phase are we in, what's the strategic focus?
+    xss_note = f" Target {xss_remaining_today:.0f} XSS if available." if xss_remaining_today else ""
+    p3 = f"{priority}{xss_note} Listen to your body — fatigue perception matters as much as metrics."
 
-Style guidelines:
-- Be specific and data-driven; reference the actual numbers
-- Direct and concise; no fluff or over-explanation
-- Use active voice; speak as the coach directly
-- Keep it under 300 words total
-- No section headers; just 4 flowing paragraphs"""
+    paragraphs.append(p3)
 
-    log.info("Generating coaching note via Claude API...")
+    # Paragraph 4: Race Build Context
+    weeks_out = days_to_race // 7
+    if weeks_out > 4:
+        phase = "base-building phase — keep pushing fitness"
+    elif weeks_out > 2:
+        phase = "final build — intensity work is critical"
+    else:
+        phase = "taper window approaching — quality over volume"
 
-    try:
-        client = Anthropic()
-        message = client.messages.create(
-            model="claude-3-5-sonnet-20241022",
-            max_tokens=512,
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-        )
+    p4 = f"You're in the {phase}. With {days_to_race} days to June 28, your CTL of {ctl:.1f} and ATL of {atl:.1f} show consistent work. Stay consistent, recover when needed, and trust your preparation."
 
-        coaching_note = message.content[0].text
-        log.info("Coaching note generated successfully")
-        return coaching_note
+    paragraphs.append(p4)
 
-    except Exception as e:
-        log.error(f"Failed to generate coaching note: {e}")
-        return None
+    # Combine and verify length
+    note = " ".join(paragraphs)
+    word_count = len(note.split())
+
+    log.info(f"Generated coaching note ({word_count} words)")
+    return note
