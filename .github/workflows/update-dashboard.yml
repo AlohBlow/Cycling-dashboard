@@ -32,14 +32,14 @@ jobs:
         run: ls -la dashboard_updater/
 
       - name: Build dashboard
+        working-directory: dashboard_updater
         env:
           INTERVALS_ATHLETE_ID: ${{ secrets.INTERVALS_ATHLETE_ID }}
           INTERVALS_API_KEY:    ${{ secrets.INTERVALS_API_KEY }}
           XERT_EMAIL:           ${{ secrets.XERT_EMAIL }}
           XERT_PASSWORD:        ${{ secrets.XERT_PASSWORD }}
           ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
-          PYTHONPATH: dashboard_updater
-        run: python dashboard_updater/build_dashboard.py
+        run: python build_dashboard.py
 
       - name: Commit and push index.html
         run: |
