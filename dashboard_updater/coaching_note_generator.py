@@ -96,9 +96,13 @@ def generate_coaching_note(
     yesterday = today - timedelta(days=1)
     days_to_race = max(0, (RACE_DATE - today).days)
 
-    # Get activities
+    # Get most recent activities (activities list is newest-first)
     yesterday_act = _get_activity_by_date(activities, yesterday)
     today_act = _get_activity_by_date(activities, today)
+    # Fallback: if no exact date match, use the most recent activity available
+    most_recent_act = activities[0] if activities else None
+    most_recent_date = most_recent_act.get('date', '')[:10] if most_recent_act else 'unknown'
+    log.info(f"  today_act: {today_act.get('name') if today_act else 'None'} | yesterday_act: {yesterday_act.get('name') if yesterday_act else 'None'} | most_recent: {most_recent_act.get('name') if most_recent_act else 'None'} ({most_recent_date})")
 
     # Format data
     hrv_trend = _format_hrv_trend(hrv_list)
@@ -108,14 +112,18 @@ def generate_coaching_note(
     # Build note
     paragraphs = []
 
-    # Paragraph 1: Yesterday's Execution
-    if yesterday_act:
-        act_name = yesterday_act.get('name', 'Activity')
-        xss = yesterday_act.get('xss', 0)
-        dist = yesterday_act.get('distance_km', '—')
-        p1 = f"Yesterday's {act_name} ({xss:.0f} XSS, {dist} km) fits your current {atl:.1f} ATL load. You're accumulating fatigue — CTL sitting at {ctl:.1f} suggests you're building fitness while managing acute stress."
+    # Paragraph 1: Most recent activity execution
+    ref_act = today_act or yesterday_act or most_recent_act
+    if ref_act:
+        act_name = ref_act.get('name', 'Activity')
+        xss = ref_act.get('xss') or 0
+        dist = ref_act.get('distance_km', '—')
+        act_date = ref_act.get('date', '')[:10]
+        xss_str = f"{xss:.0f} XSS" if isinstance(xss, (int, float)) else "—"
+        dist_str = f"{dist} km" if dist else "—"
+        p1 = f"Your most recent logged session — {act_name} ({xss_str}, {dist_str}) on {act_date} — reflects a {atl:.1f} ATL. CTL is at {ctl:.1f}, indicating a solid fitness base built through consistent work."
     else:
-        p1 = f"You skipped yesterday, which is wise with ATL at {atl:.1f}. Your CTL sits at {ctl:.1f}, so recovery days are valuable in this build phase."
+        p1 = f"No recent activities logged in Intervals.icu. With CTL at {ctl:.1f} and ATL at {atl:.1f}, your fitness base is solid — make sure your sessions are syncing correctly."
 
     paragraphs.append(p1)
 

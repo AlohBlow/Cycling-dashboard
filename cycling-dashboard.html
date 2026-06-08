@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>James Loh Race Build Dashboard | Nationals 2026</title>
+<title>James Loh Race Build Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
@@ -12,809 +12,620 @@
   --green:#22c55e; --yellow:#eab308; --red:#ef4444; --orange:#f97316;
   --text:#e2e8f0; --muted:#64748b; --muted2:#94a3b8;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;min-height:100vh}
-.container{max-width:1440px;margin:0 auto;padding:16px}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter',-apple-system,BlinkMacSystemFont,sans-serif; font-size:14px; min-height:100vh; }
 
-/* HEADER */
-.dash-header{background:linear-gradient(135deg,#0f1117,#1a1d3a);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.header-left{display:flex;align-items:center;gap:16px;flex:1}
-.header-title h1{font-size:20px;font-weight:700;color:var(--text)}
-.header-title p{font-size:12px;color:var(--muted2);margin-top:2px}
-.race-pill{background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:10px 16px;text-align:center;min-width:90px}
-.race-pill .day-num{font-size:28px;font-weight:800;color:#fff;line-height:1}
-.race-pill .day-label{font-size:10px;color:#93c5fd;letter-spacing:0.05em;margin-top:2px}
-.status-badge{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;display:flex;flex-direction:column;gap:2px;min-width:130px}
-.status-badge .sb-label{color:var(--muted2);font-size:11px}
-.status-badge .sb-value{font-weight:600;color:var(--text)}
-.alert-pill{background:#1f1007;border:1px solid #7c3a1233;border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--orange)}
-.alert-pill .ap-icon{font-size:16px}
-.header-pills{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.header { background: linear-gradient(135deg,#0f1117,#1a1d3a); border-bottom: 1px solid var(--border); padding: 18px 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.header-title { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
+.race-pill { background: linear-gradient(135deg,#1e3a5f,#1a2d4a); border:1px solid #2563eb55; border-radius:12px; padding:10px 18px; display:flex; flex-direction:column; align-items:center; min-width:90px; }
+.race-pill .day-num { font-size:28px; font-weight:800; color:var(--accent); line-height:1; }
+.race-pill .day-label { font-size:10px; color:var(--muted2); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
+.status-badge { background:#1a2d1a; border:1px solid #22c55e44; border-radius:8px; padding:6px 14px; color:var(--green); font-size:12px; font-weight:600; }
+.alert-pill { background:#1a1a0f; border:1px solid #eab30844; border-radius:8px; padding:6px 14px; color:var(--yellow); font-size:12px; }
+.header-spacer { flex:1; }
+.header-date { color:var(--muted); font-size:12px; }
 
-/* SECTION TITLES */
-.section-title{display:flex;align-items:center;gap:12px;margin:20px 0 12px;font-size:13px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:0.08em}
-.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.container { max-width:1400px; margin:0 auto; padding:20px 16px; }
 
-/* METRIC CARDS */
-.metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
-@media(max-width:900px){.metrics-grid{grid-template-columns:repeat(3,1fr)}}
-.metric-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden}
-.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.metric-card.green::before{background:var(--green)}
-.metric-card.blue::before{background:var(--accent)}
-.metric-card.yellow::before{background:var(--yellow)}
-.metric-card.orange::before{background:var(--orange)}
-.metric-card.purple::before{background:var(--accent2)}
-.metric-card.red::before{background:var(--red)}
-.metric-card.cyan::before{background:var(--accent3)}
-.mc-label{font-size:11px;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em}
-.mc-value{font-size:26px;font-weight:700;line-height:1}
-.mc-sub{font-size:12px;color:var(--muted2);margin-top:4px}
-.mc-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:6px}
-.mc-badge.low{background:#1f0707;color:var(--red)}
-.mc-badge.med{background:#1f1507;color:var(--yellow)}
-.mc-badge.good{background:#071f0f;color:var(--green)}
-.mc-badge.high{background:#0f1a2e;color:var(--accent)}
-.mc-badge.balanced{background:#1a0f2e;color:var(--accent2)}
+.section-title { display:flex; align-items:center; gap:12px; font-size:13px; font-weight:700; color:var(--muted2); text-transform:uppercase; letter-spacing:1.5px; margin: 24px 0 14px; }
+.section-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-/* FORM & LOAD SECTION */
-.form-load-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-@media(max-width:900px){.form-load-grid{grid-template-columns:1fr}}
-.chart-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
-.chart-title{font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text)}
-.chart-wrap{height:220px;position:relative}
-.zone-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:10px;gap:2px}
-.zone-bar .z{flex:1;border-radius:2px}
-.zone-bar .z-hr{background:#ef44441a;border:1px solid #ef444433}
-.zone-bar .z-opt{background:#22c55e1a;border:1px solid #22c55e33}
-.zone-bar .z-fresh{background:#4f8ef71a;border:1px solid #4f8ef733}
-.zone-bar .z-trans{background:#eab3081a;border:1px solid #eab30833}
-.zone-bar-labels{display:flex;justify-content:space-between;margin-top:4px}
-.zone-bar-labels span{font-size:10px;color:var(--muted)}
-.chart-legend{display:flex;gap:16px;margin-bottom:10px}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted2)}
-.legend-dot{width:10px;height:10px;border-radius:50%}
-.current-marker{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-.cm-item{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;text-align:center}
-.cm-item .cm-val{font-size:18px;font-weight:700}
-.cm-item .cm-lab{font-size:10px;color:var(--muted);margin-top:2px}
+.metrics-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+@media(max-width:900px){ .metrics-grid { grid-template-columns:repeat(2,1fr); } }
+.metric-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; position:relative; overflow:hidden; }
+.metric-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.metric-card.green::before { background:var(--green); }
+.metric-card.blue::before { background:var(--accent); }
+.metric-card.yellow::before { background:var(--yellow); }
+.metric-card.orange::before { background:var(--orange); }
+.metric-card.purple::before { background:var(--accent2); }
+.metric-card.red::before { background:var(--red); }
+.metric-card .mc-label { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.metric-card .mc-value { font-size:28px; font-weight:800; line-height:1; }
+.metric-card .mc-sub { font-size:11px; color:var(--muted2); margin-top:4px; }
+.metric-card .mc-badge { display:inline-block; background:#1e3a5f; color:var(--accent3); font-size:10px; padding:2px 8px; border-radius:4px; margin-top:6px; }
 
-/* ACTIVITIES LIST */
-.activities-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
-.activity-row{display:grid;grid-template-columns:28px 1fr auto auto auto auto;align-items:center;gap:8px;padding:8px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;transition:background 0.2s}
-.activity-row:hover{background:var(--card2)}
-.activity-row.breakthrough{border-color:#22c55e44;background:#0a1f0e}
-.activity-row.near-bt{border-color:#eab30844;background:#1a1500}
-.ar-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--card2)}
-.ar-name{font-size:13px;font-weight:500;color:var(--text)}
-.ar-date{font-size:11px;color:var(--muted)}
-.ar-dist{font-size:12px;color:var(--muted2)}
-.ar-pwr{font-size:12px;color:var(--accent)}
-.xss-badge{padding:3px 8px;border-radius:5px;font-size:11px;font-weight:600}
-.xss-easy{background:#0a1f0f;color:var(--green)}
-.xss-mod{background:#0f1a2e;color:var(--accent)}
-.xss-mega{background:#1a0f0f;color:var(--orange)}
-.xss-travel{background:#0a1a1f;color:var(--accent3)}
-.xss-rest{background:#1a1a1a;color:var(--muted2)}
-.bt-tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;background:#1a0f0f;color:var(--orange);margin-left:4px}
-.bt-tag.near{background:#1a1500;color:var(--yellow)}
-.xb-pills{display:flex;gap:4px;flex-wrap:wrap}
-.xb-pill{font-size:10px;padding:1px 5px;border-radius:3px;font-weight:600}
-.xb-low{background:#1e3a5f;color:var(--accent3)}
-.xb-high{background:#1f2a0a;color:var(--green)}
-.xb-peak{background:#2a0f0a;color:var(--orange)}
-.xb-zero{background:#1a1a1a;color:var(--muted)}
+.form-load-grid { display:grid; grid-template-columns:1.6fr 1fr; gap:16px; }
+@media(max-width:900px){ .form-load-grid { grid-template-columns:1fr; } }
+.chart-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.chart-wrap { height:220px; position:relative; }
+.zone-bar { display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+.zone-chip { font-size:10px; padding:3px 10px; border-radius:4px; font-weight:600; }
+.zone-chip.fresh { background:#1e3a5f44; color:var(--accent); border:1px solid #4f8ef744; }
+.zone-chip.optimal { background:#0d3b1a; color:var(--green); border:1px solid #22c55e44; }
+.zone-chip.high-risk { background:#3b1a0d; color:var(--orange); border:1px solid #f9731644; }
+.zone-chip.transition { background:#2a2d3e; color:var(--muted2); border:1px solid var(--border); }
 
-/* TODAY & RECOVERY GRID */
-.today-recovery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
-@media(max-width:1000px){.today-recovery-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.today-recovery-grid{grid-template-columns:1fr}}
-.today-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
-.tc-header{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.tc-badge{font-size:10px;padding:2px 7px;border-radius:4px;background:#1e3a8a33;color:var(--accent);border:1px solid #2563eb44}
-.rec-block{}
-.rp-title{font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
-.rp-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.rp-row:last-child{border-bottom:none}
-.rp-icon{font-size:18px;min-width:24px}
-.rp-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
-.rp-detail{font-size:11px;color:var(--muted2)}
-.rp-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px}
-.rp-pill.steam{background:#0a1a1f;color:var(--accent3);border:1px solid #22d3ee33}
-.rp-pill.cold{background:#0a0f1f;color:var(--accent);border:1px solid #4f8ef733}
-.rp-pill.hydration{background:#071f0f;color:var(--green);border:1px solid #22c55e33}
-.rp-pill.sleep{background:#1a0f2e;color:var(--accent2);border:1px solid #a855f733}
-.xert-sig{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
-.xs-item{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
-.xs-val{font-size:20px;font-weight:700;color:var(--accent)}
-.xs-unit{font-size:11px;color:var(--muted)}
-.xs-lab{font-size:11px;color:var(--muted2);margin-top:2px}
+.activities-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.activity-row { display:grid; grid-template-columns:28px 1fr auto auto auto auto; gap:8px; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); }
+.activity-row:last-child { border-bottom:none; }
+.act-icon { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.act-icon.bike { background:#1e3a5f; }
+.act-icon.walk { background:#2a2d1a; }
+.act-name { font-weight:600; font-size:13px; }
+.act-meta { font-size:11px; color:var(--muted); }
+.act-xss { font-weight:700; font-size:14px; color:var(--accent3); }
+.act-hr { font-size:11px; color:var(--muted2); }
+.act-pow { font-size:11px; color:var(--yellow); }
+.xb-pill { font-size:10px; padding:2px 6px; border-radius:4px; font-weight:600; display:block; margin-bottom:2px; }
+.xb-low { background:#1e3a5f; color:var(--accent3); }
+.xb-high { background:#3b1a00; color:var(--orange); }
+.xb-peak { background:#2d1a3b; color:var(--accent2); }
+.xb-zero { background:#1e2130; color:var(--muted); }
 
-/* NUTRITION FLAGS */
-.nutrition-flags{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.nf-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px}
-.nf-label{font-size:11px;color:var(--muted2);text-transform:uppercase;margin-bottom:6px}
-.nf-value{font-size:22px;font-weight:700}
-.nf-target{font-size:11px;color:var(--muted2);margin-top:3px}
-.nf-flag{font-size:11px;margin-top:5px;padding:3px 8px;border-radius:4px;display:inline-block;font-weight:600}
-.nf-flag.ok{background:#071f0f;color:var(--green)}
-.nf-flag.warn{background:#1f1507;color:var(--yellow)}
-.nf-flag.alert{background:#1f0707;color:var(--red)}
+.today-rec-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+@media(max-width:900px){ .today-rec-grid { grid-template-columns:1fr; } }
+.rec-block { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.rp-title { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; font-weight:700; }
+.rp-row { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
+.rp-row:last-child { border-bottom:none; }
+.rp-icon { font-size:18px; flex-shrink:0; width:28px; text-align:center; }
+.rp-name { font-weight:600; font-size:13px; }
+.rp-detail { font-size:11px; color:var(--muted2); margin-top:2px; }
+.rp-pill { font-size:10px; padding:2px 8px; border-radius:4px; margin-top:4px; display:inline-block; }
+.rp-pill.steam { background:#1a2d4a; color:var(--accent); }
+.rp-pill.cold { background:#0a1f2a; color:var(--accent3); }
+.rp-pill.nutrition { background:#1a2d1a; color:var(--green); }
+.rp-pill.sleep { background:#2d1a3b; color:var(--accent2); }
+.xert-status-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.sig-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border); }
+.sig-row:last-child { border-bottom:none; }
+.sig-label { font-size:11px; color:var(--muted); }
+.sig-val { font-weight:700; font-size:14px; }
 
-/* PLATFORM TABLE */
-.pt-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
-.platform-table{width:100%;border-collapse:collapse}
-.platform-table th{text-align:left;padding:8px 14px;font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border)}
-.platform-table td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
-.platform-table tr:last-child td{border-bottom:none}
-.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
-.status-dot.live{background:var(--green);box-shadow:0 0 6px var(--green)}
+.tab-nav { display:flex; gap:4px; margin-bottom:12px; background:var(--card2); border-radius:10px; padding:4px; border:1px solid var(--border); }
+.tab-btn { flex:1; padding:8px 12px; border:none; border-radius:8px; background:transparent; color:var(--muted2); cursor:pointer; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:all 0.2s; }
+.tab-btn.active { background:var(--accent); color:#fff; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
 
-/* TRAINING PLANNER TABS */
-.tab-nav{display:flex;gap:4px;margin-bottom:12px;background:var(--card2);padding:4px;border-radius:8px;width:fit-content}
-.tab-btn{padding:6px 16px;border:none;background:none;color:var(--muted2);font-size:12px;font-weight:500;border-radius:6px;cursor:pointer;transition:all 0.2s}
-.tab-btn.active{background:var(--accent);color:#fff}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.cal-week{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
-.cal-week-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.cal-week-header h3{font-size:14px;font-weight:600}
-.cal-week-xss{font-size:12px;color:var(--muted2)}
-.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.cal-day{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 8px;min-height:120px}
-.cal-day.today{border-color:var(--orange);background:#1a1007}
-.cal-day.travel{border-color:#22d3ee33;background:#0a1f20}
-.cal-day.race{border-color:var(--red);background:#1f0707}
-.cal-day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.cal-day-num{font-size:13px;font-weight:700}
-.cal-day-name{font-size:10px;color:var(--muted)}
-.cal-session-name{font-size:12px;font-weight:500;margin-bottom:4px;line-height:1.3}
-.cal-time{font-size:10px;color:var(--muted2);margin-bottom:4px}
-.cal-xss-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;display:inline-block;margin-bottom:4px}
-.cal-recovery{margin-top:6px;border-top:1px solid var(--border);padding-top:6px}
-.cal-recovery-title{font-size:10px;color:var(--muted2);margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
-.cal-rec-row{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted2);margin-bottom:2px}
-.cal-coaching{border-left:2px solid var(--accent2);padding-left:6px;margin-top:4px;font-size:10px;color:var(--muted2);font-style:italic;line-height:1.4}
+.cal-week { margin-bottom:16px; }
+.cal-week-header { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; }
+.cal-days { display:grid; grid-template-columns:repeat(7,1fr); gap:8px; }
+.cal-day { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px; min-height:130px; }
+.cal-day.today { border-color:var(--orange); }
+.cal-day.travel { border-color:#22d3ee33; background:#0a1f20; }
+.cal-day.rest-day { border-color:#2a2d3e; opacity:0.7; }
+.cal-day.race-day { border-color:#ef444466; background:#2d0a0a; }
+.cal-day-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.cal-day-num { font-size:13px; font-weight:700; }
+.cal-day-name { font-size:10px; color:var(--muted); text-transform:uppercase; }
+.cal-xss-badge { font-size:11px; font-weight:800; padding:2px 8px; border-radius:5px; display:inline-block; }
+.xss-easy { background:#1e3a5f; color:var(--accent); }
+.xss-mod { background:#2d3b00; color:#a3e635; }
+.xss-mega { background:#3b1a00; color:var(--orange); }
+.xss-travel { background:#0a1f20; color:var(--accent3); }
+.xss-rest { background:#1e2130; color:var(--muted); }
+.xss-race { background:#2d0a0a; color:var(--red); }
+.cal-session-name { font-size:11px; font-weight:600; color:var(--text); margin:4px 0 2px; line-height:1.3; }
+.cal-session-meta { font-size:10px; color:var(--muted2); line-height:1.5; }
+.cal-recovery { margin-top:6px; padding-top:6px; border-top:1px solid var(--border); }
+.cal-recovery-title { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
+.cal-rec-row { font-size:10px; color:var(--muted2); display:flex; align-items:center; gap:4px; margin-top:2px; }
+.cal-coaching { border-left:2px solid var(--accent); padding-left:6px; margin-top:6px; font-size:10px; color:var(--muted2); line-height:1.4; }
 
-/* COACHING NOTE */
-.coaching-note{background:linear-gradient(135deg,#1a1d3a,#1e2130);border:1px solid #2563eb33;border-radius:10px;padding:20px;margin-bottom:16px}
-.cn-header{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.cn-body{font-size:13px;color:var(--muted2);line-height:1.7}
-.cn-body p{margin-bottom:8px}
-.cn-body strong{color:var(--text)}
-.cn-body .hl-accent{color:var(--accent)}
-.cn-body .hl-warn{color:var(--yellow)}
-.cn-body .hl-alert{color:var(--orange)}
-.dash-footer{text-align:center;padding:16px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:8px}
-.dash-footer a{color:var(--accent);text-decoration:none}
+.coaching-note { background:linear-gradient(135deg,#1a1d3a,#1e2130); border:1px solid #2563eb33; border-radius:12px; padding:20px; margin-top:4px; }
+.coaching-note-title { font-size:12px; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+.coaching-note p { color:var(--muted2); line-height:1.7; margin-bottom:10px; font-size:13px; }
+.coaching-note p:last-child { margin-bottom:0; }
+.coaching-note strong { color:var(--text); }
+
+.footer { text-align:center; padding:20px; color:var(--muted); font-size:11px; border-top:1px solid var(--border); margin-top:24px; }
 </style>
 </head>
 <body>
+
+<div class="header">
+  <div class="header-title">🚴 James Loh · Race Build Dashboard</div>
+  <div class="race-pill">
+    <span class="day-num">20</span>
+    <span class="day-label">Days to Nationals</span>
+  </div>
+  <div class="status-badge">✅ Productive · Above Targets</div>
+  <div class="alert-pill">⚡ Final Heavy Block Week</div>
+  <div class="header-spacer"></div>
+  <div class="header-date">Mon 8 June 2026 · Nationals: 28 Jun @ 11:00 AM</div>
+</div>
+
 <div class="container">
 
-<!-- HEADER -->
-<div class="dash-header">
-  <div class="header-left">
-    <div class="race-pill">
-      <div class="day-num">21</div>
-      <div class="day-label">DAYS TO NATIONALS</div>
-    </div>
-    <div class="header-title">
-      <h1>🚴 James Loh Race Build Dashboard</h1>
-      <p>Nationals Road Race 80km · Sunday 28 June 2026 · 11:00 AM · Singapore</p>
-    </div>
-  </div>
-  <div class="header-pills">
-    <div class="status-badge">
-      <span class="sb-label">Training Status</span>
-      <span class="sb-value" style="color:var(--green)">Productive</span>
-    </div>
-    <div class="status-badge">
-      <span class="sb-label">Form / TSB</span>
-      <span class="sb-value" style="color:var(--accent)">+6 · Fresh Zone</span>
-    </div>
-    <div class="status-badge">
-      <span class="sb-label">Updated</span>
-      <span class="sb-value">Sun 7 Jun 2026</span>
-    </div>
-    <div class="alert-pill">
-      <span class="ap-icon">⚠️</span>
-      <span>Readiness: LOW · High Recovery Need</span>
-    </div>
-  </div>
-</div>
-
-<!-- PLATFORM SUMMARY -->
-<div class="section-title">Platform Summary</div>
-<div class="pt-card">
-  <table class="platform-table">
-    <thead>
-      <tr>
-        <th>Platform</th><th>Status</th><th>Key Metrics</th><th>Last Sync</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Garmin Connect</strong></td>
-        <td><span class="status-dot live"></span>Live</td>
-        <td>TR: Low (High Recovery) · Sleep: 8h · Body Bat: +58/-22 · Weight: 65.5 kg</td>
-        <td>Today at 9:17 AM</td>
-      </tr>
-      <tr>
-        <td><strong>Intervals.icu</strong></td>
-        <td><span class="status-dot live"></span>Live</td>
-        <td>CTL: 84 · ATL: 78 · TSB: +6 · Zone: Fresh</td>
-        <td>Today</td>
-      </tr>
-      <tr>
-        <td><strong>Xert</strong></td>
-        <td><span class="status-dot live"></span>Live</td>
-        <td>TP: 277W · HIE: 22.9 kJ · PP: 1092W · Near-BT: IRRT Sentosa 2 Jun</td>
-        <td>Today</td>
-      </tr>
-      <tr>
-        <td><strong>Lifestyle Log</strong></td>
-        <td><span class="status-dot" style="background:var(--muted)"></span>Mobile Only</td>
-        <td>Sauna/cold plunge log not accessible via web — see Garmin Connect app</td>
-        <td>N/A</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- READINESS & HEALTH -->
 <div class="section-title">Readiness &amp; Health</div>
 <div class="metrics-grid">
-  <div class="metric-card red">
+  <div class="metric-card orange">
     <div class="mc-label">Training Readiness</div>
-    <div class="mc-value" style="color:var(--red)">LOW</div>
-    <div class="mc-sub">High Recovery Need</div>
-    <span class="mc-badge low">Post-travel + High Load</span>
+    <div class="mc-value" style="color:var(--orange)">40</div>
+    <div class="mc-sub">Low · High Recovery Need</div>
+    <div class="mc-badge">Sleep Good · HRV Balanced</div>
   </div>
-  <div class="metric-card purple">
-    <div class="mc-label">HRV Status</div>
-    <div class="mc-value" style="color:var(--accent2)">Balanced</div>
-    <div class="mc-sub">In Range · 7d Avg</div>
-    <span class="mc-badge balanced">All Metrics OK</span>
+  <div class="metric-card green">
+    <div class="mc-label">Sleep Score</div>
+    <div class="mc-value" style="color:var(--green)">85</div>
+    <div class="mc-sub">Good Quality · 7h 46m</div>
+    <div class="mc-badge">10:17 PM → 6:14 AM</div>
   </div>
   <div class="metric-card blue">
-    <div class="mc-label">Sleep Last Night</div>
-    <div class="mc-value" style="color:var(--accent)">8h 0m</div>
-    <div class="mc-sub">Good · 10:23 PM – 6:48 AM</div>
-    <span class="mc-badge high">84 Avg Score (7d)</span>
+    <div class="mc-label">Body Battery</div>
+    <div class="mc-value" style="color:var(--accent)">64</div>
+    <div class="mc-sub">+48 charged · -36 drained</div>
+    <div class="mc-badge">HRV 48ms · Balanced</div>
+  </div>
+  <div class="metric-card blue">
+    <div class="mc-label">Weight</div>
+    <div class="mc-value" style="color:var(--accent);font-size:22px">65.8<span style="font-size:13px;font-weight:400"> kg</span></div>
+    <div class="mc-sub">Goal 66.0 kg · BMI 23</div>
+    <div class="mc-badge" style="background:#0d3b1a;color:var(--green)">At Race Weight ✅</div>
   </div>
   <div class="metric-card yellow">
-    <div class="mc-label">Body Battery</div>
-    <div class="mc-value" style="color:var(--yellow)">+58/-22</div>
-    <div class="mc-sub">Overnight charge · Today drain</div>
-    <span class="mc-badge med">Moderate Levels</span>
-  </div>
-  <div class="metric-card orange">
-    <div class="mc-label">Recovery Need</div>
-    <div class="mc-value" style="color:var(--orange)">High</div>
-    <div class="mc-sub">Load Focus: Above Targets</div>
-    <span class="mc-badge med">VO₂ Max: Superior</span>
+    <div class="mc-label">Hydration Today</div>
+    <div class="mc-value" style="color:var(--yellow);font-size:22px">3,425<span style="font-size:13px;font-weight:400"> ml</span></div>
+    <div class="mc-sub">Target 4,708 ml · Need +1,283</div>
+    <div class="mc-badge" style="background:#2d2000;color:var(--yellow)">7d avg 4,216 ml</div>
   </div>
 </div>
 
-<!-- FORM & LOAD -->
 <div class="section-title">Form &amp; Load</div>
 <div class="form-load-grid">
   <div class="chart-card">
-    <div class="chart-title">CTL / ATL / TSB — Last 14 Days</div>
-    <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 84</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 78</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) +6</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <span style="font-weight:700;font-size:14px;">Form Trend (Intervals.icu)</span>
+      <div style="display:flex;gap:16px;font-size:12px;">
+        <span style="color:#4f8ef7;">● CTL <strong>84</strong></span>
+        <span style="color:#a855f7;">● ATL <strong>79</strong></span>
+        <span style="color:#22d3ee;">● TSB <strong>+5</strong></span>
+      </div>
     </div>
-    <div class="chart-wrap"><canvas id="formChart"></canvas></div>
+    <div class="chart-wrap">
+      <canvas id="formChart"></canvas>
+    </div>
     <div class="zone-bar">
-      <div class="z z-hr" style="flex:2"></div>
-      <div class="z z-opt" style="flex:2"></div>
-      <div class="z z-fresh" style="flex:2"></div>
-      <div class="z z-trans" style="flex:1"></div>
-    </div>
-    <div class="zone-bar-labels">
-      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now +6</span><span>Transition</span>
-    </div>
-    <div class="current-marker">
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">84</div><div class="cm-lab">CTL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">78</div><div class="cm-lab">ATL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--green)">+6</div><div class="cm-lab">TSB</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">1972</div><div class="cm-lab">Acute Load</div></div>
+      <span class="zone-chip fresh">★ Fresh Zone — Current</span>
+      <span class="zone-chip optimal">Optimal</span>
+      <span class="zone-chip high-risk">High Risk</span>
+      <span class="zone-chip transition">Transition</span>
     </div>
   </div>
 
   <div class="activities-card">
-    <div class="chart-title">Recent Activities — Last 7 Days</div>
-
-    <div class="activity-row near-bt">
-      <div class="ar-icon">🚴</div>
-      <div>
-        <div class="ar-name">IRRT Sentosa <span class="bt-tag near">Near-BT</span></div>
-        <div class="ar-date">Tue 2 Jun · 05:30 · 2h18m</div>
-      </div>
-      <div class="ar-dist">71.9km</div>
-      <div class="ar-pwr">159W/1022W</div>
-      <div><span class="xss-badge xss-mega">144 XSS</span></div>
-      <div class="xb-pills"><span class="xb-pill xb-low">L:126</span><span class="xb-pill xb-high">H:13</span><span class="xb-pill xb-peak">P:5</span></div>
-    </div>
-
+    <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Today's Activities · Mon 8 Jun</div>
     <div class="activity-row">
-      <div class="ar-icon">🏃</div>
+      <div class="act-icon bike">🚴</div>
       <div>
-        <div class="ar-name">ECP Run</div>
-        <div class="ar-date">Wed 3 Jun · 06:04 · 40min</div>
+        <div class="act-name">TMCR</div>
+        <div class="act-meta">06:52 · 50.7 km · 1h 32m</div>
       </div>
-      <div class="ar-dist">8km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-mod">58 XSS</span></div>
-      <div class="xb-pills"><span class="xb-pill xb-low">L:58</span></div>
+      <div class="act-xss">86</div>
+      <div>
+        <span class="xb-pill xb-low">L:79</span>
+        <span class="xb-pill xb-high">H:5.1</span>
+        <span class="xb-pill xb-peak">P:1.4</span>
+      </div>
+      <div class="act-pow">157W<br><span style="color:var(--muted);font-size:10px">max 946W</span></div>
+      <div class="act-hr">143 bpm<br><span style="color:var(--red);font-size:10px">max 175</span></div>
     </div>
-
     <div class="activity-row">
-      <div class="ar-icon">🚴</div>
+      <div class="act-icon walk">🚶</div>
       <div>
-        <div class="ar-name">Stadium loop + TMCR</div>
-        <div class="ar-date">Thu 4 Jun · 06:10 · 1h51m</div>
+        <div class="act-name">Singapore Walking</div>
+        <div class="act-meta">09:20 · 3.1 km · 17 min</div>
       </div>
-      <div class="ar-dist">60.9km</div>
-      <div class="ar-pwr">163W/1053W</div>
-      <div><span class="xss-badge xss-mega">115 XSS</span></div>
-      <div class="xb-pills"><span class="xb-pill xb-low">L:101</span><span class="xb-pill xb-high">H:10</span><span class="xb-pill xb-peak">P:5</span></div>
+      <div class="act-xss" style="color:var(--muted2)">10</div>
+      <div><span class="xb-pill xb-low">L:10</span></div>
+      <div class="act-pow">7W</div>
+      <div class="act-hr">79 bpm</div>
     </div>
-
-    <div class="activity-row">
-      <div class="ar-icon">🏋️</div>
+    <div style="margin-top:12px;padding:10px;background:var(--card2);border-radius:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
       <div>
-        <div class="ar-name">KL Gym bike</div>
-        <div class="ar-date">Sat 6 Jun · 07:08 · 20min</div>
+        <div style="font-size:10px;color:var(--muted)">Total XSS</div>
+        <div style="font-size:22px;font-weight:800;color:var(--accent3)">96</div>
+        <div style="font-size:9px;color:var(--muted)">Moderate</div>
       </div>
-      <div class="ar-dist">—</div>
-      <div class="ar-pwr">123W/145W</div>
-      <div><span class="xss-badge xss-easy">14 XSS</span></div>
-      <div class="xb-pills"><span class="xb-pill xb-low">L:14</span></div>
-    </div>
-
-    <div class="activity-row">
-      <div class="ar-icon">🏋️</div>
       <div>
-        <div class="ar-name">KL Gym Treadmill</div>
-        <div class="ar-date">Sat 6 Jun · 07:32 · 21min</div>
+        <div style="font-size:10px;color:var(--muted)">CTL / ATL</div>
+        <div style="font-size:16px;font-weight:800;color:var(--accent)">84 / 79</div>
+        <div style="font-size:9px;color:var(--muted)">TSB +5</div>
       </div>
-      <div class="ar-dist">5km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-easy">38 XSS</span></div>
-      <div class="xb-pills"><span class="xb-pill xb-low">L:36</span><span class="xb-pill xb-high">H:1</span></div>
-    </div>
-
-    <div class="activity-row">
-      <div class="ar-icon">🏃</div>
       <div>
-        <div class="ar-name">Long Run ✅</div>
-        <div class="ar-date">Sun 7 Jun · 07:22 · 1h14m · TODAY</div>
+        <div style="font-size:10px;color:var(--muted)">7d Rides</div>
+        <div style="font-size:16px;font-weight:800;color:var(--green)">196 km</div>
+        <div style="font-size:9px;color:var(--muted)">6 sessions</div>
       </div>
-      <div class="ar-dist">15km</div>
-      <div class="ar-pwr">4:50/km</div>
-      <div><span class="xss-badge xss-mod">95 XSS</span></div>
-      <div class="xb-pills"><span class="xb-pill xb-low">L:95</span></div>
     </div>
-
+    <div style="margin-top:10px;font-size:11px;color:var(--muted2);line-height:1.9;padding:8px;background:var(--card2);border-radius:6px;">
+      <strong style="color:var(--text)">Recent:</strong> Thu 4 Jun — Stadium+TMCR · XSS <strong style="color:var(--orange)">115</strong> · 163W · HR 142<br>
+      Sun 7 Jun — Long Run · XSS <strong>95</strong> · 15km · 1h14m<br>
+      Sat 6 Jun — KL Gym Treadmill · XSS <strong>38</strong> · Polar Breakaway Specialist
+    </div>
   </div>
 </div>
 
-<!-- TODAY & RECOVERY -->
 <div class="section-title">Today &amp; Recovery Protocol</div>
-<div class="today-recovery-grid">
+<div class="today-rec-grid">
 
-  <div class="today-card">
-    <div class="tc-header">📋 Training Today <span class="tc-badge">SUN 7 JUN</span></div>
-    <div style="margin-bottom:10px;padding:10px;background:var(--card2);border:1px solid #22c55e33;border-radius:8px">
-      <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">COMPLETED ✅</div>
-      <div style="font-size:14px;font-weight:600;color:var(--green)">Long Run</div>
-      <div style="font-size:12px;color:var(--muted2)">15 km · 1:13:01 · 4:50/km · XSS: 95</div>
-    </div>
-    <div style="margin-bottom:10px;padding:10px;background:var(--card2);border:1px solid #eab30833;border-radius:8px">
-      <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">SCHEDULED ⏳</div>
-      <div style="font-size:14px;font-weight:600;color:var(--yellow)">Xert Cycling Workout</div>
-      <div style="font-size:12px;color:var(--muted2)">After Midnight - 30 · ~30 min · ~35 XSS est.</div>
-    </div>
-    <div style="padding:10px;background:var(--card2);border:1px solid var(--border);border-radius:8px">
-      <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">TOMORROW · MON 8 JUN</div>
-      <div style="font-size:13px;font-weight:600">Low Intensity Training</div>
-      <div style="font-size:12px;color:var(--muted2)">XSS: 83 · 1h 15m · 57.3 km · 1:05 PM</div>
-      <div style="font-size:11px;color:var(--accent);margin-top:4px">HR ceiling: Z1-2 · &lt;75% FTP · pure recovery</div>
-    </div>
-  </div>
-
-  <div class="today-card">
-    <div class="tc-header">⚡ Xert Signature</div>
-    <div class="xert-sig">
-      <div class="xs-item">
-        <div class="xs-val">277</div>
-        <div class="xs-unit">W</div>
-        <div class="xs-lab">TP</div>
-      </div>
-      <div class="xs-item">
-        <div class="xs-val">22.9</div>
-        <div class="xs-unit">kJ</div>
-        <div class="xs-lab">HIE</div>
-      </div>
-      <div class="xs-item">
-        <div class="xs-val">1092</div>
-        <div class="xs-unit">W</div>
-        <div class="xs-lab">Peak Power</div>
-      </div>
-    </div>
-    <div style="margin-top:12px;background:#1a150033;border:1px solid #eab30844;border-radius:8px;padding:10px">
-      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">⚡ NEAR-BT: IRRT Sentosa (2 Jun)</div>
-      <div style="font-size:11px;color:var(--muted2)">Max HR: 184 BPM · Max Power: 1022W<br>Focus: Mixed Puncheur · 71.9 km</div>
-    </div>
-    <div style="margin-top:10px;padding:8px;background:var(--card2);border-radius:6px">
-      <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--green)">Productive</span></div>
-      <div style="font-size:11px;color:var(--muted2);margin-top:2px">Load Focus: <span style="color:var(--orange)">Above Targets</span></div>
-      <div style="font-size:11px;color:var(--muted2);margin-top:2px">VO₂ Max: <span style="color:var(--accent)">Superior (100th %ile)</span></div>
-    </div>
-  </div>
-
-  <div class="today-card">
-    <div class="tc-header">🌡️ Recovery Protocol Tonight</div>
-    <div class="rec-block">
-      <div class="rp-title">95 XSS Moderate — Steam Protocol</div>
-      <div class="rp-row">
-        <div class="rp-icon">🧖</div>
+  <div class="rec-block">
+    <div class="rp-title">Tomorrow — Tue 9 Jun</div>
+    <div style="background:linear-gradient(135deg,#1e3a5f,#1a2d4a);border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:16px;font-weight:800;color:var(--accent)">IRRT Sentosa</div>
+      <div style="font-size:12px;color:var(--muted2);margin-top:4px">05:20 AM · 2h 14m · 57.3 km</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;text-align:center;">
         <div>
-          <div class="rp-name">Steam Sauna</div>
-          <div class="rp-detail">40–45°C · 2 rounds × 15 min · 5 min between</div>
-          <span class="rp-pill steam">Moderate Day Protocol</span>
+          <div style="font-size:10px;color:var(--muted)">Target XSS</div>
+          <div style="font-size:20px;font-weight:800;color:var(--orange)">111</div>
         </div>
-      </div>
-      <div class="rp-row">
-        <div class="rp-icon">🧊</div>
         <div>
-          <div class="rp-name">Cold Plunge — Standard</div>
-          <div class="rp-detail">14°C · 3–5 min after each round</div>
-          <span class="rp-pill cold">Standard Cold</span>
+          <div style="font-size:10px;color:var(--muted)">HR Ceiling</div>
+          <div style="font-size:20px;font-weight:800;color:var(--red)">160<span style="font-size:11px">bpm</span></div>
         </div>
-      </div>
-      <div class="rp-row">
-        <div class="rp-icon">💧</div>
         <div>
-          <div class="rp-name">Hydration — URGENT</div>
-          <div class="rp-detail">Only 2,450 ml logged vs 4,319 ml avg</div>
-          <span class="rp-pill hydration">⚠️ Drink 2L now</span>
-        </div>
-      </div>
-      <div class="rp-row">
-        <div class="rp-icon">🌙</div>
-        <div>
-          <div class="rp-name">Bedtime Target</div>
-          <div class="rp-detail">8:30 PM · Sleep coach: 9:30–10:20 PM latest</div>
-          <span class="rp-pill sleep">8h Target</span>
+          <div style="font-size:10px;color:var(--muted)">Focus</div>
+          <div style="font-size:12px;font-weight:700;color:var(--yellow)">Mixed<br>Rouleur</div>
         </div>
       </div>
     </div>
+    <div style="font-size:12px;color:var(--muted2);line-height:1.7;padding:10px;background:var(--card2);border-radius:8px;">
+      <strong style="color:var(--text)">Pacing:</strong> First 15 min conservative — TMCR residual load in legs. Surge on climbs to 175–178 bpm. Puncheur profile is ideal here.<br><br>
+      <strong style="color:var(--red)">Race Intel:</strong> KM 39–43 → conserve. Final 15km → attack.
+    </div>
   </div>
 
-</div>
+  <div class="xert-status-card">
+    <div class="rp-title">Xert Fitness Signature</div>
+    <div class="sig-row">
+      <span class="sig-label">Threshold Power (TP)</span>
+      <span class="sig-val" style="color:var(--accent)">277 W</span>
+    </div>
+    <div class="sig-row">
+      <span class="sig-label">High Intensity Energy (HIE)</span>
+      <span class="sig-val" style="color:var(--orange)">22.9 kJ</span>
+    </div>
+    <div class="sig-row">
+      <span class="sig-label">Peak Power (PP)</span>
+      <span class="sig-val" style="color:var(--accent2)">1,091 W</span>
+    </div>
+    <div class="sig-row">
+      <span class="sig-label">W/kg (6-min)</span>
+      <span class="sig-val" style="color:var(--green)">5.5 W/kg</span>
+    </div>
+    <div class="sig-row">
+      <span class="sig-label">Lower Threshold Power</span>
+      <span class="sig-val">220 W</span>
+    </div>
+    <div style="margin-top:12px;padding:10px;border-radius:8px;background:#1a1a0f;border:1px solid #eab30833;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Xert Status</div>
+      <div style="font-size:15px;font-weight:700;color:var(--yellow);margin-top:4px">😮 Tired</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:2px">Endurance training recommended</div>
+    </div>
+    <div style="margin-top:8px;padding:8px;border-radius:8px;background:var(--card2);">
+      <div style="font-size:10px;color:var(--muted)">Last Breakthrough</div>
+      <div style="font-size:12px;font-weight:600;color:var(--text);margin-top:2px">BRT Vivek Ride · 1 week ago</div>
+      <div style="font-size:10px;color:var(--muted2);margin-top:2px">Training Stars: ★★★½☆</div>
+    </div>
+  </div>
 
-<!-- NUTRITION FLAGS -->
-<div class="section-title">Nutrition · Weight · Hydration</div>
-<div class="nutrition-flags">
-  <div class="nf-card">
-    <div class="nf-label">Weight Today</div>
-    <div class="nf-value" style="color:var(--green)">65.5 <span style="font-size:14px">kg</span></div>
-    <div class="nf-target">Race weight goal: 66.0 kg · 7d avg: 67.2 kg · BMI: 22.9</div>
-    <span class="nf-flag ok">✓ At race weight — maintain, don't cut further</span>
-  </div>
-  <div class="nf-card">
-    <div class="nf-label">Hydration Today</div>
-    <div class="nf-value" style="color:var(--orange)">2,450 <span style="font-size:14px">ml</span></div>
-    <div class="nf-target">7d avg: 4,319 ml · Daily target: 4,000+ ml</div>
-    <span class="nf-flag warn">⚠️ Well below average — rehydrate aggressively tonight</span>
-  </div>
-  <div class="nf-card">
-    <div class="nf-label">Calories Today</div>
-    <div class="nf-value" style="color:var(--yellow)">266 <span style="font-size:14px">/ 2,491 kcal</span></div>
-    <div class="nf-target">7d avg: 2,138 kcal/day · Post long-run refuel needed</div>
-    <span class="nf-flag warn">⚠️ Refuel with protein + carbs post-run today</span>
+  <div class="rec-block">
+    <div class="rp-title">Recovery Tonight · 96 XSS (Moderate)</div>
+    <div class="rp-row">
+      <div class="rp-icon">🔥</div>
+      <div>
+        <div class="rp-name">Steam Sauna</div>
+        <div class="rp-detail">40–45°C · Moderate protocol</div>
+        <span class="rp-pill steam">2 × 15 min · 5 min rest</span>
+      </div>
+    </div>
+    <div class="rp-row">
+      <div class="rp-icon">🧊</div>
+      <div>
+        <div class="rp-name">Standard Cold Plunge</div>
+        <div class="rp-detail">14°C (not shock pool)</div>
+        <span class="rp-pill cold">2 × 3 min post-sauna</span>
+      </div>
+    </div>
+    <div class="rp-row">
+      <div class="rp-icon">💧</div>
+      <div>
+        <div class="rp-name">Hydration</div>
+        <div class="rp-detail">+1,283 ml before bed · sip steadily</div>
+        <span class="rp-pill nutrition">3,425 → 4,708 ml target</span>
+      </div>
+    </div>
+    <div class="rp-row">
+      <div class="rp-icon">🍌</div>
+      <div>
+        <div class="rp-name">Pre-Sleep Carbs</div>
+        <div class="rp-detail">Prime glycogen for IRRT Sentosa</div>
+        <span class="rp-pill nutrition">30–40g · banana + rice</span>
+      </div>
+    </div>
+    <div class="rp-row">
+      <div class="rp-icon">😴</div>
+      <div>
+        <div class="rp-name">Bedtime</div>
+        <div class="rp-detail">10h before 05:20 AM start</div>
+        <span class="rp-pill sleep">8:30 PM SHARP</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- TRAINING PLANNER -->
 <div class="section-title">Training Planner + Recovery</div>
+
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('week1',this)">Week 1 · Jun 7–13</button>
-  <button class="tab-btn" onclick="switchTab('week2',this)">Week 2 · Jun 14–20</button>
-  <button class="tab-btn" onclick="switchTab('week3',this)">Taper · Jun 21–28</button>
+  <button class="tab-btn active" onclick="switchTab('week1',this)">Week 1 · Jun 8–14</button>
+  <button class="tab-btn" onclick="switchTab('week2',this)">Week 2 · Jun 15–21</button>
+  <button class="tab-btn" onclick="switchTab('taper',this)">Taper · Jun 22–28</button>
 </div>
 
-<!-- WEEK 1 -->
 <div id="week1" class="tab-panel active">
-<div class="cal-week">
-  <div class="cal-week-header">
-    <h3>Race Build Week 1 — Final Load Block</h3>
-    <div class="cal-week-xss">Weekly XSS est: ~762 · Mega day: Sat 13 Jun (286 XSS)</div>
+  <div class="cal-week">
+    <div class="cal-week-header">Final Heavy Block — Peak Training Week Before Taper</div>
+    <div class="cal-days">
+      <div class="cal-day today">
+        <div class="cal-day-header"><span class="cal-day-num">8</span><span class="cal-day-name">Mon</span></div>
+        <span class="cal-xss-badge xss-mod">XSS 96 ✅</span>
+        <div class="cal-session-name">TMCR + Walking</div>
+        <div class="cal-session-meta">06:52 · 50.7km · 157W<br>HR 143/175 · Mixed Rouleur</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Steam 40–45°C · 2×15min</div>
+          <div class="cal-rec-row">🧊 14°C · 2×3min</div>
+          <div class="cal-rec-row">😴 Bed 8:30 PM</div>
+        </div>
+      </div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">9</span><span class="cal-day-name">Tue</span></div>
+        <span class="cal-xss-badge xss-mega">XSS 111</span>
+        <div class="cal-session-name">IRRT Sentosa</div>
+        <div class="cal-session-meta">05:20 AM · 2h14m<br>57.3km · High Intensity</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Dry 80–90°C</div>
+          <div class="cal-rec-row">🧊 4°C Shock · 3×3min</div>
+          <div class="cal-rec-row">😴 Bed 8:30 PM</div>
+        </div>
+        <div class="cal-coaching">HR ≤160 base, surge on climbs. Puncheur profile.</div>
+      </div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">10</span><span class="cal-day-name">Wed</span></div>
+        <span class="cal-xss-badge xss-mod">XSS 83</span>
+        <div class="cal-session-name">Low Intensity Training</div>
+        <div class="cal-session-meta">06:30 AM · 1h15m<br>Zone 2 · Endurance</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Steam 40–45°C</div>
+          <div class="cal-rec-row">🧊 14°C Standard</div>
+          <div class="cal-rec-row">😴 Bed 8:30 PM</div>
+        </div>
+        <div class="cal-coaching">Active recovery. Save legs for Thursday IRRT.</div>
+      </div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">11</span><span class="cal-day-name">Thu</span></div>
+        <span class="cal-xss-badge xss-mega">XSS 106</span>
+        <div class="cal-session-name">IRRT Thurs</div>
+        <div class="cal-session-meta">05:20 AM · 2h11m<br>62.1km · Hard</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Dry 80–90°C</div>
+          <div class="cal-rec-row">🧊 4°C Shock Plunge</div>
+          <div class="cal-rec-row">😴 Bed 8:30 PM</div>
+        </div>
+        <div class="cal-coaching">Build into it. Big Sat (Kulai) ahead.</div>
+      </div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">12</span><span class="cal-day-name">Fri</span></div>
+        <span class="cal-xss-badge xss-easy">XSS 70</span>
+        <div class="cal-session-name">Low Intensity Training</div>
+        <div class="cal-session-meta">07:00 AM · 1h3m<br>Pre-Kulai prep</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Steam 40–45°C</div>
+          <div class="cal-rec-row">🧊 14°C Standard</div>
+          <div class="cal-rec-row">😴 Bed 8:00 PM EARLY</div>
+        </div>
+        <div class="cal-coaching">Carb-load dinner. Sleep early. Kulai tomorrow.</div>
+      </div>
+      <div class="cal-day" style="border-color:#f9731666;background:#1a0f00;">
+        <div class="cal-day-header"><span class="cal-day-num" style="color:var(--orange)">13</span><span class="cal-day-name" style="color:var(--orange)">Sat 🔥</span></div>
+        <span class="cal-xss-badge xss-mega" style="font-size:13px;background:#3b1500;color:#ff7700">XSS 286 🔥</span>
+        <div class="cal-session-name" style="color:var(--orange)">IRRT Kulai Express</div>
+        <div class="cal-session-meta">05:20 AM · 5h15m<br>166.6km · EPIC</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Post-Race</div>
+          <div class="cal-rec-row">🔥 Dry 80–90°C</div>
+          <div class="cal-rec-row">🧊 4°C Shock · 3×3min</div>
+          <div class="cal-rec-row">🍚 Full carb reload</div>
+          <div class="cal-rec-row">😴 Bed 7:30 PM</div>
+        </div>
+        <div class="cal-coaching" style="border-color:var(--orange)">Last major stimulus. Pace first 80km. Attack finale.</div>
+      </div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">14</span><span class="cal-day-name">Sun</span></div>
+        <span class="cal-xss-badge xss-mega">XSS 109</span>
+        <div class="cal-session-name">Low Intensity Training</div>
+        <div class="cal-session-meta">07:00 AM · 1h38m<br>Post-Kulai active rec</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Dry 80–90°C</div>
+          <div class="cal-rec-row">🧊 4°C Shock Plunge</div>
+          <div class="cal-rec-row">😴 Bed 8:30 PM</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="cal-days">
-    <div class="cal-day today">
-      <div class="cal-day-header"><span class="cal-day-num">7</span><span class="cal-day-name">SUN</span></div>
-      <div class="cal-session-name">Long Run ✅ + Xert Workout ⏳</div>
-      <div class="cal-time">07:22 done · Cycling pending</div>
-      <span class="cal-xss-badge xss-mod">95+ XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C × 2</div>
-        <div class="cal-rec-row">🧊 14°C · 3–5 min</div>
-      </div>
-      <div class="cal-coaching">KL return · prioritise hydration (2.5L deficit)</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">8</span><span class="cal-day-name">MON</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">1:05 PM · 1h 15m · 57.3 km</div>
-      <span class="cal-xss-badge xss-mod">83 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row">🧊 14°C cold plunge</div>
-      </div>
-      <div class="cal-coaching">Recovery ride only — Z1/Z2, no surges</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">9</span><span class="cal-day-name">TUE</span></div>
-      <div class="cal-session-name">IRRT Sentosa</div>
-      <div class="cal-time">5:20 AM · 2h 14m · 57.3 km</div>
-      <span class="cal-xss-badge xss-mega">111 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C × 2</div>
-        <div class="cal-rec-row">🧊 4°C shock · 1–2 min</div>
-      </div>
-      <div class="cal-coaching">First group ride back — sit in, test legs, no heroics</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">10</span><span class="cal-day-name">WED</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">6:30 AM · 1h 15m · 62.1 km</div>
-      <span class="cal-xss-badge xss-mod">83 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row">🧊 14°C cold plunge</div>
-      </div>
-      <div class="cal-coaching">Flush legs before Thursday IRRT</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">11</span><span class="cal-day-name">THU</span></div>
-      <div class="cal-session-name">IRRT Thurs</div>
-      <div class="cal-time">5:20 AM · 2h 11m · 62.1 km</div>
-      <span class="cal-xss-badge xss-mega">106 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C × 2</div>
-        <div class="cal-rec-row">🧊 4°C shock · 1–2 min</div>
-      </div>
-      <div class="cal-coaching">Practice surge: attack final 15 km simulation</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">12</span><span class="cal-day-name">FRI</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">7:00 AM · 1h 14m</div>
-      <span class="cal-xss-badge xss-mod">82 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row">🧊 14°C cold plunge</div>
-      </div>
-      <div class="cal-coaching">Pre-load for Kulai — eat big tonight</div>
-    </div>
-    <div class="cal-day" style="border-color:#f9731633;background:#160f00">
-      <div class="cal-day-header"><span class="cal-day-num">13</span><span class="cal-day-name">SAT</span></div>
-      <div class="cal-session-name">⚡ IRRT Kulai Express</div>
-      <div class="cal-time">5:20 AM · 5h 15m</div>
-      <span class="cal-xss-badge" style="background:#2a0f00;color:var(--orange)">286 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C × 3</div>
-        <div class="cal-rec-row">🧊 4°C shock · 2 min</div>
-      </div>
-      <div class="cal-coaching">MEGA DAY — KM 39–43 conserve, attack final 15 km</div>
-    </div>
-  </div>
-</div>
 </div>
 
-<!-- WEEK 2 -->
 <div id="week2" class="tab-panel">
-<div class="cal-week">
-  <div class="cal-week-header">
-    <h3>Race Build Week 2 — Sharpening Block</h3>
-    <div class="cal-week-xss">Weekly XSS est: ~761 · CCP5 key session Thu 18</div>
-  </div>
-  <div class="cal-days">
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">14</span><span class="cal-day-name">SUN</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">7:00 AM · 1h 52m</div>
-      <span class="cal-xss-badge xss-mega">124 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C</div>
-        <div class="cal-rec-row">🧊 4°C shock</div>
+  <div class="cal-week">
+    <div class="cal-week-header">Week 2 — Load Consolidation → Pre-Taper</div>
+    <div class="cal-days">
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">15</span><span class="cal-day-name">Mon</span></div>
+        <span class="cal-xss-badge xss-mod">XSS 83</span>
+        <div class="cal-session-name">Low Intensity Training</div>
+        <div class="cal-session-meta">01:05 PM · 1h15m · 58.1km</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Steam 40–45°C</div>
+          <div class="cal-rec-row">🧊 14°C Standard</div>
+        </div>
       </div>
-      <div class="cal-coaching">Post-Kulai recovery — stay easy, sleep is priority</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">15</span><span class="cal-day-name">MON</span></div>
-      <div class="cal-session-name">High Intensity Training</div>
-      <div class="cal-time">1:05 PM · 0h 40m</div>
-      <span class="cal-xss-badge xss-mod">64 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row">🧊 14°C cold plunge</div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">16</span><span class="cal-day-name">Tue</span></div>
+        <span class="cal-xss-badge xss-mega">XSS 124</span>
+        <div class="cal-session-name">IRRT Sentosa</div>
+        <div class="cal-session-meta">05:20 AM · 1h55m · 58.1km</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Dry 80–90°C</div>
+          <div class="cal-rec-row">🧊 4°C Shock Plunge</div>
+        </div>
       </div>
-      <div class="cal-coaching">Short sharp — max effort intervals, leg snap</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">16</span><span class="cal-day-name">TUE</span></div>
-      <div class="cal-session-name">IRRT Sentosa</div>
-      <div class="cal-time">5:20 AM · 1h 55m</div>
-      <span class="cal-xss-badge xss-mega">124 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C</div>
-        <div class="cal-rec-row">🧊 4°C shock · 1–2 min</div>
+      <div class="cal-day rest-day">
+        <div class="cal-day-header"><span class="cal-day-num">17</span><span class="cal-day-name">Wed</span></div>
+        <span class="cal-xss-badge xss-rest">REST</span>
+        <div class="cal-session-name">Rest / Light</div>
+        <div class="cal-session-meta">Recovery day<br>Pre-CCP5</div>
+        <div class="cal-coaching">Full rest. Prepare for CCP5.</div>
       </div>
-      <div class="cal-coaching">Race-pace efforts — final intensity before taper</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">17</span><span class="cal-day-name">WED</span></div>
-      <div class="cal-session-name">Rest Day</div>
-      <div class="cal-time">Light movement only</div>
-      <span class="cal-xss-badge xss-rest">18 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam optional</div>
-        <div class="cal-rec-row">🧊 14°C if desired</div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">18</span><span class="cal-day-name">Thu</span></div>
+        <span class="cal-xss-badge xss-mega">XSS 125</span>
+        <div class="cal-session-name">CCP5</div>
+        <div class="cal-session-meta">05:20 AM · 2h26m · 68.6km</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Dry 80–90°C</div>
+          <div class="cal-rec-row">🧊 4°C Shock Plunge</div>
+        </div>
+        <div class="cal-coaching">Final peak-power stimulus before Nationals.</div>
       </div>
-      <div class="cal-coaching">True rest — legs up, eat well, sleep early</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">18</span><span class="cal-day-name">THU</span></div>
-      <div class="cal-session-name">CCP5</div>
-      <div class="cal-time">5:20 AM · 2h 26m · 68.6 km</div>
-      <span class="cal-xss-badge xss-mega">125 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C × 2</div>
-        <div class="cal-rec-row">🧊 4°C shock · 2 min</div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">19</span><span class="cal-day-name">Fri</span></div>
+        <span class="cal-xss-badge xss-easy">XSS 78</span>
+        <div class="cal-session-name">Low Intensity Training</div>
+        <div class="cal-session-meta">07:00 AM · 1h10m</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Steam 40–45°C</div>
+          <div class="cal-rec-row">🧊 14°C Standard</div>
+        </div>
       </div>
-      <div class="cal-coaching">CCP5 — critical pre-taper race sim session</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">19</span><span class="cal-day-name">FRI</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">7:00 AM · 1h 39m</div>
-      <span class="cal-xss-badge xss-mega">110 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C</div>
-        <div class="cal-rec-row">🧊 4°C shock</div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">20</span><span class="cal-day-name">Sat</span></div>
+        <span class="cal-xss-badge xss-mod">XSS 97</span>
+        <div class="cal-session-name">Low Intensity Training</div>
+        <div class="cal-session-meta">05:20 AM · 1h28m</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Tonight</div>
+          <div class="cal-rec-row">🔥 Steam 40–45°C</div>
+          <div class="cal-rec-row">🧊 14°C Standard</div>
+        </div>
       </div>
-      <div class="cal-coaching">Last long-ish ride before Phu Quoc taper</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">20</span><span class="cal-day-name">SAT</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">5:20 AM · 2h 3m</div>
-      <span class="cal-xss-badge xss-mega">135 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C × 2</div>
-        <div class="cal-rec-row">🧊 4°C shock · 2 min</div>
+      <div class="cal-day travel">
+        <div class="cal-day-header"><span class="cal-day-num">21</span><span class="cal-day-name">Sun ✈️</span></div>
+        <span class="cal-xss-badge xss-travel">TAPER</span>
+        <div class="cal-session-name">Run to kid's rugby</div>
+        <div class="cal-session-meta">07:00 AM · 0h23m · 5.1km<br>XSS: 67 · Phu Quoc</div>
+        <div class="cal-coaching" style="border-color:var(--accent3)">Phu Quoc begins. Taper mode ON.</div>
       </div>
-      <div class="cal-coaching">Last big day — pack for Phu Quoc, sleep heavy tonight</div>
     </div>
   </div>
-</div>
 </div>
 
-<!-- WEEK 3: TAPER -->
-<div id="week3" class="tab-panel">
-<div class="cal-week">
-  <div class="cal-week-header">
-    <h3>Phu Quoc Taper + Race Week</h3>
-    <div class="cal-week-xss">Phu Quoc 21–26 Jun 🏖️ · Race 28 Jun</div>
-  </div>
-  <div class="cal-days">
-    <div class="cal-day travel">
-      <div class="cal-day-header"><span class="cal-day-num">21</span><span class="cal-day-name">SUN</span></div>
-      <div class="cal-session-name">Run to kid's rugby</div>
-      <div class="cal-time">7:00 AM · 0h 23m 🏖️</div>
-      <span class="cal-xss-badge xss-travel">67 XSS</span>
-      <div class="cal-coaching">Phu Quoc Day 1 — enjoy, stay active lightly</div>
-    </div>
-    <div class="cal-day travel">
-      <div class="cal-day-header"><span class="cal-day-num">22</span><span class="cal-day-name">MON</span></div>
-      <div class="cal-session-name">WHOOP Walk · 17.2 Strain</div>
-      <div class="cal-time">1:05 PM · 1h 0m 🏖️</div>
-      <span class="cal-xss-badge xss-travel">32 XSS</span>
-      <div class="cal-coaching">Walk only — no cycling, no intensity</div>
-    </div>
-    <div class="cal-day travel">
-      <div class="cal-day-header"><span class="cal-day-num">23</span><span class="cal-day-name">TUE</span></div>
-      <div class="cal-session-name">Canal run</div>
-      <div class="cal-time">5:20 AM · 0h 45m 🏖️</div>
-      <span class="cal-xss-badge xss-travel">38 XSS</span>
-      <div class="cal-coaching">Easy morning run — aerobic maintenance only</div>
-    </div>
-    <div class="cal-day travel">
-      <div class="cal-day-header"><span class="cal-day-num">24</span><span class="cal-day-name">WED</span></div>
-      <div class="cal-session-name">Stroll around Madrid</div>
-      <div class="cal-time">6:30 AM · 1h 52m 🏖️</div>
-      <span class="cal-xss-badge xss-rest">30 XSS</span>
-      <div class="cal-coaching">Pure recovery day — rest, nutrition focus</div>
-    </div>
-    <div class="cal-day travel">
-      <div class="cal-day-header"><span class="cal-day-num">25</span><span class="cal-day-name">THU</span></div>
-      <div class="cal-session-name">Run to kid's rugby</div>
-      <div class="cal-time">5:20 AM · 0h 23m 🏖️</div>
-      <span class="cal-xss-badge xss-travel">67 XSS</span>
-      <div class="cal-coaching">Last easy run — legs should feel springy</div>
-    </div>
-    <div class="cal-day travel">
-      <div class="cal-day-header"><span class="cal-day-num">26</span><span class="cal-day-name">FRI</span></div>
-      <div class="cal-session-name">Walking off gambas &amp; ice cream</div>
-      <div class="cal-time">7:00 AM · 1h 1m 🏖️</div>
-      <span class="cal-xss-badge xss-rest">21 XSS</span>
-      <div class="cal-coaching">Final Phu Quoc day — carb load begins tonight</div>
-    </div>
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">27</span><span class="cal-day-name">SAT</span></div>
-      <div class="cal-session-name">Taper — pick up race number</div>
-      <div class="cal-time">5:20 AM · 2h 14m · 32.8 km</div>
-      <span class="cal-xss-badge xss-mod">50 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Pre-Race Protocol</div>
-        <div class="cal-rec-row">🧖 Steam 40°C · 10 min only</div>
-        <div class="cal-rec-row">🧊 14°C · 3 min · legs only</div>
+<div id="taper" class="tab-panel">
+  <div class="cal-week">
+    <div class="cal-week-header">Phu Quoc Taper (21–26 Jun) → Race Day 28 Jun</div>
+    <div class="cal-days">
+      <div class="cal-day travel">
+        <div class="cal-day-header"><span class="cal-day-num">22</span><span class="cal-day-name">Mon ✈️</span></div>
+        <span class="cal-xss-badge xss-travel">XSS 32</span>
+        <div class="cal-session-name">Light Walk</div>
+        <div class="cal-session-meta">1h · Phu Quoc · Easy</div>
+        <div class="cal-coaching" style="border-color:var(--accent3)">Taper. Move, don't strain.</div>
       </div>
-      <div class="cal-coaching">Shake-out + race number · rest afternoon · carb load dinner · 8:30 PM bed</div>
-    </div>
-    <div class="cal-day race">
-      <div class="cal-day-header"><span class="cal-day-num">28</span><span class="cal-day-name">SUN</span></div>
-      <div class="cal-session-name">🏆 NATIONALS ROAD RACE</div>
-      <div class="cal-time">11:00 AM · 80 km</div>
-      <span class="cal-xss-badge" style="background:#2a0707;color:var(--red)">RACE DAY</span>
-      <div class="cal-coaching">KM 39–43: conserve in peloton. Final 15 km: attack. Go get it, James.</div>
+      <div class="cal-day travel">
+        <div class="cal-day-header"><span class="cal-day-num">23</span><span class="cal-day-name">Tue ✈️</span></div>
+        <span class="cal-xss-badge xss-travel">XSS 38</span>
+        <div class="cal-session-name">Canal Run</div>
+        <div class="cal-session-meta">05:20 AM · 0h45m · 7.2km</div>
+        <div class="cal-coaching" style="border-color:var(--accent3)">Easy effort. Keep legs fresh.</div>
+      </div>
+      <div class="cal-day travel">
+        <div class="cal-day-header"><span class="cal-day-num">24</span><span class="cal-day-name">Wed ✈️</span></div>
+        <span class="cal-xss-badge xss-travel">XSS 30</span>
+        <div class="cal-session-name">Stroll / Easy Walk</div>
+        <div class="cal-session-meta">06:30 AM · 1h52m · 9.3km</div>
+        <div class="cal-coaching" style="border-color:var(--accent3)">Pure active recovery.</div>
+      </div>
+      <div class="cal-day travel">
+        <div class="cal-day-header"><span class="cal-day-num">25</span><span class="cal-day-name">Thu ✈️</span></div>
+        <span class="cal-xss-badge xss-travel">XSS 67</span>
+        <div class="cal-session-name">Run — kid's rugby</div>
+        <div class="cal-session-meta">05:20 AM · 0h23m · 5.1km</div>
+        <div class="cal-coaching" style="border-color:var(--accent3)">Include 3–4 race-pace surges.</div>
+      </div>
+      <div class="cal-day travel">
+        <div class="cal-day-header"><span class="cal-day-num">26</span><span class="cal-day-name">Fri ✈️</span></div>
+        <span class="cal-xss-badge xss-travel">XSS 21</span>
+        <div class="cal-session-name">Easy Walk</div>
+        <div class="cal-session-meta">07:00 AM · 1h1m · 4.6km</div>
+        <div class="cal-coaching" style="border-color:var(--accent3)">Last Phu Quoc day. Rest pm.</div>
+      </div>
+      <div class="cal-day">
+        <div class="cal-day-header"><span class="cal-day-num">27</span><span class="cal-day-name">Sat</span></div>
+        <span class="cal-xss-badge xss-easy">XSS 50</span>
+        <div class="cal-session-name">Taper Ride</div>
+        <div class="cal-session-meta">05:20 AM · 2h14m · 32.8km<br>Pick up race number</div>
+        <div class="cal-recovery">
+          <div class="cal-recovery-title">Night Before Race</div>
+          <div class="cal-rec-row">🍚 Large carb meal · 7 PM</div>
+          <div class="cal-rec-row">😴 Bed 8:30 PM</div>
+        </div>
+        <div class="cal-coaching">3×1min race-pace efforts. Legs should feel springy.</div>
+      </div>
+      <div class="cal-day race-day">
+        <div class="cal-day-header"><span class="cal-day-num" style="color:var(--red)">28</span><span class="cal-day-name" style="color:var(--red)">Sun 🏁</span></div>
+        <span class="cal-xss-badge xss-race">NATIONALS</span>
+        <div class="cal-session-name" style="color:var(--red)">Road Race · 80 km</div>
+        <div class="cal-session-meta" style="color:var(--muted2)">11:00 AM START<br>KM 39–43: CONSERVE<br>Final 15km: ATTACK</div>
+        <div class="cal-coaching" style="border-color:var(--red)">Trust the training. Race smart, strike late.</div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
-<!-- COACHING NOTE -->
 <div class="section-title">Coaching Note</div>
 <div class="coaching-note">
-  <div class="cn-header">💬 Coach Assessment — Sunday 7 June 2026</div>
-  <div class="cn-body">
-    <p>James, you're sitting at <strong>CTL 84, TSB +6 (Fresh Zone)</strong> — exactly where you want to be at 21 days out. The KL trip was managed well: gym bike + treadmill kept the engine turning without digging into recovery reserves.</p>
-    <p>The <span class="hl-accent">Near-BT on IRRT Sentosa (2 Jun, 144 XSS, Max HR 184)</span> confirmed your top-end capacity is sharp. The <strong>Stadium loop + TMCR on 4 Jun (115 XSS, 1053W peak)</strong> backs this up. Garmin's "Productive" status and "Superior" VO₂ Max are exactly the signals we want — <strong>TP 277W is holding strong</strong>, with peak power above 1,000W on both recent hard rides.</p>
-    <p class="hl-warn">⚠️ Garmin is showing Low Training Readiness today. Expected after a travel week + hard training block. Don't chase it — this is the right time to have an elevated recovery need. If the Xert cycling workout is still pending, keep it strictly Z1 (under 65% FTP, 30 min max). The long run already delivered 95 XSS today.</p>
-    <p><strong>Urgent tonight:</strong> Only 2,450 ml hydration logged vs a 4,319 ml daily average — that's a significant deficit, amplified by the 15 km run and Singapore heat on return. Push 2+ litres before bed. Weight is spot on at 65.5 kg (race weight goal 66.0 kg) — don't let dehydration distort tomorrow's reading.</p>
-    <p><strong>This week's mission:</strong> Monday recovery ride (genuinely easy, Z1-Z2), Tuesday back at IRRT Sentosa (111 XSS — reestablish group ride rhythm), then build to <span class="hl-alert">IRRT Kulai Express on Saturday — 286 XSS, 5h15m, your final mega-stimulus before taper</span>. Apply the race-day strategy: KM 39–43 conserve, attack the final 15 km.</p>
-    <p>Two weeks of racing fitness remain to be built. You have the engine — let the plan sharpen the edge.</p>
-  </div>
+  <div class="coaching-note-title">📋 Analysis — Mon 8 June 2026</div>
+  <p><strong>Strong TMCR execution this morning.</strong> 197W XEP with 143 bpm avg HR confirms clean Mixed Rouleur mode — fat-burning (62g fat / 87g carb) is operating well. The 946W max power shows the fast-twitch capacity is still sharp despite cumulative KL travel load.</p>
+  <p><strong>Garmin TR 40 vs Intervals.icu TSB +5 — trust the latter.</strong> Training Readiness is partly inflated by KL travel stress (gym rides, treadmill, walking without real physiological recovery). TSB of +5 in Fresh zone reflects actual form. You're loaded, not fatigued — exactly right for this phase.</p>
+  <p><strong>This week is your final heavy block before Phu Quoc taper.</strong> IRRT Sentosa tomorrow (111 XSS) is important but shouldn't drain the tank. The key target is <strong>IRRT Kulai Express Saturday (286 XSS, 166.6 km)</strong> — your last major fitness stimulus. Pace conservatively for the first 80 km, open up in the finale.</p>
+  <p><strong>Weight 65.8 kg</strong> — marginally under 66 kg race target. No restriction needed. Fuel normally, keep carbs high this week. Need +1,283 ml hydration tonight — sip steadily, don't chug.</p>
+  <p><strong>Race strategy reminder:</strong> KM 39–43 = shelter mid-pack, conserve. Final 15 km = your attack window. Puncheur profile is built for this finish.</p>
 </div>
 
-<!-- FOOTER -->
-<div class="dash-footer">
-  Updated: Sunday 7 June 2026 (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
-  Next automated report: Monday 8 June 2026 at 9:00 AM &nbsp;·&nbsp;
-  <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
 
+<div class="footer">
+  Updated: Mon 8 June 2026 (live data) · Next automated report: Tue 9 June 2026 at 9:00 AM · Data: Garmin Connect + Xert + Intervals.icu
 </div>
 
 <script>
@@ -825,34 +636,23 @@ function switchTab(id, btn) {
   btn.classList.add('active');
 }
 
-// Form/Load Chart — estimated last 14 days based on live data (CTL:84, ATL:78, TSB:+6)
-const labels = ['May 25','May 26','May 27','May 28','May 29','May 30','May 31',
-                 'Jun 1','Jun 2','Jun 3','Jun 4','Jun 5','Jun 6','Jun 7'];
-const ctlData = [79, 79, 80, 80, 80, 81, 81, 81, 82, 82, 83, 83, 83, 84];
-const atlData = [75, 72, 82, 86, 84, 80, 88, 90, 95, 87, 91, 81, 75, 78];
-const tsbData = ctlData.map((c,i) => c - atlData[i]);
-
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels,
+    labels: ['May 25','May 28','Jun 1','Jun 4','Jun 7','Jun 8'],
     datasets: [
-      {label:'CTL',data:ctlData,borderColor:'#4f8ef7',backgroundColor:'#4f8ef711',borderWidth:2,tension:0.4,fill:false,pointRadius:2,pointHoverRadius:5},
-      {label:'ATL',data:atlData,borderColor:'#a855f7',backgroundColor:'#a855f711',borderWidth:2,tension:0.4,fill:false,pointRadius:2,pointHoverRadius:5},
-      {label:'TSB',data:tsbData,borderColor:'#22c55e',backgroundColor:'#22c55e22',borderWidth:2,tension:0.4,fill:'origin',pointRadius:2,pointHoverRadius:5}
+      { label:'CTL', data:[76,78,80,82,83,84], borderColor:'#4f8ef7', backgroundColor:'rgba(79,142,247,0.1)', borderWidth:2.5, pointRadius:3, tension:0.4, fill:true },
+      { label:'ATL', data:[70,74,78,82,80,79], borderColor:'#a855f7', backgroundColor:'rgba(168,85,247,0.05)', borderWidth:2, pointRadius:3, tension:0.4, fill:false },
+      { label:'TSB', data:[6,4,2,0,3,5], borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,0.08)', borderWidth:2, pointRadius:3, tension:0.4, fill:true }
     ]
   },
   options: {
     maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      legend: {display:false},
-      tooltip: {backgroundColor:'#1e2130',borderColor:'#2a2d3e',borderWidth:1,titleColor:'#e2e8f0',bodyColor:'#94a3b8'}
-    },
+    plugins: { legend: { display: false } },
     scales: {
-      x: {grid:{color:'#2a2d3e55'},ticks:{color:'#64748b',font:{size:10},maxTicksLimit:7}},
-      y: {grid:{color:'#2a2d3e55'},ticks:{color:'#64748b',font:{size:10}}}
+      x: { grid:{ color:'#2a2d3e' }, ticks:{ color:'#64748b', font:{ size:10 } } },
+      y: { grid:{ color:'#2a2d3e' }, ticks:{ color:'#64748b', font:{ size:10 } } }
     }
   }
 });

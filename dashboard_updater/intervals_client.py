@@ -75,8 +75,8 @@ def get_recent_activities(limit=10):
     rows = _get(f"/athlete/{INTERVALS_ATHLETE_ID}/activities", {"oldest": oldest})
     # Exclude bare Strava stubs that have no detail fields
     rows = [r for r in rows if not (r.get("source") == "STRAVA" and not r.get("name"))]
-    # API returns oldest-first; reverse so newest is first, then take limit
-    rows = list(reversed(rows))[:limit]
+    # Sort by date descending (newest first) then take limit
+    rows = sorted(rows, key=lambda r: r.get("start_date_local", ""), reverse=True)[:limit]
     result = []
     for r in rows:
         dist_m = r.get("distance") or 0
