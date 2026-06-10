@@ -117,9 +117,11 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status):
     hrv_today, hrv_avg, hrv_status, hrv_color, hrv_badge_cls, hrv_badge_txt = _hrv_info(iv_hrv)
 
     # ── Activities ───────────────────────────────────────────────────────────
+    yesterday = today - timedelta(days=1)
     act_rows = []
     for a in iv_activities:
         xss_v = a.get('xss') or 0
+        act_date = a.get('date', '')[:10]
         act_rows.append({
             'icon':          _sport_icon(a.get('sport_type')),
             'name':          a.get('name') or 'Activity',
@@ -129,17 +131,26 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status):
             'xss':           xss_v,
             'xss_class':     _xss_class(xss_v),
             'row_class':     '',
+            'is_today':      act_date == today.isoformat(),
+            'is_yesterday':  act_date == yesterday.isoformat(),
         })
 
     # ── Xert ─────────────────────────────────────────────────────────────────
     xs = xert_status or {}
-    xtp  = xs.get('tp')  or eftp or '—'
+    xtp_raw  = xs.get('tp')
+    xtp  = round(xtp_raw) if isinstance(xtp_raw, (int, float)) else (eftp or '—')
     xhie_raw = xs.get('hie')
-    # Xert returns HIE in joules; convert to kJ for display
-    xhie = round(xhie_raw / 1000, 1) if isinstance(xhie_raw, (int, float)) else '—'
-    xpp  = xs.get('pp')  or '—'
+    # API returns HIE already in kJ
+    xhie = round(xhie_raw, 1) if isinstance(xhie_raw, (int, float)) else '—'
+    xpp_raw = xs.get('pp')
+    xpp  = round(xpp_raw) if isinstance(xpp_raw, (int, float)) else '—'
     xsl  = xs.get('status_label') or ('Active' if xs else 'Not configured')
     xsc  = xs.get('status_css')   or 'muted'
+    # WOTD
+    xwotd_name = xs.get('wotd_name')
+    xwotd_desc = xs.get('wotd_description') or ''
+    xwotd_type = xs.get('wotd_type') or ''
+    xtarget_xss = xs.get('xss_today')
 
     # ── Generated dates ───────────────────────────────────────────────────────
     dow = today.weekday()
@@ -147,12 +158,14 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status):
     gen_long  = f"{_DOW_L[dow]} {today.day} {_MON_LONG[today.month]} {today.year}"
     tmrw = today + timedelta(days=1)
     next_rpt  = f"{_DOW_L[tmrw.weekday()]} {tmrw.day} {_MON_LONG[tmrw.month]} {tmrw.year}"
+    tomorrow_short = f"{_DOW_S[tmrw.weekday()].upper()} {tmrw.day} {_MON[tmrw.month].upper()}"
 
     return {
         # Meta
         'generated_date_short': gen_short,
         'generated_date_long':  gen_long,
         'next_report_date':     next_rpt,
+        'tomorrow_date_short':  tomorrow_short,
 
         # Countdown
         'days_to_nationals': days_to_race,
@@ -190,6 +203,10 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status):
         'xert_pp':           xpp,
         'xert_status_label': xsl,
         'xert_status_color': xsc,
+        'xert_wotd_name':    xwotd_name,
+        'xert_wotd_desc':    xwotd_desc,
+        'xert_wotd_type':    xwotd_type,
+        'xert_target_xss':   xtarget_xss,
 
         # Activities (list of dicts)
         'activities': act_rows,

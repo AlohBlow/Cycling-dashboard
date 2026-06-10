@@ -92,6 +92,38 @@ def get_recent_activities(limit=10):
     return result
 
 
+# ── PLANNED EVENTS ───────────────────────────────────────────────────────────
+
+def get_planned_events(weeks=4):
+    """
+    Returns planned events/workouts for the next N weeks.
+    Each entry includes name, date, load_target, description.
+    """
+    from datetime import date, timedelta
+    oldest = date.today().isoformat()
+    newest = (date.today() + timedelta(weeks=weeks)).isoformat()
+    try:
+        rows = _get(f"/athlete/{INTERVALS_ATHLETE_ID}/events", {
+            "oldest": oldest,
+            "newest": newest,
+        })
+        result = []
+        for r in rows:
+            result.append({
+                "name":         r.get("name"),
+                "description":  r.get("description"),
+                "date":         (r.get("start_date_local") or r.get("date") or "")[:10],
+                "start_date_local": r.get("start_date_local", ""),
+                "xss":          r.get("load") or r.get("icu_training_load") or 0,
+                "load_target":  r.get("load") or 0,
+                "duration":     r.get("moving_time") or 0,
+                "type":         r.get("type"),
+            })
+        return result
+    except Exception as e:
+        return []
+
+
 # ── WELLNESS (weight / resting HR) ───────────────────────────────────────────
 
 def get_latest_wellness():

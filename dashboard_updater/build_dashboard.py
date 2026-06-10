@@ -16,6 +16,7 @@ import xert_client as xr
 from config import XERT_EMAIL
 from data_builder import build_context
 from coaching_note_generator import generate_coaching_note
+from planner_builder import build_planner
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 log = logging.getLogger(__name__)
@@ -41,13 +42,26 @@ def _fetch():
         log.error(f'Intervals.icu error: {e}')
 
     xert_status = None
+    data['xert_calendar'] = []
     if XERT_EMAIL:
         log.info('Fetching Xert data...')
         try:
             xert_status = xr.get_athlete_status()
             log.info(f"  Xert TP={xert_status.get('tp')} status={xert_status.get('status_label')}")
         except Exception as e:
-            log.warning(f'Xert error (skipping): {e}')
+            log.warning(f'Xert status error (skipping): {e}')
+        try:
+            xert_events = xr.get_calendar_events(days_back=14, days_forward=28)
+            log.info(f"  Xert calendar: {len(xert_events)} events")
+            data['xert_calendar'] = xert_events
+        except Exception as e:
+            log.warning(f'Xert calendar error (skipping): {e}')
+            # Fallback to OAuth activity list
+            try:
+                xert_acts = xr.get_recent_activities(days=60, limit=50)
+                data['xert_calendar'] = xert_acts
+            except Exception as e2:
+                log.warning(f'Xert activities fallback error: {e2}')
     else:
         log.info('Xert: no credentials configured — skipping')
 
@@ -58,6 +72,24 @@ def build():
     log.info(f'Build started — {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
     api_data, xert_status = _fetch()
+
+    # Build training planner — Xert calendar (planned + completed) + Intervals.icu fallback
+    log.info('Building training planner...')
+    xert_cal = api_data.get('xert_calendar', [])
+    planned  = [e for e in xert_cal if not e.get('completed')]
+    completed_xert = [e for e in xert_cal if e.get('completed')]
+    # Use Xert completed events merged with Intervals.icu (for XSS/duration accuracy)
+    # Intervals.icu is the activity source of truth; Xert calendar adds planned events
+    try:
+        planner_ctx = build_planner(
+            iv_events=planned,                     # Xert planned/forecast events
+            iv_activities=api_data['activities'],  # Intervals.icu completed (has XSS + duration)
+            weeks=3,
+        )
+        log.info(f"  Planner: {len(planner_ctx.get('planner_weeks', []))} weeks")
+    except Exception as e:
+        log.warning(f'Planner build error: {e}')
+        planner_ctx = {'planner_weeks': [], 'active_week_index': 0}
 
     ctx = build_context(
         iv_fitness    = api_data['fitness'],
@@ -92,6 +124,9 @@ def build():
     else:
         log.warning('Coaching note generation failed; using empty placeholder')
         ctx['coaching_note'] = ''
+
+    # Merge planner context
+    ctx.update(planner_ctx)
 
     env = Environment(
         loader=FileSystemLoader(str(PROJECT_ROOT)),

@@ -96,11 +96,26 @@ def generate_coaching_note(
     yesterday = today - timedelta(days=1)
     days_to_race = max(0, (RACE_DATE - today).days)
 
+    # Filter to meaningful training activities only (exclude trivial/errands)
+    _TRIVIAL = {'shop', 'walk', 'stroll', 'errand', 'commute', 'groceries'}
+    def _is_meaningful(act):
+        name = (act.get('name') or '').lower()
+        xss  = act.get('xss') or 0
+        sport = (act.get('sport_type') or act.get('type') or '').lower()
+        if any(t in name for t in _TRIVIAL) and xss < 15:
+            return False
+        if 'walk' in sport and xss < 20:
+            return False
+        return True
+
+    meaningful = [a for a in activities if _is_meaningful(a)]
+    all_acts = meaningful if meaningful else activities  # fallback to all if nothing meaningful
+
     # Get most recent activities (activities list is newest-first)
-    yesterday_act = _get_activity_by_date(activities, yesterday)
-    today_act = _get_activity_by_date(activities, today)
-    # Fallback: if no exact date match, use the most recent activity available
-    most_recent_act = activities[0] if activities else None
+    yesterday_act = _get_activity_by_date(all_acts, yesterday)
+    today_act = _get_activity_by_date(all_acts, today)
+    # Fallback: if no exact date match, use the most recent meaningful activity
+    most_recent_act = all_acts[0] if all_acts else None
     most_recent_date = most_recent_act.get('date', '')[:10] if most_recent_act else 'unknown'
     log.info(f"  today_act: {today_act.get('name') if today_act else 'None'} | yesterday_act: {yesterday_act.get('name') if yesterday_act else 'None'} | most_recent: {most_recent_act.get('name') if most_recent_act else 'None'} ({most_recent_date})")
 
