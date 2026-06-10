@@ -73,7 +73,8 @@ def _hrv_info(hrv_list):
     return latest, avg_r, 'Balanced',   'accent2', 'balanced', 'In Range ↔'
 
 
-def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status):
+def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
+                  xert_calendar=None, strava_activities=None):
     today = date.today()
     race_date = date(2026, 6, 28)
     days_to_race = max(0, (race_date - today).days)
@@ -116,17 +117,40 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status):
     # ── HRV ──────────────────────────────────────────────────────────────────
     hrv_today, hrv_avg, hrv_status, hrv_color, hrv_badge_cls, hrv_badge_txt = _hrv_info(iv_hrv)
 
+    # ── Build Xert XSS lookup by date (use Xert as source of truth for XSS) ──
+    xert_xss_by_date = {}
+    for ev in (xert_calendar or []):
+        if not ev.get('completed'):
+            continue
+        d = ev.get('date', '')[:10]
+        xss = ev.get('xss') or 0
+        if d and xss:
+            # Sum multiple completed events per day
+            xert_xss_by_date[d] = xert_xss_by_date.get(d, 0) + xss
+
     # ── Activities ───────────────────────────────────────────────────────────
     yesterday = today - timedelta(days=1)
     act_rows = []
     for a in iv_activities:
-        xss_v = a.get('xss') or 0
         act_date = a.get('date', '')[:10]
+        # Use Xert XSS for this date if available (more accurate than Intervals.icu)
+        xert_day_xss = xert_xss_by_date.get(act_date)
+        iv_xss = a.get('xss') or 0
+        # Only use Xert XSS for cycling activities; walks/runs keep IV value
+        sport = (a.get('sport_type') or '').lower()
+        is_cycling = 'ride' in sport or sport == 'cycling'
+        if xert_day_xss and is_cycling:
+            xss_v = round(xert_day_xss)
+        else:
+            xss_v = round(iv_xss) if iv_xss else 0
         act_rows.append({
             'icon':          _sport_icon(a.get('sport_type')),
             'name':          a.get('name') or 'Activity',
+            'date':          a.get('date', ''),
             'date_str':      _fmt_date(a.get('date', '')),
+            'sport_type':    a.get('sport_type', ''),
             'duration_str':  _dur(a.get('duration_sec')),
+            'distance_km':   a.get('distance_km'),
             'distance_str':  f"{a.get('distance_km')} km" if a.get('distance_km') else '—',
             'xss':           xss_v,
             'xss_class':     _xss_class(xss_v),

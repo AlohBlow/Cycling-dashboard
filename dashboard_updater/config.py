@@ -33,5 +33,9 @@ XERT_BASE_URL = "https://www.xertonline.com/api/v1"
 
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")  # optional — coaching notes skipped if blank
 
+STRAVA_CLIENT_ID     = os.getenv("STRAVA_CLIENT_ID", "")
+STRAVA_CLIENT_SECRET = os.getenv("STRAVA_CLIENT_SECRET", "")
+STRAVA_REFRESH_TOKEN = os.getenv("STRAVA_REFRESH_TOKEN", "")
+
 OUTPUT_HTML   = "../index.html"
 TEMPLATE_HTML = "../cycling-dashboard-template.html"

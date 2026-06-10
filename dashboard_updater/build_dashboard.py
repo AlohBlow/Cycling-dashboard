@@ -92,11 +92,13 @@ def build():
         planner_ctx = {'planner_weeks': [], 'active_week_index': 0}
 
     ctx = build_context(
-        iv_fitness    = api_data['fitness'],
-        iv_wellness   = api_data['wellness'],
-        iv_activities = api_data['activities'],
-        iv_hrv        = api_data['hrv'],
-        xert_status   = xert_status,
+        iv_fitness        = api_data['fitness'],
+        iv_wellness       = api_data['wellness'],
+        iv_activities     = api_data['activities'],
+        iv_hrv            = api_data['hrv'],
+        xert_status       = xert_status,
+        xert_calendar     = api_data.get('xert_calendar', []),
+        strava_activities = api_data.get('strava_activities', []),
     )
 
     # Generate coaching note
@@ -115,7 +117,7 @@ def build():
         tsb_raw=tsb_raw,
         xert_status=xert_status,
         hrv_list=api_data['hrv'],
-        activities=api_data['activities'],
+        activities=ctx['activities'],  # enriched with Xert XSS
         xss_remaining_today=xss_remaining,
     )
 
