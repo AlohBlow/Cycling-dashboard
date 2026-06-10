@@ -207,11 +207,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="header-pills">
     <div class="status-badge">
       <span class="sb-label">Training Status</span>
-      <span class="sb-value" style="color:var(--yellow)">Tired</span>
+      <span class="sb-value" style="color:var(--green)">Fresh</span>
     </div>
     <div class="status-badge">
       <span class="sb-label">Form / TSB</span>
-      <span class="sb-value" style="color:var(--accent)">+2.8 · Fresh</span>
+      <span class="sb-value" style="color:var(--accent)">+11.7 · Fresh</span>
     </div>
     <div class="status-badge">
       <span class="sb-label">Updated</span>
@@ -237,19 +237,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Garmin Connect</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TR: Low (High Recovery) · Sleep: 7h 31m · Resting HR: 42 bpm · Weight: 66.6 kg</td>
+        <td>TR: Low (High Recovery) · Sleep: — · Resting HR: 40 bpm · Weight: — kg</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Intervals.icu</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>CTL: 83.9 · ATL: 81.1 · TSB: +2.8 · Zone: Fresh</td>
+        <td>CTL: 82.0 · ATL: 70.3 · TSB: +11.7 · Zone: Fresh</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Xert</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TP: 277W · HIE: 23.0 kJ · PP: 1090W · Status: Tired</td>
+        <td>TP: 277W · HIE: 22.9 kJ · PP: 1090W · Status: Fresh</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -279,9 +279,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   </div>
   <div class="metric-card blue">
     <div class="mc-label">Sleep Last Night</div>
-    <div class="mc-value" style="color:var(--accent)">7h 31m</div>
+    <div class="mc-value" style="color:var(--accent)">—</div>
     <div class="mc-sub">Score from Garmin</div>
-    <span class="mc-badge high">80 Sleep Score</span>
+    <span class="mc-badge high">Score unavailable</span>
   </div>
   <div class="metric-card yellow">
     <div class="mc-label">Body Battery</div>
@@ -303,9 +303,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="chart-card">
     <div class="chart-title">CTL / ATL / TSB — Last 14 Days</div>
     <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 83.9</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 81.1</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) +2.8</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 82.0</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 70.3</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) +11.7</div>
     </div>
     <div class="chart-wrap"><canvas id="formChart"></canvas></div>
     <div class="zone-bar">
@@ -315,12 +315,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="z z-trans" style="flex:1"></div>
     </div>
     <div class="zone-bar-labels">
-      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now +2.8</span><span>Transition</span>
+      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now +11.7</span><span>Transition</span>
     </div>
     <div class="current-marker">
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">83.9</div><div class="cm-lab">CTL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">81.1</div><div class="cm-lab">ATL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">+2.8</div><div class="cm-lab">TSB</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">82.0</div><div class="cm-lab">CTL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">70.3</div><div class="cm-lab">ATL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">+11.7</div><div class="cm-lab">TSB</div></div>
     </div>
   </div>
 
@@ -556,7 +556,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <div class="xs-lab">TP</div>
       </div>
       <div class="xs-item">
-        <div class="xs-val">23.0</div>
+        <div class="xs-val">22.9</div>
         <div class="xs-unit">kJ</div>
         <div class="xs-lab">HIE</div>
       </div>
@@ -571,7 +571,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div style="font-size:11px;color:var(--muted2)">Max HR: 184 BPM · Max Power: 1022W<br>Focus: Mixed Puncheur · 71.9 km</div>
     </div>
     <div style="margin-top:10px;padding:8px;background:var(--card2);border-radius:6px">
-      <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--yellow)">Tired</span></div>
+      <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--green)">Fresh</span></div>
       <div style="font-size:11px;color:var(--muted2);margin-top:2px">Load Focus: <span style="color:var(--orange)">Above Targets</span></div>
       <div style="font-size:11px;color:var(--muted2);margin-top:2px">VO₂ Max: <span style="color:var(--accent)">Superior (100th %ile)</span></div>
     </div>
@@ -623,8 +623,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <div class="nutrition-flags">
   <div class="nf-card">
     <div class="nf-label">Weight Today</div>
-    <div class="nf-value" style="color:var(--green)">66.6 <span style="font-size:14px">kg</span></div>
-    <div class="nf-target">Race weight goal: 66.0 kg · Resting HR: 42 bpm</div>
+    <div class="nf-value" style="color:var(--green)">— <span style="font-size:14px">kg</span></div>
+    <div class="nf-target">Race weight goal: 66.0 kg · Resting HR: 40 bpm</div>
     <span class="nf-flag ok">✓ At race weight — maintain, don't cut further</span>
   </div>
   <div class="nf-card">
@@ -642,208 +642,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <!-- LAST RIDE DEEP ANALYSIS (RIDUCK · STRAVA) -->
-
-<div class="dash-section">
-  <div class="section-title">⚡ Last Ride Deep Analysis (Riduck · Strava)</div>
-  
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-
-    <!-- Power Zone Distribution -->
-    <div class="card">
-      <div class="card-title">⚡ Power Zone Distribution</div>
-      <div style="font-size:11px;color:var(--muted2);margin-bottom:12px">
-        Recovery cruise · Wed 10 Jun
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z1</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:21%;height:100%;background:#64748b;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">21%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z2</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:37%;height:100%;background:#3b82f6;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">37%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z3</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:27%;height:100%;background:#22c55e;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">27%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z4</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:6%;height:100%;background:#eab308;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">6%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z5</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:4%;height:100%;background:#f97316;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">4%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z6</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:4%;height:100%;background:#ef4444;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">4%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z7</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:1%;height:100%;background:#a855f7;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">1%</span>
-      </div>
-      
-      
-      <div style="font-size:11px;font-weight:600;color:var(--muted);margin:12px 0 8px">HR ZONES</div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z1</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:55%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">55%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z2</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:43%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">43%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z3</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:1%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">1%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z4</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:0%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">0%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z5</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:0%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">0%</span>
-      </div>
-      
-      
-    </div>
-
-    <!-- Anaerobic Work -->
-    <div class="card">
-      <div class="card-title">🔥 Anaerobic Work</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <div class="stat-block">
-          <div class="stat-val" style="color:var(--orange)">2.6</div>
-          <div class="stat-lbl">Matches Burned</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-val" style="color:var(--red)">10.7%</div>
-          <div class="stat-lbl">AWC Discharged</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <div class="stat-block">
-          <div class="stat-val">18.2</div>
-          <div class="stat-lbl">AWC Energy kJ</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-val" style="color:var(--accent2)">15h</div>
-          <div class="stat-lbl">Recovery Time</div>
-        </div>
-      </div>
-      
-      <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px">PEAK POWER</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        
-        <div class="stat-block">
-          <div class="stat-val" style="color:var(--accent)">190W</div>
-          <div class="stat-lbl">5 min</div>
-        </div>
-        
-        
-        <div class="stat-block">
-          <div class="stat-val" style="color:var(--accent)">168W
-            <span style="font-size:12px;color:var(--muted2)">(70% TP)</span>
-          </div>
-          <div class="stat-lbl">20 min</div>
-        </div>
-        
-      </div>
-      
-    </div>
-
-    <!-- Energy Metabolism -->
-    <div class="card">
-      <div class="card-title">🚀 Energy Metabolism</div>
-      
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
-        <span style="color:var(--yellow)">🟡 Fat 50.5%</span>
-        <span style="color:var(--accent2)">🔵 Carb 49.5%</span>
-      </div>
-      <div style="background:var(--bg3);border-radius:4px;height:10px;overflow:hidden;margin-bottom:16px">
-        <div style="width:50.5%;height:100%;background:var(--yellow);display:inline-block;border-radius:4px 0 0 4px"></div>
-        <div style="width:49.5%;height:100%;background:var(--accent2);display:inline-block;border-radius:0 4px 4px 0"></div>
-      </div>
-      
-      
-      <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px">XSS BREAKDOWN</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
-        <div style="background:#1e3a5f;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--accent)">64.0</div>
-          <div style="font-size:10px;color:var(--muted2)">LOW XSS</div>
-        </div>
-        <div style="background:#2d3b2a;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--green)">0.5</div>
-          <div style="font-size:10px;color:var(--muted2)">HIGH XSS</div>
-        </div>
-        <div style="background:#3b2020;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--red)">0.1</div>
-          <div style="font-size:10px;color:var(--muted2)">PEAK XSS</div>
-        </div>
-      </div>
-      
-      <div style="background:var(--bg3);border-radius:8px;padding:10px">
-        <div style="font-size:14px;font-weight:600;color:var(--green)">Recovery cruise</div>
-        <div style="font-size:12px;color:var(--muted2);margin-top:2px">
-          1h 29m
-           · 40.2 km
-           · <span style="color:var(--orange)">65 XSS</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  
-</div>
 
 
 <!-- TRAINING PLANNER -->
@@ -1159,7 +957,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>Your most recent logged session — Recovery cruise (76 XSS, 40.2 km) on 2026-06-10 — reflects a 81.1 ATL. CTL is at 83.9, indicating a solid fitness base built through consistent work. Today's TSB is +2.8 (fresh — good for tempo or threshold). HRV trend shows suppressed — still recovering. Your body needs attention to both training stress (ATL) and fitness base (CTL) — this balance is critical 18 days from race day. Build aerobic base with steady effort. Save hard intervals for when TSB is lower. Target 72 XSS if available. Listen to your body — fatigue perception matters as much as metrics. You're in the taper window approaching — quality over volume. With 18 days to June 28, your CTL of 83.9 and ATL of 81.1 show consistent work. Stay consistent, recover when needed, and trust your preparation.</p>
+    <p>Your most recent logged session — Recovery cruise (76 XSS, 40.2 km) on 2026-06-10 — reflects a 70.3 ATL. CTL is at 82.0, indicating a solid fitness base built through consistent work. Today's TSB is +11.7 (fresh — good for tempo or threshold). HRV trend shows suppressed — still recovering. Your body needs attention to both training stress (ATL) and fitness base (CTL) — this balance is critical 18 days from race day. Build aerobic base with steady effort. Save hard intervals for when TSB is lower. Target 125 XSS if available. Listen to your body — fatigue perception matters as much as metrics. You're in the taper window approaching — quality over volume. With 18 days to June 28, your CTL of 82.0 and ATL of 70.3 show consistent work. Stay consistent, recover when needed, and trust your preparation.</p>
     
     
     
@@ -1184,10 +982,10 @@ function switchTab(id, btn) {
 }
 
 // Live CTL/ATL/TSB data from Intervals.icu — last 14 days
-const labels  = ["May 28", "May 29", "May 30", "May 31", "Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6", "Jun 7", "Jun 8", "Jun 9", "Jun 10"];
-const ctlData = [85.8, 83.8, 83.7, 83.8, 86.4, 87.7, 86.5, 87.1, 85.2, 83.8, 83.7, 83.7, 84.7, 83.9];
-const atlData = [98.2, 85.3, 85.0, 85.5, 99.8, 105.3, 96.3, 98.6, 86.2, 78.3, 78.4, 79.3, 85.5, 81.1];
-const tsbData = [-12.4, -1.5, -1.3, -1.7, -13.4, -17.6, -9.8, -11.5, -1.0, 5.5, 5.3, 4.4, -0.8, 2.8];
+const labels  = ["May 29", "May 30", "May 31", "Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6", "Jun 7", "Jun 8", "Jun 9", "Jun 10", "Jun 11"];
+const ctlData = [83.8, 83.7, 83.8, 86.4, 87.7, 86.5, 87.1, 85.2, 83.8, 83.7, 83.7, 84.7, 83.9, 82.0];
+const atlData = [85.3, 85.0, 85.5, 99.8, 105.3, 96.3, 98.6, 86.2, 78.3, 78.4, 79.3, 85.5, 81.1, 70.3];
+const tsbData = [-1.5, -1.3, -1.7, -13.4, -17.6, -9.8, -11.5, -1.0, 5.5, 5.3, 4.4, -0.8, 2.8, 11.7];
 
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
