@@ -36,9 +36,12 @@ jobs:
         env:
           INTERVALS_ATHLETE_ID: ${{ secrets.INTERVALS_ATHLETE_ID }}
           INTERVALS_API_KEY:    ${{ secrets.INTERVALS_API_KEY }}
-          XERT_EMAIL:           ${{ secrets.XERT_EMAIL }}
-          XERT_PASSWORD:        ${{ secrets.XERT_PASSWORD }}
-          ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+          XERT_EMAIL:            ${{ secrets.XERT_EMAIL }}
+          XERT_PASSWORD:         ${{ secrets.XERT_PASSWORD }}
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          STRAVA_CLIENT_ID:      ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET:  ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN:  ${{ secrets.STRAVA_REFRESH_TOKEN }}
         run: python build_dashboard.py
 
       - name: Commit and push index.html
