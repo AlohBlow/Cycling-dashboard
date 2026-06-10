@@ -13,7 +13,8 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 import intervals_client as iv
 import xert_client as xr
-from config import XERT_EMAIL
+import strava_client as sc
+from config import XERT_EMAIL, STRAVA_CLIENT_ID
 from data_builder import build_context
 from coaching_note_generator import generate_coaching_note
 from planner_builder import build_planner
@@ -64,6 +65,18 @@ def _fetch():
                 log.warning(f'Xert activities fallback error: {e2}')
     else:
         log.info('Xert: no credentials configured — skipping')
+
+    data['strava_activities'] = []
+    if STRAVA_CLIENT_ID:
+        log.info('Fetching Strava data...')
+        try:
+            strava_acts = sc.get_recent_activities(days=14, limit=7)
+            data['strava_activities'] = strava_acts
+            log.info(f"  Strava: {len(strava_acts)} activities")
+        except Exception as e:
+            log.warning(f'Strava error (skipping): {e}')
+    else:
+        log.info('Strava: no credentials configured — skipping')
 
     return data, xert_status
 

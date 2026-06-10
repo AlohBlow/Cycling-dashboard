@@ -73,6 +73,56 @@ def _hrv_info(hrv_list):
     return latest, avg_r, 'Balanced',   'accent2', 'balanced', 'In Range ↔'
 
 
+def _pz_bar(power_zones):
+    """Return list of {zone, pct, color} for power zone bar chart."""
+    colors = ['#64748b', '#3b82f6', '#22c55e', '#eab308', '#f97316', '#ef4444', '#a855f7']
+    zones  = ['z1','z2','z3','z4','z5','z6','z7']
+    return [
+        {'zone': z.upper(), 'pct': power_zones.get(z, 0), 'color': colors[i]}
+        for i, z in enumerate(zones)
+        if power_zones.get(z, 0) > 0
+    ]
+
+
+def _build_strava_latest(strava_activities):
+    """Return enriched dict for the most recent Strava activity with Riduck data."""
+    if not strava_activities:
+        return None
+    # Prefer most recent activity that has Riduck data; fall back to most recent
+    with_riduck = [a for a in strava_activities if a.get('riduck')]
+    act = with_riduck[0] if with_riduck else strava_activities[0]
+    riduck = act.get('riduck') or {}
+    pz = riduck.get('power_zones') or {}
+    return {
+        'name':           act.get('name'),
+        'date_str':       _fmt_date(act.get('date', '')),
+        'duration_str':   act.get('duration_str', '—'),
+        'distance_km':    act.get('distance_km'),
+        'xss':            act.get('xss'),
+        'xss_low':        riduck.get('xss_low'),
+        'xss_high':       riduck.get('xss_high'),
+        'xss_peak':       riduck.get('xss_peak'),
+        'matches':        riduck.get('matches'),
+        'awc_energy_kj':  riduck.get('awc_energy_kj'),
+        'awc_pct':        riduck.get('awc_discharge_pct'),
+        'recovery_hrs':   riduck.get('recovery_hours'),
+        'p5m_watts':      (riduck.get('peak_power') or {}).get('p5m', {}).get('watts'),
+        'p20m_watts':     (riduck.get('peak_power') or {}).get('p20m', {}).get('watts'),
+        'p20m_pct':       (riduck.get('peak_power') or {}).get('p20m', {}).get('pct'),
+        'fat_pct':        riduck.get('fat_pct'),
+        'carb_pct':       riduck.get('carb_pct'),
+        'power_zones':    _pz_bar(pz) if pz else [],
+        'hr_zones':       [
+            {'zone': f"Z{z}", 'pct': pct}
+            for z, pct in sorted(
+                [(int(k[1:]), v) for k, v in (riduck.get('hr_zones') or {}).items()],
+                key=lambda x: x[0]
+            )
+        ],
+        'has_riduck':     bool(riduck),
+    }
+
+
 def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
                   xert_calendar=None, strava_activities=None):
     today = date.today()
@@ -234,4 +284,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
         # Activities (list of dicts)
         'activities': act_rows,
+
+        # Strava / Riduck deep analysis
+        'strava_latest': _build_strava_latest(strava_activities or []),
     }

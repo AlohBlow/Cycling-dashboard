@@ -507,6 +507,136 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   </div>
 </div>
 
+<!-- LAST RIDE DEEP ANALYSIS (RIDUCK · STRAVA) -->
+{% if strava_latest %}
+<div class="dash-section">
+  <div class="section-title">⚡ Last Ride Deep Analysis (Riduck · Strava)</div>
+  {% if strava_latest.has_riduck %}
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+    <!-- Power Zone Distribution -->
+    <div class="card">
+      <div class="card-title">⚡ Power Zone Distribution</div>
+      <div style="font-size:11px;color:var(--muted2);margin-bottom:12px">
+        {{ strava_latest.name }} · {{ strava_latest.date_str }}
+      </div>
+      {% for z in strava_latest.power_zones %}
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:11px;color:var(--muted);width:20px">{{ z.zone }}</span>
+        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:{{ z.pct }}%;height:100%;background:{{ z.color }};border-radius:3px"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">{{ z.pct }}%</span>
+      </div>
+      {% endfor %}
+      {% if strava_latest.hr_zones %}
+      <div style="font-size:11px;font-weight:600;color:var(--muted);margin:12px 0 8px">HR ZONES</div>
+      {% for hz in strava_latest.hr_zones %}
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:11px;color:var(--muted);width:20px">{{ hz.zone }}</span>
+        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
+          <div style="width:{{ hz.pct }}%;height:100%;background:var(--muted);border-radius:3px"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">{{ hz.pct }}%</span>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- Anaerobic Work -->
+    <div class="card">
+      <div class="card-title">🔥 Anaerobic Work</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+        <div class="stat-block">
+          <div class="stat-val" style="color:var(--orange)">{{ strava_latest.matches or '—' }}</div>
+          <div class="stat-lbl">Matches Burned</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-val" style="color:var(--red)">{{ strava_latest.awc_pct or '—' }}{% if strava_latest.awc_pct %}%{% endif %}</div>
+          <div class="stat-lbl">AWC Discharged</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+        <div class="stat-block">
+          <div class="stat-val">{{ strava_latest.awc_energy_kj or '—' }}</div>
+          <div class="stat-lbl">AWC Energy kJ</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-val" style="color:var(--accent2)">{{ strava_latest.recovery_hrs or '—' }}{% if strava_latest.recovery_hrs %}h{% endif %}</div>
+          <div class="stat-lbl">Recovery Time</div>
+        </div>
+      </div>
+      {% if strava_latest.p5m_watts or strava_latest.p20m_watts %}
+      <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px">PEAK POWER</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        {% if strava_latest.p5m_watts %}
+        <div class="stat-block">
+          <div class="stat-val" style="color:var(--accent)">{{ strava_latest.p5m_watts }}W</div>
+          <div class="stat-lbl">5 min</div>
+        </div>
+        {% endif %}
+        {% if strava_latest.p20m_watts %}
+        <div class="stat-block">
+          <div class="stat-val" style="color:var(--accent)">{{ strava_latest.p20m_watts }}W
+            {% if strava_latest.p20m_pct %}<span style="font-size:12px;color:var(--muted2)">({{ strava_latest.p20m_pct }}% TP)</span>{% endif %}
+          </div>
+          <div class="stat-lbl">20 min</div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Energy Metabolism -->
+    <div class="card">
+      <div class="card-title">🚀 Energy Metabolism</div>
+      {% if strava_latest.fat_pct is not none and strava_latest.carb_pct is not none %}
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
+        <span style="color:var(--yellow)">🟡 Fat {{ strava_latest.fat_pct }}%</span>
+        <span style="color:var(--accent2)">🔵 Carb {{ strava_latest.carb_pct }}%</span>
+      </div>
+      <div style="background:var(--bg3);border-radius:4px;height:10px;overflow:hidden;margin-bottom:16px">
+        <div style="width:{{ strava_latest.fat_pct }}%;height:100%;background:var(--yellow);display:inline-block;border-radius:4px 0 0 4px"></div>
+        <div style="width:{{ strava_latest.carb_pct }}%;height:100%;background:var(--accent2);display:inline-block;border-radius:0 4px 4px 0"></div>
+      </div>
+      {% endif %}
+      {% if strava_latest.xss %}
+      <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px">XSS BREAKDOWN</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+        <div style="background:#1e3a5f;border-radius:6px;padding:8px;text-align:center">
+          <div style="font-size:16px;font-weight:700;color:var(--accent)">{{ strava_latest.xss_low or '—' }}</div>
+          <div style="font-size:10px;color:var(--muted2)">LOW XSS</div>
+        </div>
+        <div style="background:#2d3b2a;border-radius:6px;padding:8px;text-align:center">
+          <div style="font-size:16px;font-weight:700;color:var(--green)">{{ strava_latest.xss_high or '—' }}</div>
+          <div style="font-size:10px;color:var(--muted2)">HIGH XSS</div>
+        </div>
+        <div style="background:#3b2020;border-radius:6px;padding:8px;text-align:center">
+          <div style="font-size:16px;font-weight:700;color:var(--red)">{{ strava_latest.xss_peak or '—' }}</div>
+          <div style="font-size:10px;color:var(--muted2)">PEAK XSS</div>
+        </div>
+      </div>
+      {% endif %}
+      <div style="background:var(--bg3);border-radius:8px;padding:10px">
+        <div style="font-size:14px;font-weight:600;color:var(--green)">{{ strava_latest.name }}</div>
+        <div style="font-size:12px;color:var(--muted2);margin-top:2px">
+          {{ strava_latest.duration_str }}
+          {% if strava_latest.distance_km %} · {{ strava_latest.distance_km }} km{% endif %}
+          {% if strava_latest.xss %} · <span style="color:var(--orange)">{{ strava_latest.xss | round | int }} XSS</span>{% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% else %}
+  <div class="card" style="color:var(--muted2);text-align:center;padding:24px">
+    No Riduck AI data found for {{ strava_latest.name }} ({{ strava_latest.date_str }}).
+    Riduck analysis appears in the Strava activity description after sync.
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
 <!-- TRAINING PLANNER -->
 <div class="section-title">Training Planner + Recovery</div>
 <div class="tab-nav">
