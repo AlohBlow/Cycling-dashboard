@@ -4,7 +4,12 @@ Fetches planned workouts, matches with actual activities, highlights today.
 """
 
 import logging
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
+
+_SGT = timezone(timedelta(hours=8))
+
+def _today_sgt():
+    return datetime.now(_SGT).date()
 
 log = logging.getLogger(__name__)
 
@@ -63,7 +68,7 @@ def build_planner(iv_events, iv_activities, weeks=3):
           - planner_weeks: list of week dicts
           - active_week_index: 0-based index of current week
     """
-    today = date.today()
+    today = _today_sgt()
 
     # Build a lookup of completed activities by date
     completed_by_date = {}

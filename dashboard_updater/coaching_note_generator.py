@@ -3,7 +3,12 @@ Generates coaching notes based on live training data (template-based, no API req
 """
 
 import logging
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
+
+_SGT = timezone(timedelta(hours=8))
+
+def _today_sgt():
+    return datetime.now(_SGT).date()
 
 log = logging.getLogger(__name__)
 
@@ -92,7 +97,7 @@ def generate_coaching_note(
         String: The generated coaching note (4 paragraphs, <300 words)
     """
 
-    today = date.today()
+    today = _today_sgt()
     yesterday = today - timedelta(days=1)
     days_to_race = max(0, (RACE_DATE - today).days)
 

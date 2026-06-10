@@ -3,7 +3,12 @@ Transforms raw API responses into the flat dict that Jinja2 renders into the das
 """
 
 import json
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
+
+_SGT = timezone(timedelta(hours=8))
+
+def _today_sgt():
+    return datetime.now(_SGT).date()
 
 _MON = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',
         7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}
@@ -125,7 +130,7 @@ def _build_strava_latest(strava_activities):
 
 def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
                   xert_calendar=None, strava_activities=None):
-    today = date.today()
+    today = _today_sgt()
     race_date = date(2026, 6, 28)
     days_to_race = max(0, (race_date - today).days)
 
