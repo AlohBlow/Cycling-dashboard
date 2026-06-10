@@ -1,0 +1,879 @@
+[
+  {
+    "_id": "6a1d16456a192d092c0d80c4",
+    "version": 0.8,
+    "user_id": 22823,
+    "profile_id": "655969c8acbbc805885553f2",
+    "path": "axmpx2srz2mxpzvt",
+    "enabled": true,
+    "favorite": false,
+    "extr": false,
+    "provider": "garmin",
+    "garmin_id": 23086788415,
+    "file_id": {
+      "type": 4,
+      "manufacturer": "Garmin",
+      "product": "unknown",
+      "time_created": 1149216729,
+      "serial_number": 3508558003
+    },
+    "activity": {
+      "event_type": "stop",
+      "event": "activity",
+      "num_sessions": 1,
+      "local_timestamp": {
+        "$date": {
+          "$numberLong": "1780311129000"
+        }
+      },
+      "total_timer_time": 4529.392,
+      "timestamp": {
+        "$date": {
+          "$numberLong": "1780282329000"
+        }
+      }
+    },
+    "laps": [
+      {
+        "lap_trigger": 2,
+        "max_heart_rate": 79,
+        "avg_cadence": 18,
+        "total_ascent": 31,
+        "total_calories": 80,
+        "enhanced_max_altitude": 25.399999999999977,
+        "sport": "Walking",
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780282329000"
+          }
+        },
+        "enhanced_min_altitude": 1,
+        "avg_heart_rate": 59,
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780282329000"
+          }
+        },
+        "event": "lap",
+        "end_position_lat": 1.3240194227546453,
+        "total_elapsed_time": 6108.4,
+        "start_position_lat": 1.3181742187589407,
+        "max_cadence": 79,
+        "start_position_long": 103.91226352192461,
+        "end_position_long": 103.93014966510236,
+        "total_descent": 34,
+        "total_distance": 1,
+        "event_type": "stop",
+        "total_cycles": 1006,
+        "total_timer_time": 2323.36,
+        "enhanced_max_speed": 5.846400000000001,
+        "enhanced_avg_speed": 1.548
+      },
+      {
+        "avg_fractional_cadence": 0.6484375,
+        "lap_trigger": 7,
+        "max_heart_rate": 104,
+        "avg_cadence": 14,
+        "total_ascent": 19,
+        "total_calories": 81,
+        "message_index": 1,
+        "enhanced_max_altitude": 26.399999999999977,
+        "sport": "Walking",
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780282329000"
+          }
+        },
+        "enhanced_min_altitude": 10.399999999999977,
+        "avg_heart_rate": 67,
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780288438000"
+          }
+        },
+        "event": "lap",
+        "end_position_lat": 1.3182090874761343,
+        "total_elapsed_time": 2659.06,
+        "start_position_lat": 1.3234933745115995,
+        "max_cadence": 61,
+        "start_position_long": 103.92897401936352,
+        "end_position_long": 103.91229034401476,
+        "total_descent": 8,
+        "total_distance": 0.8495900000000001,
+        "event_type": "stop",
+        "total_cycles": 763,
+        "total_timer_time": 2206.032,
+        "enhanced_max_speed": 27.0396,
+        "enhanced_avg_speed": 1.3860000000000001
+      }
+    ],
+    "sessions": [
+      {
+        "avg_fractional_cadence": 0.875,
+        "min_heart_rate": 46,
+        "max_cadence": 76,
+        "avg_cadence": 56.490566037735846,
+        "swc_long": 103.91157385893166,
+        "total_ascent": 50,
+        "enhanced_avg_speed": 4.362003498542273,
+        "training_load_peak": 1.3112030029296875,
+        "num_laps": 2,
+        "total_cycles": 1769,
+        "event_type": "stop",
+        "nec_long": 103.93045267090201,
+        "total_distance": 1.8495899999999998,
+        "total_descent": 42,
+        "total_timer_time": 4529.392,
+        "start_position_long": 103.91226352192461,
+        "start_position_lat": 1.3181742187589407,
+        "end_position_lat": 1.3182090874761343,
+        "event": "session",
+        "max_heart_rate": 102,
+        "total_elapsed_time": 8767.46,
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780282329000"
+          }
+        },
+        "avg_heart_rate": 64.17976424361493,
+        "timestamp": "2026-06-01T02:52:09.000000Z",
+        "sport": "Walking",
+        "end_position_long": 103.91229034401476,
+        "enhanced_max_speed": 27.0396,
+        "sport_profile_name": "Walk",
+        "enhanced_avg_altitude": 12.399999999999977,
+        "enhanced_min_altitude": 1,
+        "nec_lat": 1.3241365179419518,
+        "enhanced_max_altitude": 26.399999999999977,
+        "swc_lat": 1.3180997036397457,
+        "total_calories": 77.30568061956707,
+        "total_elevation_gain": 50,
+        "max_speed": 27.0396,
+        "avg_speed": 4.362003498542273,
+        "avg_power": 8.017099186896383,
+        "max_power": 110.17849792826036
+      }
+    ],
+    "duration": 1030,
+    "device_info": {
+      "software_version": 22.35,
+      "product": "unknown",
+      "source_type": 5,
+      "manufacturer": "Garmin",
+      "serial_number": 3508558003,
+      "timestamp": {
+        "$date": {
+          "$numberLong": "1780282329000"
+        }
+      },
+      "product_id": 4536
+    },
+    "start_date": "2026-06-01T02:52:09.000000Z",
+    "timezone": "Asia/Singapore",
+    "start_date_local": "2026-06-01T10:52:09.000000Z",
+    "distance": 1.8495899999999998,
+    "name": "Singapore Walking",
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 189.12098693847656,
+      "xlss": 173.78097534179688,
+      "xhss": 10.891679763793945,
+      "xpss": 4.448331832885742
+    },
+    "updated_at": "2026-06-01T05:21:29.944000Z",
+    "created_at": "2026-06-01T05:19:01.332000Z",
+    "xhss_est": 0,
+    "xlss_est": 5.780766957792812,
+    "xpss_est": 0,
+    "xss_est": 5.780766957792812,
+    "flag": false,
+    "power_source": "hr_estimate",
+    "group_activity_paths": [],
+    "map": "",
+    "strava_upload_id": 19846786517,
+    "two_way_sync": true,
+    "external_id": 18737463790,
+    "tgc": 0.7487438420001521,
+    "tgf": 7.915118242953236,
+    "force_analysis": true,
+    "adu": 8766,
+    "ap": 8.017099186896383,
+    "difficulty": 3.8264969675123797,
+    "fa": "Century Rider",
+    "hws": 0,
+    "lws": 14940.459915711936,
+    "pws": 0,
+    "rating": "1 - Easy",
+    "sfd": 3600,
+    "sfp": 286.65227789668876,
+    "sp": 1,
+    "spr": "Pure",
+    "tw": 70277.8914723337,
+    "tws": 14940.459915711936,
+    "xep": 8.583606665729926,
+    "xhss": 0,
+    "xlss": 5.780766957792812,
+    "xpss": 0,
+    "xss": 5.780766957792812,
+    "group_members": [],
+    "signature": {
+      "pp": 1091.7908490125965,
+      "ftp": 279.96756945217726,
+      "atc": 24164.644204315,
+      "ltp": 219.55595894138975
+    },
+    "exerciseType": "Activity",
+    "has_chart_image": false,
+    "has_map_image": true,
+    "has_street_image": false,
+    "has_workout_chart_image": false,
+    "hasPowerData": false,
+    "isCurrentProfile": true,
+    "focus": "Endurance",
+    "group_sharing": "Squad",
+    "chart_url": "/assets/images/user/22823/activity_chart_axmpx2srz2mxpzvt.png",
+    "map_url": "/assets/images/user/22823/map_axmpx2srz2mxpzvt.png",
+    "street_view_url": "/assets/images/user/22823/street_view_axmpx2srz2mxpzvt.png",
+    "total_duration": 8766,
+    "avg_speed": 2.841997281553398,
+    "avg_cadence": 29.047572815533982,
+    "avg_power": 8.017099186896383,
+    "avg_heart_rate": 69.97894736842105,
+    "max_speed": 27.0396,
+    "max_cadence": 76,
+    "max_power": 110.17849792826036,
+    "max_heart_rate": 102,
+    "data_source": "Garmin f\u0113nix 8 47mm"
+  },
+  {
+    "_id": "6a1d4d666c3b790c6b05721c",
+    "version": 0.8,
+    "user_id": 22823,
+    "profile_id": "655969c8acbbc805885553f2",
+    "path": "rzlzlw4tmhuula22",
+    "enabled": true,
+    "favorite": false,
+    "extr": true,
+    "provider": "garmin",
+    "garmin_id": 23088409562,
+    "file_id": {
+      "type": 4,
+      "manufacturer": "Garmin",
+      "product": "unknown",
+      "time_created": 1149235082,
+      "serial_number": 3508558003
+    },
+    "activity": {
+      "event_type": "stop",
+      "event": "activity",
+      "num_sessions": 1,
+      "local_timestamp": {
+        "$date": {
+          "$numberLong": "1780329482000"
+        }
+      },
+      "total_timer_time": 930.619,
+      "timestamp": {
+        "$date": {
+          "$numberLong": "1780300682000"
+        }
+      }
+    },
+    "laps": [
+      {
+        "lap_trigger": 7,
+        "max_heart_rate": 107,
+        "event_type": "stop",
+        "total_ascent": 11,
+        "total_calories": 50,
+        "sport": "Cycling",
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780300682000"
+          }
+        },
+        "enhanced_min_altitude": -2.6000000000000227,
+        "avg_heart_rate": 76,
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780300682000"
+          }
+        },
+        "event": "lap",
+        "end_position_lat": 1.318313693627715,
+        "total_elapsed_time": 4547.253,
+        "start_position_lat": 1.3182823453098536,
+        "start_position_long": 103.9121017511934,
+        "enhanced_max_altitude": 16.600000000000023,
+        "end_position_long": 103.912214320153,
+        "total_descent": 11,
+        "total_distance": 3.17708,
+        "enhanced_avg_speed": 12.2904,
+        "total_timer_time": 930.619,
+        "enhanced_max_speed": 25.596
+      }
+    ],
+    "sessions": [
+      {
+        "min_heart_rate": 51,
+        "end_position_long": 103.912214320153,
+        "swc_long": 103.90470958314836,
+        "total_ascent": 11,
+        "enhanced_avg_speed": 13.956856488549613,
+        "training_load_peak": 1.22625732421875,
+        "num_laps": 1,
+        "nec_long": 103.91256761737168,
+        "total_distance": 3.17708,
+        "total_descent": 11,
+        "total_timer_time": 930.619,
+        "start_position_long": 103.9121017511934,
+        "start_position_lat": 1.3182823453098536,
+        "end_position_lat": 1.318313693627715,
+        "event": "session",
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780300682000"
+          }
+        },
+        "avg_heart_rate": 76.63843648208469,
+        "timestamp": "2026-06-01T07:58:02.000000Z",
+        "sport": "Cycling",
+        "enhanced_max_speed": 25.4628,
+        "sport_profile_name": "Bike",
+        "enhanced_avg_altitude": 6.199999999999989,
+        "enhanced_min_altitude": -2.6000000000000227,
+        "nec_lat": 1.3183992728590965,
+        "enhanced_max_altitude": 16.600000000000023,
+        "swc_lat": 1.3121051341295242,
+        "total_calories": 64.4585368816038,
+        "event_type": "stop",
+        "total_elapsed_time": 4547.253,
+        "max_heart_rate": 105,
+        "total_elevation_gain": 11,
+        "max_speed": 25.4628,
+        "avg_speed": 13.956856488549613,
+        "avg_power": 12.892996675988359,
+        "max_power": 105.71546267589872
+      }
+    ],
+    "duration": 4353,
+    "device_info": {
+      "software_version": 22.35,
+      "product": "unknown",
+      "source_type": 5,
+      "manufacturer": "Garmin",
+      "serial_number": 3508558003,
+      "timestamp": {
+        "$date": {
+          "$numberLong": "1780300682000"
+        }
+      },
+      "product_id": 4536
+    },
+    "start_date": "2026-06-01T07:58:02.000000Z",
+    "timezone": "Asia/Singapore",
+    "start_date_local": "2026-06-01T15:58:02.000000Z",
+    "distance": 3.17708,
+    "name": "Shop",
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 189.12098693847656,
+      "xlss": 173.78097534179688,
+      "xhss": 10.891679763793945,
+      "xpss": 4.448331832885742
+    },
+    "updated_at": "2026-06-01T09:19:29.862000Z",
+    "created_at": "2026-06-01T09:14:14.799000Z",
+    "xhss_est": 0,
+    "xlss_est": 4.878604929249948,
+    "xpss_est": 0,
+    "xss_est": 4.878604929249948,
+    "adu": 4545,
+    "ap": 12.892996675988359,
+    "difficulty": 5.401582723372854,
+    "fa": "Century Rider",
+    "hws": 0,
+    "lws": 12599.330214295771,
+    "power_source": "hr_estimate",
+    "pws": 0,
+    "rating": "1 - Easy",
+    "sfd": 3600,
+    "sfp": 286.4825987721123,
+    "sp": 1,
+    "spr": "Pure",
+    "tgc": 0.760918944797226,
+    "tgf": 6.541014790691884,
+    "tw": 58598.66989236709,
+    "tws": 12599.330214295771,
+    "xep": 14.009194061821857,
+    "xhss": 0,
+    "xlss": 4.878604929249948,
+    "xpss": 0,
+    "xss": 4.878604929249948,
+    "group_activity_paths": [],
+    "map": "",
+    "strava_upload_id": 19848351926,
+    "two_way_sync": true,
+    "external_id": 18738999773,
+    "group_members": [],
+    "signature": {
+      "pp": 1091.321866399148,
+      "ftp": 279.80217253071856,
+      "atc": 24149.13766882083,
+      "ltp": 219.42932835866648
+    },
+    "exerciseType": "Activity",
+    "has_chart_image": false,
+    "has_map_image": true,
+    "has_street_image": false,
+    "has_workout_chart_image": false,
+    "hasPowerData": false,
+    "isCurrentProfile": true,
+    "focus": "Endurance",
+    "group_sharing": "Squad",
+    "chart_url": "/assets/images/user/22823/activity_chart_rzlzlw4tmhuula22.png",
+    "map_url": "/assets/images/user/22823/map_rzlzlw4tmhuula22.png",
+    "street_view_url": "/assets/images/user/22823/street_view_rzlzlw4tmhuula22.png",
+    "total_duration": 4545,
+    "avg_speed": 2.5015575465196416,
+    "avg_cadence": 0,
+    "avg_power": 12.892996675988359,
+    "avg_heart_rate": 77.60728744939271,
+    "max_speed": 25.4628,
+    "max_cadence": 0,
+    "max_power": 105.71546267589872,
+    "max_heart_rate": 105,
+    "data_source": "Garmin f\u0113nix 8 47mm"
+  },
+  {
+    "_id": "6a1e22283f714254b404c34f",
+    "version": 0.8,
+    "user_id": 22823,
+    "profile_id": "655969c8acbbc805885553f2",
+    "path": "31bcewaqimv8d8fh",
+    "enabled": true,
+    "favorite": false,
+    "extr": true,
+    "provider": "garmin",
+    "garmin_id": 23097526879,
+    "file_id": {
+      "type": 4,
+      "manufacturer": "Garmin",
+      "product": "unknown",
+      "time_created": 1149283852,
+      "serial_number": 3479854668
+    },
+    "activity": {
+      "event_type": "stop",
+      "event": "activity",
+      "num_sessions": 1,
+      "local_timestamp": {
+        "$date": {
+          "$numberLong": "1780378252000"
+        }
+      },
+      "total_timer_time": 8315.345,
+      "timestamp": {
+        "$date": {
+          "$numberLong": "1780349452000"
+        }
+      }
+    },
+    "laps": [
+      {
+        "radar_lap": 20,
+        "avg_fractional_cadence": 0.625,
+        "sub_sport": "Road",
+        "enhanced_avg_speed": 30.8412,
+        "total_work": 280784,
+        "enhanced_max_speed": 49.1076,
+        "max_temperature": 30,
+        "normalized_power": 219,
+        "event_type": "stop",
+        "total_distance": 14.390120000000001,
+        "total_descent": 42,
+        "end_position_long": 103.82489659823477,
+        "start_position_long": 103.91226695850492,
+        "max_cadence": 128,
+        "start_position_lat": 1.3183247577399015,
+        "max_heart_rate": 163,
+        "total_elapsed_time": 1729.76,
+        "end_position_lat": 1.2515792436897755,
+        "event": "lap",
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "avg_heart_rate": 129,
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "sport": "Cycling",
+        "min_temperature": 28,
+        "total_calories": 316,
+        "total_ascent": 51,
+        "avg_temperature": 29,
+        "avg_cadence": 84,
+        "total_timer_time": 1679.76,
+        "avg_power": 167,
+        "avg_vam": 0.216,
+        "total_cycles": 1996,
+        "enhanced_avg_respiration_rate": 31.79,
+        "max_power": 1022,
+        "enhanced_max_respiration_rate": 40.69
+      },
+      {
+        "radar_lap": 0,
+        "avg_fractional_cadence": 0.765625,
+        "sub_sport": "Road",
+        "sport": "Cycling",
+        "enhanced_avg_speed": 33.6024,
+        "total_work": 269384,
+        "enhanced_max_speed": 52.704,
+        "max_temperature": 29,
+        "normalized_power": 273,
+        "event_type": "stop",
+        "total_distance": 12.24565,
+        "total_descent": 179,
+        "end_position_long": 103.82487388327718,
+        "start_position_long": 103.82489969953895,
+        "max_cadence": 115,
+        "start_position_lat": 1.2515223305672407,
+        "max_heart_rate": 184,
+        "total_elapsed_time": 1311.876,
+        "end_position_lat": 1.251476900652051,
+        "event": "lap",
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780351182000"
+          }
+        },
+        "avg_heart_rate": 146,
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "message_index": 1,
+        "total_cycles": 1595,
+        "enhanced_avg_respiration_rate": 35.09,
+        "min_temperature": 27,
+        "total_calories": 297,
+        "total_ascent": 177,
+        "avg_temperature": 28,
+        "avg_cadence": 89,
+        "total_timer_time": 1311.876,
+        "avg_power": 205,
+        "avg_vam": 0.8748,
+        "max_power": 703,
+        "enhanced_max_respiration_rate": 45
+      },
+      {
+        "radar_lap": 21,
+        "avg_fractional_cadence": 0.671875,
+        "sub_sport": "Road",
+        "sport": "Cycling",
+        "enhanced_avg_speed": 30.9168,
+        "total_work": 245697,
+        "enhanced_max_speed": 53.6436,
+        "max_temperature": 28,
+        "normalized_power": 233,
+        "event_type": "stop",
+        "total_distance": 12.34645,
+        "total_descent": 179,
+        "end_position_long": 103.82493649609387,
+        "start_position_long": 103.82491084747016,
+        "max_cadence": 119,
+        "start_position_lat": 1.2513995356857777,
+        "max_heart_rate": 170,
+        "total_elapsed_time": 1468.705,
+        "end_position_lat": 1.251342874020338,
+        "event": "lap",
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780352494000"
+          }
+        },
+        "avg_heart_rate": 140,
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "message_index": 2,
+        "total_cycles": 1631,
+        "enhanced_avg_respiration_rate": 33.34,
+        "min_temperature": 27,
+        "total_calories": 276,
+        "total_ascent": 177,
+        "avg_temperature": 28,
+        "avg_cadence": 86,
+        "total_timer_time": 1437.704,
+        "avg_power": 171,
+        "avg_vam": 0.7848,
+        "max_power": 571,
+        "enhanced_max_respiration_rate": 42.12
+      },
+      {
+        "radar_lap": 111,
+        "avg_fractional_cadence": 0.296875,
+        "sub_sport": "Road",
+        "sport": "Cycling",
+        "lap_trigger": 1,
+        "enhanced_avg_speed": 30.4848,
+        "total_work": 526040,
+        "enhanced_max_speed": 55.6272,
+        "max_temperature": 30,
+        "normalized_power": 170,
+        "event_type": "stop",
+        "total_distance": 32.879529999999995,
+        "total_descent": 107,
+        "end_position_long": 103.91224038787186,
+        "start_position_long": 103.8249783217907,
+        "max_cadence": 118,
+        "start_position_lat": 1.2512876372784376,
+        "max_heart_rate": 155,
+        "total_elapsed_time": 5650.008,
+        "end_position_lat": 1.3182638213038445,
+        "event": "lap",
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780353962000"
+          }
+        },
+        "avg_heart_rate": 116,
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "message_index": 3,
+        "total_cycles": 4359,
+        "enhanced_avg_respiration_rate": 26.64,
+        "min_temperature": 28,
+        "total_calories": 608,
+        "total_ascent": 90,
+        "avg_temperature": 29,
+        "avg_cadence": 81,
+        "total_timer_time": 3883.006,
+        "avg_power": 135,
+        "avg_vam": 0.162,
+        "max_power": 613,
+        "enhanced_max_respiration_rate": 40.34
+      },
+      {
+        "max_temperature": 30,
+        "lap_trigger": 7,
+        "max_heart_rate": 86,
+        "enhanced_max_respiration_rate": 18.05,
+        "sport": "Cycling",
+        "timestamp": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "avg_heart_rate": 86,
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780359613000"
+          }
+        },
+        "min_temperature": 30,
+        "event": "lap",
+        "end_position_lat": 1.318254852667451,
+        "total_elapsed_time": 2.999,
+        "radar_lap": 0,
+        "event_type": "stop",
+        "normalized_power": 37,
+        "start_position_lat": 1.3182578701525927,
+        "start_position_long": 103.91222236678004,
+        "end_position_long": 103.91221482306719,
+        "avg_temperature": 30,
+        "total_distance": 0.003,
+        "sub_sport": "Road",
+        "enhanced_avg_speed": 3.6,
+        "total_timer_time": 2.999,
+        "enhanced_max_speed": 4.8024000000000004,
+        "enhanced_avg_respiration_rate": 17.51,
+        "message_index": 4
+      }
+    ],
+    "sessions": [
+      {
+        "radar_total": 152,
+        "xmbkey": "MB_391261691625",
+        "workout_feel": 75,
+        "avg_fractional_cadence": 0.1953125,
+        "total_training_effect": 3.5,
+        "max_cadence": 128,
+        "avg_temperature": 29,
+        "avg_cadence": 83.78211310828584,
+        "avg_heart_rate": 127.45076166486746,
+        "workout_rpe": 80,
+        "sub_sport": "Road",
+        "sport": "Cycling",
+        "event_type": "stop",
+        "event": "session",
+        "enhanced_min_respiration_rate": 10.7,
+        "swc_long": 103.81102044135332,
+        "enhanced_avg_speed": 30.822127714905125,
+        "nec_lat": 1.3188877701759338,
+        "training_load_peak": 243.53973388671875,
+        "num_laps": 5,
+        "enhanced_avg_respiration_rate": 30.19,
+        "total_cycles": 9580,
+        "max_temperature": 30,
+        "normalized_power": 218,
+        "total_descent": 506,
+        "enhanced_max_respiration_rate": 45,
+        "max_power": 1022,
+        "start_position_long": 103.91226695850492,
+        "start_position_lat": 1.3183247577399015,
+        "end_position_lat": 1.318254852667451,
+        "max_heart_rate": 184,
+        "total_elapsed_time": 10163.348,
+        "start_time": {
+          "$date": {
+            "$numberLong": "1780349452000"
+          }
+        },
+        "training_stress_score": 141.1,
+        "timestamp": "2026-06-01T21:30:52.000000Z",
+        "end_position_long": 103.91221482306719,
+        "total_work": 1321905,
+        "enhanced_max_speed": 55.6272,
+        "sport_profile_name": "BMC",
+        "min_temperature": 27,
+        "swc_lat": 1.243627667427063,
+        "total_calories": 1498,
+        "xss": "125|12.1|4.2",
+        "avg_vam": 0.41040000000000004,
+        "total_timer_time": 8315.345,
+        "avg_power": 210.8267049992014,
+        "total_ascent": 494,
+        "intensity_factor": 0.783,
+        "total_anaerobic_training_effect": 3.1,
+        "nec_long": 103.96859334781766,
+        "total_distance": 71.86475,
+        "threshold_power": 278,
+        "total_elevation_gain": 494,
+        "max_speed": 55.6272,
+        "avg_speed": 30.822127714905125
+      }
+    ],
+    "duration": 8282,
+    "device_info": {
+      "software_version": 31.3,
+      "product": "unknown",
+      "source_type": 5,
+      "manufacturer": "Garmin",
+      "serial_number": 3479854668,
+      "timestamp": {
+        "$date": {
+          "$numberLong": "1780349452000"
+        }
+      },
+      "product_id": 4440
+    },
+    "start_date": "2026-06-01T21:30:52.000000Z",
+    "timezone": "Asia/Singapore",
+    "start_date_local": "2026-06-02T05:30:52.000000Z",
+    "distance": 71.86475,
+    "name": "IRRT Sentosa ",
+    "adu": 10164,
+    "ap": 129.8687524596617,
+    "alp": 118.05052261474353,
+    "ahp": 9.225074678907438,
+    "app": 2.593155166009618,
+    "tw": 1319986.0000000014,
+    "liw": 1199865.5118562533,
+    "hiw": 93763.65903641519,
+    "piw": 26356.829107321755,
+    "fd": 310.7892013986316,
+    "fp": 348.9336532939107,
+    "aps": 0.24412272602731663,
+    "ampa": 1070.755765958407,
+    "mep": 12,
+    "mes": 9.907655066934238,
+    "mps": 0.9921252748202005,
+    "bep": 584.4,
+    "bem": 590.574386923054,
+    "asr": 36.355482943263304,
+    "lsr": 31.874175504239307,
+    "hsr": 3.3267039972139383,
+    "psr": 1.1546034418099982,
+    "tws": 369517.1286353282,
+    "lws": 323969.1198250883,
+    "hws": 33812.61942768247,
+    "pws": 11735.389382556821,
+    "sfd": 238.7273291733939,
+    "sfp": 368.9542406520717,
+    "xss": 144.27181035813518,
+    "xlss": 126.48834869959126,
+    "xhss": 13.201574270178538,
+    "xpss": 4.581887388365144,
+    "xep": 243.25691793636497,
+    "np": 204.45125382355803,
+    "tss": 152.18246763662714,
+    "tgf": 78.48836673579497,
+    "tgc": 166.47054726214876,
+    "sp": 0.4199651531499745,
+    "spr": "Mixed",
+    "fa": "Puncheur",
+    "rating": "Difficult",
+    "difficulty": 75.57399819822407,
+    "br": -1,
+    "medal": -1,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 112.13795660852774,
+      "xlss": 101.30659622524668,
+      "xhss": 8.648421265186315,
+      "xpss": 2.1829391180947137
+    },
+    "updated_at": "2026-06-02T00:28:25.910000Z",
+    "created_at": "2026-06-02T00:22:00.750000Z",
+    "group_activity_paths": [],
+    "valid_thumbnail": true,
+    "map": "",
+    "map_with_br": true,
+    "strava_upload_id": 19858801449,
+    "two_way_sync": true,
+    "external_id": 18749242688,
+    "group_members": [],
+    "signature": {
+      "pp": 1090,
+      "ftp": 278.4764956335,
+      "atc": 22914.6403534,
+      "ltp": 221.18989475
+    },
+    "exerciseType": "Activity",
+    "has_chart_image": true,
+    "has_map_image": true,
+    "has_street_image": true,
+    "has_workout_chart_image": false,
+    "hasPowerData": true,
+    "isCurrentProfile": true,
+    "focus": "Puncheur",
+    "group_sharing": "Squad",
+    "chart_url": "/assets/images/user/22823/activity_chart_31bcewaqimv8d8fh.png",
+    "map_url": "/assets/images/user/22823/map_31bcewaqimv8d8fh.png",
+    "street_view_url": "/assets/images/user/22823/street_view_31bcewaqimv8d8fh.png",
+    "total_duration": 10164,
+    "avg_speed": 30.856802752958206,
+    "avg_cadence": 69.10456411494808,
+    "avg_power": 159.36609514609998,
+    "avg_heart_rate": 127.70345327215648,
+    "max_speed": 55.6272,
+    "max_cadence": 128,
+    "max_power": 1022,
+    "max_heart_rate": 184,
+    "data_source": "Garmin Edge 1050"
+  }
+]

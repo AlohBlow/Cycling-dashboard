@@ -10,7 +10,10 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git push *)",
-      "Bash(python dashboard_updater/build_dashboard.py)"
+      "Bash(python dashboard_updater/build_dashboard.py)",
+      "Bash(git checkout *)",
+      "Bash(git rebase *)",
+      "Bash(git stash *)"
     ]
   }
 }

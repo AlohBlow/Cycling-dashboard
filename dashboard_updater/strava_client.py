@@ -51,46 +51,56 @@ def _parse_riduck(desc):
     Parse Riduck AI summary from Strava activity description.
     Returns dict with power zones, peak power, anaerobic metrics, recovery time.
     """
-    if not desc or ("Riduck" not in desc and "ⓧⓔⓡⓣ" not in desc):
+    if not desc:
+        return None
+    desc_lower = desc.lower()
+    # Detection: riduck.com link, "Riduck" text, or Xert unicode logo
+    if 'riduck' not in desc_lower and 'ⓧⓔⓡⓣ' not in desc:
         return None
 
     out = {}
 
-    # XSS totals: ✅ 131𝗑𝗌𝗌  🔵 116  🟡 11.3  🔴 3.5
-    m = re.search(r'[✅❎]\s*([\d.]+)𝗑𝗌𝗌\s+🔵\s*([\d.]+)\s+🟡\s*([\d.]+)\s+🔴\s*([\d.]+)', desc)
+    # XSS totals — two formats:
+    #   Old: ✅ 131𝗑𝗌𝗌  🔵 116  🟡 11.3  🔴 3.5   (Unicode bold xss)
+    #   New: ✅ 65xss  🔵 64  🟡 0.5  🔴 0.1       (plain xss)
+    m = re.search(r'[✅❎]\s*([\d.]+)(?:𝗑𝗌𝗌|xss)\s+🔵\s*([\d.]+)\s+🟡\s*([\d.]+)\s+🔴\s*([\d.]+)', desc, re.IGNORECASE)
     if m:
         out['xss_total'] = float(m.group(1))
         out['xss_low']   = float(m.group(2))
         out['xss_high']  = float(m.group(3))
         out['xss_peak']  = float(m.group(4))
 
-    # Recovery time: ✨ Recovery time 37 hour
-    m = re.search(r'Recovery time\s+(\d+)\s+hour', desc)
+    # Recovery time: "Recovery time 15 hour" or "Recovery time 37 hour"
+    m = re.search(r'Recovery time\s+(\d+)\s+hour', desc, re.IGNORECASE)
     if m:
         out['recovery_hours'] = int(m.group(1))
 
-    # Peak power durations
+    # Peak power: ⚡ 5min 190w (61%)
     peak = {}
-    for dur, key in [('15sec', 'p15s'), ('1min', 'p1m'), ('5min', 'p5m'),
+    for dur, key in [('15sec', 'p15s'), ('1min', 'p1m'), ('2min', 'p2m'), ('5min', 'p5m'),
                      ('10min', 'p10m'), ('20min', 'p20m'), ('40min', 'p40m'), ('1hour', 'p1h')]:
-        m = re.search(rf'⚡\s*{dur}\s+(\d+)w\s+\((\d+)%\)', desc)
+        m = re.search(rf'⚡\s*{dur}\s+(\d+)w\s+\((\d+)%\)', desc, re.IGNORECASE)
         if m:
             peak[key] = {'watts': int(m.group(1)), 'pct': int(m.group(2))}
     if peak:
         out['peak_power'] = peak
 
-    # Power zones: ⚪ 1zone 28% (+9%)
+    # Power zones: "1zone 21% (+2%)" — extract only the power zone section
+    # Find zone section between "Power zone" and "Heartrate zone"
+    pz_start = next((desc.lower().find(k) for k in ('power zone', 'power\nzone') if k in desc.lower()), -1)
+    hr_start  = next((desc.lower().find(k) for k in ('heartrate zone', 'heart rate zone', 'heartrate\nzone') if k in desc.lower()), len(desc))
+    pz_section = desc[pz_start:hr_start] if pz_start != -1 else ''
     pz = {}
     for z in range(1, 8):
-        m = re.search(rf'{z}zone\s+(\d+)%', desc)
+        m = re.search(rf'{z}zone\s+(\d+)%', pz_section)
         if m:
             pz[f'z{z}'] = int(m.group(1))
     if pz:
         out['power_zones'] = pz
 
-    # HR zones — search only within HR zone section
+    # HR zones
     hz = {}
-    hr_section = desc[desc.find('Heartrate zone'):] if 'Heartrate zone' in desc else ''
+    hr_section = desc[hr_start:] if hr_start < len(desc) else ''
     for z in range(1, 6):
         m = re.search(rf'{z}zone\s+(\d+)%', hr_section)
         if m:
@@ -98,27 +108,29 @@ def _parse_riduck(desc):
     if hz:
         out['hr_zones'] = hz
 
-    # Anaerobic
-    m = re.search(r'Matches\s+([\d.]+)', desc)
+    # Anaerobic work
+    m = re.search(r'Matches\s+([\d.]+)', desc, re.IGNORECASE)
     if m:
         out['matches'] = float(m.group(1))
-    m = re.search(r'AWC energy\s+([\d.]+)kJ', desc)
+    m = re.search(r'AWC energy\s+([\d.]+)\s*kJ', desc, re.IGNORECASE)
     if m:
         out['awc_energy_kj'] = float(m.group(1))
-    m = re.search(r'Maximum discharge\s+([\d.]+)%', desc)
+    m = re.search(r'Maximum discharge\s+([\d.]+)%', desc, re.IGNORECASE)
     if m:
         out['awc_discharge_pct'] = float(m.group(1))
 
-    # Energy metabolism
-    m = re.search(r'Fat\s+([\d.]+)%', desc)
+    # Energy metabolism — look only after "Energy metabolism" header to avoid false matches
+    em_start = desc.lower().find('energy metabolism')
+    em_section = desc[em_start:] if em_start != -1 else desc
+    m = re.search(r'Fat\s+([\d.]+)%', em_section, re.IGNORECASE)
     if m:
         out['fat_pct'] = float(m.group(1))
-    m = re.search(r'Carb\s+([\d.]+)%', desc)
+    m = re.search(r'Carb\s+([\d.]+)%', em_section, re.IGNORECASE)
     if m:
         out['carb_pct'] = float(m.group(1))
 
-    # Riduck training status
-    m = re.search(r'Fitness\s+(\d+),\s*Fatigue\s+(\d+),\s*Balance\s+(-?\d+)', desc)
+    # Riduck/Forecast training status: "Fitness 98, Fatigue 106, Balance -8"
+    m = re.search(r'Fitness\s+(\d+)[,\s]+Fatigue\s+(\d+)[,\s]+Balance\s+(-?\d+)', desc, re.IGNORECASE)
     if m:
         out['riduck_fitness'] = int(m.group(1))
         out['riduck_fatigue'] = int(m.group(2))
@@ -143,8 +155,10 @@ def get_recent_activities(days=14, limit=10):
 
     activities = _get("/athlete/activities", {
         "after":    after,
-        "per_page": limit * 3,
+        "per_page": 100,  # fetch all activity types; filter to cycling below
     })
+    # Sort newest-first so limit picks most recent rides
+    activities.sort(key=lambda a: a.get('start_date', ''), reverse=True)
 
     result = []
     for act in activities:

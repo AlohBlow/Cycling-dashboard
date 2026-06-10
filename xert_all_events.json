@@ -1,0 +1,586 @@
+[
+  {
+    "date": "2026-06-01",
+    "name": "Singapore Walking",
+    "exerciseType": "Activity",
+    "xss": 5.780766957792812,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 189.12098693847656,
+      "xlss": 173.78097534179688,
+      "xhss": 10.891679763793945,
+      "xpss": 4.448331832885742
+    }
+  },
+  {
+    "date": "2026-06-01",
+    "name": "Shop",
+    "exerciseType": "Activity",
+    "xss": 4.878604929249948,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 189.12098693847656,
+      "xlss": 173.78097534179688,
+      "xhss": 10.891679763793945,
+      "xpss": 4.448331832885742
+    }
+  },
+  {
+    "date": "2026-06-02",
+    "name": "IRRT Sentosa",
+    "exerciseType": "Activity",
+    "xss": 144.27181035813518,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 112.13795660852774,
+      "xlss": 101.30659622524668,
+      "xhss": 8.648421265186315,
+      "xpss": 2.1829391180947137
+    }
+  },
+  {
+    "date": "2026-06-03",
+    "name": "ECP Run",
+    "exerciseType": "Activity",
+    "xss": 58.3,
+    "type": "Other",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 82.5,
+      "xlss": 82.5,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-03",
+    "name": "ECP Run",
+    "exerciseType": "Activity",
+    "xss": 57.715140020817365,
+    "type": "Running",
+    "matched_activity": "uzdz1iwtvcuib22q",
+    "placeholder_xss_details": {
+      "xss": 43.12543643958842,
+      "xlss": 42.62682496443451,
+      "xhss": 0.46154978519874573,
+      "xpss": 0.037061689955167586
+    }
+  },
+  {
+    "date": "2026-06-03",
+    "name": "Singapore Walking",
+    "exerciseType": "Activity",
+    "xss": 8.192479006408076,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 82.5,
+      "xlss": 82.5,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-03",
+    "name": "Singapore Walking",
+    "exerciseType": "Activity",
+    "xss": 5.003267402764073,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 82.5,
+      "xlss": 82.5,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-03",
+    "name": "Shop",
+    "exerciseType": "Activity",
+    "xss": 5.277311361689981,
+    "type": "Ride",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 82.5,
+      "xlss": 82.5,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-04",
+    "name": "Stadium loop + TMCR",
+    "exerciseType": "Activity",
+    "xss": 115.18600370087536,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 113.80702070746054,
+      "xlss": 104.0036614343254,
+      "xhss": 6.501448789278818,
+      "xpss": 3.3019104838562043
+    }
+  },
+  {
+    "date": "2026-06-04",
+    "name": "Back to Blue - 45",
+    "exerciseType": "Activity",
+    "xss": 49.40740136784912,
+    "type": "Running",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-04",
+    "name": "Singapore Walking",
+    "exerciseType": "Activity",
+    "xss": 4.91147336682838,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 113.80702209472656,
+      "xlss": 104.003662109375,
+      "xhss": 6.501448631286621,
+      "xpss": 3.301910400390625
+    }
+  },
+  {
+    "date": "2026-06-05",
+    "name": "Easy Pure Endurance Activity",
+    "exerciseType": "Activity",
+    "xss": 2.2432142422528356,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 29.942721579639635,
+      "xlss": 29.942721579639635,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-05",
+    "name": "Easy Pure Endurance Activity",
+    "exerciseType": "Activity",
+    "xss": 1.9937989828483422,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 29.94272232055664,
+      "xlss": 29.94272232055664,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-05",
+    "name": "Petaling Jaya Walking",
+    "exerciseType": "Activity",
+    "xss": 4.089862382293347,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 29.94272232055664,
+      "xlss": 29.94272232055664,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-06",
+    "name": "KL Gym bike",
+    "exerciseType": "Activity",
+    "xss": 13.574743939374843,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 29.942721579639635,
+      "xlss": 29.942721579639635,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-06",
+    "name": "KL Gym Treadmill",
+    "exerciseType": "Activity",
+    "xss": 38.2,
+    "type": "Other",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 29.94272232055664,
+      "xlss": 29.94272232055664,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-06",
+    "name": "KL Treadmill Running",
+    "exerciseType": "Activity",
+    "xss": 38.234409745563816,
+    "type": "Running",
+    "matched_activity": "e3itouvisqr26axx",
+    "placeholder_xss_details": {
+      "xss": 60.76623075271412,
+      "xlss": 60.37666518676803,
+      "xhss": 0.3646937729332716,
+      "xpss": 0.024871793012823464
+    }
+  },
+  {
+    "date": "2026-06-06",
+    "name": "Walking",
+    "exerciseType": "Activity",
+    "xss": 12.570824440226328,
+    "type": "Training",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 29.94272232055664,
+      "xlss": 29.94272232055664,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-06",
+    "name": "Oura ring walk",
+    "exerciseType": "Activity",
+    "xss": 18,
+    "type": "Other",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 33.0469458264796,
+      "xlss": 33.04694582647959,
+      "xhss": 5.758087752061356e-15,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-07",
+    "name": "Long Run",
+    "exerciseType": "Activity",
+    "xss": 95,
+    "type": "Other",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 123.66521453857422,
+      "xlss": 123.66521453857422,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-07",
+    "name": "Long Run",
+    "exerciseType": "Activity",
+    "xss": 94.59437252194849,
+    "type": "Running",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-08",
+    "name": "TMCR",
+    "exerciseType": "Activity",
+    "xss": 85.81186650012101,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 88.54052764891784,
+      "xlss": 79.57795466717957,
+      "xhss": 7.57964788168675,
+      "xpss": 1.3829251000515261
+    }
+  },
+  {
+    "date": "2026-06-08",
+    "name": "Singapore Walking",
+    "exerciseType": "Activity",
+    "xss": 9.568466574416659,
+    "type": "Walking",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 93.28563690185547,
+      "xlss": 80.58345794677734,
+      "xhss": 11.649923324584961,
+      "xpss": 1.0522525310516357
+    }
+  },
+  {
+    "date": "2026-06-08",
+    "name": "Shop",
+    "exerciseType": "Activity",
+    "xss": 6.005672755507508,
+    "type": "Cycling",
+    "matched_activity": "forecast",
+    "placeholder_xss_details": {
+      "xss": 93.28563690185547,
+      "xlss": 80.58345794677734,
+      "xhss": 11.649923324584961,
+      "xpss": 1.0522525310516357
+    }
+  },
+  {
+    "date": "2026-06-09",
+    "name": "IRRT Sentosa",
+    "exerciseType": "Activity",
+    "xss": 110.99689380160753,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 110.99688720703125,
+      "xlss": 100.64724731445312,
+      "xhss": 7.855922222137451,
+      "xpss": 2.493724822998047
+    }
+  },
+  {
+    "date": "2026-06-10",
+    "name": "Low Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 82.5,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-11",
+    "name": "IRRT Thurs",
+    "exerciseType": "Activity",
+    "xss": 106.08652888378148,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 106.0865249633789,
+      "xlss": 95.1921157836914,
+      "xhss": 7.291925430297852,
+      "xpss": 3.602484703063965
+    }
+  },
+  {
+    "date": "2026-06-12",
+    "name": "Low Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 82.01158142089844,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-13",
+    "name": "IRRT Kulai Express",
+    "exerciseType": "Activity",
+    "xss": 286.35048003533126,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 286.3504638671875,
+      "xlss": 270.86419677734375,
+      "xhss": 13.056615829467773,
+      "xpss": 2.4296610355377197
+    }
+  },
+  {
+    "date": "2026-06-14",
+    "name": "High Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 147.00491333007812,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-15",
+    "name": "Low Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 82.5,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-16",
+    "name": "IRRT Sentosa",
+    "exerciseType": "Activity",
+    "xss": 123.83117060099738,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 123.83116912841797,
+      "xlss": 107.52649688720703,
+      "xhss": 11.722107887268066,
+      "xpss": 4.582565784454346
+    }
+  },
+  {
+    "date": "2026-06-17",
+    "name": "Low Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 57.75001525878906,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-18",
+    "name": "CCP5",
+    "exerciseType": "Activity",
+    "xss": 124.64901883272427,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 124.64901733398438,
+      "xlss": 111.24977111816406,
+      "xhss": 9.878885269165039,
+      "xpss": 3.5203590393066406
+    }
+  },
+  {
+    "date": "2026-06-19",
+    "name": "Low Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 93.232421875,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-20",
+    "name": "Low Intensity Training",
+    "exerciseType": "Activity",
+    "xss": 113.8500747680664,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-21",
+    "name": "Run to kid's rugby",
+    "exerciseType": "Activity",
+    "xss": 67.21924655054939,
+    "type": "Run",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 67.21924591064453,
+      "xlss": 63.43487548828125,
+      "xhss": 3.657560348510742,
+      "xpss": 0.12681154906749725
+    }
+  },
+  {
+    "date": "2026-06-22",
+    "name": "WHOOP Walking \u2192 17.2 Day Strain",
+    "exerciseType": "Activity",
+    "xss": 31.67953060045003,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 31.67953109741211,
+      "xlss": 31.67953109741211,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-23",
+    "name": "Canal run",
+    "exerciseType": "Activity",
+    "xss": 37.94668161187144,
+    "type": "Run",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 37.94668197631836,
+      "xlss": 37.94668197631836,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-24",
+    "name": "Stroll around Madrid",
+    "exerciseType": "Activity",
+    "xss": 29.942721579639635,
+    "type": "Walk",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 29.94272232055664,
+      "xlss": 29.94272232055664,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-25",
+    "name": "Run to kid's rugby",
+    "exerciseType": "Activity",
+    "xss": 67.21924655054939,
+    "type": "Run",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 67.21924591064453,
+      "xlss": 63.43487548828125,
+      "xhss": 3.657560348510742,
+      "xpss": 0.12681154906749725
+    }
+  },
+  {
+    "date": "2026-06-26",
+    "name": "Walking off gambas and ice cream",
+    "exerciseType": "Activity",
+    "xss": 21.205380282416698,
+    "type": "Walk",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 21.205379486083984,
+      "xlss": 21.205379486083984,
+      "xhss": 0,
+      "xpss": 0
+    }
+  },
+  {
+    "date": "2026-06-27",
+    "name": "Taper to pick up race number",
+    "exerciseType": "Activity",
+    "xss": 49.75496364785158,
+    "type": "Ride",
+    "matched_activity": null,
+    "placeholder_xss_details": {
+      "xss": 49.75496292114258,
+      "xlss": 48.28840637207031,
+      "xhss": 1.3196295499801636,
+      "xpss": 0.1469263881444931
+    }
+  },
+  {
+    "date": "2026-06-28",
+    "name": "ToF_Stage_3_4th_initiated_the_break_at_20km_caught_after_15km_and_worked_on_the_front_to_help_out_Olly_Good_fun_racing_ (1)",
+    "exerciseType": "Activity",
+    "xss": 199.8466339111328,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-29",
+    "name": "Rest",
+    "exerciseType": "Activity",
+    "xss": 0,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  },
+  {
+    "date": "2026-06-30",
+    "name": "Rest",
+    "exerciseType": "Activity",
+    "xss": 0,
+    "type": "Cycling",
+    "matched_activity": null,
+    "placeholder_xss_details": null
+  }
+]
