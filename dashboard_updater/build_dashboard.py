@@ -132,6 +132,7 @@ def build():
         hrv_list=api_data['hrv'],
         activities=ctx['activities'],  # enriched with Xert XSS
         xss_remaining_today=xss_remaining,
+        strava_latest=ctx.get('strava_latest'),
     )
 
     if coaching_note:
