@@ -145,5 +145,10 @@ def get_latest_wellness():
                 "sleep_score": r.get("sleepScore"),
                 "hrv": r.get("hrv"),
                 "sport_info": r.get("sportInfo", []),  # contains eFTP per sport type
+                "training_readiness": r.get("garminTrainingReadiness") or r.get("trainingReadiness"),
+                "hydration_ml": r.get("hydration"),
+                "hydration_target_ml": r.get("hydrationTarget"),
+                "calories": r.get("calories"),
+                "calories_target": r.get("caloriesTarget"),
             }
     return {}

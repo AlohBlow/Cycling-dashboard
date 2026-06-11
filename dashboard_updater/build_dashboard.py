@@ -133,6 +133,9 @@ def build():
         activities=ctx['activities'],  # enriched with Xert XSS
         xss_remaining_today=xss_remaining,
         strava_latest=ctx.get('strava_latest'),
+        iv_fitness=api_data['fitness'],
+        tomorrow_session=planner_ctx.get('tomorrow_session'),
+        wellness=api_data['wellness'],
     )
 
     if coaching_note:

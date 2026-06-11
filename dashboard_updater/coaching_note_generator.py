@@ -74,96 +74,198 @@ def _assess_hrv(hrv_list):
     return "stable — normal recovery"
 
 
-def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, activities,
-                         xss_remaining_today, strava_latest, today, days_to_race):
-    """Build a structured prompt and call Claude Haiku for a personalised coaching note."""
-    xs = xert_status or {}
 
-    # Most recent meaningful activity
+def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, activities,
+                         xss_remaining_today, strava_latest, today, days_to_race,
+                         iv_fitness=None, tomorrow_session=None, wellness=None):
+    """Build a structured 5-block prompt and call Claude Haiku for a personalised coaching note."""
+    from math import exp
+
+    xs = xert_status or {}
+    w  = wellness or {}
+
+    # ── Most recent meaningful activity ──────────────────────────────────────
     _TRIVIAL = {'shop', 'walk', 'stroll', 'errand', 'commute', 'groceries'}
     def _meaningful(act):
-        name = (act.get('name') or '').lower()
-        xss  = act.get('xss') or 0
+        name  = (act.get('name') or '').lower()
+        xss   = act.get('xss') or 0
         sport = (act.get('sport_type') or '').lower()
         if any(t in name for t in _TRIVIAL) and xss < 15: return False
         if 'walk' in sport and xss < 20: return False
         return True
-
     meaningful = [a for a in activities if _meaningful(a)]
     recent = (meaningful or activities or [None])[0]
 
-    # HRV trend (last 3 values)
+    # ── HRV ──────────────────────────────────────────────────────────────────
     hrv_vals = [v.get('hrv') for v in (hrv_list or []) if v.get('hrv')]
     hrv_trend = ' → '.join(str(v) for v in hrv_vals[-3:]) if hrv_vals else 'no data'
     hrv_latest = hrv_vals[-1] if hrv_vals else None
     hrv_avg = round(sum(hrv_vals) / len(hrv_vals), 1) if hrv_vals else None
-
-    # Build prompt sections
-    lines = [
-        f"Athlete: James Loh, competitive cyclist",
-        f"Race: Singapore National Road Race, {days_to_race} days away (Jun 28 2026)",
-        f"",
-        f"TRAINING LOAD",
-        f"  CTL (fitness): {ctl}  ATL (fatigue): {atl}  TSB (form): {tsb_raw:+.1f}",
-        f"",
-        f"HRV",
-        f"  Trend (last 3 days): {hrv_trend}",
-    ]
     if hrv_latest and hrv_avg:
-        lines.append(f"  Latest: {hrv_latest}  7d avg: {hrv_avg}")
+        hrv_pct = round((hrv_latest - hrv_avg) / hrv_avg * 100)
+        hrv_signal = ('elevated' if hrv_pct > 8 else 'suppressed' if hrv_pct < -8 else 'balanced')
+    else:
+        hrv_pct = None
+        hrv_signal = 'unknown'
+
+    # ── CTL trend (2 weeks ago) ───────────────────────────────────────────────
+    ctl_2w_ago = None
+    if iv_fitness and len(iv_fitness) >= 14:
+        entry = iv_fitness[-14]
+        ctl_2w_ago = round(entry.get('ctl') or 0, 1)
+    ctl_trend = (f"up from {ctl_2w_ago} two weeks ago" if ctl_2w_ago and ctl > ctl_2w_ago
+                 else f"down from {ctl_2w_ago} two weeks ago" if ctl_2w_ago and ctl < ctl_2w_ago
+                 else "flat over two weeks")
+
+    # ── Projected race day TSB (assuming standard taper) ─────────────────────
+    proj_ctl = round(ctl * exp(-days_to_race / 42), 1)
+    proj_atl = round(atl * exp(-days_to_race / 7), 1)
+    proj_tsb_rest = round(proj_ctl - proj_atl, 0)
+    # Blend: taper means some load continues, so result is between rest and now
+    proj_tsb_taper = round(proj_tsb_rest * 0.7 + tsb_raw * 0.3 + 3, 0)
+    projected_tsb_range = f"+{int(proj_tsb_taper - 2)} to +{int(proj_tsb_taper + 5)}"
+
+    # ── Strava Riduck: last session details ──────────────────────────────────
+    sl = strava_latest if (strava_latest and strava_latest.get('has_riduck')) else {}
+    p15s = None
+    # Scan all recent activities for best 15-sec power this block
+    # (strava_latest only has the most recent — best proxy available)
+    if sl:
+        # Not stored at top level but available in raw riduck if passed separately
+        pass
+
+    # ── Build structured prompt ───────────────────────────────────────────────
+    lines = [
+        f"You are a data-driven cycling coach writing a daily coaching note for James Loh.",
+        f"James is a competitive cyclist preparing for the Singapore National Road Race on Jun 28 2026.",
+        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to race: {days_to_race}",
+        f"",
+        f"=== TRAINING DATA ===",
+        f"",
+        f"CTL (fitness base): {ctl}  [{ctl_trend}]",
+        f"ATL (fatigue): {atl}",
+        f"TSB (form): {tsb_raw:+.1f}",
+        f"Projected race-day TSB (if taper executes): {projected_tsb_range}",
+    ]
+
+    if hrv_latest:
+        lines += [
+            f"",
+            f"HRV today: {hrv_latest}ms  |  7-day avg: {hrv_avg}ms  |  Signal: {hrv_signal} ({hrv_pct:+d}% vs avg)",
+            f"HRV trend (3 days): {hrv_trend}",
+        ]
+
+    tr = w.get('training_readiness')
+    if tr is not None:
+        lines.append(f"Garmin Training Readiness: {tr}/100")
 
     if xs:
+        xtp = xs.get('tp')
+        xltp = xs.get('ltp')
+        xhie = xs.get('hie')
+        xpp  = xs.get('pp')
         lines += [
             f"",
-            f"XERT FITNESS",
-            f"  TP (threshold): {xs.get('tp', '—')} W  HIE: {xs.get('hie', '—')} kJ  PP: {xs.get('pp', '—')} W",
-            f"  Status: {xs.get('status_label', '—')}",
+            f"Xert TP (threshold power): {round(xtp) if xtp else '—'}W  LTP: {round(xltp) if xltp else '—'}W",
+            f"Xert HIE: {round(xhie, 1) if xhie else '—'}kJ  PP: {round(xpp) if xpp else '—'}W",
+            f"Xert training status: {xs.get('status_label', '—')}",
         ]
         if xs.get('wotd_name'):
-            lines.append(f"  Workout of the Day: {xs['wotd_name']}")
+            lines.append(f"Xert WOTD: {xs['wotd_name']} — {xs.get('wotd_description', '')[:120]}")
         if xss_remaining_today:
-            lines.append(f"  XSS target remaining today: {xss_remaining_today:.0f}")
+            lines.append(f"XSS target remaining today: {xss_remaining_today:.0f}")
 
     if recent:
+        rdate = recent.get('date', '')[:10]
+        rname = recent.get('name', 'Activity')
+        rxss  = recent.get('xss') or '—'
+        rdist = recent.get('distance_km') or '—'
+        rdur  = recent.get('duration_str') or '—'
         lines += [
             f"",
-            f"MOST RECENT ACTIVITY",
-            f"  {recent.get('name', 'Activity')} on {recent.get('date', '')[:10]}",
-            f"  XSS: {recent.get('xss') or '—'}  Distance: {recent.get('distance_km') or '—'} km"
-            f"  Duration: {recent.get('duration_str') or '—'}",
+            f"LAST SESSION: {rname} ({rdate})",
+            f"  XSS: {rxss}  Distance: {rdist} km  Duration: {rdur}",
         ]
 
-    if strava_latest and strava_latest.get('has_riduck'):
-        sl = strava_latest
+    if sl:
         lines += [
             f"",
-            f"RIDUCK DEEP ANALYSIS (most recent ride)",
+            f"RIDUCK ANALYSIS (last ride):",
             f"  Energy: Fat {sl.get('fat_pct') or '—'}%  Carb {sl.get('carb_pct') or '—'}%",
-            f"  Recovery needed: {sl.get('recovery_hrs') or '—'} h",
+            f"  Recovery needed: {sl.get('recovery_hrs') or '—'}h",
         ]
-        if sl.get('awc_pct'):
-            lines.append(f"  AWC discharge: {sl['awc_pct']}%  Matches: {sl.get('matches') or '—'}")
+        if sl.get('awc_pct') is not None:
+            lines.append(f"  AWC discharge: {sl['awc_pct']}%  Anaerobic matches: {sl.get('matches') or '—'}")
         if sl.get('p20m_watts'):
-            lines.append(f"  20-min peak power: {sl['p20m_watts']} W ({sl.get('p20m_pct') or '—'}% of max)")
+            xtp_val = xs.get('tp') or 1
+            p20_pct = sl['p20m_watts'] / xtp_val * 100 if xtp_val else 0
+            lines.append(f"  20-min peak power: {sl['p20m_watts']}W ({round(p20_pct)}% of TP)")
         pz = sl.get('power_zones') or []
         if pz:
             pz_str = '  '.join(f"{z['zone']}:{z['pct']}%" for z in pz)
             lines.append(f"  Power zones: {pz_str}")
+        if sl.get('p5m_watts'):
+            lines.append(f"  5-min peak power: {sl['p5m_watts']}W")
+
+    hydration = w.get('hydration_ml')
+    hydration_target = w.get('hydration_target_ml')
+    if hydration and hydration_target:
+        lines += [
+            f"",
+            f"WELLNESS:",
+            f"  Hydration: {hydration}ml logged vs {hydration_target}ml target",
+        ]
+    elif hydration:
+        lines += [f"", f"WELLNESS:", f"  Hydration: {hydration}ml logged"]
+
+    if tomorrow_session:
+        ts = tomorrow_session
+        lines += [
+            f"",
+            f"TOMORROW'S SESSION: {ts.get('name', '—')}",
+            f"  Target XSS: {ts.get('xss', '—')}  Duration: {ts.get('time_str', '—')}",
+        ]
+
+    # ── Instructions ─────────────────────────────────────────────────────────
+    lines += [
+        f"",
+        f"=== COACHING NOTE INSTRUCTIONS ===",
+        f"",
+        f"Write exactly 5 labelled blocks. Each block is short — max 4 sentences. Total note under 350 words.",
+        f"Use specific numbers from the data above. No generic advice. No fluff.",
+        f"",
+        f"Block 1 — STATUS SYNTHESIS",
+        f"Combine HRV signal, TSB, and CTL trend into one clear sentence about readiness.",
+        f"If HRV suppressed but TSB fresh → explain the conflict and which to trust.",
+        f"State CTL trend and days to race.",
+        f"",
+        f"Block 2 — LAST SESSION INSIGHT",
+        f"Comment on the last ride's power zones, AWC use, and recovery hours.",
+        f"Compare 20-min power to TP percentage. Flag anything unusual (too much Z3 on recovery day, etc).",
+        f"Note Xert training status and breakthrough proximity.",
+        f"",
+        f"Block 3 — TODAY'S PRESCRIPTION",
+        f"Give specific, actionable targets: power ceiling, HR ceiling, cadence, XSS target.",
+        f"If recovery day: strict ceilings. If hard day: peak targets from Xert TP + WOTD.",
+        f"Add a stop condition (e.g. 'abort if HR exceeds Xbpm for more than 90s').",
+        f"If hydration is low, add an urgent hydration note.",
+        f"",
+        f"Block 4 — TOMORROW PREVIEW",
+        f"State when today's recovery hours clear (last session start + recovery_hrs).",
+        f"Give power/HR ceiling if easy day, or pre-depletion strategy if hard day.",
+        f"State trade-off: any extra effort today directly debits tomorrow's session quality.",
+        f"",
+        f"Block 5 — RACE TRAJECTORY",
+        f"One-line traffic light: 🟢 On track / 🟡 Monitor / 🔴 Flag.",
+        f"State CTL trend, projected race-day TSB, and the #1 priority for this week.",
+    ]
 
     prompt = '\n'.join(lines)
-    prompt += (
-        "\n\nWrite a coaching note for James for today. "
-        "3-4 sentences, under 100 words. "
-        "Be specific to the numbers above — mention actual CTL/ATL/TSB values, "
-        "the most recent ride, and give a concrete recommendation for today's training "
-        "based on his form and days to race. "
-        "Direct, data-driven, no fluff."
-    )
 
     client = anthropic.Anthropic(api_key=api_key)
     resp = client.messages.create(
         model="claude-haiku-4-5",
-        max_tokens=200,
+        max_tokens=700,
         messages=[{"role": "user", "content": prompt}],
     )
     return resp.content[0].text.strip()
@@ -178,12 +280,15 @@ def generate_coaching_note(
     activities,
     xss_remaining_today=None,
     strava_latest=None,
+    iv_fitness=None,
+    tomorrow_session=None,
+    wellness=None,
 ):
     """
     Generate a data-driven coaching note via Claude API, falling back to templates.
 
     Returns:
-        String: The generated coaching note (3-4 sentences, ~100 words)
+        String: The generated 5-block coaching note (~300 words)
     """
 
     today = _today_sgt()
@@ -196,7 +301,8 @@ def generate_coaching_note(
         try:
             note = _generate_via_claude(
                 api_key, ctl, atl, tsb_raw, xert_status, hrv_list, activities,
-                xss_remaining_today, strava_latest, today, days_to_race
+                xss_remaining_today, strava_latest, today, days_to_race,
+                iv_fitness=iv_fitness, tomorrow_session=tomorrow_session, wellness=wellness,
             )
             if note:
                 log.info(f"Claude coaching note generated ({len(note.split())} words)")
