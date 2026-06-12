@@ -244,9 +244,11 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     xtarget_xss = xs.get('xss_today')
 
     # ── Generated dates ───────────────────────────────────────────────────────
+    now_sgt = datetime.now(_SGT)
     dow = today.weekday()
     gen_short = f"{_DOW_S[dow]} {today.day} {_MON[today.month]} {today.year}"
     gen_long  = f"{_DOW_L[dow]} {today.day} {_MON_LONG[today.month]} {today.year}"
+    gen_time  = now_sgt.strftime('%H:%M') + ' SGT'
     tmrw = today + timedelta(days=1)
     next_rpt  = f"{_DOW_L[tmrw.weekday()]} {tmrw.day} {_MON_LONG[tmrw.month]} {tmrw.year}"
     tomorrow_short = f"{_DOW_S[tmrw.weekday()].upper()} {tmrw.day} {_MON[tmrw.month].upper()}"
@@ -255,6 +257,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         # Meta
         'generated_date_short': gen_short,
         'generated_date_long':  gen_long,
+        'generated_time':       gen_time,
         'next_report_date':     next_rpt,
         'tomorrow_date_short':  tomorrow_short,
 
