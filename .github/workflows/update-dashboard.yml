@@ -2,7 +2,7 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: '0 22 * * *'  # 06:00 SGT next day (22:00 UTC = 06:00 UTC+8)
+    - cron: '0 1 * * *'   # 09:00 SGT (01:00 UTC = 09:00 UTC+8)
     - cron: '0 10 * * *'  # 18:00 SGT (10:00 UTC = 18:00 UTC+8)
   workflow_dispatch:        # manual trigger from GitHub Actions tab
 
