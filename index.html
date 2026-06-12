@@ -171,6 +171,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .cal-session-name{font-size:12px;font-weight:500;margin-bottom:4px;line-height:1.3}
 .cal-time{font-size:10px;color:var(--muted2);margin-bottom:4px}
 .cal-xss-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;display:inline-block;margin-bottom:4px}
+.cal-xss-breakdown{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.xss-bk{font-size:10px;font-weight:600;opacity:.85}
+.xss-bk-low{color:#3b82f6}.xss-bk-high{color:#eab308}.xss-bk-peak{color:#ef4444}
 .cal-recovery{margin-top:6px;border-top:1px solid var(--border);padding-top:6px}
 .cal-recovery-title{font-size:10px;color:var(--muted2);margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
 .cal-rec-row{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted2);margin-bottom:2px}
@@ -250,6 +253,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <td><strong>Xert</strong></td>
         <td><span class="status-dot live"></span>Live</td>
         <td>TP: 277W · HIE: 23.0 kJ · PP: 1093W · Status: Tired</td>
+        <td>Today</td>
+      </tr>
+      <tr>
+        <td><strong>Strava</strong></td>
+        <td><span class="status-dot live"></span>Live</td>
+        <td>7 rides synced · Riduck AI on 7 · Last: Fri 12 Jun</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -360,7 +369,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       <div class="ar-dist">3.1 km</div>
       <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-mega">152 XSS</span></div>
+      <div><span class="xss-badge xss-rest">2 XSS</span></div>
       <div class="xb-pills"></div>
     </div>
     
@@ -865,11 +874,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day past">
@@ -877,11 +889,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day past">
@@ -889,11 +904,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day past">
@@ -901,11 +919,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day past">
@@ -913,11 +934,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day past">
@@ -925,11 +949,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day past">
@@ -937,11 +964,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest Day</div>
       
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
   </div>
@@ -961,11 +991,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Shop ✅</div>
       <div class="cal-time">11m · 3.0 km</div>
       <span class="cal-xss-badge xss-rest">3 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">14°C standard</div>
+      
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 79</span>
+        <span class="xss-bk xss-bk-high">🟡 5</span>
+        <span class="xss-bk xss-bk-peak">🔴 1</span>
       </div>
+      
+      
     </div>
     
     <div class="cal-day completed">
@@ -973,11 +1006,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">IRRT Sentosa ✅</div>
       <div class="cal-time">2h 08m · 66.7 km +1 more</div>
       <span class="cal-xss-badge xss-mod">126 XSS</span>
+      
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 116</span>
+        <span class="xss-bk xss-bk-high">🟡 11</span>
+        <span class="xss-bk xss-bk-peak">🔴 4</span>
+      </div>
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">🔥 Dry 80–90°C</div>
         <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
       </div>
+      
     </div>
     
     <div class="cal-day completed">
@@ -985,11 +1027,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Recovery cruise ✅</div>
       <div class="cal-time">1h 28m · 40.2 km +1 more</div>
       <span class="cal-xss-badge xss-easy">52 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">14°C standard</div>
+      
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 64</span>
+        
+        
       </div>
+      
+      
     </div>
     
     <div class="cal-day completed">
@@ -997,11 +1042,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">CCP5 ✅</div>
       <div class="cal-time">1h 43m · 62.1 km +3 more</div>
       <span class="cal-xss-badge xss-mod">123 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🔥 Dry 80–90°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
+      
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 103</span>
+        <span class="xss-bk xss-bk-high">🟡 10</span>
+        <span class="xss-bk xss-bk-peak">🔴 5</span>
       </div>
+      
+      
     </div>
     
     <div class="cal-day today">
@@ -1009,11 +1057,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Recovery cruise  ✅</div>
       <div class="cal-time">1h 17m · 36.9 km</div>
       <span class="cal-xss-badge xss-rest">40 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">14°C standard</div>
+      
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 58</span>
+        
+        
       </div>
+      
+      
     </div>
     
     <div class="cal-day">
@@ -1021,11 +1072,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Low Intensity Training</div>
       <div class="cal-time">2h 13m</div>
       <span class="cal-xss-badge xss-mod">147 XSS</span>
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">🔥 Dry 80–90°C</div>
         <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
       </div>
+      
     </div>
     
     <div class="cal-day">
@@ -1033,11 +1087,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Crazies +</div>
       <div class="cal-time">3h 07m · 105.0 km</div>
       <span class="cal-xss-badge xss-mega">202 XSS</span>
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">🔥 Dry 80–90°C</div>
         <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
       </div>
+      
     </div>
     
   </div>
@@ -1057,11 +1114,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Low Intensity Training</div>
       <div class="cal-time">1h 06m</div>
       <span class="cal-xss-badge xss-easy">73 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">14°C standard</div>
-      </div>
+      
+      
     </div>
     
     <div class="cal-day">
@@ -1069,11 +1123,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Faber</div>
       <div class="cal-time">1h 48m · 44.0 km</div>
       <span class="cal-xss-badge xss-mod">126 XSS</span>
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">🔥 Dry 80–90°C</div>
         <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
       </div>
+      
     </div>
     
     <div class="cal-day">
@@ -1081,11 +1138,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Low Intensity Training</div>
       <div class="cal-time">1h 06m</div>
       <span class="cal-xss-badge xss-easy">73 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">14°C standard</div>
-      </div>
+      
+      
     </div>
     
     <div class="cal-day">
@@ -1093,11 +1147,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">CCP5</div>
       <div class="cal-time">2h 11m · 62.1 km</div>
       <span class="cal-xss-badge xss-mod">118 XSS</span>
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">🔥 Dry 80–90°C</div>
         <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
       </div>
+      
     </div>
     
     <div class="cal-day">
@@ -1105,11 +1162,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Rest</div>
       <div class="cal-time">Planned</div>
       
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">😴 Full rest</div>
         <div class="cal-rec-row" style="color:var(--muted)">Light stretching only</div>
       </div>
+      
     </div>
     
     <div class="cal-day">
@@ -1117,11 +1177,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">IRRT Kulai Express</div>
       <div class="cal-time">5h 15m · 166.6 km</div>
       <span class="cal-xss-badge xss-mega">286 XSS</span>
+      
+      
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">🔥 Dry 80–90°C</div>
         <div class="cal-rec-row" style="color:var(--muted)">4°C shock · 1–2 min</div>
       </div>
+      
     </div>
     
     <div class="cal-day">
@@ -1129,11 +1192,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">Zwift - Recovery on Queen's Highway After Party in Yorkshire</div>
       <div class="cal-time">0h 51m · 25.2 km</div>
       <span class="cal-xss-badge xss-rest">49 XSS</span>
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">Recovery</div>
-        <div class="cal-rec-row">🧖 Steam 40–45°C</div>
-        <div class="cal-rec-row" style="color:var(--muted)">14°C standard</div>
-      </div>
+      
+      
     </div>
     
   </div>
@@ -1152,7 +1212,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p># COACHING NOTE: James Loh
+    <p># COACHING NOTE — James Loh
 **Friday 12 June 2026 | 16 days to Singapore National Road Race**</p>
     
     
@@ -1161,28 +1221,28 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## STATUS SYNTHESIS
-HRV is suppressed at 35.0ms (−12% vs 7-day avg of 39.6), signalling CNS fatigue, but TSB of +3.4 and strong projected race-day form (+36–43) indicate you're fresh on paper—trust the TSB. CTL has held steady at 83.8 for two weeks; this stability is exactly right 16 days out, avoiding late fitness spikes that would risk race-day form.</p>
+    <p>## BLOCK 1 — STATUS SYNTHESIS
+Your HRV is suppressed at 35.0ms (−12% vs 7-day avg), signalling mild CNS fatigue, but TSB sits at +3.4 and CTL has held steady at 83.8 — this suggests acute stress without fitness decay. Trust the TSB reading; HRV suppression is short-term noise in a well-timed taper window. With 16 days remaining, you're entering the critical overcompensation zone where small stressors should be minimized.</p>
     
     
     
-    <p>## LAST SESSION INSIGHT
-Yesterday's recovery cruise was appropriately controlled: 58 XSS, 52% in Z2, and only 15.5% AWC discharge confirms you respected the recovery intent. Your 20-min peak of 160W (58% of TP) shows good power discipline on an easy day. However, Xert marks you "Tired"—the 13h recovery window hasn't fully cleared, and HRV suppression confirms accumulated load. No breakthrough is imminent; focus is taper execution, not new stimulus.</p>
+    <p>## BLOCK 2 — SESSION INSIGHT
+Today's recovery cruise nailed the assignment: 58 XSS in Z1–Z2 (75% of work), minimal anaerobic stress (15.5% AWC discharge), and a 20-min peak of 160W (58% TP) kept intensity well below VO₂max thresholds. Your 1.7 anaerobic matches and fat-dominant energy (56.3%) confirm a true recovery ride. Xert flags you as "Tired" — this is expected 16 days out and doesn't demand intervention yet.</p>
     
     
     
-    <p>## TODAY'S PRESCRIPTION
-Keep today's session minimal to allow HRV recovery. **Target XSS: 59 (matching yesterday's load).** Hold HR ≤140 bpm and power ≤180W (65% TP); stay in Z1–Z2 only. Cadence 90–100 rpm to spare the legs. **Stop condition: If HR exceeds 145 bpm for >2 min, ease off immediately.** Your suppressed HRV suggests residual systemic stress—a second easy day is the right call to clear it.</p>
+    <p>## BLOCK 3 — TODAY'S STATUS & EVENING PROTOCOL
+Your completed 1h 17m cruise required only 13h recovery; you'll clear that debt by early morning tomorrow. Tonight: hydrate to pale urine (this ride was 56% fat-burned, so carb stores were spared, but fluid loss still matters), consume 1.2g carb/kg + 0.25g protein within 90min post-ride, and aim for 8h sleep with core temp cool. No sauna or cold plunge—preserve parasympathetic state given HRV suppression.</p>
     
     
     
-    <p>## TOMORROW PREVIEW
-Last session recovery window closes ~13:30 tomorrow (Sat). Tomorrow's 147 XSS low-intensity block (2h 13m) is well-timed. Hold power ≤190W and HR ≤145 bpm for the full duration; this is pure aerobic base work with zero anaerobic demand. Any extra intensity today directly steals tomorrow's session quality and delays HRV recovery—stick to the ceiling.</p>
+    <p>## BLOCK 4 — TOMORROW PREVIEW
+Tomorrow's low-intensity 2h 13m session (147 XSS target) begins after full recovery clearance. Hold Z1–Z2 exclusively: cap HR at or below LTHR −8bpm, watts capped at 180W (65% TP). This is a "top-up" session, not a stress builder. Today's ultra-light effort leaves you with full metabolic capacity; do not trade tomorrow's quality for extra intensity.</p>
     
     
     
-    <p>## RACE TRAJECTORY
-🟢 **On track.** CTL stable, TSB fresh, and projected race-day form (+36–43) is elite readiness. **Priority this week: protect HRV recovery through strict intensity ceilings Mon–Wed, then introduce one controlled threshold effort (Thu) before final 48h taper.** Trust the data over feel.</p>
+    <p>## BLOCK 5 — RACE TRAJECTORY
+🟢 **On track.** CTL stable, TSB fresh, projected race-day form +36 to +43 is optimal. **Priority this week:** log two more quality stimulus sessions (VO₂max or threshold work) by Wednesday, then lock into 7-day taper. Suppress HRV trend is minor; ride it out.</p>
     
     
     
