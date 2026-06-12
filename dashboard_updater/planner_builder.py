@@ -54,7 +54,7 @@ def _get_monday(d):
     return d - timedelta(days=d.weekday())
 
 
-def build_planner(iv_events, iv_activities, weeks=3):
+def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None):
     """
     Build a list of week dicts for the training planner.
 
@@ -62,6 +62,7 @@ def build_planner(iv_events, iv_activities, weeks=3):
         iv_events: List of planned events from Intervals.icu
         iv_activities: List of recent completed activities
         weeks: Number of weeks to show (default 3)
+        strava_activities: Optional list of Strava activities with Riduck XSS breakdown
 
     Returns:
         dict with:
@@ -69,6 +70,13 @@ def build_planner(iv_events, iv_activities, weeks=3):
           - active_week_index: 0-based index of current week
     """
     today = _today_sgt()
+
+    # Build Strava/Riduck XSS breakdown lookup by date
+    strava_by_date = {}
+    for act in (strava_activities or []):
+        d = act.get('date', '')[:10]
+        if d and not strava_by_date.get(d):  # keep first (most recent) per date
+            strava_by_date[d] = act
 
     # Build a lookup of completed activities by date
     completed_by_date = {}
@@ -193,7 +201,12 @@ def build_planner(iv_events, iv_activities, weeks=3):
             elif day_date < today and not completed_flag:
                 day_classes.append('past')
 
-            rec_icon, rec_title, rec_detail = _recovery_protocol(session_name, xss)
+            # XSS breakdown from Strava/Riduck (completed sessions only)
+            strava_act = strava_by_date.get(date_str) if completed_flag else None
+            riduck = (strava_act.get('riduck') or {}) if strava_act else {}
+            xss_low  = round(riduck.get('xss_low')  or 0)
+            xss_high = round(riduck.get('xss_high') or 0)
+            xss_peak = round(riduck.get('xss_peak') or 0)
 
             days.append({
                 'date':           date_str,
@@ -204,14 +217,34 @@ def build_planner(iv_events, iv_activities, weeks=3):
                 'time_str':       time_str,
                 'xss':            round(xss) if xss else 0,
                 'xss_class':      _xss_badge_class(xss),
+                'xss_low':        xss_low,
+                'xss_high':       xss_high,
+                'xss_peak':       xss_peak,
                 'completed':      completed_flag,
                 'is_today':       day_date == today,
                 'is_past':        day_date < today,
                 'day_class':      ' '.join(day_classes),
-                'rec_icon':       rec_icon,
-                'rec_title':      rec_title,
-                'rec_detail':     rec_detail,
+                # rec_icon/title/detail assigned in post-pass below
+                'rec_icon':       None,
+                'rec_title':      None,
+                'rec_detail':     None,
             })
+
+        # ── Recovery protocol: max 3 sessions per week, hardest days ─────────
+        # Sort non-rest days by XSS descending; assign active recovery to top 3.
+        # Rest days always get the rest protocol; other days get no recovery card.
+        active_days = sorted(
+            [(i, d['xss']) for i, d in enumerate(days) if d['xss'] > 0],
+            key=lambda x: x[1], reverse=True
+        )
+        recovery_indices = {i for i, _ in active_days[:3]}
+        for i, d in enumerate(days):
+            if d['xss'] == 0:
+                d['rec_icon'], d['rec_title'], d['rec_detail'] = '😴', 'Full rest', 'Light stretching only'
+            elif i in recovery_indices:
+                d['rec_icon'], d['rec_title'], d['rec_detail'] = _recovery_protocol(d['session_name'], d['xss'])
+            else:
+                d['rec_icon'], d['rec_title'], d['rec_detail'] = None, None, None
 
         # Week 1 (index 1) = this week = active tab
         is_this_week = (week_monday == this_monday)

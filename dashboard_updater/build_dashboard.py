@@ -98,6 +98,7 @@ def build():
             iv_events=planned,                     # Xert planned/forecast events
             iv_activities=api_data['activities'],  # Intervals.icu completed (has XSS + duration)
             weeks=3,
+            strava_activities=api_data.get('strava_activities', []),
         )
         log.info(f"  Planner: {len(planner_ctx.get('planner_weeks', []))} weeks")
     except Exception as e:

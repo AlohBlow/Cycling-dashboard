@@ -185,16 +185,28 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
     # ── Activities ───────────────────────────────────────────────────────────
     yesterday = today - timedelta(days=1)
+
+    # Pre-compute which cycling activity is "primary" per date (highest IV XSS).
+    # Only the primary activity gets the full Xert day XSS; secondary same-day
+    # rides (e.g. "Shop" errands) keep their own Intervals.icu XSS value.
+    _primary_cycling: dict = {}
+    for a in iv_activities:
+        d    = a.get('date', '')[:10]
+        sport = (a.get('sport_type') or '').lower()
+        if not ('ride' in sport or sport == 'cycling'):
+            continue
+        if d not in _primary_cycling or (a.get('xss') or 0) > (_primary_cycling[d].get('xss') or 0):
+            _primary_cycling[d] = a
+
     act_rows = []
     for a in iv_activities:
         act_date = a.get('date', '')[:10]
-        # Use Xert XSS for this date if available (more accurate than Intervals.icu)
         xert_day_xss = xert_xss_by_date.get(act_date)
         iv_xss = a.get('xss') or 0
-        # Only use Xert XSS for cycling activities; walks/runs keep IV value
         sport = (a.get('sport_type') or '').lower()
         is_cycling = 'ride' in sport or sport == 'cycling'
-        if xert_day_xss and is_cycling:
+        is_primary = is_cycling and _primary_cycling.get(act_date) is a
+        if xert_day_xss and is_primary:
             xss_v = round(xert_day_xss)
         else:
             xss_v = round(iv_xss) if iv_xss else 0
@@ -292,4 +304,9 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
         # Strava / Riduck deep analysis
         'strava_latest': _build_strava_latest(strava_activities or []),
+
+        # Strava platform summary fields
+        'strava_activity_count': len(strava_activities or []),
+        'strava_last_sync': _fmt_date((strava_activities or [{}])[0].get('date', '')) if strava_activities else '—',
+        'strava_riduck_count': sum(1 for a in (strava_activities or []) if a.get('riduck')),
     }

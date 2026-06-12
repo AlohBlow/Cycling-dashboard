@@ -171,6 +171,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .cal-session-name{font-size:12px;font-weight:500;margin-bottom:4px;line-height:1.3}
 .cal-time{font-size:10px;color:var(--muted2);margin-bottom:4px}
 .cal-xss-badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;display:inline-block;margin-bottom:4px}
+.cal-xss-breakdown{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.xss-bk{font-size:10px;font-weight:600;opacity:.85}
+.xss-bk-low{color:#3b82f6}.xss-bk-high{color:#eab308}.xss-bk-peak{color:#ef4444}
 .cal-recovery{margin-top:6px;border-top:1px solid var(--border);padding-top:6px}
 .cal-recovery-title{font-size:10px;color:var(--muted2);margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
 .cal-rec-row{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted2);margin-bottom:2px}
@@ -250,6 +253,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <td><strong>Xert</strong></td>
         <td><span class="status-dot live"></span>Live</td>
         <td>TP: {{ xert_tp }}W · HIE: {{ xert_hie }} kJ · PP: {{ xert_pp }}W · Status: {{ xert_status_label }}</td>
+        <td>Today</td>
+      </tr>
+      <tr>
+        <td><strong>Strava</strong></td>
+        <td><span class="status-dot live"></span>Live</td>
+        <td>{{ strava_activity_count }} rides synced · Riduck AI on {{ strava_riduck_count }} · Last: {{ strava_last_sync }}</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -659,11 +668,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="cal-session-name">{{ day.session_name }}{% if day.completed %} ✅{% endif %}</div>
       {% if day.time_str %}<div class="cal-time">{{ day.time_str }}</div>{% endif %}
       {% if day.xss %}<span class="cal-xss-badge {{ day.xss_class }}">{{ day.xss }} XSS</span>{% endif %}
+      {% if day.xss_low or day.xss_high or day.xss_peak %}
+      <div class="cal-xss-breakdown">
+        {% if day.xss_low %}<span class="xss-bk xss-bk-low">🔵 {{ day.xss_low }}</span>{% endif %}
+        {% if day.xss_high %}<span class="xss-bk xss-bk-high">🟡 {{ day.xss_high }}</span>{% endif %}
+        {% if day.xss_peak %}<span class="xss-bk xss-bk-peak">🔴 {{ day.xss_peak }}</span>{% endif %}
+      </div>
+      {% endif %}
+      {% if day.rec_icon %}
       <div class="cal-recovery">
         <div class="cal-recovery-title">Recovery</div>
         <div class="cal-rec-row">{{ day.rec_icon }} {{ day.rec_title }}</div>
         {% if day.rec_detail %}<div class="cal-rec-row" style="color:var(--muted)">{{ day.rec_detail }}</div>{% endif %}
       </div>
+      {% endif %}
     </div>
     {% endfor %}
   </div>

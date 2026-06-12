@@ -175,22 +175,27 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         if xss_remaining_today:
             lines.append(f"XSS target remaining today: {xss_remaining_today:.0f}")
 
+    # Determine whether the most recent activity is today's completed session
+    today_completed = recent and recent.get('date', '')[:10] == today.isoformat()
+
     if recent:
         rdate = recent.get('date', '')[:10]
         rname = recent.get('name', 'Activity')
         rxss  = recent.get('xss') or '—'
         rdist = recent.get('distance_km') or '—'
         rdur  = recent.get('duration_str') or '—'
+        session_label = f"TODAY COMPLETED ✅ ({rdate})" if today_completed else f"MOST RECENT SESSION ({rdate})"
         lines += [
             f"",
-            f"LAST SESSION: {rname} ({rdate})",
+            f"{session_label}: {rname}",
             f"  XSS: {rxss}  Distance: {rdist} km  Duration: {rdur}",
         ]
 
     if sl:
+        riduck_label = "RIDUCK ANALYSIS — today's completed ride" if today_completed else "RIDUCK ANALYSIS (most recent ride)"
         lines += [
             f"",
-            f"RIDUCK ANALYSIS (last ride):",
+            f"{riduck_label}:",
             f"  Energy: Fat {sl.get('fat_pct') or '—'}%  Carb {sl.get('carb_pct') or '—'}%",
             f"  Recovery needed: {sl.get('recovery_hrs') or '—'}h",
         ]
@@ -222,11 +227,25 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         ts = tomorrow_session
         lines += [
             f"",
-            f"TOMORROW'S SESSION: {ts.get('name', '—')}",
+            f"TOMORROW'S PLANNED SESSION: {ts.get('name', '—')}",
             f"  Target XSS: {ts.get('xss', '—')}  Duration: {ts.get('time_str', '—')}",
         ]
 
     # ── Instructions ─────────────────────────────────────────────────────────
+    block3_instruction = (
+        f"Block 3 — TODAY'S STATUS & EVENING PROTOCOL\n"
+        f"Today's ride is ALREADY COMPLETED (see TODAY COMPLETED above) — do NOT prescribe another ride.\n"
+        f"Comment briefly on how the completed session went (XSS, effort level, power zones).\n"
+        f"Prescribe tonight's recovery: nutrition, hydration, sleep target, sauna/cold-plunge if relevant.\n"
+        f"If hydration is low, flag it urgently."
+    ) if today_completed else (
+        f"Block 3 — TODAY'S PRESCRIPTION\n"
+        f"Give specific, actionable targets: power ceiling, HR ceiling, cadence, XSS target.\n"
+        f"If recovery day: strict ceilings. If hard day: peak targets from Xert TP + WOTD.\n"
+        f"Add a stop condition (e.g. 'abort if HR exceeds Xbpm for more than 90s').\n"
+        f"If hydration is low, add an urgent hydration note."
+    )
+
     lines += [
         f"",
         f"=== COACHING NOTE INSTRUCTIONS ===",
@@ -239,16 +258,12 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         f"If HRV suppressed but TSB fresh → explain the conflict and which to trust.",
         f"State CTL trend and days to race.",
         f"",
-        f"Block 2 — LAST SESSION INSIGHT",
-        f"Comment on the last ride's power zones, AWC use, and recovery hours.",
-        f"Compare 20-min power to TP percentage. Flag anything unusual (too much Z3 on recovery day, etc).",
+        f"Block 2 — SESSION INSIGHT",
+        f"Comment on the most recent ride's power zones, AWC use, and recovery hours.",
+        f"Compare 20-min power to TP percentage. Flag anything unusual.",
         f"Note Xert training status and breakthrough proximity.",
         f"",
-        f"Block 3 — TODAY'S PRESCRIPTION",
-        f"Give specific, actionable targets: power ceiling, HR ceiling, cadence, XSS target.",
-        f"If recovery day: strict ceilings. If hard day: peak targets from Xert TP + WOTD.",
-        f"Add a stop condition (e.g. 'abort if HR exceeds Xbpm for more than 90s').",
-        f"If hydration is low, add an urgent hydration note.",
+        block3_instruction,
         f"",
         f"Block 4 — TOMORROW PREVIEW",
         f"State when today's recovery hours clear (last session start + recovery_hrs).",
