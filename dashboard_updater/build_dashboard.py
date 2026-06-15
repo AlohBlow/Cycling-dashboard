@@ -95,10 +95,11 @@ def build():
     # Intervals.icu is the activity source of truth; Xert calendar adds planned events
     try:
         planner_ctx = build_planner(
-            iv_events=planned,                     # Xert planned/forecast events
-            iv_activities=api_data['activities'],  # Intervals.icu completed (has XSS + duration)
+            iv_events=planned,                      # Xert planned/forecast events
+            iv_activities=api_data['activities'],   # Intervals.icu completed (has XSS + duration)
             weeks=3,
             strava_activities=api_data.get('strava_activities', []),
+            xert_completed=completed_xert,          # Xert completed — fallback for IV sync lag
         )
         log.info(f"  Planner: {len(planner_ctx.get('planner_weeks', []))} weeks")
     except Exception as e:

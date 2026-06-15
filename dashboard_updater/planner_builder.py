@@ -99,7 +99,7 @@ def _get_monday(d):
     return d - timedelta(days=d.weekday())
 
 
-def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None):
+def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xert_completed=None):
     """
     Build a list of week dicts for the training planner.
 
@@ -108,6 +108,7 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None):
         iv_activities: List of recent completed activities
         weeks: Number of weeks to show (default 3)
         strava_activities: Optional list of Strava activities with Riduck XSS breakdown
+        xert_completed: Xert completed events — used as fallback when IV hasn't synced yet
 
     Returns:
         dict with:
@@ -123,7 +124,7 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None):
         if d and not strava_by_date.get(d):  # keep first (most recent) per date
             strava_by_date[d] = act
 
-    # Build a lookup of completed activities by date
+    # Build a lookup of completed activities by date from Intervals.icu
     completed_by_date = {}
     for act in (iv_activities or []):
         act_date = act.get('date', '')[:10]
@@ -131,6 +132,20 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None):
             if act_date not in completed_by_date:
                 completed_by_date[act_date] = []
             completed_by_date[act_date].append(act)
+
+    # Supplement with Xert completed events for dates IV hasn't synced yet
+    for ev in (xert_completed or []):
+        ev_date = (ev.get('date') or '')[:10]
+        if ev_date and ev_date not in completed_by_date:
+            completed_by_date[ev_date] = [{
+                'name':         ev.get('name', 'Activity'),
+                'date':         ev_date,
+                'xss':          ev.get('xss') or 0,
+                'duration_sec': ev.get('duration_sec') or 0,
+                'distance_km':  ev.get('distance_km'),
+                'sport_type':   ev.get('type', 'Ride'),
+                '_source':      'xert',
+            }]
 
     # Build a lookup of planned events by date
     events_by_date = {}
