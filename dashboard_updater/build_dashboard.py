@@ -91,6 +91,24 @@ def build():
     xert_cal = api_data.get('xert_calendar', [])
     planned  = [e for e in xert_cal if not e.get('completed')]
     completed_xert = [e for e in xert_cal if e.get('completed')]
+
+    # Supplement IV activities with Xert completed events for dates not yet synced to IV.
+    # This covers the common case where Garmin → Intervals.icu sync lags several hours.
+    iv_dates = {a.get('date', '')[:10] for a in api_data['activities']}
+    for ev in sorted(completed_xert, key=lambda e: e.get('date', ''), reverse=True):
+        ev_date = (ev.get('date') or '')[:10]
+        if ev_date and ev_date not in iv_dates:
+            api_data['activities'].insert(0, {
+                'name':         ev.get('name', 'Activity'),
+                'date':         ev_date + 'T00:00:00',
+                'xss':          ev.get('xss') or 0,
+                'duration_sec': ev.get('duration_sec') or 0,
+                'distance_km':  ev.get('distance_km'),
+                'sport_type':   ev.get('type', 'Ride'),
+                'intensity':    None,
+            })
+            iv_dates.add(ev_date)
+
     # Use Xert completed events merged with Intervals.icu (for XSS/duration accuracy)
     # Intervals.icu is the activity source of truth; Xert calendar adds planned events
     try:
