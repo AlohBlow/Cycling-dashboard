@@ -3,7 +3,6 @@ name: Update Dashboard
 on:
   schedule:
     - cron: '5 1 * * *'   # 09:05 SGT (01:05 UTC = 09:05 UTC+8)
-    - cron: '5 10 * * *'  # 18:05 SGT (10:05 UTC = 18:05 UTC+8)
   workflow_dispatch:        # manual trigger from GitHub Actions tab
 
 # Allow the workflow to push the updated index.html back to the repo
