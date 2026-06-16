@@ -34,7 +34,7 @@ def _fetch():
     try:
         data['fitness']    = iv.get_fitness_14w()
         data['wellness']   = iv.get_latest_wellness()
-        data['activities'] = iv.get_recent_activities(limit=10)
+        data['activities'] = iv.get_recent_activities(limit=20)
         data['hrv']        = iv.get_hrv_7d()
         log.info(f"  fitness: {len(data['fitness'])} days | "
                  f"activities: {len(data['activities'])} | "
@@ -92,13 +92,16 @@ def build():
     planned  = [e for e in xert_cal if not e.get('completed')]
     completed_xert = [e for e in xert_cal if e.get('completed')]
 
-    # Supplement IV activities with Xert completed events for dates not yet synced to IV.
-    # This covers the common case where Garmin → Intervals.icu sync lags several hours.
-    iv_dates = {a.get('date', '')[:10] for a in api_data['activities']}
-    for ev in sorted(completed_xert, key=lambda e: e.get('date', ''), reverse=True):
+    # Supplement IV activities with Xert completed events not yet synced to IV.
+    # Match by (date, name) so multiple sessions on the same day are each handled.
+    iv_keys = {(a.get('date', '')[:10], (a.get('name') or '').strip().lower())
+               for a in api_data['activities']}
+    extras = []
+    for ev in completed_xert:
         ev_date = (ev.get('date') or '')[:10]
-        if ev_date and ev_date not in iv_dates:
-            api_data['activities'].insert(0, {
+        ev_name = (ev.get('name') or 'Activity').strip().lower()
+        if ev_date and (ev_date, ev_name) not in iv_keys:
+            extras.append({
                 'name':         ev.get('name', 'Activity'),
                 'date':         ev_date + 'T00:00:00',
                 'xss':          ev.get('xss') or 0,
@@ -107,7 +110,11 @@ def build():
                 'sport_type':   ev.get('type', 'Ride'),
                 'intensity':    None,
             })
-            iv_dates.add(ev_date)
+            iv_keys.add((ev_date, ev_name))
+    if extras:
+        combined = api_data['activities'] + extras
+        combined.sort(key=lambda a: a.get('date', ''), reverse=True)
+        api_data['activities'] = combined[:20]  # keep top 20 newest
 
     # Use Xert completed events merged with Intervals.icu (for XSS/duration accuracy)
     # Intervals.icu is the activity source of truth; Xert calendar adds planned events
