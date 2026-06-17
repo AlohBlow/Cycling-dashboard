@@ -73,10 +73,9 @@ def _estimate_xss_breakdown(session_name, xss):
     name_l = (session_name or '').lower()
     # Pure low-intensity: Z1-Z2 only, no high or peak XSS
     if any(k in name_l for k in ('low intensity', 'recovery', 'cruise', 'lit',
-                                  'back to blue', 'blue', 'endurance', 'z2', 'zone 2',
-                                  'zwift - xert')):
+                                  'back to blue', 'endurance', 'z2', 'zone 2')):
         low, high, peak = 1.00, 0.00, 0.00
-    elif any(k in name_l for k in ('irrt', 'crazies', 'faber', 'race')):
+    elif any(k in name_l for k in ('irrt', 'crazies', 'faber', 'race', 'smart')):
         low, high, peak = 0.30, 0.40, 0.30
     elif any(k in name_l for k in ('ccp', 'threshold', 'sweetspot')):
         low, high, peak = 0.40, 0.45, 0.15
