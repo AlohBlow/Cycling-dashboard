@@ -226,6 +226,27 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
             'is_yesterday':  act_date == yesterday.isoformat(),
         })
 
+    # ── Xert recent best effort (most recent completed cycling event) ────────
+    xert_recent_effort = None
+    cycling_types = {'cycling', 'ride', 'virtualride', 'ebikeride'}
+    recent_cycling = [
+        e for e in (xert_calendar or [])
+        if e.get('completed') and (e.get('type') or '').lower() in cycling_types
+        and (e.get('xss') or 0) > 30
+    ]
+    if recent_cycling:
+        best = sorted(recent_cycling, key=lambda e: e.get('date', ''), reverse=True)[0]
+        d = datetime.strptime(best['date'][:10], '%Y-%m-%d')
+        xert_recent_effort = {
+            'name':      best.get('name', 'Ride'),
+            'date_str':  f"{_DOW_S[d.weekday()]} {d.day} {_MON[d.month]}",
+            'max_hr':    round(best['max_hr']) if best.get('max_hr') else None,
+            'max_power': round(best['max_power']) if best.get('max_power') else None,
+            'focus':     best.get('focus', ''),
+            'distance':  best.get('distance_km'),
+            'xss':       round(best.get('xss') or 0),
+        }
+
     # ── Xert ─────────────────────────────────────────────────────────────────
     xs = xert_status or {}
     xtp_raw  = xs.get('tp')
@@ -292,6 +313,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         'hrv_badge_txt': hrv_badge_txt,
 
         # Xert
+        'xert_recent_effort': xert_recent_effort,
         'xert_tp':           xtp,
         'xert_hie':          xhie,
         'xert_pp':           xpp,

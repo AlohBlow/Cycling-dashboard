@@ -71,14 +71,25 @@ def _estimate_xss_breakdown(session_name, xss):
     if not xss:
         return 0, 0, 0
     name_l = (session_name or '').lower()
-    # Pure low-intensity: Z1-Z2 only, no high or peak XSS
+    # Pure low-intensity: Z1-Z2 only
     if any(k in name_l for k in ('low intensity', 'recovery', 'cruise', 'lit',
                                   'back to blue', 'endurance', 'z2', 'zone 2')):
         low, high, peak = 1.00, 0.00, 0.00
-    elif any(k in name_l for k in ('irrt', 'crazies', 'faber', 'race', 'smart')):
-        low, high, peak = 0.30, 0.40, 0.30
+    # Max-intensity: Crazies/Faber/pure race events
+    elif any(k in name_l for k in ('crazies', 'faber')):
+        low, high, peak = 0.25, 0.40, 0.35
+    # SMART structured intervals
+    elif 'smart' in name_l:
+        low, high, peak = 0.35, 0.40, 0.25
+    # CCP / threshold
     elif any(k in name_l for k in ('ccp', 'threshold', 'sweetspot')):
         low, high, peak = 0.40, 0.45, 0.15
+    # IRRT / group ride with race efforts — actual data shows ~70-90% low
+    elif any(k in name_l for k in ('irrt', 'ir sat', 'ir tue', 'ir thu', 'race effort')):
+        low, high, peak = 0.70, 0.20, 0.10
+    # Pure race (standalone event)
+    elif 'race' in name_l:
+        low, high, peak = 0.30, 0.40, 0.30
     elif xss >= 120:
         low, high, peak = 0.35, 0.45, 0.20
     elif xss >= 70:

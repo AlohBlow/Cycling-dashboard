@@ -443,14 +443,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <div class="xs-lab">Peak Power</div>
       </div>
     </div>
+    {% if xert_recent_effort %}
     <div style="margin-top:12px;background:#1a150033;border:1px solid #eab30844;border-radius:8px;padding:10px">
-      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">⚡ NEAR-BT: IRRT Sentosa (2 Jun)</div>
-      <div style="font-size:11px;color:var(--muted2)">Max HR: 184 BPM · Max Power: 1022W<br>Focus: Mixed Puncheur · 71.9 km</div>
+      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">⚡ RECENT BEST: {{ xert_recent_effort.name }} ({{ xert_recent_effort.date_str }})</div>
+      <div style="font-size:11px;color:var(--muted2)">
+        {% if xert_recent_effort.max_hr %}Max HR: {{ xert_recent_effort.max_hr }} BPM · {% endif %}
+        {% if xert_recent_effort.max_power %}Max Power: {{ xert_recent_effort.max_power }}W · {% endif %}
+        Focus: {{ xert_recent_effort.focus }}{% if xert_recent_effort.distance %} · {{ xert_recent_effort.distance }} km{% endif %}
+      </div>
     </div>
+    {% endif %}
     <div style="margin-top:10px;padding:8px;background:var(--card2);border-radius:6px">
       <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--{{ xert_status_color }})">{{ xert_status_label }}</span></div>
-      <div style="font-size:11px;color:var(--muted2);margin-top:2px">Load Focus: <span style="color:var(--orange)">Above Targets</span></div>
-      <div style="font-size:11px;color:var(--muted2);margin-top:2px">VO₂ Max: <span style="color:var(--accent)">Superior (100th %ile)</span></div>
     </div>
   </div>
 
