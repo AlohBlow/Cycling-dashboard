@@ -226,17 +226,22 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
             'is_yesterday':  act_date == yesterday.isoformat(),
         })
 
-    # ── Xert recent best effort (most recent completed cycling event) ────────
+    # ── Xert last breakthrough ride ───────────────────────────────────────────
     xert_recent_effort = None
     cycling_types = {'cycling', 'ride', 'virtualride', 'ebikeride'}
-    recent_cycling = [
+    completed_cycling = [
         e for e in (xert_calendar or [])
         if e.get('completed') and (e.get('type') or '').lower() in cycling_types
         and (e.get('xss') or 0) > 30
     ]
-    if recent_cycling:
-        best = sorted(recent_cycling, key=lambda e: e.get('date', ''), reverse=True)[0]
+    # Prefer last breakthrough (br=True), fall back to most recent cycling
+    bt_rides = [e for e in completed_cycling if e.get('breakthrough')]
+    source = sorted(bt_rides, key=lambda e: e.get('date', ''), reverse=True) or \
+             sorted(completed_cycling, key=lambda e: e.get('date', ''), reverse=True)
+    if source:
+        best = source[0]
         d = datetime.strptime(best['date'][:10], '%Y-%m-%d')
+        is_bt = best.get('breakthrough', False)
         xert_recent_effort = {
             'name':      best.get('name', 'Ride'),
             'date_str':  f"{_DOW_S[d.weekday()]} {d.day} {_MON[d.month]}",
@@ -245,6 +250,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
             'focus':     best.get('focus', ''),
             'distance':  best.get('distance_km'),
             'xss':       round(best.get('xss') or 0),
+            'is_bt':     is_bt,
         }
 
     # ── Xert ─────────────────────────────────────────────────────────────────

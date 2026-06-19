@@ -445,7 +445,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     {% if xert_recent_effort %}
     <div style="margin-top:12px;background:#1a150033;border:1px solid #eab30844;border-radius:8px;padding:10px">
-      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">⚡ RECENT BEST: {{ xert_recent_effort.name }} ({{ xert_recent_effort.date_str }})</div>
+      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">{% if xert_recent_effort.is_bt %}🏅 LAST BREAKTHROUGH{% else %}⚡ RECENT BEST{% endif %}: {{ xert_recent_effort.name }} ({{ xert_recent_effort.date_str }})</div>
       <div style="font-size:11px;color:var(--muted2)">
         {% if xert_recent_effort.max_hr %}Max HR: {{ xert_recent_effort.max_hr }} BPM · {% endif %}
         {% if xert_recent_effort.max_power %}Max Power: {{ xert_recent_effort.max_power }}W · {% endif %}

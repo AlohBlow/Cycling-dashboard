@@ -189,6 +189,12 @@ def get_calendar_events(days_back=7, days_forward=28):
         # Distance in km
         dist_km = ev.get("distance") or 0
 
+        # XSS breakdown — from actual fields for completed, placeholder for planned
+        ph = ev.get("placeholder_xss_details") or {}
+        xss_low  = ev.get("xlss") or ph.get("xlss")
+        xss_high = ev.get("xhss") or ph.get("xhss")
+        xss_peak = ev.get("xpss") or ph.get("xpss")
+
         result.append({
             "date":         date_str,
             "name":         ev.get("name", "").strip(),
@@ -196,6 +202,9 @@ def get_calendar_events(days_back=7, days_forward=28):
             "exercise_type": exercise_type,               # Activity / Forecast / Workout
             "completed":    is_completed,
             "xss":          round(xss, 1) if xss else 0,
+            "xss_low":      round(xss_low, 1) if xss_low is not None else None,
+            "xss_high":     round(xss_high, 1) if xss_high is not None else None,
+            "xss_peak":     round(xss_peak, 1) if xss_peak is not None else None,
             "distance_km":  round(dist_km, 1) if dist_km else None,
             "duration_sec": int(dur_sec) if dur_sec else None,
             "avg_hr":       ev.get("avg_heart_rate"),
@@ -204,6 +213,7 @@ def get_calendar_events(days_back=7, days_forward=28):
             "max_power":    ev.get("max_power"),
             "focus":        ev.get("focus") or ev.get("fa"),
             "specificity":  ev.get("spr"),
+            "breakthrough": bool(ev.get("br")),
             "path":         ev.get("path"),
         })
 

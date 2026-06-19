@@ -274,10 +274,45 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             elif day_date < today and not completed_flag:
                 day_classes.append('past')
 
-            # XSS breakdown: actual Riduck data for completed, estimates for planned
+            # XSS breakdown priority:
+            # 1. Xert event's own xlss/xhss/xpss (most authoritative — direct from Xert)
+            # 2. Strava/Riduck for completed rides (independent validation)
+            # 3. Estimate as last resort
             xss_low = xss_high = xss_peak = 0
             xss_breakdown_estimated = False
+
+            # Try Xert breakdown first (works for both completed and planned)
+            # Pick highest-XSS cycling event per date to avoid matching walks/errands
+            _CYCLING_TYPES = {'cycling', 'ride', 'virtualride', 'ebikeride'}
+            xert_src = None
             if completed_flag:
+                candidates = [
+                    e for e in (xert_completed or [])
+                    if e.get('date', '')[:10] == date_str
+                    and (e.get('type') or '').lower() in _CYCLING_TYPES
+                    and e.get('xss_low') is not None
+                ]
+                if candidates:
+                    xert_src = sorted(candidates, key=lambda e: e.get('xss') or 0, reverse=True)[0]
+            else:
+                candidates = [
+                    e for e in events_by_date.get(date_str, [])
+                    if (e.get('type') or '').lower() in _CYCLING_TYPES
+                    and e.get('xss_low') is not None
+                ]
+                if not candidates:  # fall back to any planned event with breakdown
+                    candidates = [e for e in events_by_date.get(date_str, []) if e.get('xss_low') is not None]
+                if candidates:
+                    xert_src = sorted(candidates, key=lambda e: e.get('xss') or 0, reverse=True)[0]
+
+            _CYCLING = {'cycling', 'ride', 'virtualride', 'ebikeride', 'cycling'}
+
+            if xert_src and xert_src.get('xss_low') is not None:
+                xss_low  = round(xert_src.get('xss_low') or 0)
+                xss_high = round(xert_src.get('xss_high') or 0)
+                xss_peak = round(xert_src.get('xss_peak') or 0)
+            elif completed_flag:
+                # Fall back to Riduck for completed rides
                 strava_act = strava_by_date.get(date_str)
                 riduck = (strava_act.get('riduck') or {}) if strava_act else {}
                 rdl = riduck.get('xss_low')
