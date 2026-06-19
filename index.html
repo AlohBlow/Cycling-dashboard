@@ -216,7 +216,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     <div class="status-badge">
       <span class="sb-label">Form / TSB</span>
-      <span class="sb-value" style="color:var(--yellow)">-5.8 · Moderate</span>
+      <span class="sb-value" style="color:var(--yellow)">-6.0 · Moderate</span>
     </div>
     <div class="status-badge">
       <span class="sb-label">Updated</span>
@@ -248,13 +248,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Intervals.icu</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>CTL: 87.3 · ATL: 93.1 · TSB: -5.8 · Zone: Moderate</td>
+        <td>CTL: 87.4 · ATL: 93.4 · TSB: -6.0 · Zone: Moderate</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Xert</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TP: 280W · HIE: 23.5 kJ · PP: 1092W · Status: Tired</td>
+        <td>TP: 280W · HIE: 23.5 kJ · PP: 1091W · Status: Tired</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -314,9 +314,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="chart-card">
     <div class="chart-title">CTL / ATL / TSB — Last 14 Days</div>
     <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 87.3</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 93.1</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) -5.8</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 87.4</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 93.4</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) -6.0</div>
     </div>
     <div class="chart-wrap"><canvas id="formChart"></canvas></div>
     <div class="zone-bar">
@@ -326,18 +326,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="z z-trans" style="flex:1"></div>
     </div>
     <div class="zone-bar-labels">
-      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now -5.8</span><span>Transition</span>
+      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now -6.0</span><span>Transition</span>
     </div>
     <div class="current-marker">
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">87.3</div><div class="cm-lab">CTL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">93.1</div><div class="cm-lab">ATL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">-5.8</div><div class="cm-lab">TSB</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">87.4</div><div class="cm-lab">CTL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">93.4</div><div class="cm-lab">ATL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">-6.0</div><div class="cm-lab">TSB</div></div>
     </div>
   </div>
 
   <div class="activities-card">
     <div class="chart-title">Recent Activities — Last 10</div>
 
+    
+    <div class="activity-row ">
+      <div class="ar-icon">🚶</div>
+      <div>
+        <div class="ar-name">Singapore Walking</div>
+        <div class="ar-date">Fri 19 Jun · 20m</div>
+      </div>
+      <div class="ar-dist">1.5 km</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-rest">2 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
     
     <div class="activity-row ">
       <div class="ar-icon">🚴</div>
@@ -347,7 +359,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       <div class="ar-dist">26.0 km</div>
       <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-easy">70 XSS</span></div>
+      <div><span class="xss-badge xss-easy">74 XSS</span></div>
       <div class="xb-pills"></div>
     </div>
     
@@ -568,18 +580,6 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
       <div class="xb-pills"></div>
     </div>
     
-    <div class="activity-row ">
-      <div class="ar-icon">🚶</div>
-      <div>
-        <div class="ar-name">Singapore Walking</div>
-        <div class="ar-date">Fri 12 Jun · 30m</div>
-      </div>
-      <div class="ar-dist">2.2 km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-rest">4 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
 
   </div>
 </div>
@@ -599,8 +599,17 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
         
         <div style="margin-bottom:8px;padding:10px;background:var(--card2);border:1px solid #22c55e33;border-radius:8px">
           <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">COMPLETED ✅</div>
+          <div style="font-size:14px;font-weight:600;color:var(--green)">Singapore Walking</div>
+          <div style="font-size:12px;color:var(--muted2)">1.5 km · 20m · XSS: 2</div>
+        </div>
+      
+    
+      
+        
+        <div style="margin-bottom:8px;padding:10px;background:var(--card2);border:1px solid #22c55e33;border-radius:8px">
+          <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">COMPLETED ✅</div>
           <div style="font-size:14px;font-weight:600;color:var(--green)">Zwift - The Strength To Go On</div>
-          <div style="font-size:12px;color:var(--muted2)">26.0 km · 1h 14m · XSS: 70</div>
+          <div style="font-size:12px;color:var(--muted2)">26.0 km · 1h 14m · XSS: 74</div>
         </div>
       
     
@@ -640,15 +649,15 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
     
       
     
+    
+
+    
+    
+
+    
+    
+    
       
-    
-    
-
-    
-    
-
-    
-    
     
       
     
@@ -695,18 +704,16 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
     
       
     
-      
-    
 
     
     <div style="margin-top:8px;padding:10px;background:var(--card2);border:1px solid var(--border);border-radius:8px">
       <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">TOMORROW · SAT 20 JUN</div>
       
-        <div style="font-size:13px;font-weight:600;color:var(--text)">IRRT Sat - 🚚 💩 😂</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">IRRT Sat</div>
         <div style="font-size:11px;color:var(--muted2);margin-top:2px">
-          XSS 199
-           · 114.1 km
-           · 4h 04m
+          XSS 189
+           · 110.9 km
+           · 3h 23m
         </div>
       
     </div>
@@ -726,7 +733,7 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
         <div class="xs-lab">HIE</div>
       </div>
       <div class="xs-item">
-        <div class="xs-val">1092</div>
+        <div class="xs-val">1091</div>
         <div class="xs-unit">W</div>
         <div class="xs-lab">Peak Power</div>
       </div>
@@ -985,7 +992,7 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
   <div class="cal-week-header">
     <h3>Last Week — Jun 8–14</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 744</span>
+      <span class="cal-week-xss">Weekly XSS: 798</span>
       
       <span class="cal-week-xss-bk">
         <span class="xss-bk xss-bk-low">🔵 751</span>
@@ -1074,9 +1081,9 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU<
     
     <div class="cal-day completed">
       <div class="cal-day-header"><span class="cal-day-num">12</span><span class="cal-day-name">FRI</span></div>
-      <div class="cal-session-name">Singapore Walking ✅</div>
-      <div class="cal-time">30m · 2.2 km</div>
-      <span class="cal-xss-badge xss-rest">4 XSS</span>
+      <div class="cal-session-name">Recovery cruise ✅</div>
+      <div class="cal-time">1h 16m · 36.9 km</div>
+      <span class="cal-xss-badge xss-easy">58 XSS</span>
       
       <div class="cal-xss-breakdown">
         <span class="xss-bk xss-bk-low">🔵 58</span>
@@ -1152,12 +1159,12 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU 
   <div class="cal-week-header">
     <h3>Taper Week — Jun 15–21</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 722</span>
+      <span class="cal-week-xss">Weekly XSS: 714</span>
       
       <span class="cal-week-xss-bk">
-        <span class="xss-bk xss-bk-low">🔵 640</span>
-        <span class="xss-bk xss-bk-high">🟡 36</span>
-        <span class="xss-bk xss-bk-peak">🔴 11</span>
+        <span class="xss-bk xss-bk-low">🔵 638</span>
+        <span class="xss-bk xss-bk-high">🟡 30</span>
+        <span class="xss-bk xss-bk-peak">🔴 9</span>
       </span>
       
     </div>
@@ -1253,8 +1260,8 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU 
     <div class="cal-day today">
       <div class="cal-day-header"><span class="cal-day-num">19</span><span class="cal-day-name">FRI</span></div>
       <div class="cal-session-name">Zwift - The Strength To Go On ✅</div>
-      <div class="cal-time">1h 14m · 26.0 km</div>
-      <span class="cal-xss-badge xss-easy">70 XSS</span>
+      <div class="cal-time">1h 14m · 26.0 km +1 more</div>
+      <span class="cal-xss-badge xss-easy">72 XSS</span>
       
       <div class="cal-xss-breakdown">
         <span class="xss-bk xss-bk-low">🔵 70</span>
@@ -1268,14 +1275,14 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU 
     
     <div class="cal-day">
       <div class="cal-day-header"><span class="cal-day-num">20</span><span class="cal-day-name">SAT</span></div>
-      <div class="cal-session-name">IRRT Sat - 🚚 💩 😂</div>
-      <div class="cal-time">4h 04m · 114.1 km</div>
-      <span class="cal-xss-badge xss-mega">199 XSS</span>
+      <div class="cal-session-name">IRRT Sat</div>
+      <div class="cal-time">3h 23m · 110.9 km</div>
+      <span class="cal-xss-badge xss-mega">189 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 176</span>
-        <span class="xss-bk xss-bk-high">🟡 17</span>
-        <span class="xss-bk xss-bk-peak">🔴 6</span>
+        <span class="xss-bk xss-bk-low">🔵 174</span>
+        <span class="xss-bk xss-bk-high">🟡 11</span>
+        <span class="xss-bk xss-bk-peak">🔴 4</span>
         
       </div>
       
@@ -1499,27 +1506,43 @@ Learning the course and got dropped on some hills but lead out perfectly on NTU 
     
     
     <p>## 1. STATUS SYNTHESIS
-HRV elevated at 49.0ms (+19% vs 7-day avg) signals strong nervous system recovery despite ATL at 93.1—this is your green light heading into race week. CTL has climbed 3.5 points in two weeks (83.8 → 87.3), and TSB of –5.8 reflects deliberate fatigue loading rather than overtraining. You're in the right place with 9 days to execute a taper toward +31 to +38 TSB race-day form.</p>
+Your HRV spiked to 49ms today (+19% above your 7-day avg of 41.2ms), signalling strong parasympathetic recovery—trust this over the low TSB of -6.0, which reflects accumulated fatigue from recent build. CTL has climbed 3.6 points in two weeks (83.8 → 87.4), confirming your fitness is solid heading into race week. You have the aerobic base; your nervous system is primed for taper to unlock form.</p>
+    
+    
+    
+    <p>---</p>
     
     
     
     <p>## 2. SESSION INSIGHT
-Today's Zwift session (70 XSS, 1h 14m) was aerobic-dominant: 41% Z2 + 55% Z3, with 20-min peak of 192W (69% TP)—a controlled effort well below threshold. AWC discharge negligible at 0.3% confirms you preserved anaerobic capacity. Xert flags "Tired" status; this is expected in taper phase and not a concern if HRV remains elevated and sleep is solid.</p>
+Today's "Strength To Go On" (74 XSS, 1h 14m) was well-structured: 55% time in Z3 with controlled 20-min peak of 192W (69% of TP). You avoided anaerobic stress (0.3% AWC discharge, zero matches), holding a sustainable tempo while preserving reserves. Xert labels you "Tired"—expected after 9 days of build—but the fat-carb split (51.8% / 48.2%) and moderate intensity confirm you're managing glycogen wisely. No breakthrough risk; power ceiling is appropriate for this phase.</p>
+    
+    
+    
+    <p>---</p>
     
     
     
     <p>## 3. TODAY'S STATUS & EVENING PROTOCOL
-The completed ride was appropriately scaled—sub-threshold, good fuel mix (52% fat / 48% carb), and recovery demand only 16 hours. **Tonight: rehydrate aggressively (500mL electrolyte drink within 2 hours post-ride), consume 1.2–1.5g carb/kg + 20g protein within 90 min.** Target 8+ hours sleep; use sauna only if legs feel heavy, otherwise skip—preserve nervous system quiet. No cold plunge this week.</p>
+Session complete at 69% TP confirms you executed discipline—no overreach. Recovery window: 16 hours clears around **Saturday 11:30 AM**. Tonight: rehydrate aggressively (urine pale), consume 1.2g carb + 0.3g protein per kg body weight within 90 min, then easy carbs + electrolytes before bed. Target 8.5 hours sleep; skip sauna tonight (HRV already elevated—let parasympathetic dominance settle). Light stretching only.</p>
+    
+    
+    
+    <p>---</p>
     
     
     
     <p>## 4. TOMORROW PREVIEW
-Recovery window closes ~5:30pm Saturday (1h 14m ride + 16h recovery). Tomorrow's IRRT Sat session is a hard day: 199 XSS over 4h 04m demands full glycogen and a pre-dawn start if possible. **Power ceiling: hold 220W (LTP) for endurance blocks; any anaerobic efforts must be sharp, not grinding.** The extra 70 XSS today (vs 63 target) is marginal—no debit to tomorrow's quality.</p>
+IRRT Sat (189 XSS, 3h 23m) begins at your discretion after 11:30 AM, once today's recovery debt is cleared. This is your final hard session before taper: hold TP ceiling at 280W during any threshold blocks, but lean into Z2 for the bulk of volume—you're building glycogen resilience, not hunting breakthroughs. The extra 74 XSS today (vs. 63 target) costs ~2 hours recovery; monitor your 5-min power Saturday—if it drops >5%, dial back intensity.</p>
+    
+    
+    
+    <p>---</p>
     
     
     
     <p>## 5. RACE TRAJECTORY
-🟢 **On track.** CTL momentum solid, race-day TSB projection strong, HRV cooperative. **Priority this week: execute the taper script without second-guessing.** Two hard sessions remain (Sat + Mon/Tue); dial back Wed–Fri, hit the line fresh.</p>
+🟢 **On track.** CTL +3.6 (strong momentum), projected race-day TSB +31 to +38 (optimal), and today's HRV spike confirms your body is ready to dump fatigue. **Priority this week:** execute the taper—complete IRRT Sat, then gentle spinning only Sun–Wed. Do not hunt extra fitness; trust the 87.4 CTL and the</p>
     
     
     
@@ -1528,7 +1551,7 @@ Recovery window closes ~5:30pm Saturday (1h 14m ride + 16h recovery). Tomorrow's
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Friday 19 June 2026 at 10:00 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Friday 19 June 2026 at 21:55 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -1545,9 +1568,9 @@ function switchTab(id, btn) {
 
 // Live CTL/ATL/TSB data from Intervals.icu — last 14 days
 const labels  = ["Jun 6", "Jun 7", "Jun 8", "Jun 9", "Jun 10", "Jun 11", "Jun 12", "Jun 13", "Jun 14", "Jun 15", "Jun 16", "Jun 17", "Jun 18", "Jun 19"];
-const ctlData = [83.8, 83.7, 83.7, 84.7, 83.9, 84.9, 83.9, 85.0, 88.0, 86.8, 87.1, 87.6, 88.1, 87.3];
-const atlData = [78.3, 78.4, 79.3, 85.5, 81.1, 86.6, 81.0, 87.4, 104.4, 95.5, 95.9, 97.3, 99.2, 93.1];
-const tsbData = [5.5, 5.3, 4.4, -0.8, 2.8, -1.7, 2.9, -2.4, -16.4, -8.7, -8.8, -9.7, -11.1, -5.8];
+const ctlData = [83.8, 83.7, 83.7, 84.7, 83.9, 84.9, 83.9, 85.0, 88.0, 86.8, 87.1, 87.6, 88.1, 87.4];
+const atlData = [78.3, 78.4, 79.3, 85.5, 81.1, 86.6, 81.0, 87.4, 104.4, 95.5, 95.9, 97.3, 99.2, 93.4];
+const tsbData = [5.5, 5.3, 4.4, -0.8, 2.8, -1.7, 2.9, -2.4, -16.4, -8.7, -8.8, -9.7, -11.1, -6.0];
 
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
