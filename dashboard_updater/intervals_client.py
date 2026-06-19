@@ -128,27 +128,48 @@ def get_planned_events(weeks=4):
 
 def get_latest_wellness():
     """
-    Returns the most recent wellness entry that has weight and/or restingHR.
+    Returns the most recent wellness entry, using the last 14 days for all fields
+    except weight — weight uses a 90-day window so a missed sync day doesn't blank it.
     """
-    oldest = (date.today() - timedelta(days=14)).isoformat()
-    rows = _get(f"/athlete/{INTERVALS_ATHLETE_ID}/wellness", {"oldest": oldest})
-    # Walk backwards to find the most recent entry with useful values
-    for r in reversed(rows):
-        weight = r.get("weight")
-        resting_hr = r.get("restingHR")
-        if weight or resting_hr:
-            return {
-                "date": r.get("id"),
-                "weight_kg": weight,
-                "resting_hr": resting_hr,
-                "sleep_secs": r.get("sleepSecs"),
-                "sleep_score": r.get("sleepScore"),
-                "hrv": r.get("hrv"),
-                "sport_info": r.get("sportInfo", []),  # contains eFTP per sport type
-                "training_readiness": r.get("garminTrainingReadiness") or r.get("trainingReadiness"),
-                "hydration_ml": r.get("hydration"),
-                "hydration_target_ml": r.get("hydrationTarget"),
-                "calories": r.get("calories"),
-                "calories_target": r.get("caloriesTarget"),
-            }
-    return {}
+    oldest_14 = (date.today() - timedelta(days=14)).isoformat()
+    oldest_90 = (date.today() - timedelta(days=90)).isoformat()
+
+    rows_14 = _get(f"/athlete/{INTERVALS_ATHLETE_ID}/wellness", {"oldest": oldest_14})
+
+    # Most recent entry with any useful fields (for HR, sleep, HRV, etc.)
+    base = {}
+    for r in reversed(rows_14):
+        if r.get("restingHR") or r.get("sleepSecs") or r.get("hrv"):
+            base = r
+            break
+
+    # Most recent weight — widen to 90 days in case Garmin sync lagged
+    weight = None
+    for r in reversed(rows_14):
+        if r.get("weight"):
+            weight = r["weight"]
+            break
+    if weight is None:
+        rows_90 = _get(f"/athlete/{INTERVALS_ATHLETE_ID}/wellness", {"oldest": oldest_90})
+        for r in reversed(rows_90):
+            if r.get("weight"):
+                weight = r["weight"]
+                break
+
+    if not base and weight is None:
+        return {}
+
+    return {
+        "date":                 base.get("id"),
+        "weight_kg":            weight,
+        "resting_hr":           base.get("restingHR"),
+        "sleep_secs":           base.get("sleepSecs"),
+        "sleep_score":          base.get("sleepScore"),
+        "hrv":                  base.get("hrv"),
+        "sport_info":           base.get("sportInfo", []),
+        "training_readiness":   base.get("garminTrainingReadiness") or base.get("trainingReadiness"),
+        "hydration_ml":         base.get("hydration"),
+        "hydration_target_ml":  base.get("hydrationTarget"),
+        "calories":             base.get("calories"),
+        "calories_target":      base.get("caloriesTarget"),
+    }
