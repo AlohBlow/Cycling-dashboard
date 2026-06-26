@@ -1,9 +1,7 @@
 name: Update Dashboard
 
 on:
-  schedule:
-    - cron: '5 1 * * *'   # 09:05 SGT (01:05 UTC = 09:05 UTC+8)
-  workflow_dispatch:        # manual trigger from GitHub Actions tab
+  workflow_dispatch:        # triggered by cron-job.org at 09:00 SGT daily
 
 # Allow the workflow to push the updated index.html back to the repo
 permissions:

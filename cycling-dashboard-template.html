@@ -222,10 +222,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <span class="sb-label">Updated</span>
       <span class="sb-value">{{ generated_date_short }}</span>
     </div>
-    <div class="alert-pill">
-      <span class="ap-icon">⚠️</span>
-      <span>Readiness: LOW · High Recovery Need</span>
+    {% if tr_label != '—' %}
+    <div class="alert-pill" style="{% if tr_card_color == 'green' %}background:#071f0f;border-color:#16a34a33;color:var(--green){% elif tr_card_color == 'yellow' %}background:#1f1507;border-color:#78350f33;color:var(--yellow){% else %}background:#1f0707;border-color:#7c1d1d33;color:var(--red){% endif %}">
+      <span class="ap-icon">{% if tr_card_color == 'green' %}✅{% elif tr_card_color == 'yellow' %}⚠️{% else %}🔴{% endif %}</span>
+      <span>Readiness: {{ tr_label }} · {{ tr_sub }}</span>
     </div>
+    {% endif %}
   </div>
 </div>
 
@@ -242,7 +244,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Garmin Connect</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TR: Low (High Recovery) · Sleep: {{ sleep_duration }} · Resting HR: {{ resting_hr }} bpm · Weight: {{ weight_display }} kg</td>
+        <td>TR: {{ tr_label }}{% if tr_sub != 'No data' %} ({{ tr_sub }}){% endif %} · Sleep: {{ sleep_duration }} · Resting HR: {{ resting_hr }} bpm · Weight: {{ weight_display }} kg</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -276,11 +278,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <!-- READINESS & HEALTH -->
 <div class="section-title">Readiness &amp; Health</div>
 <div class="metrics-grid">
-  <div class="metric-card red">
+  <div class="metric-card {{ tr_card_color }}">
     <div class="mc-label">Training Readiness</div>
-    <div class="mc-value" style="color:var(--red)">LOW</div>
-    <div class="mc-sub">High Recovery Need</div>
-    <span class="mc-badge low">Post-travel + High Load</span>
+    <div class="mc-value" style="color:var(--{{ tr_color }})">{{ tr_label }}</div>
+    <div class="mc-sub">{{ tr_sub }}</div>
+    <span class="mc-badge {{ tr_badge }}">Garmin</span>
   </div>
   <div class="metric-card purple">
     <div class="mc-label">HRV Status</div>
