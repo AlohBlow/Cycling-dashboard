@@ -200,13 +200,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <!-- HEADER -->
 <div class="dash-header">
   <div class="header-left">
-    <div class="race-pill">
-      <div class="day-num">{{ days_to_nationals }}</div>
-      <div class="day-label">DAYS TO NATIONALS</div>
+    <div class="race-pill" style="min-width:70px">
+      <div class="day-num" style="font-size:22px">{{ days_to_s1 }}</div>
+      <div class="day-label" style="font-size:9px">TO S1 ITT</div>
+    </div>
+    <div class="race-pill" style="min-width:70px;background:linear-gradient(135deg,#1a3a0a,#2d6b10);border-color:#4ade80">
+      <div class="day-num" style="font-size:22px">{{ days_to_s3 }}</div>
+      <div class="day-label" style="font-size:9px;color:#86efac">★ TO STAGE 3</div>
     </div>
     <div class="header-title">
-      <h1>🚴 James Loh Race Build Dashboard</h1>
-      <p>Nationals Road Race 80km · Sunday 28 June 2026 · 11:00 AM · Singapore</p>
+      <h1>🚴 James Loh · Tour de Bintan Build</h1>
+      <p>S1 Thu 21 Aug · 15km ITT · 265-275W &nbsp;|&nbsp; S2 Fri 22 Aug · 140km rolling · conserve &nbsp;|&nbsp; <strong style="color:#4ade80">S3 Sat 23 Aug · 110km hilly · attack &amp; win ★</strong></p>
     </div>
   </div>
   <div class="header-pills">

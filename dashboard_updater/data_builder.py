@@ -131,8 +131,10 @@ def _build_strava_latest(strava_activities):
 def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
                   xert_calendar=None, strava_activities=None):
     today = _today_sgt()
-    race_date = date(2026, 6, 28)
-    days_to_race = max(0, (race_date - today).days)
+    bintan_s1 = date(2026, 8, 21)
+    bintan_s3 = date(2026, 8, 23)
+    days_to_s1 = max(0, (bintan_s1 - today).days)
+    days_to_s3 = max(0, (bintan_s3 - today).days)
 
     # ── Fitness (CTL / ATL / TSB) ────────────────────────────────────────────
     cur = iv_fitness[-1] if iv_fitness else {}
@@ -310,8 +312,9 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         'next_report_date':     next_rpt,
         'tomorrow_date_short':  tomorrow_short,
 
-        # Countdown
-        'days_to_nationals': days_to_race,
+        # Countdown — Tour de Bintan
+        'days_to_s1': days_to_s1,
+        'days_to_s3': days_to_s3,
 
         # Form & Load
         'ctl':       ctl,
