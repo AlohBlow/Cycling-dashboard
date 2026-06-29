@@ -245,6 +245,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .supp-stage-pill.s1{background:#0a1a3f;color:#93c5fd;border:1px solid #3b82f633}
 .supp-stage-pill.s2{background:#1f1507;color:#fcd34d;border:1px solid #eab30833}
 .supp-stage-pill.s3{background:#071f0f;color:#4ade80;border:1px solid #4ade8033}
+/* DURABILITY PANEL */
+.dur-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:900px){.dur-grid{grid-template-columns:1fr}}
+.dur-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.dur-card-header{padding:10px 14px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1a1d27,#1e2130);border-bottom:1px solid var(--border)}
+.dur-card-header.target-header{background:linear-gradient(135deg,#0a1f0a,#142a14);border-bottom-color:#4ade8033;color:#86efac}
+.dur-body{padding:12px 14px}
+.dur-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #2a2d3e44}
+.dur-row:last-child{border-bottom:none}
+.dur-label{font-size:12px;color:var(--text);min-width:0;flex:1}
+.dur-label span{display:block;font-size:10px;color:var(--muted);margin-top:1px}
+.dur-score{font-size:16px;font-weight:700;min-width:36px;text-align:right}
+.dur-bar-wrap{flex:1;background:#1e2130;border-radius:3px;height:6px;overflow:hidden;min-width:60px}
+.dur-bar{height:100%;border-radius:3px}
+.dur-target-row{padding:10px 0;border-bottom:1px solid #2a2d3e44}
+.dur-target-row:last-child{border-bottom:none}
+.dur-target-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.dur-target-name{font-size:12px;font-weight:600;color:var(--text)}
+.dur-target-range{font-size:12px;font-weight:700;color:#4ade80}
+.dur-target-bar-bg{background:#1e2130;border-radius:4px;height:10px;overflow:hidden;position:relative}
+.dur-target-bar-fill{height:100%;border-radius:4px;position:relative}
+.dur-target-bar-ref{position:absolute;top:0;bottom:0;width:2px;background:#ef444488}
+.dur-insight{background:#0f1f0f;border:1px solid #4ade8033;border-radius:8px;padding:12px 14px;margin-top:0;font-size:12px;color:var(--muted2);line-height:1.6}
+.dur-insight strong{color:#4ade80}
 </style>
 </head>
 <body>
@@ -1511,8 +1535,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p># COACHING NOTE — James Loh
-**Monday 29 June 2026 | Race Day Complete**</p>
+    <p># COACHING NOTE: James Loh | 29 June 2026</p>
     
     
     
@@ -1520,28 +1543,59 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## 1. STATUS SYNTHESIS
-You crossed the line yesterday in peak form: TSB +15.2 (projected race-day +16–+23) hit the target window perfectly. However, HRV is suppressed at 32.0ms (−23% vs 7-day avg of 41.6ms), signalling acute nervous system fatigue—trust the TSB over HRV today, as post-race suppression is normal and your CTL trend (81.9, down from 87.1 in two weeks) reflects a controlled pre-race taper, not decay. You nailed execution; now recovery is the only job.</p>
+    <p>## 1. STATUS SYNTHESIS</p>
     
     
     
-    <p>## 2. SESSION INSIGHT
-Yesterday's 238 XSS effort (88.4 km, 2h 17m) shows exactly the profile needed: 30.9 anaerobic matches, 80.6% AWC discharge, and a 20-min peak of 192W (69% of TP). Your power distribution—19% Z7, 12% Z6, tactical Z2/Z3—matches a dynamic road race perfectly. RideLuck signals 45 hours of recovery needed; you'll clear that by Wednesday midday. Xert flags "Tired" status; do not chase a breakthrough today.</p>
+    <p>You crossed the finish line 23 hours ago with a win in AG—excellent execution. HRV is suppressed at 32.0ms (−23% vs 7-day avg), signalling acute nervous system load, but TSB of +15.2 indicates strong residual form; trust the TSB dominance here—HRV suppression is expected post-race. CTL has declined from 87.1 to 81.9 over two weeks (a 6% drop typical of taper), and race day is now **today (0 days to event)**, meaning your event *is complete*.</p>
     
     
     
-    <p>## 3. TODAY'S PRESCRIPTION
-**Complete rest or active recovery only.** If you ride: max HR 120 bpm, power ceiling 150W (sub-LTP), Z1–Z2 only, 30–40 min spin at 90+ rpm. Do not accumulate more than 20 XSS today. Stop immediately if you feel leg heaviness or motivation absent; mental fatigue counts. Hydration: 500ml electrolyte drink within 2 hours post-read, then 250ml every 30 min for next 4 hours. Your glycogen is 66.7% carb-depleted—prioritise carbs + sodium.</p>
+    <p>---</p>
     
     
     
-    <p>## 4. TOMORROW PREVIEW
-Recovery window clears Wednesday 01 July (45h from yesterday's 14:17 finish = 23:17 Tuesday). Tomorrow (Tuesday 30 June) is **absolute rest day**—0 XSS target. Any riding today steals from Tuesday's passive recovery; your nervous system needs 48 hours minimum post-National effort. Wednesday you can begin easy 60–90 min Z1 spin (120–150W) if HRV rebounds above 35ms.</p>
+    <p>## 2. SESSION INSIGHT (Yesterday's Race)</p>
     
     
     
-    <p>## 5. RACE TRAJECTORY
-🟢 **On track.** You executed flawlessly: TSB in zone, anaerobic matches deployed, fuelling mixed (33% fat, 67% carb—balanced). CTL decline is planned; projected recovery form +16–+23 TSB shows excellent taper. **#1 priority this week:** passive recovery through Wednesday, then rebuild with 3–4 easy days before returning to structure. You've earned rest.</p>
+    <p>Yesterday's race deployed 238 XSS over 2h17m at 88.4 km; your 20-min peak was 192W (69% TP = conservative—you didn't peak full threshold), while 5-min peak reached 236W. AWC discharge hit 80.6% with 30.9 anaerobic matches: aggressive acceleration discipline, not reckless. Energy split favored carbs (66.7%), confirming strong glycogen availability. **Recovery clock is now 45 hours from race end**—you'll clear acute fatigue by late Tuesday 30 June. Xert status shows "Tired" (expected), but no breakthrough was triggered.</p>
+    
+    
+    
+    <p>---</p>
+    
+    
+    
+    <p>## 3. TODAY'S PRESCRIPTION</p>
+    
+    
+    
+    <p>**Today is a structured recovery day.** Strict ceilings: max HR 125 bpm (Zone 1–2 only), max power 120W, cadence 80–100 rpm. Target XSS = **86 (easy spin or walk; optional light 20–30 min ride)**. This bridges remaining post-race fatigue without adding nervous system debt. Stop condition: if any residual muscle soreness worsens or resting HR rises above 60 bpm, rest completely. Hydration: drink 500–750 mL/hour electrolyte solution (post-race sodium depletion is real).</p>
+    
+    
+    
+    <p>---</p>
+    
+    
+    
+    <p>## 4. TOMORROW PREVIEW</p>
+    
+    
+    
+    <p>Yesterday's race started ~09:00 (estimated); recovery window closes by **~18:00 Tuesday 30 June**. Tomorrow is **full rest day** (target XSS = 0). If you feel restorative urge, a 30-min Zone 1 spin at <100W is permissible but not earned. Any "extra effort" today (e.g. intensity creep) directly debits Tuesday's recovery capacity—keep today's TSB cushion intact.</p>
+    
+    
+    
+    <p>---</p>
+    
+    
+    
+    <p>## 5. RACE TRAJECTORY</p>
+    
+    
+    
+    <p>🟢 **Race complete.** CTL−6% reflects taper execution; projected peak TSB (+16 to +23) was achieved yesterday. Your +15.2 TSB today + race win signals successful peaking. **Priority this week: maximize recovery to rebuild CTL back toward 87+ for next mesocycle.** Celebrate today; reload tomorrow.</p>
     
     
     
@@ -1613,6 +1667,107 @@ Recovery window clears Wednesday 01 July (45h from yesterday's 14:17 finish = 23
 
 </div>
 
+<!-- DURABILITY TRACKING -->
+<div class="section-title">Durability Score — Historical &amp; Bintan Targets</div>
+<div class="dur-grid">
+
+  <!-- HISTORICAL -->
+  <div class="dur-card">
+    <div class="dur-card-header">📊 Historical Durability Scores</div>
+    <div class="dur-body">
+      
+      
+      <div class="dur-row">
+        <div class="dur-label">Nationals Jun 28 2026<span>A-race peak form</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:70%;background:#4ade80"></div></div>
+        <div class="dur-score" style="color:#4ade80">20.2</div>
+      </div>
+      
+      <div class="dur-row">
+        <div class="dur-label">ToF Stage 1 May 2025<span>Day 1 stage race</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:100%;background:#22d3ee"></div></div>
+        <div class="dur-score" style="color:#22d3ee">28.9</div>
+      </div>
+      
+      <div class="dur-row">
+        <div class="dur-label">ToF Stage 3 May 2025<span>Day 2 stage race</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:96%;background:#22d3ee"></div></div>
+        <div class="dur-score" style="color:#22d3ee">27.7</div>
+      </div>
+      
+      <div class="dur-row">
+        <div class="dur-label">Kulai 2026<span>195km aerobic paced</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:61%;background:#a855f7"></div></div>
+        <div class="dur-score" style="color:#a855f7">17.7</div>
+      </div>
+      
+      <div class="dur-row">
+        <div class="dur-label">ToF Stage 4 May 2025<span>Day 3 — durability cliff</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:37%;background:#ef4444"></div></div>
+        <div class="dur-score" style="color:#ef4444">10.6</div>
+      </div>
+      
+      <div class="dur-row">
+        <div class="dur-label">Crazies Jun 14 2026<span>3h31m high intensity</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:34%;background:#f97316"></div></div>
+        <div class="dur-score" style="color:#f97316">9.8</div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- TARGETS + INSIGHT -->
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="dur-card">
+      <div class="dur-card-header target-header">🎯 Bintan 2026 — Stage Targets</div>
+      <div class="dur-body">
+        
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">S1 · ITT (15km)</span>
+            <span class="dur-target-range" style="color:var(--muted2)">N/A — time trial</span>
+          </div>
+          <div class="dur-target-bar-bg">
+            <div class="dur-target-bar-fill" style="width:0%;background:#64748b"></div>
+          </div>
+        </div>
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">S2 · Rolling 140km</span>
+            <span class="dur-target-range">Target 22–25</span>
+          </div>
+          <div class="dur-target-bar-bg" style="position:relative">
+            <div class="dur-target-bar-fill" style="width:73%;background:linear-gradient(90deg,#4ade80,#22d3ee)"></div>
+            <div class="dur-target-bar-ref" style="left:35%"></div>
+          </div>
+        </div>
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">S3 · Hilly 110km ★</span>
+            <span class="dur-target-range">Target 16–20</span>
+          </div>
+          <div class="dur-target-bar-bg" style="position:relative">
+            <div class="dur-target-bar-fill" style="width:60%;background:linear-gradient(90deg,#a855f7,#4ade80)"></div>
+            <div class="dur-target-bar-ref" style="left:35%"></div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:6px">
+          <div style="width:10px;height:2px;background:#ef444488;display:inline-block"></div>
+          Red line = historical Day 3 cliff (10.6) — target is to beat it
+        </div>
+      </div>
+    </div>
+
+    <div class="dur-insight">
+      <strong>Key Insight:</strong> Durability is <strong>intensity-dependent</strong>, not just duration-dependent.<br>
+      Riding aerobically → holds <strong>17–20</strong> · Racing hard → drops to <strong>9–10</strong><br><br>
+      <strong>Stage 2 pacing directly determines Stage 3 durability.</strong><br>
+      Protect HIE in S2 → arrive at S3 with 16–20 durability → attack the climbs.
+    </div>
+  </div>
+
+</div>
+
 <!-- SUPPLEMENT PROTOCOL -->
 <div class="section-title">Tour de Bintan — Supplement &amp; Nutrition Protocol</div>
 <div class="supp-grid">
@@ -1670,7 +1825,7 @@ Recovery window clears Wednesday 01 July (45h from yesterday's 14:17 finish = 23
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Monday 29 June 2026 at 08:31 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Monday 29 June 2026 at 08:33 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>

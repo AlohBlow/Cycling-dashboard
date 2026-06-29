@@ -245,6 +245,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .supp-stage-pill.s1{background:#0a1a3f;color:#93c5fd;border:1px solid #3b82f633}
 .supp-stage-pill.s2{background:#1f1507;color:#fcd34d;border:1px solid #eab30833}
 .supp-stage-pill.s3{background:#071f0f;color:#4ade80;border:1px solid #4ade8033}
+/* DURABILITY PANEL */
+.dur-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:900px){.dur-grid{grid-template-columns:1fr}}
+.dur-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.dur-card-header{padding:10px 14px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1a1d27,#1e2130);border-bottom:1px solid var(--border)}
+.dur-card-header.target-header{background:linear-gradient(135deg,#0a1f0a,#142a14);border-bottom-color:#4ade8033;color:#86efac}
+.dur-body{padding:12px 14px}
+.dur-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #2a2d3e44}
+.dur-row:last-child{border-bottom:none}
+.dur-label{font-size:12px;color:var(--text);min-width:0;flex:1}
+.dur-label span{display:block;font-size:10px;color:var(--muted);margin-top:1px}
+.dur-score{font-size:16px;font-weight:700;min-width:36px;text-align:right}
+.dur-bar-wrap{flex:1;background:#1e2130;border-radius:3px;height:6px;overflow:hidden;min-width:60px}
+.dur-bar{height:100%;border-radius:3px}
+.dur-target-row{padding:10px 0;border-bottom:1px solid #2a2d3e44}
+.dur-target-row:last-child{border-bottom:none}
+.dur-target-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.dur-target-name{font-size:12px;font-weight:600;color:var(--text)}
+.dur-target-range{font-size:12px;font-weight:700;color:#4ade80}
+.dur-target-bar-bg{background:#1e2130;border-radius:4px;height:10px;overflow:hidden;position:relative}
+.dur-target-bar-fill{height:100%;border-radius:4px;position:relative}
+.dur-target-bar-ref{position:absolute;top:0;bottom:0;width:2px;background:#ef444488}
+.dur-insight{background:#0f1f0f;border:1px solid #4ade8033;border-radius:8px;padding:12px 14px;margin-top:0;font-size:12px;color:var(--muted2);line-height:1.6}
+.dur-insight strong{color:#4ade80}
 </style>
 </head>
 <body>
@@ -1110,6 +1134,84 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="rs-row" style="margin-top:8px"><span class="rs-icon">💪</span><span class="rs-text"><strong>Weapon:</strong> 285W 5-min power on repeated punchy climbs</span></div>
       <div class="rs-insight">2022: finished with 77% MPA remaining — use it all in 2026. Day 3 fatigue cliff real (durability drops to 10.6) — plan for it, don't fight it.</div>
       <div class="rs-risk">Day 3 fatigue cliff — historical durability drops to 10.6 by Day 3</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DURABILITY TRACKING -->
+<div class="section-title">Durability Score — Historical &amp; Bintan Targets</div>
+<div class="dur-grid">
+
+  <!-- HISTORICAL -->
+  <div class="dur-card">
+    <div class="dur-card-header">📊 Historical Durability Scores</div>
+    <div class="dur-body">
+      {% set dur_history = [
+        ('Nationals Jun 28 2026',  'A-race peak form',         20.2, '#4ade80', 70),
+        ('ToF Stage 1 May 2025',   'Day 1 stage race',         28.9, '#22d3ee', 100),
+        ('ToF Stage 3 May 2025',   'Day 2 stage race',         27.7, '#22d3ee', 96),
+        ('Kulai 2026',             '195km aerobic paced',      17.7, '#a855f7', 61),
+        ('ToF Stage 4 May 2025',   'Day 3 — durability cliff', 10.6, '#ef4444', 37),
+        ('Crazies Jun 14 2026',    '3h31m high intensity',      9.8, '#f97316', 34),
+      ] %}
+      {% for name, detail, score, color, pct in dur_history %}
+      <div class="dur-row">
+        <div class="dur-label">{{ name }}<span>{{ detail }}</span></div>
+        <div class="dur-bar-wrap"><div class="dur-bar" style="width:{{ pct }}%;background:{{ color }}"></div></div>
+        <div class="dur-score" style="color:{{ color }}">{{ score }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- TARGETS + INSIGHT -->
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="dur-card">
+      <div class="dur-card-header target-header">🎯 Bintan 2026 — Stage Targets</div>
+      <div class="dur-body">
+        {# Max scale = 30 for bar width calc. Historical Day3 cliff = 10.6 shown as ref line at 35% #}
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">S1 · ITT (15km)</span>
+            <span class="dur-target-range" style="color:var(--muted2)">N/A — time trial</span>
+          </div>
+          <div class="dur-target-bar-bg">
+            <div class="dur-target-bar-fill" style="width:0%;background:#64748b"></div>
+          </div>
+        </div>
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">S2 · Rolling 140km</span>
+            <span class="dur-target-range">Target 22–25</span>
+          </div>
+          <div class="dur-target-bar-bg" style="position:relative">
+            <div class="dur-target-bar-fill" style="width:73%;background:linear-gradient(90deg,#4ade80,#22d3ee)"></div>
+            <div class="dur-target-bar-ref" style="left:35%"></div>
+          </div>
+        </div>
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">S3 · Hilly 110km ★</span>
+            <span class="dur-target-range">Target 16–20</span>
+          </div>
+          <div class="dur-target-bar-bg" style="position:relative">
+            <div class="dur-target-bar-fill" style="width:60%;background:linear-gradient(90deg,#a855f7,#4ade80)"></div>
+            <div class="dur-target-bar-ref" style="left:35%"></div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:6px">
+          <div style="width:10px;height:2px;background:#ef444488;display:inline-block"></div>
+          Red line = historical Day 3 cliff (10.6) — target is to beat it
+        </div>
+      </div>
+    </div>
+
+    <div class="dur-insight">
+      <strong>Key Insight:</strong> Durability is <strong>intensity-dependent</strong>, not just duration-dependent.<br>
+      Riding aerobically → holds <strong>17–20</strong> · Racing hard → drops to <strong>9–10</strong><br><br>
+      <strong>Stage 2 pacing directly determines Stage 3 durability.</strong><br>
+      Protect HIE in S2 → arrive at S3 with 16–20 durability → attack the climbs.
     </div>
   </div>
 
