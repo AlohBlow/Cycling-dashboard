@@ -269,6 +269,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .dur-target-bar-ref{position:absolute;top:0;bottom:0;width:2px;background:#ef444488}
 .dur-insight{background:#0f1f0f;border:1px solid #4ade8033;border-radius:8px;padding:12px 14px;margin-top:0;font-size:12px;color:var(--muted2);line-height:1.6}
 .dur-insight strong{color:#4ade80}
+/* FITNESS TRAJECTORY */
+.traj-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+.traj-timeline{display:flex;align-items:flex-end;gap:0;position:relative;margin:20px 0 8px;height:90px}
+.traj-timeline::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--border)}
+.traj-node{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;cursor:default}
+.traj-dot{width:10px;height:10px;border-radius:50%;border:2px solid;position:relative;z-index:2;margin-bottom:4px}
+.traj-dot.past{background:#64748b;border-color:#64748b}
+.traj-dot.future{background:var(--bg);border-color:#4f8ef7}
+.traj-dot.peak{background:#4ade80;border-color:#4ade80;width:13px;height:13px;box-shadow:0 0 8px #4ade8066}
+.traj-dot.race{background:#ef4444;border-color:#ef4444;width:13px;height:13px;box-shadow:0 0 8px #ef444466}
+.traj-dot.today-dot{background:#eab308;border-color:#eab308;box-shadow:0 0 8px #eab30866}
+.traj-connector{position:absolute;top:5px;right:50%;left:-50%;height:2px;background:linear-gradient(90deg,#2a2d3e,#4f8ef755);z-index:1}
+.traj-node:first-child .traj-connector{display:none}
+.traj-ctl{font-size:10px;font-weight:700;color:var(--text);margin-bottom:2px}
+.traj-bar-col{position:absolute;bottom:18px;width:4px;border-radius:2px 2px 0 0}
+.traj-date{font-size:9px;color:var(--muted);text-align:center;margin-top:4px;line-height:1.3;white-space:nowrap}
+.traj-phase-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:1px;text-align:center}
+.traj-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted2);margin-top:4px}
+.traj-legend span{display:flex;align-items:center;gap:5px}
+.traj-legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.traj-tsb-box{background:#0a1f0a;border:1px solid #4ade8033;border-radius:8px;padding:10px 14px;margin-top:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.traj-tsb-box .tsb-item{text-align:center}
+.traj-tsb-box .tsb-val{font-size:18px;font-weight:700;color:#4ade80}
+.traj-tsb-box .tsb-lbl{font-size:10px;color:var(--muted2);margin-top:1px}
 </style>
 </head>
 <body>
@@ -1535,7 +1559,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p># COACHING NOTE: James Loh | 29 June 2026</p>
+    <p># COACHING NOTE — James Loh
+**Monday 29 June 2026 | Race Day +0 (Post-Nationals)**</p>
     
     
     
@@ -1543,23 +1568,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## 1. STATUS SYNTHESIS</p>
-    
-    
-    
-    <p>You crossed the finish line 23 hours ago with a win in AG—excellent execution. HRV is suppressed at 32.0ms (−23% vs 7-day avg), signalling acute nervous system load, but TSB of +15.2 indicates strong residual form; trust the TSB dominance here—HRV suppression is expected post-race. CTL has declined from 87.1 to 81.9 over two weeks (a 6% drop typical of taper), and race day is now **today (0 days to event)**, meaning your event *is complete*.</p>
-    
-    
-    
-    <p>---</p>
-    
-    
-    
-    <p>## 2. SESSION INSIGHT (Yesterday's Race)</p>
-    
-    
-    
-    <p>Yesterday's race deployed 238 XSS over 2h17m at 88.4 km; your 20-min peak was 192W (69% TP = conservative—you didn't peak full threshold), while 5-min peak reached 236W. AWC discharge hit 80.6% with 30.9 anaerobic matches: aggressive acceleration discipline, not reckless. Energy split favored carbs (66.7%), confirming strong glycogen availability. **Recovery clock is now 45 hours from race end**—you'll clear acute fatigue by late Tuesday 30 June. Xert status shows "Tired" (expected), but no breakthrough was triggered.</p>
+    <p>## BLOCK 1 — STATUS SYNTHESIS
+You crossed the finish line yesterday (Jun 28) as AG winner, which took precedence over data. Your TSB sits at +15.2 and is tracking toward +16–23 on race day—excellent form. However, HRV is suppressed at 32.0ms (–23% vs 7-day avg of 41.6ms), signaling residual CNS fatigue despite fresh TSB; trust the HRV suppression here, not the TSB alone. CTL has dropped 5.2 points to 81.9 over two weeks, which is normal post-race, and you are now 0 days from race completion.</p>
     
     
     
@@ -1567,23 +1577,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## 3. TODAY'S PRESCRIPTION</p>
-    
-    
-    
-    <p>**Today is a structured recovery day.** Strict ceilings: max HR 125 bpm (Zone 1–2 only), max power 120W, cadence 80–100 rpm. Target XSS = **86 (easy spin or walk; optional light 20–30 min ride)**. This bridges remaining post-race fatigue without adding nervous system debt. Stop condition: if any residual muscle soreness worsens or resting HR rises above 60 bpm, rest completely. Hydration: drink 500–750 mL/hour electrolyte solution (post-race sodium depletion is real).</p>
-    
-    
-    
-    <p>---</p>
-    
-    
-    
-    <p>## 4. TOMORROW PREVIEW</p>
-    
-    
-    
-    <p>Yesterday's race started ~09:00 (estimated); recovery window closes by **~18:00 Tuesday 30 June**. Tomorrow is **full rest day** (target XSS = 0). If you feel restorative urge, a 30-min Zone 1 spin at <100W is permissible but not earned. Any "extra effort" today (e.g. intensity creep) directly debits Tuesday's recovery capacity—keep today's TSB cushion intact.</p>
+    <p>## BLOCK 2 — SESSION INSIGHT
+Yesterday's Nationals effort (2h 17m, 238 XSS, 88.4 km) shows a well-distributed race: 19% Z7 and 12% Z6 sprints, 10% Z4 threshold work, and solid base (Z1–Z2: 40%). Your 20-min peak (192W) sat at 69% of TP (277W)—conservative for a road race of that distance, suggesting you paced intelligently and preserved finishing power. AWC discharge hit 80.6% with 30.9 anaerobic matches; recovery clock started at 14:17 UTC Jun 28 and requires ~45 hours, clearing ~07:00 UTC Jun 30 (Tuesday morning).</p>
     
     
     
@@ -1591,11 +1586,26 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## 5. RACE TRAJECTORY</p>
+    <p>## BLOCK 3 — TODAY'S PRESCRIPTION
+**Today is mandatory rest.** Do not ride. If you feel compelled to move, walk, swim, or stretch only—keep HR below 120 bpm, zero power output. Remaining XSS target of 86 is a planning artifact; **ignore it entirely.** Your CNS is suppressed and your muscles are in acute repair. One easy spin today will sabotage tomorrow's quality window.</p>
     
     
     
-    <p>🟢 **Race complete.** CTL−6% reflects taper execution; projected peak TSB (+16 to +23) was achieved yesterday. Your +15.2 TSB today + race win signals successful peaking. **Priority this week: maximize recovery to rebuild CTL back toward 87+ for next mesocycle.** Celebrate today; reload tomorrow.</p>
+    <p>---</p>
+    
+    
+    
+    <p>## BLOCK 4 — TOMORROW PREVIEW
+Recovery window closes Tuesday 30 June ~07:00 UTC. Tomorrow, a light 60–90 min Z1 spin (100–130 W, HR 120–140 bpm) is permitted *only if* HRV rebounds above 38 ms and you report good sleep and appetite. If HRV remains below 35 ms, extend rest. Any extra work today directly delays tomorrow's clearance.</p>
+    
+    
+    
+    <p>---</p>
+    
+    
+    
+    <p>## BLOCK 5 — RACE TRAJECTORY
+🟢 **On track.** You executed the race and won; form is solid (+15.2 TSB). CTL decline is expected post-race. **Priority: 48 hours of strict recovery, then easy recon ride to assess neuromuscular state before structuring next block.**</p>
     
     
     
@@ -1768,6 +1778,235 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 
 </div>
 
+<!-- FITNESS TRAJECTORY -->
+<div class="section-title">Fitness Trajectory — CTL Build to Bintan</div>
+<div class="traj-wrap">
+
+  
+  
+  
+
+  <div style="position:relative">
+    <!-- Y-axis labels -->
+    <div style="position:absolute;left:0;top:0;bottom:18px;display:flex;flex-direction:column;justify-content:space-between;font-size:9px;color:var(--muted);pointer-events:none;z-index:3;padding-bottom:0">
+      <span>90</span><span>85</span><span>80</span><span>75</span><span>70</span>
+    </div>
+    <!-- gridlines -->
+    <div style="position:absolute;left:20px;right:0;top:0;bottom:18px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none">
+      
+      <div style="height:1px;background:#2a2d3e55;width:100%"></div>
+      
+      <div style="height:1px;background:#2a2d3e55;width:100%"></div>
+      
+      <div style="height:1px;background:#2a2d3e55;width:100%"></div>
+      
+      <div style="height:1px;background:#2a2d3e55;width:100%"></div>
+      
+      <div style="height:1px;background:#2a2d3e55;width:100%"></div>
+      
+    </div>
+
+    <!-- Timeline nodes -->
+    <div style="display:flex;align-items:flex-end;padding-left:24px;gap:0;height:110px;position:relative">
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:36px;background:#eab308;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot today-dot" style="position:absolute;bottom:34px;background:#eab308;border-color:#eab308;width:13px;height:13px;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:48px;font-size:10px;font-weight:700;color:#eab308;white-space:nowrap">80</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:45px;left:0;right:50%;height:2px;background:#64748b55;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:3px;background:#64748b;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot future" style="position:absolute;bottom:1px;background:#64748b;border-color:#64748b;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:15px;font-size:10px;font-weight:700;color:#64748b;white-space:nowrap">71</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:12px;left:0;right:50%;height:2px;background:#4f8ef755;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:25px;background:#4f8ef7;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot future" style="position:absolute;bottom:23px;background:#4f8ef7;border-color:#4f8ef7;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:37px;font-size:10px;font-weight:700;color:#4f8ef7;white-space:nowrap">77</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:34px;left:0;right:50%;height:2px;background:#4f8ef755;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:46px;background:#4f8ef7;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot future" style="position:absolute;bottom:44px;background:#4f8ef7;border-color:#4f8ef7;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:58px;font-size:10px;font-weight:700;color:#4f8ef7;white-space:nowrap">83</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:55px;left:0;right:50%;height:2px;background:#a855f755;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:61px;background:#a855f7;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot future" style="position:absolute;bottom:59px;background:#a855f7;border-color:#a855f7;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:73px;font-size:10px;font-weight:700;color:#a855f7;white-space:nowrap">87</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:70px;left:0;right:50%;height:2px;background:#64748b55;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:46px;background:#64748b;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot future" style="position:absolute;bottom:44px;background:#64748b;border-color:#64748b;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:58px;font-size:10px;font-weight:700;color:#64748b;white-space:nowrap">83</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:55px;left:0;right:50%;height:2px;background:#4f8ef755;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:57px;background:#4f8ef7;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot future" style="position:absolute;bottom:55px;background:#4f8ef7;border-color:#4f8ef7;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:69px;font-size:10px;font-weight:700;color:#4f8ef7;white-space:nowrap">86</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:66px;left:0;right:50%;height:2px;background:#4ade8055;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:68px;background:#4ade80;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot peak" style="position:absolute;bottom:66px;background:#4ade80;border-color:#4ade80;width:13px;height:13px;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:80px;font-size:10px;font-weight:700;color:#4ade80;white-space:nowrap">89</div>
+      </div>
+      
+      
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        
+        <div style="position:absolute;bottom:77px;left:0;right:50%;height:2px;background:#ef444455;z-index:1"></div>
+        
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:46px;background:#ef4444;border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot race" style="position:absolute;bottom:44px;background:#ef4444;border-color:#ef4444;width:13px;height:13px;"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:58px;font-size:10px;font-weight:700;color:#ef4444;white-space:nowrap">83</div>
+      </div>
+      
+    </div>
+
+    <!-- Date + phase labels below -->
+    <div style="display:flex;padding-left:24px;margin-top:4px">
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Jun 28</div>
+        <div style="font-size:8px;font-weight:600;color:#eab308;letter-spacing:0.03em;margin-top:1px">NOW</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Jul 6</div>
+        <div style="font-size:8px;font-weight:600;color:#64748b;letter-spacing:0.03em;margin-top:1px">RECOVERY</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Jul 13</div>
+        <div style="font-size:8px;font-weight:600;color:#4f8ef7;letter-spacing:0.03em;margin-top:1px">REBUILD 1</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Jul 20</div>
+        <div style="font-size:8px;font-weight:600;color:#4f8ef7;letter-spacing:0.03em;margin-top:1px">REBUILD 2</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Jul 23</div>
+        <div style="font-size:8px;font-weight:600;color:#a855f7;letter-spacing:0.03em;margin-top:1px">DUR BLOCK</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Jul 28</div>
+        <div style="font-size:8px;font-weight:600;color:#64748b;letter-spacing:0.03em;margin-top:1px">BIRTHDAY</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Aug 4</div>
+        <div style="font-size:8px;font-weight:600;color:#4f8ef7;letter-spacing:0.03em;margin-top:1px">BINTAN BUILD</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Aug 11</div>
+        <div style="font-size:8px;font-weight:600;color:#4ade80;letter-spacing:0.03em;margin-top:1px">PEAK</div>
+      </div>
+      
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">Aug 21</div>
+        <div style="font-size:8px;font-weight:600;color:#ef4444;letter-spacing:0.03em;margin-top:1px">RACE DAY</div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- TSB target box -->
+  <div class="traj-tsb-box" style="margin-top:14px">
+    <div style="font-size:12px;color:var(--muted2);flex:1">
+      <strong style="color:#4ade80">Race Day TSB Target: +25 to +35</strong><br>
+      <span style="font-size:11px">Nationals Jun 28 delivered <strong style="color:var(--text)">+24.6 actual</strong> — replicate exactly. Same taper model: 9-day CTL dip from peak, maintain aerobic stimulus.</span>
+    </div>
+    <div class="tsb-item"><div class="tsb-val">+24.6</div><div class="tsb-lbl">Nationals actual</div></div>
+    <div class="tsb-item"><div class="tsb-val">+25–35</div><div class="tsb-lbl">Bintan target</div></div>
+    <div class="tsb-item"><div class="tsb-val">82–84</div><div class="tsb-lbl">CTL race day</div></div>
+  </div>
+
+  <div class="traj-legend" style="margin-top:10px">
+    <span><span class="traj-legend-dot" style="background:#eab308"></span>Today (CTL 81.9)</span>
+    <span><span class="traj-legend-dot" style="background:#4f8ef7"></span>Build phases</span>
+    <span><span class="traj-legend-dot" style="background:#a855f7"></span>Durability block</span>
+    <span><span class="traj-legend-dot" style="background:#4ade80"></span>Peak (Aug 11)</span>
+    <span><span class="traj-legend-dot" style="background:#ef4444"></span>Race day S1 (Aug 21)</span>
+    <span><span class="traj-legend-dot" style="background:#64748b"></span>Rest / dip</span>
+  </div>
+</div>
+
 <!-- SUPPLEMENT PROTOCOL -->
 <div class="section-title">Tour de Bintan — Supplement &amp; Nutrition Protocol</div>
 <div class="supp-grid">
@@ -1825,7 +2064,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Monday 29 June 2026 at 08:33 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Monday 29 June 2026 at 08:34 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>

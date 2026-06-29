@@ -269,6 +269,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .dur-target-bar-ref{position:absolute;top:0;bottom:0;width:2px;background:#ef444488}
 .dur-insight{background:#0f1f0f;border:1px solid #4ade8033;border-radius:8px;padding:12px 14px;margin-top:0;font-size:12px;color:var(--muted2);line-height:1.6}
 .dur-insight strong{color:#4ade80}
+/* FITNESS TRAJECTORY */
+.traj-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+.traj-timeline{display:flex;align-items:flex-end;gap:0;position:relative;margin:20px 0 8px;height:90px}
+.traj-timeline::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--border)}
+.traj-node{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;cursor:default}
+.traj-dot{width:10px;height:10px;border-radius:50%;border:2px solid;position:relative;z-index:2;margin-bottom:4px}
+.traj-dot.past{background:#64748b;border-color:#64748b}
+.traj-dot.future{background:var(--bg);border-color:#4f8ef7}
+.traj-dot.peak{background:#4ade80;border-color:#4ade80;width:13px;height:13px;box-shadow:0 0 8px #4ade8066}
+.traj-dot.race{background:#ef4444;border-color:#ef4444;width:13px;height:13px;box-shadow:0 0 8px #ef444466}
+.traj-dot.today-dot{background:#eab308;border-color:#eab308;box-shadow:0 0 8px #eab30866}
+.traj-connector{position:absolute;top:5px;right:50%;left:-50%;height:2px;background:linear-gradient(90deg,#2a2d3e,#4f8ef755);z-index:1}
+.traj-node:first-child .traj-connector{display:none}
+.traj-ctl{font-size:10px;font-weight:700;color:var(--text);margin-bottom:2px}
+.traj-bar-col{position:absolute;bottom:18px;width:4px;border-radius:2px 2px 0 0}
+.traj-date{font-size:9px;color:var(--muted);text-align:center;margin-top:4px;line-height:1.3;white-space:nowrap}
+.traj-phase-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:1px;text-align:center}
+.traj-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted2);margin-top:4px}
+.traj-legend span{display:flex;align-items:center;gap:5px}
+.traj-legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.traj-tsb-box{background:#0a1f0a;border:1px solid #4ade8033;border-radius:8px;padding:10px 14px;margin-top:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.traj-tsb-box .tsb-item{text-align:center}
+.traj-tsb-box .tsb-val{font-size:18px;font-weight:700;color:#4ade80}
+.traj-tsb-box .tsb-lbl{font-size:10px;color:var(--muted2);margin-top:1px}
 </style>
 </head>
 <body>
@@ -1215,6 +1239,87 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
   </div>
 
+</div>
+
+<!-- FITNESS TRAJECTORY -->
+<div class="section-title">Fitness Trajectory — CTL Build to Bintan</div>
+<div class="traj-wrap">
+
+  {# Nodes: (date_label, phase_label, ctl_mid, dot_class, bar_color, bar_height_pct) #}
+  {# CTL scale: 70=min, 90=max → height = (ctl-70)/20 * 100% of 70px column area #}
+  {% set nodes = [
+    ('Jun 28', 'NOW',        80,   'today-dot', '#eab308', 50),
+    ('Jul 6',  'RECOVERY',  71,   'future',    '#64748b', 5),
+    ('Jul 13', 'REBUILD 1', 77,   'future',    '#4f8ef7', 35),
+    ('Jul 20', 'REBUILD 2', 83,   'future',    '#4f8ef7', 65),
+    ('Jul 23', 'DUR BLOCK', 87,   'future',    '#a855f7', 85),
+    ('Jul 28', 'BIRTHDAY',  83,   'future',    '#64748b', 65),
+    ('Aug 4',  'BINTAN BUILD',86, 'future',    '#4f8ef7', 80),
+    ('Aug 11', 'PEAK',       89,  'peak',      '#4ade80', 95),
+    ('Aug 21', 'RACE DAY',   83,  'race',      '#ef4444', 65),
+  ] %}
+
+  <div style="position:relative">
+    <!-- Y-axis labels -->
+    <div style="position:absolute;left:0;top:0;bottom:18px;display:flex;flex-direction:column;justify-content:space-between;font-size:9px;color:var(--muted);pointer-events:none;z-index:3;padding-bottom:0">
+      <span>90</span><span>85</span><span>80</span><span>75</span><span>70</span>
+    </div>
+    <!-- gridlines -->
+    <div style="position:absolute;left:20px;right:0;top:0;bottom:18px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none">
+      {% for _ in range(5) %}
+      <div style="height:1px;background:#2a2d3e55;width:100%"></div>
+      {% endfor %}
+    </div>
+
+    <!-- Timeline nodes -->
+    <div style="display:flex;align-items:flex-end;padding-left:24px;gap:0;height:110px;position:relative">
+      {% for date_lbl, phase, ctl, dot_cls, color, h_pct in nodes %}
+      {% set bar_h = ((ctl - 70) / 20 * 72)|int %}
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative;height:100%">
+        <!-- connector line -->
+        {% if not loop.first %}
+        <div style="position:absolute;bottom:{{ ((nodes[loop.index0-1][2] - 70) / 20 * 72)|int + 9 }}px;left:0;right:50%;height:2px;background:{{ color }}55;z-index:1"></div>
+        {% endif %}
+        <!-- bar -->
+        <div style="position:absolute;bottom:0;width:6px;height:{{ bar_h }}px;background:{{ color }};border-radius:3px 3px 0 0;opacity:0.7"></div>
+        <!-- dot -->
+        <div class="traj-dot {{ dot_cls }}" style="position:absolute;bottom:{{ bar_h - 2 }}px;background:{{ color }};border-color:{{ color }};{% if dot_cls in ('peak','race','today-dot') %}width:13px;height:13px;{% endif %}"></div>
+        <!-- CTL label -->
+        <div style="position:absolute;bottom:{{ bar_h + 12 }}px;font-size:10px;font-weight:700;color:{{ color }};white-space:nowrap">{{ ctl }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Date + phase labels below -->
+    <div style="display:flex;padding-left:24px;margin-top:4px">
+      {% for date_lbl, phase, ctl, dot_cls, color, h_pct in nodes %}
+      <div style="flex:1;text-align:center">
+        <div style="font-size:9px;color:var(--muted)">{{ date_lbl }}</div>
+        <div style="font-size:8px;font-weight:600;color:{{ color }};letter-spacing:0.03em;margin-top:1px">{{ phase }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- TSB target box -->
+  <div class="traj-tsb-box" style="margin-top:14px">
+    <div style="font-size:12px;color:var(--muted2);flex:1">
+      <strong style="color:#4ade80">Race Day TSB Target: +25 to +35</strong><br>
+      <span style="font-size:11px">Nationals Jun 28 delivered <strong style="color:var(--text)">+24.6 actual</strong> — replicate exactly. Same taper model: 9-day CTL dip from peak, maintain aerobic stimulus.</span>
+    </div>
+    <div class="tsb-item"><div class="tsb-val">+24.6</div><div class="tsb-lbl">Nationals actual</div></div>
+    <div class="tsb-item"><div class="tsb-val">+25–35</div><div class="tsb-lbl">Bintan target</div></div>
+    <div class="tsb-item"><div class="tsb-val">82–84</div><div class="tsb-lbl">CTL race day</div></div>
+  </div>
+
+  <div class="traj-legend" style="margin-top:10px">
+    <span><span class="traj-legend-dot" style="background:#eab308"></span>Today (CTL {{ ctl }})</span>
+    <span><span class="traj-legend-dot" style="background:#4f8ef7"></span>Build phases</span>
+    <span><span class="traj-legend-dot" style="background:#a855f7"></span>Durability block</span>
+    <span><span class="traj-legend-dot" style="background:#4ade80"></span>Peak (Aug 11)</span>
+    <span><span class="traj-legend-dot" style="background:#ef4444"></span>Race day S1 (Aug 21)</span>
+    <span><span class="traj-legend-dot" style="background:#64748b"></span>Rest / dip</span>
+  </div>
 </div>
 
 <!-- SUPPLEMENT PROTOCOL -->
