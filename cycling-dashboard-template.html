@@ -192,6 +192,38 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .cn-body .hl-alert{color:var(--orange)}
 .dash-footer{text-align:center;padding:16px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:8px}
 .dash-footer a{color:var(--accent);text-decoration:none}
+/* RACE STRATEGY PANEL */
+.rs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:900px){.rs-grid{grid-template-columns:1fr}}
+.rs-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.rs-card.primary{border-color:#4ade8066;box-shadow:0 0 20px #4ade8012}
+.rs-header{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.rs-header.s1{background:linear-gradient(135deg,#0f1b3a,#1a2d5a)}
+.rs-header.s2{background:linear-gradient(135deg,#1a1200,#2d2000)}
+.rs-header.s3{background:linear-gradient(135deg,#0a1f0a,#142a14)}
+.rs-stage-num{font-size:22px;font-weight:800;line-height:1}
+.rs-stage-info{flex:1}
+.rs-stage-name{font-size:13px;font-weight:700;color:var(--text)}
+.rs-stage-meta{font-size:11px;color:var(--muted2);margin-top:1px}
+.rs-goal-pill{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:0.04em;white-space:nowrap}
+.rs-goal-pill.itt{background:#0a1a3f;color:#93c5fd;border:1px solid #3b82f633}
+.rs-goal-pill.survive{background:#1f1507;color:var(--yellow);border:1px solid #eab30833}
+.rs-goal-pill.attack{background:#071f0f;color:#4ade80;border:1px solid #4ade8033}
+.rs-body{padding:12px 16px;font-size:12px;color:var(--muted2)}
+.rs-row{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #2a2d3e55}
+.rs-row:last-child{border-bottom:none}
+.rs-icon{min-width:18px;font-size:13px}
+.rs-text{line-height:1.5}
+.rs-text strong{color:var(--text);font-weight:600}
+.rs-phase{background:var(--card2);border-radius:6px;padding:6px 10px;margin:4px 0;font-size:11px;border-left:3px solid var(--border)}
+.rs-phase.ph-easy{border-left-color:#64748b}
+.rs-phase.ph-build{border-left-color:#eab308}
+.rs-phase.ph-attack{border-left-color:#ef4444}
+.rs-phase.ph-empty{border-left-color:#a855f7}
+.rs-risk{background:#1f0707;border:1px solid #7c1d1d33;border-radius:6px;padding:6px 10px;margin-top:8px;font-size:11px;color:#fca5a5}
+.rs-risk::before{content:'⚠️ ';font-size:12px}
+.rs-insight{background:#0a1a3f;border:1px solid #3b82f633;border-radius:6px;padding:6px 10px;margin-top:6px;font-size:11px;color:#93c5fd}
+.rs-insight::before{content:'💡 '}
 </style>
 </head>
 <body>
@@ -995,6 +1027,71 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <p>Coaching note generation in progress. Check back shortly.</p>
     {% endif %}
   </div>
+</div>
+
+<!-- RACE STRATEGY -->
+<div class="section-title">Tour de Bintan — Race Strategy</div>
+<div class="rs-grid">
+
+  <!-- STAGE 1 -->
+  <div class="rs-card">
+    <div class="rs-header s1">
+      <div class="rs-stage-num" style="color:#93c5fd">S1</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Thu 21 Aug · 15km ITT</div>
+        <div class="rs-stage-meta">Individual Time Trial</div>
+      </div>
+      <div class="rs-goal-pill itt">TIME TRIAL</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-row"><span class="rs-icon">⚡</span><span class="rs-text"><strong>Target:</strong> 265–275W sustained</span></div>
+      <div class="rs-row"><span class="rs-icon">📈</span><span class="rs-text"><strong>Pacing:</strong> Conservative first 3km → build to target by km 5 → empty final 3km</span></div>
+      <div class="rs-row"><span class="rs-icon">🍽️</span><span class="rs-text"><strong>Nutrition:</strong> Sodium load night before · Caffeine 60min pre-start</span></div>
+      <div class="rs-risk">Going out too hard in first 3km</div>
+    </div>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="rs-card">
+    <div class="rs-header s2">
+      <div class="rs-stage-num" style="color:#fcd34d">S2</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Fri 22 Aug · 140km rolling</div>
+        <div class="rs-stage-meta">Conservation Stage</div>
+      </div>
+      <div class="rs-goal-pill survive">SURVIVE &amp; PRESERVE</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-row"><span class="rs-icon">⚡</span><span class="rs-text"><strong>Target:</strong> 220–240W · max 4 contested efforts</span></div>
+      <div class="rs-row"><span class="rs-icon">🧠</span><span class="rs-text"><strong>Ride like:</strong> Kulai (17.7 durability) — NOT Crazies (9.8)</span></div>
+      <div class="rs-row"><span class="rs-icon">🔋</span><span class="rs-text"><strong>AWC:</strong> Protect HIE throughout — needed for Stage 3</span></div>
+      <div class="rs-row"><span class="rs-icon">🍽️</span><span class="rs-text"><strong>Nutrition:</strong> 90g carbs/hr from km 20 · sodium every 45min</span></div>
+      <div class="rs-row"><span class="rs-icon">💊</span><span class="rs-text"><strong>Cramp prevention:</strong> Magnesium loading from Aug 16 · sodium from Aug 16</span></div>
+      <div class="rs-risk">Cramping at ~75km (occurred ToF Stage 1) — sodium + magnesium critical</div>
+    </div>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="rs-card primary">
+    <div class="rs-header s3">
+      <div class="rs-stage-num" style="color:#4ade80">S3 ★</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Sat 23 Aug · 110km hilly</div>
+        <div class="rs-stage-meta">Primary Target — Puncheur Mode</div>
+      </div>
+      <div class="rs-goal-pill attack">ATTACK &amp; WIN</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-phase ph-easy"><strong style="color:#94a3b8">0–30km</strong> · Sit in · 200–220W · waste nothing</div>
+      <div class="rs-phase ph-build"><strong style="color:#eab308">30–80km</strong> · 230–250W · cover key moves only</div>
+      <div class="rs-phase ph-attack"><strong style="color:#ef4444">80–100km</strong> · Full puncheur mode — attack every short climb</div>
+      <div class="rs-phase ph-empty"><strong style="color:#a855f7">100–110km</strong> · Empty the tank completely</div>
+      <div class="rs-row" style="margin-top:8px"><span class="rs-icon">💪</span><span class="rs-text"><strong>Weapon:</strong> 285W 5-min power on repeated punchy climbs</span></div>
+      <div class="rs-insight">2022: finished with 77% MPA remaining — use it all in 2026. Day 3 fatigue cliff real (durability drops to 10.6) — plan for it, don't fight it.</div>
+      <div class="rs-risk">Day 3 fatigue cliff — historical durability drops to 10.6 by Day 3</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- FOOTER -->

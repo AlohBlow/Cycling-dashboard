@@ -192,6 +192,38 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .cn-body .hl-alert{color:var(--orange)}
 .dash-footer{text-align:center;padding:16px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:8px}
 .dash-footer a{color:var(--accent);text-decoration:none}
+/* RACE STRATEGY PANEL */
+.rs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:900px){.rs-grid{grid-template-columns:1fr}}
+.rs-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.rs-card.primary{border-color:#4ade8066;box-shadow:0 0 20px #4ade8012}
+.rs-header{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.rs-header.s1{background:linear-gradient(135deg,#0f1b3a,#1a2d5a)}
+.rs-header.s2{background:linear-gradient(135deg,#1a1200,#2d2000)}
+.rs-header.s3{background:linear-gradient(135deg,#0a1f0a,#142a14)}
+.rs-stage-num{font-size:22px;font-weight:800;line-height:1}
+.rs-stage-info{flex:1}
+.rs-stage-name{font-size:13px;font-weight:700;color:var(--text)}
+.rs-stage-meta{font-size:11px;color:var(--muted2);margin-top:1px}
+.rs-goal-pill{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:0.04em;white-space:nowrap}
+.rs-goal-pill.itt{background:#0a1a3f;color:#93c5fd;border:1px solid #3b82f633}
+.rs-goal-pill.survive{background:#1f1507;color:var(--yellow);border:1px solid #eab30833}
+.rs-goal-pill.attack{background:#071f0f;color:#4ade80;border:1px solid #4ade8033}
+.rs-body{padding:12px 16px;font-size:12px;color:var(--muted2)}
+.rs-row{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #2a2d3e55}
+.rs-row:last-child{border-bottom:none}
+.rs-icon{min-width:18px;font-size:13px}
+.rs-text{line-height:1.5}
+.rs-text strong{color:var(--text);font-weight:600}
+.rs-phase{background:var(--card2);border-radius:6px;padding:6px 10px;margin:4px 0;font-size:11px;border-left:3px solid var(--border)}
+.rs-phase.ph-easy{border-left-color:#64748b}
+.rs-phase.ph-build{border-left-color:#eab308}
+.rs-phase.ph-attack{border-left-color:#ef4444}
+.rs-phase.ph-empty{border-left-color:#a855f7}
+.rs-risk{background:#1f0707;border:1px solid #7c1d1d33;border-radius:6px;padding:6px 10px;margin-top:8px;font-size:11px;color:#fca5a5}
+.rs-risk::before{content:'⚠️ ';font-size:12px}
+.rs-insight{background:#0a1a3f;border:1px solid #3b82f633;border-radius:6px;padding:6px 10px;margin-top:6px;font-size:11px;color:#93c5fd}
+.rs-insight::before{content:'💡 '}
 </style>
 </head>
 <body>
@@ -1458,8 +1490,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p># COACHING NOTE — James Loh
-**Monday 29 June 2026 | Day after Singapore National Road Race**</p>
+    <p># COACHING NOTE | James Loh  
+**Monday 29 June 2026 | RACE DAY (completed)**</p>
     
     
     
@@ -1467,37 +1499,102 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## 1. STATUS SYNTHESIS
-You crossed the line yesterday at peak form (+15.2 TSB), but HRV has dropped 23% below your 7-day average to 32.0ms—a suppressed signal indicating acute nervous system load that contradicts your fresh TSB number. Trust the HRV: your parasympathetic system is working hard to recover from the 238 XSS effort and 80.6% AWC discharge yesterday. CTL has dropped 5.2 points over two weeks (87.1→81.9), which is normal post-race fade; race day is complete.</p>
+    <p>## BLOCK 1 — STATUS SYNTHESIS
+You crossed the line yesterday with a +15.2 TSB and excellent form; HRV today reads 32.0ms (suppressed −23% vs your 41.6ms baseline), signalling acute CNS fatigue despite fresh legs on paper. Trust the HRV suppression—your nervous system is depleted after a hard 2h 17m nationals effort with 19% time in Z7. CTL has dropped 5.2 points over two weeks (87.1 → 81.9), reflecting the pre-race taper, and race day has now passed.</p>
     
     
     
-    <p>## 2. SESSION INSIGHT
-Yesterday's Nationals effort was well-distributed across zones—a credible race signature with 19% in Z7 and 12% in Z6, peaking at 236W for 5 minutes (85% of TP). Your 20-minute peak of 192W sat at 69% of TP, suggesting you rode tactically rather than maximal—smart racing. AWC discharge of 80.6% shows you accessed anaerobic reserves but didn't crater. Xert flags "Tired" status; 45 hours of recovery are still required from the 28 June start time (clears early Thursday).</p>
+    <p>## BLOCK 2 — SESSION INSIGHT
+Yesterday's nationals were well-executed: you spent 12% in Z6 + 19% in Z7 (peak 5-min @ 236W, 20-min @ 192W = 69% TP), burned 80.6% of your anaerobic capacity, and discharged your HIE heavily in surges. That 69% 20-min power is sustainable but not dominant—the race was tactical, not maximal aerobic. RIDUCK calls for 45 hours of recovery; you're at hour 19 now. Xert status "Tired" is accurate and expected post-race.</p>
     
     
     
-    <p>## 3. TODAY'S PRESCRIPTION
-**Do not ride.** Your HRV suppression, 45-hour recovery window, and Xert "Tired" status demand immediate passive recovery. If you feel compelled to move, cap HR strictly below 120 bpm, power ceiling 120W, 30 minutes maximum on flat terrain only. Target XSS today: **0**. No structured sessions. Hydration and sleep are your only work—prioritize 8+ hours sleep and 500ml+ electrolyte fluid intake per hour awake. Abort any ride if HR exceeds 130 bpm for more than 60 seconds.</p>
+    <p>## BLOCK 3 — TODAY'S PRESCRIPTION
+**Rest day.** Absolute power ceiling: **120W (easy spin only if you ride).** HR ceiling: **135 bpm.** Do not exceed 10 minutes above 140 bpm. **XSS target: 0** (or passive recovery only—no structured session). Skip intervals. Hydration is critical after yesterday's 2h 17m effort: consume 750–1000 mL per hour today with 500–750mg sodium. Mobility work, sleep, and carbohydrate repletion are your priority.</p>
     
     
     
-    <p>## 4. TOMORROW PREVIEW
-Recovery window clears approximately **Thursday 01 July, 01:00 UTC** (45 hours from race start). Tomorrow (Tuesday 30 June) remains a **Rest day** per plan—XSS target 0. Do not trade today's rest for tomorrow's effort. Any ride added today directly compresses your recovery timeline and degrades next week's training quality.</p>
+    <p>## BLOCK 4 — TOMORROW PREVIEW
+Yesterday's session recovery window closes **Tuesday 30 June ~2:45 PM** (28h mark; 45h total clears Thursday early morning). Tomorrow is also **rest-day prescribed**—zero XSS target. Any unplanned effort today directly shortens your recovery runway. If you feel strong Wednesday, a 60–90 min Z1/Z2 spin (max 100 XSS) is safe *only if* HRV rebounds above 38ms and resting HR is normal.</p>
     
     
     
-    <p>## 5. RACE TRAJECTORY
-🟢 **On track.** You raced strong with a distributed power signature and finished fresh (TSB +15.2). CTL dropped as expected post-race; rebuild begins Thursday. **Priority this week:** Sleep + nutrition + zero structured work until HRV rebounds above 45ms.</p>
+    <p>## BLOCK 5 — RACE TRAJECTORY
+🟢 **On track.** You executed your nationals race well within your physiology (TSB +15.2, power distribution tactical, form peak confirmed). CTL trending down is planned; your 45-hour recovery window is the only metric that matters now. **Priority #1: Sleep 8–9 hours every night through Thursday; defer any structured training until Friday at earliest.**</p>
     
     
     
   </div>
 </div>
 
+<!-- RACE STRATEGY -->
+<div class="section-title">Tour de Bintan — Race Strategy</div>
+<div class="rs-grid">
+
+  <!-- STAGE 1 -->
+  <div class="rs-card">
+    <div class="rs-header s1">
+      <div class="rs-stage-num" style="color:#93c5fd">S1</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Thu 21 Aug · 15km ITT</div>
+        <div class="rs-stage-meta">Individual Time Trial</div>
+      </div>
+      <div class="rs-goal-pill itt">TIME TRIAL</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-row"><span class="rs-icon">⚡</span><span class="rs-text"><strong>Target:</strong> 265–275W sustained</span></div>
+      <div class="rs-row"><span class="rs-icon">📈</span><span class="rs-text"><strong>Pacing:</strong> Conservative first 3km → build to target by km 5 → empty final 3km</span></div>
+      <div class="rs-row"><span class="rs-icon">🍽️</span><span class="rs-text"><strong>Nutrition:</strong> Sodium load night before · Caffeine 60min pre-start</span></div>
+      <div class="rs-risk">Going out too hard in first 3km</div>
+    </div>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="rs-card">
+    <div class="rs-header s2">
+      <div class="rs-stage-num" style="color:#fcd34d">S2</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Fri 22 Aug · 140km rolling</div>
+        <div class="rs-stage-meta">Conservation Stage</div>
+      </div>
+      <div class="rs-goal-pill survive">SURVIVE &amp; PRESERVE</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-row"><span class="rs-icon">⚡</span><span class="rs-text"><strong>Target:</strong> 220–240W · max 4 contested efforts</span></div>
+      <div class="rs-row"><span class="rs-icon">🧠</span><span class="rs-text"><strong>Ride like:</strong> Kulai (17.7 durability) — NOT Crazies (9.8)</span></div>
+      <div class="rs-row"><span class="rs-icon">🔋</span><span class="rs-text"><strong>AWC:</strong> Protect HIE throughout — needed for Stage 3</span></div>
+      <div class="rs-row"><span class="rs-icon">🍽️</span><span class="rs-text"><strong>Nutrition:</strong> 90g carbs/hr from km 20 · sodium every 45min</span></div>
+      <div class="rs-row"><span class="rs-icon">💊</span><span class="rs-text"><strong>Cramp prevention:</strong> Magnesium loading from Aug 16 · sodium from Aug 16</span></div>
+      <div class="rs-risk">Cramping at ~75km (occurred ToF Stage 1) — sodium + magnesium critical</div>
+    </div>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="rs-card primary">
+    <div class="rs-header s3">
+      <div class="rs-stage-num" style="color:#4ade80">S3 ★</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Sat 23 Aug · 110km hilly</div>
+        <div class="rs-stage-meta">Primary Target — Puncheur Mode</div>
+      </div>
+      <div class="rs-goal-pill attack">ATTACK &amp; WIN</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-phase ph-easy"><strong style="color:#94a3b8">0–30km</strong> · Sit in · 200–220W · waste nothing</div>
+      <div class="rs-phase ph-build"><strong style="color:#eab308">30–80km</strong> · 230–250W · cover key moves only</div>
+      <div class="rs-phase ph-attack"><strong style="color:#ef4444">80–100km</strong> · Full puncheur mode — attack every short climb</div>
+      <div class="rs-phase ph-empty"><strong style="color:#a855f7">100–110km</strong> · Empty the tank completely</div>
+      <div class="rs-row" style="margin-top:8px"><span class="rs-icon">💪</span><span class="rs-text"><strong>Weapon:</strong> 285W 5-min power on repeated punchy climbs</span></div>
+      <div class="rs-insight">2022: finished with 77% MPA remaining — use it all in 2026. Day 3 fatigue cliff real (durability drops to 10.6) — plan for it, don't fight it.</div>
+      <div class="rs-risk">Day 3 fatigue cliff — historical durability drops to 10.6 by Day 3</div>
+    </div>
+  </div>
+
+</div>
+
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Monday 29 June 2026 at 08:26 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Monday 29 June 2026 at 08:29 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
