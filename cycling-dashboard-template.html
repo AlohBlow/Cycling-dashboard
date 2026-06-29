@@ -224,6 +224,27 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .rs-risk::before{content:'⚠️ ';font-size:12px}
 .rs-insight{background:#0a1a3f;border:1px solid #3b82f633;border-radius:6px;padding:6px 10px;margin-top:6px;font-size:11px;color:#93c5fd}
 .rs-insight::before{content:'💡 '}
+/* SUPPLEMENT PROTOCOL */
+.supp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:900px){.supp-grid{grid-template-columns:1fr}}
+.supp-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.supp-card-header{padding:10px 14px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.supp-card-header.ongoing{background:linear-gradient(135deg,#1a1d3a,#1e2130);border-bottom:1px solid #4f8ef733;color:#93c5fd}
+.supp-card-header.loading{background:linear-gradient(135deg,#1f1200,#2d1f00);border-bottom:1px solid #eab30833;color:#fcd34d}
+.supp-card-header.stages{background:linear-gradient(135deg,#0a1f0a,#0f2b0f);border-bottom:1px solid #4ade8033;color:#86efac}
+.supp-card-header.recovery{background:linear-gradient(135deg,#1a0f2e,#221542);border-bottom:1px solid #a855f733;color:#d8b4fe}
+.supp-body{padding:10px 14px;font-size:12px;color:var(--muted2)}
+.supp-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #2a2d3e44}
+.supp-row:last-child{border-bottom:none}
+.supp-icon{min-width:18px;font-size:13px;margin-top:1px}
+.supp-text{line-height:1.5}
+.supp-text strong{color:var(--text);font-weight:600}
+.supp-text .note{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.supp-stage-pills{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.supp-stage-pill{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.supp-stage-pill.s1{background:#0a1a3f;color:#93c5fd;border:1px solid #3b82f633}
+.supp-stage-pill.s2{background:#1f1507;color:#fcd34d;border:1px solid #eab30833}
+.supp-stage-pill.s3{background:#071f0f;color:#4ade80;border:1px solid #4ade8033}
 </style>
 </head>
 <body>
@@ -1089,6 +1110,61 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="rs-row" style="margin-top:8px"><span class="rs-icon">💪</span><span class="rs-text"><strong>Weapon:</strong> 285W 5-min power on repeated punchy climbs</span></div>
       <div class="rs-insight">2022: finished with 77% MPA remaining — use it all in 2026. Day 3 fatigue cliff real (durability drops to 10.6) — plan for it, don't fight it.</div>
       <div class="rs-risk">Day 3 fatigue cliff — historical durability drops to 10.6 by Day 3</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUPPLEMENT PROTOCOL -->
+<div class="section-title">Tour de Bintan — Supplement &amp; Nutrition Protocol</div>
+<div class="supp-grid">
+
+  <!-- ONGOING -->
+  <div class="supp-card">
+    <div class="supp-card-header ongoing">💊 Ongoing — Now Through Race</div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>Magnesium bisglycinate</strong> (LAC Albion) 300–400mg daily with dinner</span></div>
+      <div class="supp-row"><span class="supp-icon">🌿</span><span class="supp-text"><strong>Multivitamin</strong> daily after meal</span></div>
+      <div class="supp-row"><span class="supp-icon">⚡</span><span class="supp-text"><strong>Creatine:</strong> Reload post-Nationals for training<span class="note">⛔ Cease after Sunday dose Aug 17 — 6 days pre-race</span></span></div>
+    </div>
+  </div>
+
+  <!-- LOADING WEEK -->
+  <div class="supp-card">
+    <div class="supp-card-header loading">📅 Bintan Loading Week — Aug 16–20</div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-icon">🧂</span><span class="supp-text"><strong>Sodium loading:</strong> +2–3g extra daily from Aug 16</span></div>
+      <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>Magnesium:</strong> Continue 400mg daily</span></div>
+      <div class="supp-row"><span class="supp-icon">🍒</span><span class="supp-text"><strong>Tart cherry:</strong> 500mg morning + evening from Aug 16</span></div>
+      <div class="supp-row"><span class="supp-icon">🥤</span><span class="supp-text"><strong>Beetroot shot:</strong> Race mornings only — all 3 stages</span></div>
+      <div class="supp-row"><span class="supp-icon">☕</span><span class="supp-text"><strong>Caffeine:</strong> 3mg/kg (200mg) — 60min before each stage start</span></div>
+    </div>
+  </div>
+
+  <!-- STAGE NUTRITION -->
+  <div class="supp-card">
+    <div class="supp-card-header stages">🍽️ Stage-Specific Nutrition</div>
+    <div class="supp-body">
+      <div class="supp-stage-pills">
+        <span class="supp-stage-pill s1">S1 ITT</span>
+        <span class="supp-stage-pill s2">S2 Rolling</span>
+        <span class="supp-stage-pill s3">S3 Hilly ★</span>
+      </div>
+      <div class="supp-row"><span class="supp-icon">⏱️</span><span class="supp-text"><strong>S1 ITT (15km):</strong> Caffeine only — no on-bike nutrition needed</span></div>
+      <div class="supp-row"><span class="supp-icon">🚴</span><span class="supp-text"><strong>S2 Rolling:</strong> 90g carbs/hr from km 20 · sodium every 45min · 2 bottles minimum</span></div>
+      <div class="supp-row"><span class="supp-icon">⛰️</span><span class="supp-text"><strong>S3 Hilly:</strong> Same as S2 — 90g carbs/hr · sodium every 45min</span></div>
+    </div>
+  </div>
+
+  <!-- POST-STAGE RECOVERY -->
+  <div class="supp-card">
+    <div class="supp-card-header recovery">🔄 Post-Stage Recovery (Between Stages)</div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-icon">🍚</span><span class="supp-text"><strong>Within 30min of finishing:</strong> 80–100g carbs + 25g protein</span></div>
+      <div class="supp-row"><span class="supp-icon">💧</span><span class="supp-text"><strong>Immediately post-stage:</strong> 1L electrolyte</span></div>
+      <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>With dinner each night:</strong> Magnesium bisglycinate</span></div>
+      <div class="supp-row"><span class="supp-icon">🦵</span><span class="supp-text"><strong>Elevate legs</strong> 20min post-stage</span></div>
+      <div class="supp-row"><span class="supp-icon">🚫</span><span class="supp-text"><strong>No sauna</strong> between stages</span></div>
     </div>
   </div>
 

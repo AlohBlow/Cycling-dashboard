@@ -224,6 +224,27 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 .rs-risk::before{content:'⚠️ ';font-size:12px}
 .rs-insight{background:#0a1a3f;border:1px solid #3b82f633;border-radius:6px;padding:6px 10px;margin-top:6px;font-size:11px;color:#93c5fd}
 .rs-insight::before{content:'💡 '}
+/* SUPPLEMENT PROTOCOL */
+.supp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:900px){.supp-grid{grid-template-columns:1fr}}
+.supp-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.supp-card-header{padding:10px 14px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.supp-card-header.ongoing{background:linear-gradient(135deg,#1a1d3a,#1e2130);border-bottom:1px solid #4f8ef733;color:#93c5fd}
+.supp-card-header.loading{background:linear-gradient(135deg,#1f1200,#2d1f00);border-bottom:1px solid #eab30833;color:#fcd34d}
+.supp-card-header.stages{background:linear-gradient(135deg,#0a1f0a,#0f2b0f);border-bottom:1px solid #4ade8033;color:#86efac}
+.supp-card-header.recovery{background:linear-gradient(135deg,#1a0f2e,#221542);border-bottom:1px solid #a855f733;color:#d8b4fe}
+.supp-body{padding:10px 14px;font-size:12px;color:var(--muted2)}
+.supp-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #2a2d3e44}
+.supp-row:last-child{border-bottom:none}
+.supp-icon{min-width:18px;font-size:13px;margin-top:1px}
+.supp-text{line-height:1.5}
+.supp-text strong{color:var(--text);font-weight:600}
+.supp-text .note{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.supp-stage-pills{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.supp-stage-pill{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.supp-stage-pill.s1{background:#0a1a3f;color:#93c5fd;border:1px solid #3b82f633}
+.supp-stage-pill.s2{background:#1f1507;color:#fcd34d;border:1px solid #eab30833}
+.supp-stage-pill.s3{background:#071f0f;color:#4ade80;border:1px solid #4ade8033}
 </style>
 </head>
 <body>
@@ -1490,8 +1511,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p># COACHING NOTE | James Loh  
-**Monday 29 June 2026 | RACE DAY (completed)**</p>
+    <p># COACHING NOTE — James Loh
+**Monday 29 June 2026 | Race Day Complete**</p>
     
     
     
@@ -1499,28 +1520,28 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p>## BLOCK 1 — STATUS SYNTHESIS
-You crossed the line yesterday with a +15.2 TSB and excellent form; HRV today reads 32.0ms (suppressed −23% vs your 41.6ms baseline), signalling acute CNS fatigue despite fresh legs on paper. Trust the HRV suppression—your nervous system is depleted after a hard 2h 17m nationals effort with 19% time in Z7. CTL has dropped 5.2 points over two weeks (87.1 → 81.9), reflecting the pre-race taper, and race day has now passed.</p>
+    <p>## 1. STATUS SYNTHESIS
+You crossed the line yesterday in peak form: TSB +15.2 (projected race-day +16–+23) hit the target window perfectly. However, HRV is suppressed at 32.0ms (−23% vs 7-day avg of 41.6ms), signalling acute nervous system fatigue—trust the TSB over HRV today, as post-race suppression is normal and your CTL trend (81.9, down from 87.1 in two weeks) reflects a controlled pre-race taper, not decay. You nailed execution; now recovery is the only job.</p>
     
     
     
-    <p>## BLOCK 2 — SESSION INSIGHT
-Yesterday's nationals were well-executed: you spent 12% in Z6 + 19% in Z7 (peak 5-min @ 236W, 20-min @ 192W = 69% TP), burned 80.6% of your anaerobic capacity, and discharged your HIE heavily in surges. That 69% 20-min power is sustainable but not dominant—the race was tactical, not maximal aerobic. RIDUCK calls for 45 hours of recovery; you're at hour 19 now. Xert status "Tired" is accurate and expected post-race.</p>
+    <p>## 2. SESSION INSIGHT
+Yesterday's 238 XSS effort (88.4 km, 2h 17m) shows exactly the profile needed: 30.9 anaerobic matches, 80.6% AWC discharge, and a 20-min peak of 192W (69% of TP). Your power distribution—19% Z7, 12% Z6, tactical Z2/Z3—matches a dynamic road race perfectly. RideLuck signals 45 hours of recovery needed; you'll clear that by Wednesday midday. Xert flags "Tired" status; do not chase a breakthrough today.</p>
     
     
     
-    <p>## BLOCK 3 — TODAY'S PRESCRIPTION
-**Rest day.** Absolute power ceiling: **120W (easy spin only if you ride).** HR ceiling: **135 bpm.** Do not exceed 10 minutes above 140 bpm. **XSS target: 0** (or passive recovery only—no structured session). Skip intervals. Hydration is critical after yesterday's 2h 17m effort: consume 750–1000 mL per hour today with 500–750mg sodium. Mobility work, sleep, and carbohydrate repletion are your priority.</p>
+    <p>## 3. TODAY'S PRESCRIPTION
+**Complete rest or active recovery only.** If you ride: max HR 120 bpm, power ceiling 150W (sub-LTP), Z1–Z2 only, 30–40 min spin at 90+ rpm. Do not accumulate more than 20 XSS today. Stop immediately if you feel leg heaviness or motivation absent; mental fatigue counts. Hydration: 500ml electrolyte drink within 2 hours post-read, then 250ml every 30 min for next 4 hours. Your glycogen is 66.7% carb-depleted—prioritise carbs + sodium.</p>
     
     
     
-    <p>## BLOCK 4 — TOMORROW PREVIEW
-Yesterday's session recovery window closes **Tuesday 30 June ~2:45 PM** (28h mark; 45h total clears Thursday early morning). Tomorrow is also **rest-day prescribed**—zero XSS target. Any unplanned effort today directly shortens your recovery runway. If you feel strong Wednesday, a 60–90 min Z1/Z2 spin (max 100 XSS) is safe *only if* HRV rebounds above 38ms and resting HR is normal.</p>
+    <p>## 4. TOMORROW PREVIEW
+Recovery window clears Wednesday 01 July (45h from yesterday's 14:17 finish = 23:17 Tuesday). Tomorrow (Tuesday 30 June) is **absolute rest day**—0 XSS target. Any riding today steals from Tuesday's passive recovery; your nervous system needs 48 hours minimum post-National effort. Wednesday you can begin easy 60–90 min Z1 spin (120–150W) if HRV rebounds above 35ms.</p>
     
     
     
-    <p>## BLOCK 5 — RACE TRAJECTORY
-🟢 **On track.** You executed your nationals race well within your physiology (TSB +15.2, power distribution tactical, form peak confirmed). CTL trending down is planned; your 45-hour recovery window is the only metric that matters now. **Priority #1: Sleep 8–9 hours every night through Thursday; defer any structured training until Friday at earliest.**</p>
+    <p>## 5. RACE TRAJECTORY
+🟢 **On track.** You executed flawlessly: TSB in zone, anaerobic matches deployed, fuelling mixed (33% fat, 67% carb—balanced). CTL decline is planned; projected recovery form +16–+23 TSB shows excellent taper. **#1 priority this week:** passive recovery through Wednesday, then rebuild with 3–4 easy days before returning to structure. You've earned rest.</p>
     
     
     
@@ -1592,9 +1613,64 @@ Yesterday's session recovery window closes **Tuesday 30 June ~2:45 PM** (28h mar
 
 </div>
 
+<!-- SUPPLEMENT PROTOCOL -->
+<div class="section-title">Tour de Bintan — Supplement &amp; Nutrition Protocol</div>
+<div class="supp-grid">
+
+  <!-- ONGOING -->
+  <div class="supp-card">
+    <div class="supp-card-header ongoing">💊 Ongoing — Now Through Race</div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>Magnesium bisglycinate</strong> (LAC Albion) 300–400mg daily with dinner</span></div>
+      <div class="supp-row"><span class="supp-icon">🌿</span><span class="supp-text"><strong>Multivitamin</strong> daily after meal</span></div>
+      <div class="supp-row"><span class="supp-icon">⚡</span><span class="supp-text"><strong>Creatine:</strong> Reload post-Nationals for training<span class="note">⛔ Cease after Sunday dose Aug 17 — 6 days pre-race</span></span></div>
+    </div>
+  </div>
+
+  <!-- LOADING WEEK -->
+  <div class="supp-card">
+    <div class="supp-card-header loading">📅 Bintan Loading Week — Aug 16–20</div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-icon">🧂</span><span class="supp-text"><strong>Sodium loading:</strong> +2–3g extra daily from Aug 16</span></div>
+      <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>Magnesium:</strong> Continue 400mg daily</span></div>
+      <div class="supp-row"><span class="supp-icon">🍒</span><span class="supp-text"><strong>Tart cherry:</strong> 500mg morning + evening from Aug 16</span></div>
+      <div class="supp-row"><span class="supp-icon">🥤</span><span class="supp-text"><strong>Beetroot shot:</strong> Race mornings only — all 3 stages</span></div>
+      <div class="supp-row"><span class="supp-icon">☕</span><span class="supp-text"><strong>Caffeine:</strong> 3mg/kg (200mg) — 60min before each stage start</span></div>
+    </div>
+  </div>
+
+  <!-- STAGE NUTRITION -->
+  <div class="supp-card">
+    <div class="supp-card-header stages">🍽️ Stage-Specific Nutrition</div>
+    <div class="supp-body">
+      <div class="supp-stage-pills">
+        <span class="supp-stage-pill s1">S1 ITT</span>
+        <span class="supp-stage-pill s2">S2 Rolling</span>
+        <span class="supp-stage-pill s3">S3 Hilly ★</span>
+      </div>
+      <div class="supp-row"><span class="supp-icon">⏱️</span><span class="supp-text"><strong>S1 ITT (15km):</strong> Caffeine only — no on-bike nutrition needed</span></div>
+      <div class="supp-row"><span class="supp-icon">🚴</span><span class="supp-text"><strong>S2 Rolling:</strong> 90g carbs/hr from km 20 · sodium every 45min · 2 bottles minimum</span></div>
+      <div class="supp-row"><span class="supp-icon">⛰️</span><span class="supp-text"><strong>S3 Hilly:</strong> Same as S2 — 90g carbs/hr · sodium every 45min</span></div>
+    </div>
+  </div>
+
+  <!-- POST-STAGE RECOVERY -->
+  <div class="supp-card">
+    <div class="supp-card-header recovery">🔄 Post-Stage Recovery (Between Stages)</div>
+    <div class="supp-body">
+      <div class="supp-row"><span class="supp-icon">🍚</span><span class="supp-text"><strong>Within 30min of finishing:</strong> 80–100g carbs + 25g protein</span></div>
+      <div class="supp-row"><span class="supp-icon">💧</span><span class="supp-text"><strong>Immediately post-stage:</strong> 1L electrolyte</span></div>
+      <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>With dinner each night:</strong> Magnesium bisglycinate</span></div>
+      <div class="supp-row"><span class="supp-icon">🦵</span><span class="supp-text"><strong>Elevate legs</strong> 20min post-stage</span></div>
+      <div class="supp-row"><span class="supp-icon">🚫</span><span class="supp-text"><strong>No sauna</strong> between stages</span></div>
+    </div>
+  </div>
+
+</div>
+
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Monday 29 June 2026 at 08:29 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Monday 29 June 2026 at 08:31 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
