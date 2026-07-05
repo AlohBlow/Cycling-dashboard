@@ -14,7 +14,7 @@ def _today_sgt():
 
 log = logging.getLogger(__name__)
 
-RACE_DATE = date(2026, 6, 28)
+RACE_DATE = date(2026, 8, 21)   # Tour de Bintan Stage 1 (primary target Stage 3 = Aug 23)
 
 
 def _format_hrv_trend(hrv_list):
@@ -137,8 +137,9 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
     # ── Build structured prompt ───────────────────────────────────────────────
     lines = [
         f"You are a data-driven cycling coach writing a daily coaching note for James Loh.",
-        f"James is a competitive cyclist preparing for the Singapore National Road Race on Jun 28 2026.",
-        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to race: {days_to_race}",
+        f"James is a competitive cyclist preparing for Tour de Bintan 2026 (3-stage race, Aug 21-23).",
+        f"Stage 1: 15km ITT Thu Aug 21 · Stage 2: 140km rolling Fri Aug 22 · Stage 3: 110km hilly Sat Aug 23 (PRIMARY TARGET — attack and win).",
+        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to Stage 1: {days_to_race}  |  Days to Stage 3 (primary): {days_to_race + 2}",
         f"",
         f"=== TRAINING DATA ===",
         f"",
@@ -398,7 +399,7 @@ def generate_coaching_note(
     else:
         phase = "taper window approaching — quality over volume"
 
-    p4 = f"You're in the {phase}. With {days_to_race} days to June 28, your CTL of {ctl:.1f} and ATL of {atl:.1f} show consistent work. Stay consistent, recover when needed, and trust your preparation."
+    p4 = f"You're in the {phase}. With {days_to_race} days to Tour de Bintan Stage 1, your CTL of {ctl:.1f} and ATL of {atl:.1f} show consistent work. Stay consistent, recover when needed, and trust your preparation."
 
     paragraphs.append(p4)
 
