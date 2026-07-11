@@ -281,10 +281,22 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
     client = anthropic.Anthropic(api_key=api_key)
     resp = client.messages.create(
         model="claude-haiku-4-5",
-        max_tokens=700,
+        max_tokens=1200,
+        system=(
+            "You are a terse, data-driven cycling coach. "
+            "Write exactly 5 blocks as instructed. "
+            "Block 5 (RACE TRAJECTORY) is the most critical — always complete it fully before stopping. "
+            "End every block with a complete sentence. Never cut off mid-sentence."
+        ),
         messages=[{"role": "user", "content": prompt}],
     )
-    return resp.content[0].text.strip()
+    text = resp.content[0].text.strip()
+    # Safety: if response ends mid-sentence, truncate at last complete sentence
+    if text and text[-1] not in '.!?»"\'':
+        last = max(text.rfind('. '), text.rfind('! '), text.rfind('? '))
+        if last > len(text) // 2:
+            text = text[:last + 1]
+    return text
 
 
 def generate_coaching_note(

@@ -1082,17 +1082,26 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <div class="section-title">Coaching Note</div>
 <div class="coaching-note">
   <div class="cn-header">💬 Coach Assessment — {{ generated_date_long }}</div>
-  <div class="cn-body">
-    {% if coaching_note %}
-    {% for paragraph in coaching_note.split('\n\n') %}
-    {% if paragraph.strip() %}
-    <p>{{ paragraph.strip() }}</p>
-    {% endif %}
-    {% endfor %}
-    {% else %}
-    <p>Coaching note generation in progress. Check back shortly.</p>
-    {% endif %}
+  {% if coaching_note %}
+  {% set paragraphs = [] %}
+  {% for p in coaching_note.split('\n\n') %}{% if p.strip() %}{% set _ = paragraphs.append(p.strip()) %}{% endif %}{% endfor %}
+  {% set word_count = coaching_note.split()|length %}
+  <div class="cn-body" id="cn-body-preview">
+    {# Show first 3 paragraphs in preview #}
+    {% for p in paragraphs[:3] %}<p>{{ p }}</p>{% endfor %}
+    {% if paragraphs|length > 3 %}<p id="cn-fade" style="background:linear-gradient(transparent,#1a1d3a);height:24px;margin:0;padding:0"></p>{% endif %}
   </div>
+  {% if paragraphs|length > 3 %}
+  <div class="cn-body" id="cn-body-full" style="display:none">
+    {% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}
+  </div>
+  <div style="margin-top:8px;text-align:right">
+    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ ({{ word_count }} words)</button>
+  </div>
+  {% endif %}
+  {% else %}
+  <div class="cn-body"><p>Coaching note generation in progress. Check back shortly.</p></div>
+  {% endif %}
 </div>
 
 <!-- RACE STRATEGY -->
@@ -1384,6 +1393,24 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <script>
+function toggleCoachNote() {
+  const preview = document.getElementById('cn-body-preview');
+  const full    = document.getElementById('cn-body-full');
+  const btn     = document.getElementById('cn-toggle');
+  const fade    = document.getElementById('cn-fade');
+  const expanded = full && full.style.display !== 'none';
+  if (expanded) {
+    if (full)    full.style.display    = 'none';
+    if (preview) preview.style.display = 'block';
+    if (fade)    fade.style.display    = 'block';
+    if (btn)     btn.textContent = btn.textContent.replace('Show less ↑', 'Show full note ↓');
+  } else {
+    if (preview) preview.style.display = 'none';
+    if (full)    full.style.display    = 'block';
+    if (btn)     btn.textContent = btn.textContent.replace('Show full note ↓', 'Show less ↑');
+  }
+}
+
 function toggleAlcohol() {
   const active = localStorage.getItem('alcohol_tonight') === '1';
   const next = active ? '0' : '1';
