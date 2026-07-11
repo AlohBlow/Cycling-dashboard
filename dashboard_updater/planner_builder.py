@@ -199,7 +199,6 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
 
         # Build days for this week (Mon–Sun)
         days = []
-        week_xss_total = 0
 
         for d in range(7):
             day_date = week_monday + timedelta(days=d)
@@ -263,8 +262,6 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 completed_flag = False
                 plan_name = ""
 
-            week_xss_total += xss or 0
-
             # Determine CSS class for day card
             day_classes = ['cal-day']
             if day_date == today:
@@ -307,6 +304,8 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
 
             _CYCLING = {'cycling', 'ride', 'virtualride', 'ebikeride', 'cycling'}
 
+            hr_derived = False  # True when activity has no power meter data
+
             if xert_src and xert_src.get('xss_low') is not None:
                 xss_low  = round(xert_src.get('xss_low') or 0)
                 xss_high = round(xert_src.get('xss_high') or 0)
@@ -323,11 +322,30 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                     xss_high = round(rdh or 0)
                     xss_peak = round(rdp or 0)
                 else:
-                    xss_low, xss_high, xss_peak = _estimate_xss_breakdown(session_name, xss)
+                    # No power breakdown available — check if HR-derived
+                    # An IV activity with no intensity/power field = HR-only XSS
+                    primary_act = completed_by_date.get(date_str, [{}])[0]
+                    has_power = bool(primary_act.get('intensity') or primary_act.get('avg_power'))
+                    if not has_power:
+                        hr_derived = True
+                        xss_low, xss_high, xss_peak = (xss or 0), 0, 0
+                    else:
+                        xss_low, xss_high, xss_peak = _estimate_xss_breakdown(session_name, xss)
                     xss_breakdown_estimated = True
             elif xss:
                 xss_low, xss_high, xss_peak = _estimate_xss_breakdown(session_name, xss)
                 xss_breakdown_estimated = True
+
+            # Normalize breakdown to always sum exactly to the day's xss.
+            # Xert's xlss/xhss/xpss can reference a different total than IV's xss —
+            # scaling prevents weekly sums overflowing vs the total.
+            if xss:
+                breakdown_sum = xss_low + xss_high + xss_peak
+                if breakdown_sum > 0 and breakdown_sum != xss:
+                    factor = xss / breakdown_sum
+                    xss_low  = round(xss_low  * factor)
+                    xss_high = round(xss_high * factor)
+                    xss_peak = max(0, xss - xss_low - xss_high)
 
             days.append({
                 'date':                   date_str,
@@ -342,6 +360,7 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 'xss_high':               xss_high,
                 'xss_peak':               xss_peak,
                 'xss_breakdown_estimated': xss_breakdown_estimated,
+                'hr_derived':             hr_derived,
                 'completed':              completed_flag,
                 'is_today':               day_date == today,
                 'is_past':                day_date < today,
@@ -368,9 +387,12 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             # else: no recovery card (rec_icon stays None)
 
         # ── Weekly XSS breakdown totals ───────────────────────────────────────
+        # Derive total from components (normalized per-day) so they always sum correctly.
         week_xss_low  = sum(d['xss_low']  for d in days)
         week_xss_high = sum(d['xss_high'] for d in days)
         week_xss_peak = sum(d['xss_peak'] for d in days)
+        week_xss_total = week_xss_low + week_xss_high + week_xss_peak
+        week_has_hr_derived = any(d.get('hr_derived') for d in days)
 
         # Week 1 (index 1) = this week = active tab
         is_this_week = (week_monday == this_monday)
@@ -379,12 +401,13 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             'week_id':        f"week{w + 1}",
             'week_label':     week_label,
             'tab_label':      f"{'Last Wk' if w==0 else 'This Wk' if w==1 else 'Next Wk'} · {_week_range_str(week_monday)}",
-            'week_xss':       round(week_xss_total),
-            'week_xss_low':   round(week_xss_low),
-            'week_xss_high':  round(week_xss_high),
-            'week_xss_peak':  round(week_xss_peak),
-            'days':           days,
-            'is_active':      is_this_week,
+            'week_xss':           round(week_xss_total),
+            'week_xss_low':       round(week_xss_low),
+            'week_xss_high':      round(week_xss_high),
+            'week_xss_peak':      round(week_xss_peak),
+            'week_has_hr_derived': week_has_hr_derived,
+            'days':               days,
+            'is_active':          is_this_week,
         })
 
     # Find tomorrow's planned session for Today card

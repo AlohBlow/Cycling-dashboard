@@ -773,12 +773,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cal-week-header">
     <h3>{{ week.week_label }}</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: {{ week.week_xss }}</span>
+      <span class="cal-week-xss">Weekly XSS: {{ week.week_xss }}{% if week.week_has_hr_derived %} <span style="font-size:10px;color:var(--muted);font-weight:400">est</span>{% endif %}</span>
       {% if week.week_xss_low or week.week_xss_high or week.week_xss_peak %}
       <span class="cal-week-xss-bk">
         {% if week.week_xss_low %}<span class="xss-bk xss-bk-low">🔵 {{ week.week_xss_low }}</span>{% endif %}
         {% if week.week_xss_high %}<span class="xss-bk xss-bk-high">🟡 {{ week.week_xss_high }}</span>{% endif %}
         {% if week.week_xss_peak %}<span class="xss-bk xss-bk-peak">🔴 {{ week.week_xss_peak }}</span>{% endif %}
+        {% if week.week_has_hr_derived %}<span class="xss-bk" style="color:var(--muted);font-weight:400">hr-est</span>{% endif %}
       </span>
       {% endif %}
     </div>
