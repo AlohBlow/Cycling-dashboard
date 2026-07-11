@@ -852,41 +852,102 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
   </div>
 
-  <div class="today-card">
-    <div class="tc-header">🌡️ Recovery Protocol Tonight</div>
+  <div class="today-card" id="rec-protocol-card">
+    <div class="tc-header">
+      🌡️ Recovery Protocol Tonight
+      <button id="alcohol-toggle" onclick="toggleAlcohol()" style="margin-left:auto;font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid #eab30833;background:#1f1507;color:#fcd34d;cursor:pointer;font-weight:600;letter-spacing:0.03em">🍺 Alcohol tonight</button>
+    </div>
+    
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+          
+          
+          
+          
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     <div class="rec-block">
-      <div class="rp-title">95 XSS Moderate — Steam Protocol</div>
+      <div class="rp-title" id="rec-title-normal">🏅 BREAKTHROUGH — Full Dry Sauna Protocol</div>
+      <div id="rec-title-alcohol" style="display:none" class="rp-title">⬇️ Downgraded — Alcohol Consumed</div>
+      
       <div class="rp-row">
-        <div class="rp-icon">🧖</div>
+        <div class="rp-icon">🔥</div>
         <div>
-          <div class="rp-name">Steam Sauna</div>
-          <div class="rp-detail">40–45°C · 2 rounds × 15 min · 5 min between</div>
-          <span class="rp-pill steam">Moderate Day Protocol</span>
+          <div class="rp-name">Dry sauna 80–90°C · 12 min × 3</div>
         </div>
       </div>
-      <div class="rp-row">
-        <div class="rp-icon">🧊</div>
+      
+      <div class="rp-row cold-shock-row">
+        <div class="rp-icon">🌊</div>
         <div>
-          <div class="rp-name">Cold Plunge — Standard</div>
-          <div class="rp-detail">14°C · 3–5 min after each round</div>
-          <span class="rp-pill cold">Standard Cold</span>
+          <div class="rp-name">13–14°C pool · 3–5 min between rounds</div>
         </div>
       </div>
-      <div class="rp-row">
-        <div class="rp-icon">💧</div>
+      
+      <div class="rp-row cold-shock-row">
+        <div class="rp-icon">❄️</div>
         <div>
-          <div class="rp-name">Hydration — URGENT</div>
-          <div class="rp-detail">Only 2,450 ml logged vs 4,319 ml avg</div>
-          <span class="rp-pill hydration">⚠️ Drink 2L now</span>
+          <div class="rp-name">4°C cold shock · 30–60 sec legs only · ×3</div>
         </div>
       </div>
+      
       <div class="rp-row">
-        <div class="rp-icon">🌙</div>
+        <div class="rp-icon">💊</div>
         <div>
-          <div class="rp-name">Bedtime Target</div>
-          <div class="rp-detail">8:30 PM · Sleep coach: 9:30–10:20 PM latest</div>
-          <span class="rp-pill sleep">8h Target</span>
+          <div class="rp-name">Magnesium pool · 10 min extended</div>
         </div>
+      </div>
+      
+      <div id="alcohol-note" style="display:none;margin-top:8px;padding:8px 10px;background:#1f1507;border:1px solid #eab30833;border-radius:6px;font-size:11px;color:#fcd34d">
+        ⬇️ Protocol downgraded: cold shock removed · reduce sauna reps by 1 · prioritise sleep over protocol
       </div>
     </div>
   </div>
@@ -1215,13 +1276,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🧖 Steam Protocol</div>
+        <div class="cal-recovery-title">🧖 Recovery — Steam Protocol</div>
         
         <div class="cal-rec-row">🧖 Steam 40–45°C · 15 min × 2</div>
         
-        <div class="cal-rec-row">💧 Cold plunge 14°C · 3 min × 2</div>
+        <div class="cal-rec-row">🌊 13–14°C pool between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1242,11 +1303,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">💧 Light Recovery</div>
+        <div class="cal-recovery-title">🧖 Recovery — Steam Protocol</div>
         
-        <div class="cal-rec-row">💧 Cold shower 14°C · 3–5 min</div>
+        <div class="cal-rec-row">🧖 Steam 40–45°C · 15 min × 2</div>
         
-        <div class="cal-rec-row">🧖 Optional steam 20 min</div>
+        <div class="cal-rec-row">🌊 13–14°C pool between rounds</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1283,9 +1346,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">😴 Full Rest</div>
+        <div class="cal-recovery-title">😴 Rest Day</div>
         
-        <div class="cal-rec-row">😴 Light stretching only</div>
+        <div class="cal-rec-row">🧖 Steam only — or skip entirely if fatigued</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool 10min if available</div>
         
       </div>
       
@@ -1328,13 +1393,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
         
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 10 min × 2</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min × 2  OR  Steam 40–45°C · 15 min × 2</div>
         
-        <div class="cal-rec-row">❄️ 4°C cold shock · 90 sec × 2</div>
+        <div class="cal-rec-row">🌊 13–14°C pool between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · ×1–2</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1371,13 +1438,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🏅 BREAKTHROUGH — Full Dry Sauna Protocol</div>
         
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 10 min × 3</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min × 3</div>
         
-        <div class="cal-rec-row">❄️ 4°C cold shock · 90 sec × 3</div>
+        <div class="cal-rec-row">🌊 13–14°C pool · 3–5 min between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · ×3</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 10 min extended</div>
         
       </div>
       
@@ -1430,13 +1499,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🏅 BREAKTHROUGH — Full Dry Sauna Protocol</div>
         
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 10 min × 3</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min × 3</div>
         
-        <div class="cal-rec-row">❄️ 4°C cold shock · 90 sec × 3</div>
+        <div class="cal-rec-row">🌊 13–14°C pool · 3–5 min between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · ×3</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 10 min extended</div>
         
       </div>
       
@@ -1511,13 +1582,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
         
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 10 min × 3</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min × 2  OR  Steam 40–45°C · 15 min × 2</div>
         
-        <div class="cal-rec-row">❄️ 4°C cold shock · 90 sec × 3</div>
+        <div class="cal-rec-row">🌊 13–14°C pool between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · ×1–2</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1531,9 +1604,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">😴 Full Rest</div>
+        <div class="cal-recovery-title">😴 Rest Day</div>
         
-        <div class="cal-rec-row">😴 Light stretching only</div>
+        <div class="cal-rec-row">🧖 Steam only — or skip entirely if fatigued</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool 10min if available</div>
         
       </div>
       
@@ -1586,13 +1661,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🔥 Heavy Day — Dry Sauna Protocol</div>
         
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 10 min × 3</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min × 2</div>
         
-        <div class="cal-rec-row">❄️ 4°C cold shock · 90 sec × 3</div>
+        <div class="cal-rec-row">🌊 13–14°C pool between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · legs only · ×2</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1613,13 +1690,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
         
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 10 min × 2</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min × 2  OR  Steam 40–45°C · 15 min × 2</div>
         
-        <div class="cal-rec-row">❄️ 4°C cold shock · 90 sec × 2</div>
+        <div class="cal-rec-row">🌊 13–14°C pool between rounds</div>
         
-        <div class="cal-rec-row">⏱️ 5 min rest between rounds</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · ×1–2</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1641,7 +1720,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
-    <p># COACHING NOTE — James Loh | Saturday 11 July 2026</p>
+    <p># COACHING NOTE — James Loh
+**Saturday 11 July 2026** | 41 days to Stage 1 | 43 days to Stage 3 (primary target)</p>
     
     
     
@@ -1650,7 +1730,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     <p>## 1. STATUS SYNTHESIS
-HRV is strong today (46.0ms, +21% vs baseline), signalling good parasympathetic recovery despite elevated fatigue (ATL 81.1). Your TSB of –1.2 is slightly fatigued but workable; the real concern is CTL dropping 4 points in 14 days (83.9 → 79.9), which erodes the fitness cushion you need for Stage 3 attacks in 43 days. Elevated HRV trumps the negative TSB here—your body *wants* to work tomorrow.</p>
+HRV is elevated (+21% above 7-day average at 46.0ms) and climbing over 3 days, signalling strong parasympathetic recovery despite TSB of –1.2 (slightly fatigued). CTL has dropped 4 points in two weeks (83.9 → 79.9), which is manageable at this distance from race, but the trend warrants reversal this week. **You are recovering well but losing fitness—prioritize quality over volume now.**</p>
     
     
     
@@ -1659,7 +1739,7 @@ HRV is strong today (46.0ms, +21% vs baseline), signalling good parasympathetic 
     
     
     <p>## 2. SESSION INSIGHT
-Today's IRRT covered 113 km in 3h 22m with solid zone distribution (Z1+Z2: 51%), but you hit 290W on a 5-min peak and discharged 94.9% of anaerobic capacity. Your 20-min peak of 210W sat at 77% of TP—conservative for a social ride, which is smart pacing. Xert flags "Tired" status: you're not at breakthrough risk, but AWC is nearly maxed out. The 58-hour recovery clock means full physiological recovery lands around **Monday evening**.</p>
+Today's IRRT ride delivered 201 XSS over 3h 22m with good polarization (51% Z1/Z2, 42% Z3–Z7), though 20-min peak of 210W sat at 77% of TP—solid but not breakthrough territory. AWC discharge of 94.9% with 25.3 anaerobic matches indicates you pushed hard late in the ride; that fatigue tax is real. Xert training status flags "Tired," meaning system load is accumulating; you're not primed for high-intensity work immediately. Recovery demand is 58 hours—expect full restitution by Monday 13 July midday.</p>
     
     
     
@@ -1668,7 +1748,7 @@ Today's IRRT covered 113 km in 3h 22m with solid zone distribution (Z1+Z2: 51%),
     
     
     <p>## 3. TODAY'S STATUS & EVENING PROTOCOL
-XSS 201 came in clean against your 227 target—you banked a small 26-XSS surplus, so no deficit today. The ride felt social and controlled; that's the right tone 43 days out. **Tonight:** prioritize 3.5–4.0 L fluid intake (you rode 3h 22m in likely warm/humid conditions—flag hydration status if thirst lingered). Aim for 8h sleep. Massage calves and quads; skip sauna tomorrow pre-session since recovery hours are still running.</p>
+You nailed the social/fun objective of IRRT (good morale boost), landing 201 XSS against a 227 target—acceptable shortfall given the nature of the ride. Tonight: **prioritize carb-dominant recovery meal (57.8% carb burn today suggests glycogen depletion)**; rehydrate to pale urine by bedtime; target 8+ hours sleep. No cold plunge tonight—your parasympathetic system is already firing; a warm shower and light mobility work are sufficient. Check morning weight; if down >1.5%, increase sodium intake tomorrow.</p>
     
     
     
@@ -1677,7 +1757,7 @@ XSS 201 came in clean against your 227 target—you banked a small 26-XSS surplu
     
     
     <p>## 4. TOMORROW PREVIEW
-Your 58-hour recovery window from today's 10:00 start closes **Monday ~20:00**. Tomorrow's Partial CCP5 (110 XSS, 2h 06m) lands well within that window—however, you noted "not feeling it." Keep HR ceiling at Z3 threshold (≈165–170 bpm) if motivation dips; abandon the VO₂ work if RPE spikes above 7/10. Do NOT chase XSS today for tomorrow's session; undershooting by 20–30 points is acceptable given CTL trend and 43 days to race.</p>
+Today's 3h 22m ride + 58h recovery = recovery clear **Monday 13 July ~1:30 PM**. Tomorrow's planned Partial CCP5 (110 XSS, 2h 06m) lands Sunday 12 July—**still within recovery window**. If you feel heavy on the bike, abandon CCP structure and run 90min Z1/Z2 steady instead (keep power ≤200W). Every extra hard effort today delays tomorrow's adaptability; keep this session submaximal unless legs feel springy by 10 AM.</p>
     
     
     
@@ -1686,7 +1766,7 @@ Your 58-hour recovery window from today's 10:00 start closes **Monday ~20:00**. 
     
     
     <p>## 5. RACE TRAJECTORY
-🟡 **Monitor** — CTL erosion is the dominant signal. Your projected race TSB (+22 to +29) is excellent, but you're losing fitness *into* the taper. Prioritize **stopping the CTL bleed** this week: hit 2–3 polarized high-intensity sessions (Z5–Z7) by Wednesday, then taper hard. Stage 3 wins are built on raw power</p>
+🟡 **Monitor.** CTL trend (–4 points) is your only red flag; TSB projection of +22 to +29 on race day is excellent. **Priority this week: arrest the fitness dip.** One strong 3–4 day training block (Tuesday–Thursday) with 2</p>
     
     
     
@@ -2145,7 +2225,7 @@ Your 58-hour recovery window from today's 10:00 start closes **Monday ~20:00**. 
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Saturday 11 July 2026 at 14:10 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Saturday 11 July 2026 at 14:13 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -2153,6 +2233,40 @@ Your 58-hour recovery window from today's 10:00 start closes **Monday ~20:00**. 
 </div>
 
 <script>
+function toggleAlcohol() {
+  const active = localStorage.getItem('alcohol_tonight') === '1';
+  const next = active ? '0' : '1';
+  localStorage.setItem('alcohol_tonight', next);
+  applyAlcohol();
+}
+function applyAlcohol() {
+  const active = localStorage.getItem('alcohol_tonight') === '1';
+  const btn = document.getElementById('alcohol-toggle');
+  const note = document.getElementById('alcohol-note');
+  const titleNormal = document.getElementById('rec-title-normal');
+  const titleAlcohol = document.getElementById('rec-title-alcohol');
+  if (btn) {
+    btn.style.background = active ? '#2d1f00' : '#1f1507';
+    btn.style.borderColor = active ? '#f59e0b99' : '#eab30833';
+    btn.textContent = active ? '🍺 Alcohol tonight ✓' : '🍺 Alcohol tonight';
+  }
+  // Hide cold shock rows and show downgrade note
+  document.querySelectorAll('.cold-shock-row').forEach(r => r.style.display = active ? 'none' : '');
+  if (note) note.style.display = active ? 'block' : 'none';
+  if (titleNormal) titleNormal.style.display = active ? 'none' : 'block';
+  if (titleAlcohol) titleAlcohol.style.display = active ? 'block' : 'none';
+}
+// Apply on load; auto-reset at midnight SGT
+(function() {
+  const stored = localStorage.getItem('alcohol_tonight_date');
+  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
+  if (stored !== todaySGT) {
+    localStorage.removeItem('alcohol_tonight');
+    localStorage.setItem('alcohol_tonight_date', todaySGT);
+  }
+  applyAlcohol();
+})();
+
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));

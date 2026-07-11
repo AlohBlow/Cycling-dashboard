@@ -28,42 +28,57 @@ def _xss_badge_class(xss):
     return 'xss-mega'
 
 
-def _recovery_protocol(session_name, xss):
+def _recovery_protocol(session_name, xss, is_breakthrough=False, xss_peak=0, awc_pct=None):
     """
-    Return (icon, title, blocks) where blocks is a list of (icon, line) pairs.
-    Blocks describe the specific sauna/cold protocol with duration × reps.
+    Return (icon, title, blocks, protocol_tier) where blocks is a list of (icon, line) pairs.
+    protocol_tier: 'breakthrough' | 'hard' | 'moderate' | 'recovery' | 'rest'
     """
     name_l = (session_name or '').lower()
-    is_mega = xss >= 150 or any(k in name_l for k in ('irrt', 'race', 'faber', 'crazies'))
-    is_high = xss >= 100 or any(k in name_l for k in ('ccp',))
     is_rest = xss == 0 or any(k in name_l for k in ('rest', 'travel', 'walk'))
-    is_recovery = xss < 70 or any(k in name_l for k in ('recovery', 'cruise', 'low intensity', 'lit'))
+
+    # Breakthrough: Xert BT flag OR AWC discharged >85% OR any meaningful peak XSS
+    is_bt_session = (
+        is_breakthrough
+        or (awc_pct is not None and awc_pct >= 85)
+        or (xss_peak is not None and xss_peak > 5)
+    )
 
     if is_rest:
-        return '😴', 'Full Rest', [('😴', 'Light stretching only')]
-    elif is_mega:
-        return '🔥', 'Dry Sauna Protocol', [
-            ('🔥', 'Dry sauna 80–90°C · 10 min × 3'),
-            ('❄️', '4°C cold shock · 90 sec × 3'),
-            ('⏱️', '5 min rest between rounds'),
-        ]
-    elif is_high:
-        return '🔥', 'Dry Sauna Protocol', [
-            ('🔥', 'Dry sauna 80–90°C · 10 min × 2'),
-            ('❄️', '4°C cold shock · 90 sec × 2'),
-            ('⏱️', '5 min rest between rounds'),
-        ]
-    elif is_recovery:
-        return '💧', 'Light Recovery', [
-            ('💧', 'Cold shower 14°C · 3–5 min'),
-            ('🧖', 'Optional steam 20 min'),
-        ]
-    else:
-        return '🧖', 'Steam Protocol', [
-            ('🧖', 'Steam 40–45°C · 15 min × 2'),
-            ('💧', 'Cold plunge 14°C · 3 min × 2'),
-            ('⏱️', '5 min rest between rounds'),
-        ]
+        return '😴', 'Rest Day', [
+            ('🧖', 'Steam only — or skip entirely if fatigued'),
+            ('💊', 'Magnesium pool 10min if available'),
+        ], 'rest'
+
+    if is_bt_session:
+        return '🏅', 'BREAKTHROUGH — Full Dry Sauna Protocol', [
+            ('🔥', 'Dry sauna 80–90°C · 12 min × 3'),
+            ('🌊', '13–14°C pool · 3–5 min between rounds'),
+            ('❄️', '4°C cold shock · 30–60 sec legs only · ×3'),
+            ('💊', 'Magnesium pool · 10 min extended'),
+        ], 'breakthrough'
+
+    if xss >= 150:
+        return '🔥', 'Heavy Day — Dry Sauna Protocol', [
+            ('🔥', 'Dry sauna 80–90°C · 12 min × 2'),
+            ('🌊', '13–14°C pool between rounds'),
+            ('❄️', '4°C cold shock · legs only · ×2'),
+            ('💊', 'Magnesium pool · 8 min'),
+        ], 'hard'
+
+    if xss >= 80:
+        return '🔥', 'Moderate Day Protocol', [
+            ('🔥', 'Dry sauna 80–90°C · 12 min × 2  OR  Steam 40–45°C · 15 min × 2'),
+            ('🌊', '13–14°C pool between rounds'),
+            ('❄️', '4°C cold shock · ×1–2'),
+            ('💊', 'Magnesium pool · 8 min'),
+        ], 'moderate'
+
+    # Recovery / Z2 (XSS < 80)
+    return '🧖', 'Recovery — Steam Protocol', [
+        ('🧖', 'Steam 40–45°C · 15 min × 2'),
+        ('🌊', '13–14°C pool between rounds'),
+        ('💊', 'Magnesium pool · 8 min'),
+    ], 'recovery'
 
 
 def _estimate_xss_breakdown(session_name, xss):
@@ -305,15 +320,19 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             _CYCLING = {'cycling', 'ride', 'virtualride', 'ebikeride', 'cycling'}
 
             hr_derived = False  # True when activity has no power meter data
+            is_breakthrough = False
+            awc_pct = None
 
             if xert_src and xert_src.get('xss_low') is not None:
                 xss_low  = round(xert_src.get('xss_low') or 0)
                 xss_high = round(xert_src.get('xss_high') or 0)
                 xss_peak = round(xert_src.get('xss_peak') or 0)
+                is_breakthrough = bool(xert_src.get('breakthrough'))
             elif completed_flag:
                 # Fall back to Riduck for completed rides
                 strava_act = strava_by_date.get(date_str)
                 riduck = (strava_act.get('riduck') or {}) if strava_act else {}
+                awc_pct = riduck.get('awc_pct') or strava_act.get('awc_pct') if strava_act else None
                 rdl = riduck.get('xss_low')
                 rdh = riduck.get('xss_high')
                 rdp = riduck.get('xss_peak')
@@ -361,6 +380,8 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 'xss_peak':               xss_peak,
                 'xss_breakdown_estimated': xss_breakdown_estimated,
                 'hr_derived':             hr_derived,
+                'is_breakthrough':        is_breakthrough,
+                'awc_pct':               awc_pct,
                 'completed':              completed_flag,
                 'is_today':               day_date == today,
                 'is_past':                day_date < today,
@@ -381,9 +402,16 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
         recovery_indices = {i for i, _ in active_days[:3]}
         for i, d in enumerate(days):
             if d['xss'] == 0:
-                d['rec_icon'], d['rec_title'], d['rec_blocks'] = _recovery_protocol('rest', 0)
+                d['rec_icon'], d['rec_title'], d['rec_blocks'], d['rec_tier'] = _recovery_protocol('rest', 0)
             elif i in recovery_indices:
-                d['rec_icon'], d['rec_title'], d['rec_blocks'] = _recovery_protocol(d['session_name'], d['xss'])
+                d['rec_icon'], d['rec_title'], d['rec_blocks'], d['rec_tier'] = _recovery_protocol(
+                    d['session_name'], d['xss'],
+                    is_breakthrough=d.get('is_breakthrough', False),
+                    xss_peak=d.get('xss_peak', 0),
+                    awc_pct=d.get('awc_pct'),
+                )
+            else:
+                d['rec_tier'] = None
             # else: no recovery card (rec_icon stays None)
 
         # ── Weekly XSS breakdown totals ───────────────────────────────────────

@@ -565,41 +565,37 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
   </div>
 
-  <div class="today-card">
-    <div class="tc-header">🌡️ Recovery Protocol Tonight</div>
+  <div class="today-card" id="rec-protocol-card">
+    <div class="tc-header">
+      🌡️ Recovery Protocol Tonight
+      <button id="alcohol-toggle" onclick="toggleAlcohol()" style="margin-left:auto;font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid #eab30833;background:#1f1507;color:#fcd34d;cursor:pointer;font-weight:600;letter-spacing:0.03em">🍺 Alcohol tonight</button>
+    </div>
+    {# Look up today's recovery from the planner (avoids re-computing) #}
+    {% set today_rec = namespace(found=false, icon='🧖', title='Recovery — Steam Protocol', blocks=[], tier='recovery') %}
+    {% for week in planner_weeks %}
+      {% for day in week.days %}
+        {% if day.is_today and not today_rec.found %}
+          {% set today_rec.found = true %}
+          {% set today_rec.icon = day.rec_icon or '🧖' %}
+          {% set today_rec.title = day.rec_title or 'Recovery — Steam Protocol' %}
+          {% set today_rec.blocks = day.rec_blocks or [] %}
+          {% set today_rec.tier = day.rec_tier or 'recovery' %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
     <div class="rec-block">
-      <div class="rp-title">95 XSS Moderate — Steam Protocol</div>
-      <div class="rp-row">
-        <div class="rp-icon">🧖</div>
+      <div class="rp-title" id="rec-title-normal">{{ today_rec.icon }} {{ today_rec.title }}</div>
+      <div id="rec-title-alcohol" style="display:none" class="rp-title">⬇️ Downgraded — Alcohol Consumed</div>
+      {% for block_icon, block_text in today_rec.blocks %}
+      <div class="rp-row{% if '4°C' in block_text %} cold-shock-row{% endif %}">
+        <div class="rp-icon">{{ block_icon }}</div>
         <div>
-          <div class="rp-name">Steam Sauna</div>
-          <div class="rp-detail">40–45°C · 2 rounds × 15 min · 5 min between</div>
-          <span class="rp-pill steam">Moderate Day Protocol</span>
+          <div class="rp-name">{{ block_text }}</div>
         </div>
       </div>
-      <div class="rp-row">
-        <div class="rp-icon">🧊</div>
-        <div>
-          <div class="rp-name">Cold Plunge — Standard</div>
-          <div class="rp-detail">14°C · 3–5 min after each round</div>
-          <span class="rp-pill cold">Standard Cold</span>
-        </div>
-      </div>
-      <div class="rp-row">
-        <div class="rp-icon">💧</div>
-        <div>
-          <div class="rp-name">Hydration — URGENT</div>
-          <div class="rp-detail">Only 2,450 ml logged vs 4,319 ml avg</div>
-          <span class="rp-pill hydration">⚠️ Drink 2L now</span>
-        </div>
-      </div>
-      <div class="rp-row">
-        <div class="rp-icon">🌙</div>
-        <div>
-          <div class="rp-name">Bedtime Target</div>
-          <div class="rp-detail">8:30 PM · Sleep coach: 9:30–10:20 PM latest</div>
-          <span class="rp-pill sleep">8h Target</span>
-        </div>
+      {% endfor %}
+      <div id="alcohol-note" style="display:none;margin-top:8px;padding:8px 10px;background:#1f1507;border:1px solid #eab30833;border-radius:6px;font-size:11px;color:#fcd34d">
+        ⬇️ Protocol downgraded: cold shock removed · reduce sauna reps by 1 · prioritise sleep over protocol
       </div>
     </div>
   </div>
@@ -1388,6 +1384,40 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <script>
+function toggleAlcohol() {
+  const active = localStorage.getItem('alcohol_tonight') === '1';
+  const next = active ? '0' : '1';
+  localStorage.setItem('alcohol_tonight', next);
+  applyAlcohol();
+}
+function applyAlcohol() {
+  const active = localStorage.getItem('alcohol_tonight') === '1';
+  const btn = document.getElementById('alcohol-toggle');
+  const note = document.getElementById('alcohol-note');
+  const titleNormal = document.getElementById('rec-title-normal');
+  const titleAlcohol = document.getElementById('rec-title-alcohol');
+  if (btn) {
+    btn.style.background = active ? '#2d1f00' : '#1f1507';
+    btn.style.borderColor = active ? '#f59e0b99' : '#eab30833';
+    btn.textContent = active ? '🍺 Alcohol tonight ✓' : '🍺 Alcohol tonight';
+  }
+  // Hide cold shock rows and show downgrade note
+  document.querySelectorAll('.cold-shock-row').forEach(r => r.style.display = active ? 'none' : '');
+  if (note) note.style.display = active ? 'block' : 'none';
+  if (titleNormal) titleNormal.style.display = active ? 'none' : 'block';
+  if (titleAlcohol) titleAlcohol.style.display = active ? 'block' : 'none';
+}
+// Apply on load; auto-reset at midnight SGT
+(function() {
+  const stored = localStorage.getItem('alcohol_tonight_date');
+  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
+  if (stored !== todaySGT) {
+    localStorage.removeItem('alcohol_tonight');
+    localStorage.setItem('alcohol_tonight_date', todaySGT);
+  }
+  applyAlcohol();
+})();
+
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
