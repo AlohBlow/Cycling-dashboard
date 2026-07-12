@@ -17,7 +17,28 @@ _DOW_S = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 _MON_S = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',
           7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}
 
-RACE_DATE = date(2026, 6, 28)
+RACE_DATE = date(2026, 8, 21)
+
+# Phase config: (start_date, end_date_inclusive, label)
+# Weeks not matched fall back to a generic label.
+PHASE_CONFIG = [
+    (date(2026, 6, 29), date(2026, 7,  5), "Recovery Week"),
+    (date(2026, 7,  6), date(2026, 7, 12), "Rebuild Week 1"),
+    (date(2026, 7, 13), date(2026, 7, 19), "Rebuild Week 2"),
+    (date(2026, 7, 20), date(2026, 7, 23), "Durability Block ⚡"),
+    (date(2026, 7, 24), date(2026, 7, 28), "Birthday Rest 🎂"),
+    (date(2026, 7, 29), date(2026, 8,  4), "Bintan Build"),
+    (date(2026, 8,  5), date(2026, 8, 11), "Peak Week"),
+    (date(2026, 8, 12), date(2026, 8, 20), "Taper"),
+    (date(2026, 8, 21), date(2026, 8, 23), "🏁 Tour de Bintan"),
+]
+
+def _phase_label(week_monday: date, week_sunday: date) -> str | None:
+    """Return phase name if this week overlaps a configured phase, else None."""
+    for start, end, label in PHASE_CONFIG:
+        if week_monday <= end and week_sunday >= start:
+            return label
+    return None
 
 
 def _xss_badge_class(xss):
@@ -201,14 +222,12 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
         week_num = (week_monday - _get_monday(RACE_DATE - timedelta(weeks=3))).days // 7 + 1
 
         # Determine week label
-        days_to_race = (RACE_DATE - week_monday).days
         is_past_week = week_sunday < today
+        phase = _phase_label(week_monday, week_sunday)
         if is_past_week:
             week_label = f"Last Week — {_week_range_str(week_monday)}"
-        elif days_to_race <= 7:
-            week_label = f"Race Week — {_week_range_str(week_monday)}"
-        elif days_to_race <= 14:
-            week_label = f"Taper Week — {_week_range_str(week_monday)}"
+        elif phase:
+            week_label = f"{phase} — {_week_range_str(week_monday)}"
         else:
             week_label = f"Race Build Week {w + 1} — {_week_range_str(week_monday)}"
 
@@ -240,8 +259,16 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 act = sorted(display_list, key=_act_xss, reverse=True)[0]
 
                 session_name = act.get('name', 'Activity')
-                # Sum XSS from ALL activities this day
-                xss = sum(_act_xss(a) for a in completed)
+                # Use primary XSS when it dominates (≥3x next-highest = Garmin sub-segment detection).
+                # Otherwise sum all activities (e.g. separate AM + PM sessions both matter).
+                if len(completed) > 1:
+                    xss_vals = sorted([_act_xss(a) for a in completed], reverse=True)
+                    if xss_vals[1] > 0 and xss_vals[0] / xss_vals[1] >= 3:
+                        xss = _act_xss(act)  # primary session only
+                    else:
+                        xss = sum(_act_xss(a) for a in completed)
+                else:
+                    xss = _act_xss(act)
                 dist = act.get('distance_km')
                 dur_sec = act.get('duration_sec') or 0
                 dur_h = dur_sec // 3600
@@ -456,8 +483,20 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             h, m = dur // 3600, (dur % 3600) // 60
             tomorrow_session['time_str'] = f"{h}h {m:02d}m"
 
+    # Extract today's recovery protocol for coaching note context
+    today_recovery_title = None
+    today_rec_tier = None
+    for week in planner_weeks:
+        for d in week['days']:
+            if d.get('is_today'):
+                today_recovery_title = d.get('rec_title')
+                today_rec_tier = d.get('rec_tier')
+                break
+
     return {
-        'planner_weeks':     planner_weeks,
-        'active_week_index': active_week_index,
-        'tomorrow_session':  tomorrow_session,
+        'planner_weeks':        planner_weeks,
+        'active_week_index':    active_week_index,
+        'tomorrow_session':     tomorrow_session,
+        'today_recovery_title': today_recovery_title,
+        'today_rec_tier':       today_rec_tier,
     }

@@ -77,7 +77,8 @@ def _assess_hrv(hrv_list):
 
 def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, activities,
                          xss_remaining_today, strava_latest, today, days_to_race,
-                         iv_fitness=None, tomorrow_session=None, wellness=None):
+                         iv_fitness=None, tomorrow_session=None, wellness=None,
+                         today_recovery_title=None, today_rec_tier=None):
     """Build a structured 5-block prompt and call Claude Haiku for a personalised coaching note."""
     from math import exp
 
@@ -233,17 +234,24 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         ]
 
     # ── Instructions ─────────────────────────────────────────────────────────
+    _rec_line = (
+        f"The dashboard recovery section has already prescribed: '{today_recovery_title}' (tier: {today_rec_tier}). "
+        f"Your Block 3 MUST reference this protocol by name — do NOT contradict or omit it."
+    ) if today_recovery_title else ""
+
     block3_instruction = (
         f"Block 3 — TODAY'S STATUS & EVENING PROTOCOL\n"
         f"Today's ride is ALREADY COMPLETED (see TODAY COMPLETED above) — do NOT prescribe another ride.\n"
         f"Comment briefly on how the completed session went (XSS, effort level, power zones).\n"
-        f"Prescribe tonight's recovery: nutrition, hydration, sleep target, sauna/cold-plunge if relevant.\n"
+        f"Prescribe tonight's recovery: nutrition, hydration, sleep target, and the sauna/cold-plunge protocol below.\n"
+        f"{_rec_line}\n"
         f"If hydration is low, flag it urgently."
     ) if today_completed else (
         f"Block 3 — TODAY'S PRESCRIPTION\n"
         f"Give specific, actionable targets: power ceiling, HR ceiling, cadence, XSS target.\n"
         f"If recovery day: strict ceilings. If hard day: peak targets from Xert TP + WOTD.\n"
         f"Add a stop condition (e.g. 'abort if HR exceeds Xbpm for more than 90s').\n"
+        f"{_rec_line}\n"
         f"If hydration is low, add an urgent hydration note."
     )
 
@@ -311,6 +319,8 @@ def generate_coaching_note(
     iv_fitness=None,
     tomorrow_session=None,
     wellness=None,
+    today_recovery_title=None,
+    today_rec_tier=None,
 ):
     """
     Generate a data-driven coaching note via Claude API, falling back to templates.
@@ -331,6 +341,7 @@ def generate_coaching_note(
                 api_key, ctl, atl, tsb_raw, xert_status, hrv_list, activities,
                 xss_remaining_today, strava_latest, today, days_to_race,
                 iv_fitness=iv_fitness, tomorrow_session=tomorrow_session, wellness=wellness,
+                today_recovery_title=today_recovery_title, today_rec_tier=today_rec_tier,
             )
             if note:
                 log.info(f"Claude coaching note generated ({len(note.split())} words)")

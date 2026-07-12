@@ -163,6 +163,8 @@ def build():
         iv_fitness=api_data['fitness'],
         tomorrow_session=planner_ctx.get('tomorrow_session'),
         wellness=api_data['wellness'],
+        today_recovery_title=planner_ctx.get('today_recovery_title'),
+        today_rec_tier=planner_ctx.get('today_rec_tier'),
     )
 
     if coaching_note:
