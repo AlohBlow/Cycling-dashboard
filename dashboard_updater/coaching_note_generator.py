@@ -293,12 +293,20 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         system=(
             "You are a terse, data-driven cycling coach. "
             "Write exactly 5 blocks as instructed. "
+            "Start your response IMMEDIATELY with 'Block 1 —' — no title, no header, no separator line before it. "
             "Block 5 (RACE TRAJECTORY) is the most critical — always complete it fully before stopping. "
             "End every block with a complete sentence. Never cut off mid-sentence."
         ),
         messages=[{"role": "user", "content": prompt}],
     )
     text = resp.content[0].text.strip()
+    # Strip any preamble lines the model adds before Block 1 (title, date header, dashes)
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        stripped = line.strip().lower()
+        if stripped.startswith('block 1') or stripped.startswith('**block 1'):
+            text = '\n'.join(lines[i:]).strip()
+            break
     # Safety: if response ends mid-sentence, truncate at last complete sentence
     if text and text[-1] not in '.!?»"\'':
         last = max(text.rfind('. '), text.rfind('! '), text.rfind('? '))
