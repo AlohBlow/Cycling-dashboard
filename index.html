@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>James Loh Race Build Dashboard | Nationals 2026</title>
+<title>James Loh Race Build Dashboard | Tour de Bintan 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
@@ -419,7 +419,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <div class="section-title">Form &amp; Load</div>
 <div class="form-load-grid">
   <div class="chart-card">
-    <div class="chart-title">CTL / ATL / TSB — Last 14 Days</div>
+    <div class="chart-title">CTL / ATL / TSB — Last 30 Days</div>
     <div class="chart-legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 81.3</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 85.1</div>
@@ -937,15 +937,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   </div>
   <div class="nf-card">
     <div class="nf-label">Hydration Today</div>
-    <div class="nf-value" style="color:var(--orange)">2,450 <span style="font-size:14px">ml</span></div>
-    <div class="nf-target">7d avg: 4,319 ml · Daily target: 4,000+ ml</div>
-    <span class="nf-flag warn">⚠️ Well below average — rehydrate aggressively tonight</span>
+    <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
+    <div class="nf-target">Target: 4,000+ ml daily · Log in Garmin Connect app</div>
+    <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No hydration logged today via Garmin sync</span>
   </div>
   <div class="nf-card">
     <div class="nf-label">Calories Today</div>
-    <div class="nf-value" style="color:var(--yellow)">266 <span style="font-size:14px">/ 2,491 kcal</span></div>
-    <div class="nf-target">7d avg: 2,138 kcal/day · Post long-run refuel needed</div>
-    <span class="nf-flag warn">⚠️ Refuel with protein + carbs post-run today</span>
+    <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">kcal</span></div>
+    <div class="nf-target">Log nutrition in Garmin Connect or MyFitnessPal</div>
+    <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No intake logged today via Garmin sync</span>
   </div>
 </div>
 
@@ -1679,22 +1679,22 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cn-body" id="cn-body-preview">
     
     <p>Block 1 — STATUS SYNTHESIS
-HRV at 43.0ms sits +3% above your 7-day average—a balanced autonomic signal—but TSB of −3.8 indicates you're still accumulating fatigue despite CTL climbing to 81.3 (up 1.4 points in two weeks). Trust the TSB read: you're fatigued but fitness is building linearly toward race day (35 days to Stage 1, 37 to your primary target). The conflict resolves in your favor—HRV stability means your nervous system is handling the load without distress.</p><p>Block 2 — SESSION INSIGHT
-Lucy in the Sky delivered 95 XSS across 1h 39m in Z3-dominant work (63% of time), with 20-min power hitting 203W—exactly 74% of threshold—and negligible anaerobic discharge (5.1% AWC, 0.4 matches). This is textbook sustainable aerobic loading with zero breakthrough risk; no unusual flags. Xert flags "Tired" status, which tracks your −3.8 TSB—you're not overreaching, just cumulatively fatigued from the build phase.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
-The session landed cleanly: 95 XSS consumed your daily target and delivered a balanced 41/59 fat-carb split with only 24h recovery needed. Tonight: hydrate 500mL electrolyte drink by 20:00, fuel with 1.2g carb/kg + 0.25g protein within 90 minutes, and target 8h sleep minimum. Sauna protocol: 12 minutes at 70°C (core temp +1.5°C), cool shower to 15°C for 2 minutes, repeat ×1; finish with 3 minutes gentle stretching to parasympathetic activation.</p>
+HRV at 43.0ms is +3% above your 7-day average, signaling balanced nervous system recovery despite TSB of −3.8 (fatigued state). CTL has climbed 1.4 points in two weeks to 81.3, demonstrating consistent fitness gain with 35 days to Stage 1 and 37 to your primary target (Stage 3 hilly). Trust the HRV signal over acute fatigue—you have capacity to absorb the planned 227 XSS tomorrow.</p><p>Block 2 — SESSION INSIGHT
+Today's Zwift session delivered 95 XSS with 63% time in Zone 3 (sweet spot), a controlled aerobic block ideal for this phase; 20-min peak of 203W sits at 74% of threshold, confirming you stayed disciplined and avoided early burnout. AWC discharge was minimal (5.1%), zero anaerobic matches, and recovery demand is 24 hours—this ride poses no accumulated fatigue bomb. Xert flags "Tired" status, but this is CTL-driven fitness signal, not a red flag for tomorrow's IRRT.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
+Your completed Lucy in the Sky session was exactly on brief: sustained aerobic work, no spike efforts, clean 1h 39m execution. Tonight: consume 1.2g carbohydrate per kg body weight within 30 minutes (pair with 20g protein), drink 500ml electrolyte solution over next 2 hours, and target 8+ hours sleep with core temp <18°C (open window or cold shower before bed). Skip sauna tonight—your HRV is stable and recovery is proceeding; save heat stress for post-race.</p>
     <p id="cn-fade" style="background:linear-gradient(transparent,#1a1d3a);height:24px;margin:0;padding:0"></p>
   </div>
   
   <div class="cn-body" id="cn-body-full" style="display:none">
     <p>Block 1 — STATUS SYNTHESIS
-HRV at 43.0ms sits +3% above your 7-day average—a balanced autonomic signal—but TSB of −3.8 indicates you're still accumulating fatigue despite CTL climbing to 81.3 (up 1.4 points in two weeks). Trust the TSB read: you're fatigued but fitness is building linearly toward race day (35 days to Stage 1, 37 to your primary target). The conflict resolves in your favor—HRV stability means your nervous system is handling the load without distress.</p><p>Block 2 — SESSION INSIGHT
-Lucy in the Sky delivered 95 XSS across 1h 39m in Z3-dominant work (63% of time), with 20-min power hitting 203W—exactly 74% of threshold—and negligible anaerobic discharge (5.1% AWC, 0.4 matches). This is textbook sustainable aerobic loading with zero breakthrough risk; no unusual flags. Xert flags "Tired" status, which tracks your −3.8 TSB—you're not overreaching, just cumulatively fatigued from the build phase.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
-The session landed cleanly: 95 XSS consumed your daily target and delivered a balanced 41/59 fat-carb split with only 24h recovery needed. Tonight: hydrate 500mL electrolyte drink by 20:00, fuel with 1.2g carb/kg + 0.25g protein within 90 minutes, and target 8h sleep minimum. Sauna protocol: 12 minutes at 70°C (core temp +1.5°C), cool shower to 15°C for 2 minutes, repeat ×1; finish with 3 minutes gentle stretching to parasympathetic activation.</p><p>Block 4 — TOMORROW PREVIEW
-Recovery window closes ~20:30 tonight (session start 16:51 + 24h); you'll be cleared for the 3h 55m IRRT at target 227 XSS. Tomorrow is a hard day with rain and 140km rolling terrain simulation—pre-deplete: light 30-min spin at 55% TP (152W) at 07:00, then 90-minute gap before main session to replenish glycogen. Every extra hard effort today (you nailed the XSS target) directly reduces tomorrow's available anaerobic reserve; execute the taper window precisely.</p><p>Block 5 — RACE TRAJECTORY
-🟢 On track—CTL trending +1.4 points every 14 days will land you at 85–87 by August, projected race-day TSB sits +24 to +31 (highly aggressive form), and your primary objective (Stage 3 attack and win) aligns with the hardest terrain. Priority this week: execute both the IRRT tomorrow and the longer Stage 2 simulation next Friday without infection or overuse injury; protect sleep and hydration ruthlessly.</p>
+HRV at 43.0ms is +3% above your 7-day average, signaling balanced nervous system recovery despite TSB of −3.8 (fatigued state). CTL has climbed 1.4 points in two weeks to 81.3, demonstrating consistent fitness gain with 35 days to Stage 1 and 37 to your primary target (Stage 3 hilly). Trust the HRV signal over acute fatigue—you have capacity to absorb the planned 227 XSS tomorrow.</p><p>Block 2 — SESSION INSIGHT
+Today's Zwift session delivered 95 XSS with 63% time in Zone 3 (sweet spot), a controlled aerobic block ideal for this phase; 20-min peak of 203W sits at 74% of threshold, confirming you stayed disciplined and avoided early burnout. AWC discharge was minimal (5.1%), zero anaerobic matches, and recovery demand is 24 hours—this ride poses no accumulated fatigue bomb. Xert flags "Tired" status, but this is CTL-driven fitness signal, not a red flag for tomorrow's IRRT.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
+Your completed Lucy in the Sky session was exactly on brief: sustained aerobic work, no spike efforts, clean 1h 39m execution. Tonight: consume 1.2g carbohydrate per kg body weight within 30 minutes (pair with 20g protein), drink 500ml electrolyte solution over next 2 hours, and target 8+ hours sleep with core temp <18°C (open window or cold shower before bed). Skip sauna tonight—your HRV is stable and recovery is proceeding; save heat stress for post-race.</p><p>Block 4 — TOMORROW PREVIEW
+Recovery window from today's 17:40 finish closes by 17:40 Saturday; you have full capacity to start the 3h 55m IRRT by 09:00. Tomorrow is high-load (227 XSS), so execute 40-minute easy spin (Z1–Z2, <200W) this evening if legs feel wooden, but do not exceed 40 XSS or you'll blunt tomorrow's session. IRRT demands fresh glycogen: 90g carbs + 10g protein at 06:30 breakfast, then 60g carbs per hour during the 3h 55m—rain will accelerate caloric burn.</p><p>Block 5 — RACE TRAJECTORY
+🟢 On track. CTL trend is up 1.4 points over 14 days (1.8% gain), projected race-day TSB is +24 to +31 (premium form window), and your 35-day buffer allows one recovery week mid-August without jeopardy. Priority this week: complete the 227-XSS IRRT tomorrow with ≥85% compliance to power targets, confirm anaerobic sharpness in a 5×2min interval block by Wednesday, and execute a 90-minute tapering ride Thursday to lock in freshness for the Stage 1 ITT.</p>
   </div>
   <div style="margin-top:8px;text-align:right">
-    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (372 words)</button>
+    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (395 words)</button>
   </div>
   
   
@@ -2152,7 +2152,7 @@ Recovery window closes ~20:30 tonight (session start 16:51 + 24h); you'll be cle
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Friday 17 July 2026 at 10:09 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Friday 17 July 2026 at 10:36 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -2220,10 +2220,10 @@ function switchTab(id, btn) {
 }
 
 // Live CTL/ATL/TSB data from Intervals.icu — last 14 days
-const labels  = ["Jul 4", "Jul 5", "Jul 6", "Jul 7", "Jul 8", "Jul 9", "Jul 10", "Jul 11", "Jul 12", "Jul 13", "Jul 14", "Jul 15", "Jul 16", "Jul 17"];
-const ctlData = [79.9, 80.0, 79.7, 77.9, 78.7, 77.0, 77.1, 79.9, 81.6, 80.7, 81.8, 81.3, 81.4, 81.3];
-const atlData = [70.5, 72.3, 71.3, 62.4, 69.0, 60.5, 63.2, 82.1, 91.1, 84.8, 90.5, 86.5, 86.1, 85.1];
-const tsbData = [9.4, 7.7, 8.4, 15.5, 9.7, 16.5, 13.9, -2.2, -9.5, -4.1, -8.7, -5.2, -4.7, -3.8];
+const labels  = ["Jun 18", "Jun 19", "Jun 20", "Jun 21", "Jun 22", "Jun 23", "Jun 24", "Jun 25", "Jun 26", "Jun 27", "Jun 28", "Jun 29", "Jun 30", "Jul 1", "Jul 2", "Jul 3", "Jul 4", "Jul 5", "Jul 6", "Jul 7", "Jul 8", "Jul 9", "Jul 10", "Jul 11", "Jul 12", "Jul 13", "Jul 14", "Jul 15", "Jul 16", "Jul 17"];
+const ctlData = [88.1, 87.4, 90.1, 89.7, 88.0, 86.4, 84.6, 83.6, 82.6, 82.0, 83.9, 82.1, 80.2, 78.4, 78.0, 77.3, 79.9, 80.0, 79.7, 77.9, 78.7, 77.0, 77.1, 79.9, 81.6, 80.7, 81.8, 81.3, 81.4, 81.3];
+const atlData = [99.2, 93.4, 108.0, 103.6, 91.8, 82.5, 72.9, 68.5, 64.8, 64.1, 77.0, 67.8, 59.0, 51.8, 52.8, 52.0, 70.5, 72.3, 71.3, 62.4, 69.0, 60.5, 63.2, 82.1, 91.1, 84.8, 90.5, 86.5, 86.1, 85.1];
+const tsbData = [-11.1, -6.0, -17.9, -13.9, -3.8, 3.9, 11.7, 15.1, 17.8, 17.9, 6.9, 14.3, 21.2, 26.6, 25.2, 25.3, 9.4, 7.7, 8.4, 15.5, 9.7, 16.5, 13.9, -2.2, -9.5, -4.1, -8.7, -5.2, -4.7, -3.8];
 
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
