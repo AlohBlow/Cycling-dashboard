@@ -143,8 +143,8 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     tsb_raw = round(ctl - atl, 1)
     tsb_str, tsb_zone, tsb_color = _tsb_info(tsb_raw)
 
-    # ── Chart: last 14 data points ───────────────────────────────────────────
-    rows14 = iv_fitness[-14:] if len(iv_fitness) >= 14 else iv_fitness
+    # ── Chart: last 30 data points ───────────────────────────────────────────
+    rows14 = iv_fitness[-30:] if len(iv_fitness) >= 30 else iv_fitness
     chart_labels, chart_ctl, chart_atl, chart_tsb = [], [], [], []
     for r in rows14:
         d = datetime.strptime(r['date'], '%Y-%m-%d')
