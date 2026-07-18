@@ -78,7 +78,7 @@ def _assess_hrv(hrv_list):
 def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, activities,
                          xss_remaining_today, strava_latest, today, days_to_race,
                          iv_fitness=None, tomorrow_session=None, wellness=None,
-                         today_recovery_title=None, today_rec_tier=None):
+                         today_recovery_title=None, today_rec_tier=None, current_phase=None):
     """Build a structured 5-block prompt and call Claude Haiku for a personalised coaching note."""
     from math import exp
 
@@ -234,10 +234,19 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         ]
 
     # ── Instructions ─────────────────────────────────────────────────────────
+    # Protocol parameters — absolute, never to be substituted by Claude's defaults
+    _protocol_params = (
+        "COLD EXPOSURE PARAMETERS (use these exact values, never substitute):\n"
+        "  • 4°C cold shock = 30–60 seconds maximum, legs only — NOT 2-3 min, NOT 10-14°C\n"
+        "  • 13–14°C pool = between sauna rounds, 3–5 min — this is the INTER-ROUND pool, not the cold shock\n"
+        "  • Never describe these interchangeably. 4°C ≠ 13°C. 30 sec ≠ 3 min."
+    )
     _rec_line = (
-        f"The dashboard recovery section has already prescribed: '{today_recovery_title}' (tier: {today_rec_tier}). "
-        f"Your Block 3 MUST reference this protocol by name — do NOT contradict or omit it."
-    ) if today_recovery_title else ""
+        f"MANDATORY: The dashboard has prescribed '{today_recovery_title}' for tonight. "
+        f"You MUST reference this protocol by name and include sauna/cold-plunge steps if it calls for them. "
+        f"Do NOT say 'skip sauna', 'no sauna', or 'save heat stress'. "
+        f"{_protocol_params}"
+    ) if today_recovery_title else _protocol_params
 
     block3_instruction = (
         f"Block 3 — TODAY'S STATUS & EVENING PROTOCOL\n"
@@ -282,6 +291,11 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         f"Block 5 — RACE TRAJECTORY",
         f"One-line traffic light: 🟢 On track / 🟡 Monitor / 🔴 Flag.",
         f"State CTL trend, projected race-day TSB, and the #1 priority for this week.",
+        f"Current training phase: {current_phase or 'Build'}.",
+        f"IMPORTANT: Only prescribe work that matches this phase. "
+        f"Durability Block = long sustained efforts, ZERO interval or high/peak XSS work. "
+        f"Rebuild = threshold only. Taper = volume reduction. "
+        f"Do NOT prescribe VO2 intervals, 5×2min blocks, or anaerobic work unless the phase explicitly calls for it.",
     ]
 
     prompt = '\n'.join(lines)
@@ -329,6 +343,7 @@ def generate_coaching_note(
     wellness=None,
     today_recovery_title=None,
     today_rec_tier=None,
+    current_phase=None,
 ):
     """
     Generate a data-driven coaching note via Claude API, falling back to templates.
@@ -350,6 +365,7 @@ def generate_coaching_note(
                 xss_remaining_today, strava_latest, today, days_to_race,
                 iv_fitness=iv_fitness, tomorrow_session=tomorrow_session, wellness=wellness,
                 today_recovery_title=today_recovery_title, today_rec_tier=today_rec_tier,
+                current_phase=current_phase,
             )
             if note:
                 log.info(f"Claude coaching note generated ({len(note.split())} words)")

@@ -355,6 +355,16 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 xss_high = round(xert_src.get('xss_high') or 0)
                 xss_peak = round(xert_src.get('xss_peak') or 0)
                 is_breakthrough = bool(xert_src.get('breakthrough'))
+                # If the IV activity has no power data, Xert's estimated High/Peak are unreliable.
+                # Force them to 0 and mark hr_derived so weekly totals aren't inflated.
+                if completed_flag:
+                    primary_act = completed_by_date.get(date_str, [{}])[0]
+                    has_power = bool(primary_act.get('intensity') or primary_act.get('avg_power'))
+                    if not has_power:
+                        hr_derived = True
+                        xss_low  = xss or 0
+                        xss_high = 0
+                        xss_peak = 0
             elif completed_flag:
                 # Fall back to Riduck for completed rides
                 strava_act = strava_by_date.get(date_str)
@@ -419,20 +429,26 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 'rec_blocks': [],
             })
 
-        # ── Recovery protocol: max 3 sessions per week, hardest days ─────────
-        # Sort non-rest days by XSS descending; assign active recovery to top 3.
-        # Rest days always get the rest protocol; other days get no recovery card.
+        # ── Recovery protocol: top 3 sessions + any day before a heavy session ──
         active_days = sorted(
             [(i, d['xss']) for i, d in enumerate(days) if d['xss'] > 0],
             key=lambda x: x[1], reverse=True
         )
         recovery_indices = {i for i, _ in active_days[:3]}
+        # Also assign protocol to any day immediately preceding a heavy session (>150 XSS)
+        for i in range(len(days) - 1):
+            if days[i + 1]['xss'] > 150:
+                recovery_indices.add(i)
         for i, d in enumerate(days):
+            tomorrow_xss = days[i + 1]['xss'] if i + 1 < len(days) else 0
+            pre_heavy = tomorrow_xss > 150
             if d['xss'] == 0:
                 d['rec_icon'], d['rec_title'], d['rec_blocks'], d['rec_tier'] = _recovery_protocol('rest', 0)
             elif i in recovery_indices:
+                # If tomorrow is a heavy session, treat today as hard-tier minimum for sauna pre-loading
+                effective_xss = max(d['xss'], 150 if pre_heavy else 0)
                 d['rec_icon'], d['rec_title'], d['rec_blocks'], d['rec_tier'] = _recovery_protocol(
-                    d['session_name'], d['xss'],
+                    d['session_name'], effective_xss,
                     is_breakthrough=d.get('is_breakthrough', False),
                     xss_peak=d.get('xss_peak', 0),
                     awc_pct=d.get('awc_pct'),
@@ -483,15 +499,19 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             h, m = dur // 3600, (dur % 3600) // 60
             tomorrow_session['time_str'] = f"{h}h {m:02d}m"
 
-    # Extract today's recovery protocol for coaching note context
+    # Extract today's recovery protocol + current phase for coaching note context
     today_recovery_title = None
     today_rec_tier = None
+    current_phase = None
     for week in planner_weeks:
+        if week.get('is_active'):
+            # Phase label is "Phase Name — date range", grab just the name part
+            lbl = week.get('week_label', '')
+            current_phase = lbl.split(' — ')[0] if ' — ' in lbl else lbl
         for d in week['days']:
             if d.get('is_today'):
                 today_recovery_title = d.get('rec_title')
                 today_rec_tier = d.get('rec_tier')
-                break
 
     return {
         'planner_weeks':        planner_weeks,
@@ -499,4 +519,5 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
         'tomorrow_session':     tomorrow_session,
         'today_recovery_title': today_recovery_title,
         'today_rec_tier':       today_rec_tier,
+        'current_phase':        current_phase,
     }

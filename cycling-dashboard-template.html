@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>James Loh Race Build Dashboard | Nationals 2026</title>
+<title>James Loh Race Build Dashboard | Tour de Bintan 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
@@ -419,7 +419,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <div class="section-title">Form &amp; Load</div>
 <div class="form-load-grid">
   <div class="chart-card">
-    <div class="chart-title">CTL / ATL / TSB — Last 14 Days</div>
+    <div class="chart-title">CTL / ATL / TSB — Last 30 Days</div>
     <div class="chart-legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) {{ ctl }}</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) {{ atl }}</div>
@@ -613,15 +613,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   </div>
   <div class="nf-card">
     <div class="nf-label">Hydration Today</div>
-    <div class="nf-value" style="color:var(--orange)">2,450 <span style="font-size:14px">ml</span></div>
-    <div class="nf-target">7d avg: 4,319 ml · Daily target: 4,000+ ml</div>
-    <span class="nf-flag warn">⚠️ Well below average — rehydrate aggressively tonight</span>
+    <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
+    <div class="nf-target">Target: 4,000+ ml daily · Log in Garmin Connect app</div>
+    <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No hydration logged today via Garmin sync</span>
   </div>
   <div class="nf-card">
     <div class="nf-label">Calories Today</div>
-    <div class="nf-value" style="color:var(--yellow)">266 <span style="font-size:14px">/ 2,491 kcal</span></div>
-    <div class="nf-target">7d avg: 2,138 kcal/day · Post long-run refuel needed</div>
-    <span class="nf-flag warn">⚠️ Refuel with protein + carbs post-run today</span>
+    <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">kcal</span></div>
+    <div class="nf-target">Log nutrition in Garmin Connect or MyFitnessPal</div>
+    <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No intake logged today via Garmin sync</span>
   </div>
 </div>
 
@@ -1093,7 +1093,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   </div>
   {% if paragraphs|length > 3 %}
   <div class="cn-body" id="cn-body-full" style="display:none">
-    {% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}
+    {# Only the blocks not shown in preview — appended below, not replacing it #}
+    {% for p in paragraphs[3:] %}<p>{{ p }}</p>{% endfor %}
   </div>
   <div style="margin-top:8px;text-align:right">
     <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ ({{ word_count }} words)</button>
@@ -1394,20 +1395,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 
 <script>
 function toggleCoachNote() {
-  const preview = document.getElementById('cn-body-preview');
-  const full    = document.getElementById('cn-body-full');
-  const btn     = document.getElementById('cn-toggle');
-  const fade    = document.getElementById('cn-fade');
+  const full = document.getElementById('cn-body-full');
+  const btn  = document.getElementById('cn-toggle');
+  const fade = document.getElementById('cn-fade');
   const expanded = full && full.style.display !== 'none';
   if (expanded) {
-    if (full)    full.style.display    = 'none';
-    if (preview) preview.style.display = 'block';
-    if (fade)    fade.style.display    = 'block';
-    if (btn)     btn.textContent = btn.textContent.replace('Show less ↑', 'Show full note ↓');
+    if (full) full.style.display = 'none';
+    if (fade) fade.style.display = 'block';
+    if (btn)  btn.textContent = btn.textContent.replace('Show less ↑', 'Show full note ↓');
   } else {
-    if (preview) preview.style.display = 'none';
-    if (full)    full.style.display    = 'block';
-    if (btn)     btn.textContent = btn.textContent.replace('Show full note ↓', 'Show less ↑');
+    if (full) full.style.display = 'block';
+    if (fade) fade.style.display = 'none';
+    if (btn)  btn.textContent = btn.textContent.replace('Show full note ↓', 'Show less ↑');
   }
 }
 

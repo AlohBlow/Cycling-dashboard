@@ -93,24 +93,44 @@ def build():
     completed_xert = [e for e in xert_cal if e.get('completed')]
 
     # Supplement IV activities with Xert completed events not yet synced to IV.
-    # Match by (date, name) so multiple sessions on the same day are each handled.
+    # Deduplicate by (date, name) AND by XSS similarity — Garmin and Xert often name
+    # the same ride differently (e.g. "All The Small Things" vs "Lucy in the Sky").
     iv_keys = {(a.get('date', '')[:10], (a.get('name') or '').strip().lower())
                for a in api_data['activities']}
+    # Build per-date XSS index for same-ride detection
+    iv_xss_by_date: dict[str, list[float]] = {}
+    for a in api_data['activities']:
+        d = a.get('date', '')[:10]
+        if d:
+            iv_xss_by_date.setdefault(d, []).append(float(a.get('xss') or 0))
+
     extras = []
     for ev in completed_xert:
         ev_date = (ev.get('date') or '')[:10]
         ev_name = (ev.get('name') or 'Activity').strip().lower()
-        if ev_date and (ev_date, ev_name) not in iv_keys:
-            extras.append({
-                'name':         ev.get('name', 'Activity'),
-                'date':         ev_date + 'T00:00:00',
-                'xss':          ev.get('xss') or 0,
-                'duration_sec': ev.get('duration_sec') or 0,
-                'distance_km':  ev.get('distance_km'),
-                'sport_type':   ev.get('type', 'Ride'),
-                'intensity':    None,
-            })
-            iv_keys.add((ev_date, ev_name))
+        if not ev_date:
+            continue
+        if (ev_date, ev_name) in iv_keys:
+            continue
+        ev_xss = float(ev.get('xss') or 0)
+        # Skip if an IV activity on the same date has XSS within 30% — same ride, different name
+        same_date_xss = iv_xss_by_date.get(ev_date, [])
+        if ev_xss > 0 and any(
+            abs(x - ev_xss) / max(x, ev_xss) < 0.30
+            for x in same_date_xss if x > 0
+        ):
+            continue
+        extras.append({
+            'name':         ev.get('name', 'Activity'),
+            'date':         ev_date + 'T00:00:00',
+            'xss':          ev_xss,
+            'duration_sec': ev.get('duration_sec') or 0,
+            'distance_km':  ev.get('distance_km'),
+            'sport_type':   ev.get('type', 'Ride'),
+            'intensity':    None,
+        })
+        iv_keys.add((ev_date, ev_name))
+        iv_xss_by_date.setdefault(ev_date, []).append(ev_xss)
     if extras:
         combined = api_data['activities'] + extras
         combined.sort(key=lambda a: a.get('date', ''), reverse=True)
@@ -165,6 +185,7 @@ def build():
         wellness=api_data['wellness'],
         today_recovery_title=planner_ctx.get('today_recovery_title'),
         today_rec_tier=planner_ctx.get('today_rec_tier'),
+        current_phase=planner_ctx.get('current_phase'),
     )
 
     if coaching_note:
