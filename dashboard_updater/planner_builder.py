@@ -72,32 +72,28 @@ def _recovery_protocol(session_name, xss, is_breakthrough=False, xss_peak=0, awc
 
     if is_bt_session:
         return '🏅', 'BREAKTHROUGH — Full Dry Sauna Protocol', [
-            ('🔥', 'Dry sauna 80–90°C · 12 min × 3'),
-            ('🌊', '13–14°C pool · 3–5 min between rounds'),
-            ('❄️', '4°C cold shock · 30–60 sec legs only · ×3'),
+            ('🔥', 'Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×3 rounds'),
+            ('❄️', '4°C cold shock · 30–60 sec legs only · after final round'),
             ('💊', 'Magnesium pool · 10 min extended'),
         ], 'breakthrough'
 
     if xss >= 150:
         return '🔥', 'Heavy Day — Dry Sauna Protocol', [
-            ('🔥', 'Dry sauna 80–90°C · 12 min × 2'),
-            ('🌊', '13–14°C pool between rounds'),
-            ('❄️', '4°C cold shock · legs only · ×2'),
+            ('🔥', 'Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds'),
+            ('❄️', '4°C cold shock · 30–60 sec legs only · after final round'),
             ('💊', 'Magnesium pool · 8 min'),
         ], 'hard'
 
     if xss >= 80:
         return '🔥', 'Moderate Day Protocol', [
-            ('🔥', 'Dry sauna 80–90°C · 12 min × 2  OR  Steam 40–45°C · 15 min × 2'),
-            ('🌊', '13–14°C pool between rounds'),
-            ('❄️', '4°C cold shock · ×1–2'),
+            ('🔥', 'Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds'),
+            ('❄️', '4°C cold shock · 30–60 sec legs only · after final round'),
             ('💊', 'Magnesium pool · 8 min'),
         ], 'moderate'
 
     # Recovery / Z2 (XSS < 80)
     return '🧖', 'Recovery — Steam Protocol', [
-        ('🧖', 'Steam 40–45°C · 15 min × 2'),
-        ('🌊', '13–14°C pool between rounds'),
+        ('🧖', 'Steam room 40–45°C · 15 min  →  13–14°C pool 3–5 min  ×2 rounds'),
         ('💊', 'Magnesium pool · 8 min'),
     ], 'recovery'
 
