@@ -17,7 +17,7 @@ _DOW_S = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 _MON_S = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',
           7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}
 
-RACE_DATE = date(2026, 8, 21)
+RACE_DATE = date(2026, 8, 22)
 
 # Phase config: (start_date, end_date_inclusive, label)
 # Weeks not matched fall back to a generic label.
@@ -425,16 +425,19 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 'rec_blocks': [],
             })
 
-        # ── Recovery protocol: top 3 sessions + any day before a heavy session ──
-        active_days = sorted(
-            [(i, d['xss']) for i, d in enumerate(days) if d['xss'] > 0],
-            key=lambda x: x[1], reverse=True
-        )
-        recovery_indices = {i for i, _ in active_days[:3]}
-        # Also assign protocol to any day immediately preceding a heavy session (>150 XSS)
-        for i in range(len(days) - 1):
-            if days[i + 1]['xss'] > 150:
-                recovery_indices.add(i)
+        # ── Recovery protocol: top 2 sessions per week (time-limited — sauna capped at 2x/week) ──
+        # Rank every candidate day (highest-XSS days, plus any day preceding a heavy
+        # session for pre-loading) by a single priority score, then keep only the top 2
+        # so the dry sauna protocol is never recommended more than twice a week.
+        candidates = []
+        for i, d in enumerate(days):
+            tomorrow_xss = days[i + 1]['xss'] if i + 1 < len(days) else 0
+            pre_heavy = tomorrow_xss > 150
+            if d['xss'] > 0 or pre_heavy:
+                priority = max(d['xss'], 150 if pre_heavy else 0)
+                candidates.append((i, priority))
+        candidates.sort(key=lambda x: x[1], reverse=True)
+        recovery_indices = {i for i, _ in candidates[:2]}
         for i, d in enumerate(days):
             tomorrow_xss = days[i + 1]['xss'] if i + 1 < len(days) else 0
             pre_heavy = tomorrow_xss > 150

@@ -306,12 +306,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="day-label" style="font-size:9px">TO S1 ITT</div>
     </div>
     <div class="race-pill" style="min-width:70px;background:linear-gradient(135deg,#1a3a0a,#2d6b10);border-color:#4ade80">
-      <div class="day-num" style="font-size:22px">{{ days_to_s3 }}</div>
-      <div class="day-label" style="font-size:9px;color:#86efac">★ TO STAGE 3</div>
+      <div class="day-num" style="font-size:22px">{{ days_to_s2 }}</div>
+      <div class="day-label" style="font-size:9px;color:#86efac">★ TO STAGE 2</div>
     </div>
     <div class="header-title">
       <h1>🚴 James Loh · Tour de Bintan Build</h1>
-      <p>S1 Thu 21 Aug · 15km ITT · 265-275W &nbsp;|&nbsp; S2 Fri 22 Aug · 140km rolling · conserve &nbsp;|&nbsp; <strong style="color:#4ade80">S3 Sat 23 Aug · 110km hilly · attack &amp; win ★</strong></p>
+      <p>S1 Fri 22 Aug · 15km ITT · 265-275W &nbsp;|&nbsp; <strong style="color:#4ade80">S2 Sat 23 Aug · 110km hilly · attack &amp; win ★</strong> &nbsp;|&nbsp; S3 Sun 24 Aug · 140km rolling · conserve</p>
     </div>
   </div>
   <div class="header-pills">
@@ -1120,7 +1120,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="rs-header s1">
       <div class="rs-stage-num" style="color:#93c5fd">S1</div>
       <div class="rs-stage-info">
-        <div class="rs-stage-name">Thu 21 Aug · 15km ITT</div>
+        <div class="rs-stage-name">Fri 22 Aug · 15km ITT</div>
         <div class="rs-stage-meta">Individual Time Trial</div>
       </div>
       <div class="rs-goal-pill itt">TIME TRIAL</div>
@@ -1133,30 +1133,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
   </div>
 
-  <!-- STAGE 2 -->
-  <div class="rs-card">
-    <div class="rs-header s2">
-      <div class="rs-stage-num" style="color:#fcd34d">S2</div>
-      <div class="rs-stage-info">
-        <div class="rs-stage-name">Fri 22 Aug · 140km rolling</div>
-        <div class="rs-stage-meta">Conservation Stage</div>
-      </div>
-      <div class="rs-goal-pill survive">SURVIVE &amp; PRESERVE</div>
-    </div>
-    <div class="rs-body">
-      <div class="rs-row"><span class="rs-icon">⚡</span><span class="rs-text"><strong>Target:</strong> 220–240W · max 4 contested efforts</span></div>
-      <div class="rs-row"><span class="rs-icon">🧠</span><span class="rs-text"><strong>Ride like:</strong> Kulai (17.7 durability) — NOT Crazies (9.8)</span></div>
-      <div class="rs-row"><span class="rs-icon">🔋</span><span class="rs-text"><strong>AWC:</strong> Protect HIE throughout — needed for Stage 3</span></div>
-      <div class="rs-row"><span class="rs-icon">🍽️</span><span class="rs-text"><strong>Nutrition:</strong> 90g carbs/hr from km 20 · sodium every 45min</span></div>
-      <div class="rs-row"><span class="rs-icon">💊</span><span class="rs-text"><strong>Cramp prevention:</strong> Magnesium loading from Aug 16 · sodium from Aug 16</span></div>
-      <div class="rs-risk">Cramping at ~75km (occurred ToF Stage 1) — sodium + magnesium critical</div>
-    </div>
-  </div>
-
-  <!-- STAGE 3 -->
+  <!-- STAGE 2 — PRIMARY TARGET -->
   <div class="rs-card primary">
-    <div class="rs-header s3">
-      <div class="rs-stage-num" style="color:#4ade80">S3 ★</div>
+    <div class="rs-header s2">
+      <div class="rs-stage-num" style="color:#4ade80">S2 ★</div>
       <div class="rs-stage-info">
         <div class="rs-stage-name">Sat 23 Aug · 110km hilly</div>
         <div class="rs-stage-meta">Primary Target — Puncheur Mode</div>
@@ -1169,8 +1149,29 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="rs-phase ph-attack"><strong style="color:#ef4444">80–100km</strong> · Full puncheur mode — attack every short climb</div>
       <div class="rs-phase ph-empty"><strong style="color:#a855f7">100–110km</strong> · Empty the tank completely</div>
       <div class="rs-row" style="margin-top:8px"><span class="rs-icon">💪</span><span class="rs-text"><strong>Weapon:</strong> 285W 5-min power on repeated punchy climbs</span></div>
-      <div class="rs-insight">2022: finished with 77% MPA remaining — use it all in 2026. Day 3 fatigue cliff real (durability drops to 10.6) — plan for it, don't fight it.</div>
-      <div class="rs-risk">Day 3 fatigue cliff — historical durability drops to 10.6 by Day 3</div>
+      <div class="rs-row"><span class="rs-icon">💊</span><span class="rs-text"><strong>Cramp prevention:</strong> Magnesium loading from Aug 17 · sodium from Aug 17</span></div>
+      <div class="rs-insight">Fresh off ITT — HIE fully recovered. This is Day 2, durability holds. Attack mode from 80km.</div>
+      <div class="rs-risk">Cramping at ~75km (occurred ToF Stage 1) — sodium + magnesium critical</div>
+    </div>
+  </div>
+
+  <!-- STAGE 3 — CONSERVATION -->
+  <div class="rs-card">
+    <div class="rs-header s3">
+      <div class="rs-stage-num" style="color:#fcd34d">S3</div>
+      <div class="rs-stage-info">
+        <div class="rs-stage-name">Sun 24 Aug · 140km rolling</div>
+        <div class="rs-stage-meta">Conservation Stage — Protect S2 Result</div>
+      </div>
+      <div class="rs-goal-pill survive">SURVIVE &amp; PRESERVE</div>
+    </div>
+    <div class="rs-body">
+      <div class="rs-row"><span class="rs-icon">⚡</span><span class="rs-text"><strong>Target:</strong> 220–240W · max 4 contested efforts</span></div>
+      <div class="rs-row"><span class="rs-icon">🧠</span><span class="rs-text"><strong>Ride like:</strong> Kulai pacing (17.7 durability) — NOT Crazies (9.8)</span></div>
+      <div class="rs-row"><span class="rs-icon">🔋</span><span class="rs-text"><strong>AWC:</strong> Protect HIE throughout — Day 3 fatigue cliff real</span></div>
+      <div class="rs-row"><span class="rs-icon">🍽️</span><span class="rs-text"><strong>Nutrition:</strong> 90g carbs/hr from km 20 · sodium every 45min</span></div>
+      <div class="rs-insight">Day 3 fatigue cliff — historical durability drops to 10.6. Conserve to protect Stage 2 result. Do not contest unless GC demands it.</div>
+      <div class="rs-risk">Day 3 durability cliff — over-racing here loses the overall</div>
     </div>
   </div>
 
@@ -1247,8 +1248,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="dur-insight">
       <strong>Key Insight:</strong> Durability is <strong>intensity-dependent</strong>, not just duration-dependent.<br>
       Riding aerobically → holds <strong>17–20</strong> · Racing hard → drops to <strong>9–10</strong><br><br>
-      <strong>Stage 2 pacing directly determines Stage 3 durability.</strong><br>
-      Protect HIE in S2 → arrive at S3 with 16–20 durability → attack the climbs.
+      <strong>Stage 1 pacing directly determines Stage 2 durability.</strong><br>
+      Smooth ITT in S1 → arrive at S2 hilly with full HIE → attack the climbs and win.
     </div>
   </div>
 
@@ -1269,7 +1270,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     ('Jul 28', 'BIRTHDAY',  83,   'future',    '#64748b', 65),
     ('Aug 4',  'BINTAN BUILD',86, 'future',    '#4f8ef7', 80),
     ('Aug 11', 'PEAK',       89,  'peak',      '#4ade80', 95),
-    ('Aug 21', 'RACE DAY',   83,  'race',      '#ef4444', 65),
+    ('Aug 22', 'RACE DAY',   83,  'race',      '#ef4444', 65),
   ] %}
 
   <div style="position:relative">
@@ -1317,8 +1318,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <!-- TSB target box -->
   <div class="traj-tsb-box" style="margin-top:14px">
     <div style="font-size:12px;color:var(--muted2);flex:1">
-      <strong style="color:#4ade80">Race Day TSB Target: +25 to +35</strong><br>
-      <span style="font-size:11px">Nationals Jun 28 delivered <strong style="color:var(--text)">+24.6 actual</strong> — replicate exactly. Same taper model: 9-day CTL dip from peak, maintain aerobic stimulus.</span>
+      <strong style="color:#4ade80">Race Day TSB Target: +27 to +32 (S1 ITT · Fri 22 Aug)</strong><br>
+      <span style="font-size:11px">Nationals Jun 28 delivered <strong style="color:var(--text)">+24.6 actual</strong> — aim slightly higher for 3-day stage race. Same taper model: 9-day CTL dip from peak, maintain aerobic stimulus.</span>
     </div>
     <div class="tsb-item"><div class="tsb-val">+24.6</div><div class="tsb-lbl">Nationals actual</div></div>
     <div class="tsb-item"><div class="tsb-val">+25–35</div><div class="tsb-lbl">Bintan target</div></div>
@@ -1330,7 +1331,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <span><span class="traj-legend-dot" style="background:#4f8ef7"></span>Build phases</span>
     <span><span class="traj-legend-dot" style="background:#a855f7"></span>Durability block</span>
     <span><span class="traj-legend-dot" style="background:#4ade80"></span>Peak (Aug 11)</span>
-    <span><span class="traj-legend-dot" style="background:#ef4444"></span>Race day S1 (Aug 21)</span>
+    <span><span class="traj-legend-dot" style="background:#ef4444"></span>Race day S1 (Aug 22)</span>
     <span><span class="traj-legend-dot" style="background:#64748b"></span>Rest / dip</span>
   </div>
 </div>
@@ -1345,17 +1346,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="supp-body">
       <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>Magnesium bisglycinate</strong> (LAC Albion) 300–400mg daily with dinner</span></div>
       <div class="supp-row"><span class="supp-icon">🌿</span><span class="supp-text"><strong>Multivitamin</strong> daily after meal</span></div>
-      <div class="supp-row"><span class="supp-icon">⚡</span><span class="supp-text"><strong>Creatine:</strong> Reload post-Nationals for training<span class="note">⛔ Cease after Sunday dose Aug 17 — 6 days pre-race</span></span></div>
+      <div class="supp-row"><span class="supp-icon">⚡</span><span class="supp-text"><strong>Creatine:</strong> Reload post-Nationals for training<span class="note">⛔ Cease after Sunday dose Aug 16 — 6 days pre-race</span></span></div>
     </div>
   </div>
 
   <!-- LOADING WEEK -->
   <div class="supp-card">
-    <div class="supp-card-header loading">📅 Bintan Loading Week — Aug 16–20</div>
+    <div class="supp-card-header loading">📅 Bintan Loading Week — Aug 17–21</div>
     <div class="supp-body">
-      <div class="supp-row"><span class="supp-icon">🧂</span><span class="supp-text"><strong>Sodium loading:</strong> +2–3g extra daily from Aug 16</span></div>
+      <div class="supp-row"><span class="supp-icon">🧂</span><span class="supp-text"><strong>Sodium loading:</strong> +2–3g extra daily from Aug 17</span></div>
       <div class="supp-row"><span class="supp-icon">🫀</span><span class="supp-text"><strong>Magnesium:</strong> Continue 400mg daily</span></div>
-      <div class="supp-row"><span class="supp-icon">🍒</span><span class="supp-text"><strong>Tart cherry:</strong> 500mg morning + evening from Aug 16</span></div>
+      <div class="supp-row"><span class="supp-icon">🍒</span><span class="supp-text"><strong>Tart cherry:</strong> 500mg morning + evening from Aug 17</span></div>
       <div class="supp-row"><span class="supp-icon">🥤</span><span class="supp-text"><strong>Beetroot shot:</strong> Race mornings only — all 3 stages</span></div>
       <div class="supp-row"><span class="supp-icon">☕</span><span class="supp-text"><strong>Caffeine:</strong> 3mg/kg (200mg) — 60min before each stage start</span></div>
     </div>
@@ -1367,12 +1368,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="supp-body">
       <div class="supp-stage-pills">
         <span class="supp-stage-pill s1">S1 ITT</span>
-        <span class="supp-stage-pill s2">S2 Rolling</span>
-        <span class="supp-stage-pill s3">S3 Hilly ★</span>
+        <span class="supp-stage-pill s2">S2 Hilly ★</span>
+        <span class="supp-stage-pill s3">S3 Rolling</span>
       </div>
       <div class="supp-row"><span class="supp-icon">⏱️</span><span class="supp-text"><strong>S1 ITT (15km):</strong> Caffeine only — no on-bike nutrition needed</span></div>
-      <div class="supp-row"><span class="supp-icon">🚴</span><span class="supp-text"><strong>S2 Rolling:</strong> 90g carbs/hr from km 20 · sodium every 45min · 2 bottles minimum</span></div>
-      <div class="supp-row"><span class="supp-icon">⛰️</span><span class="supp-text"><strong>S3 Hilly:</strong> Same as S2 — 90g carbs/hr · sodium every 45min</span></div>
+      <div class="supp-row"><span class="supp-icon">⛰️</span><span class="supp-text"><strong>S2 Hilly ★ (110km):</strong> 90g carbs/hr from km 20 · sodium every 45min · 2 bottles minimum</span></div>
+      <div class="supp-row"><span class="supp-icon">🚴</span><span class="supp-text"><strong>S3 Rolling (140km):</strong> Same as S2 — 90g carbs/hr · sodium every 45min</span></div>
     </div>
   </div>
 
