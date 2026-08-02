@@ -612,6 +612,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <span class="nf-flag ok">✓ At race weight — maintain, don't cut further</span>
   </div>
   <div class="nf-card" id="hydration-card">
+    {% if garmin_hydration %}
+    <div class="nf-label">Hydration Today <span style="font-size:9px;color:var(--green);font-weight:400">✓ Garmin sync</span></div>
+    {% set hml = garmin_hydration | int %}
+    {% set hcolor = '#22c55e' if hml >= 4000 else ('#f59e0b' if hml >= 2500 else '#ef4444') %}
+    <div class="nf-value" style="color:{{ hcolor }}">{{ garmin_hydration }} <span style="font-size:14px">ml</span></div>
+    <div class="nf-target">Target: 4,000+ ml daily · {{ ((hml / 4000) * 100) | round | int }}% of target</div>
+    <span class="nf-flag" style="background:var(--card2);color:{{ hcolor }}">{{ '✓ On track' if hml >= 2500 else '⚠ Below target — drink more' }}</span>
+    {% else %}
     <div class="nf-label">Hydration Today <span style="font-size:9px;color:var(--muted);font-weight:400">manual · resets midnight SGT</span></div>
     <div id="hydration-display" class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
     <div class="nf-target">Target: 4,000+ ml daily</div>
@@ -622,12 +630,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <button id="hydration-clear" onclick="clearHydration()" style="display:none;font-size:11px;padding:3px 8px;border-radius:4px;border:1px solid #ff444422;background:#1a0000;color:var(--orange);cursor:pointer">✕ Clear</button>
     </div>
     <div id="hydration-status" style="font-size:11px;color:var(--muted);margin-top:4px">No Garmin sync · log manually above</div>
+    {% endif %}
   </div>
   <div class="nf-card">
     <div class="nf-label">Calories Today</div>
+    {% if garmin_calories %}
+    <div class="nf-value" style="color:var(--text)">{{ garmin_calories }} <span style="font-size:14px">kcal</span></div>
+    <div class="nf-target">Log nutrition in Garmin Connect or MyFitnessPal</div>
+    <span class="nf-flag" style="background:var(--card2);color:var(--green)">✓ Via Garmin sync</span>
+    {% else %}
     <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">kcal</span></div>
     <div class="nf-target">Log nutrition in Garmin Connect or MyFitnessPal</div>
     <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No intake logged today via Garmin sync</span>
+    {% endif %}
   </div>
 </div>
 

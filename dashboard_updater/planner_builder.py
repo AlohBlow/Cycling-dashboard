@@ -128,7 +128,7 @@ def _estimate_xss_breakdown(session_name, xss):
         low, high, peak = 0.55, 0.38, 0.07
     else:
         low, high, peak = 0.80, 0.18, 0.02
-    return round(xss * low), round(xss * high), round(xss * peak)
+    return round(xss * low, 1), round(xss * high, 1), round(xss * peak, 1)
 
 
 def _week_range_str(monday):
@@ -347,9 +347,13 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             awc_pct = None
 
             if xert_src and xert_src.get('xss_low') is not None:
-                xss_low  = round(xert_src.get('xss_low') or 0)
-                xss_high = round(xert_src.get('xss_high') or 0)
-                xss_peak = round(xert_src.get('xss_peak') or 0)
+                # For completed rides, take the higher of IV and Xert total XSS
+                if completed_flag:
+                    xert_total = xert_src.get('xss') or 0
+                    xss = max(xss, xert_total)
+                xss_low  = round(xert_src.get('xss_low') or 0, 1)
+                xss_high = round(xert_src.get('xss_high') or 0, 1)
+                xss_peak = round(xert_src.get('xss_peak') or 0, 1)
                 is_breakthrough = bool(xert_src.get('breakthrough'))
                 # If the IV activity has no power data, Xert's estimated High/Peak are unreliable.
                 # Force them to 0 and mark hr_derived so weekly totals aren't inflated.
@@ -370,9 +374,9 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 rdh = riduck.get('xss_high')
                 rdp = riduck.get('xss_peak')
                 if rdl is not None or rdh is not None or rdp is not None:
-                    xss_low  = round(rdl or 0)
-                    xss_high = round(rdh or 0)
-                    xss_peak = round(rdp or 0)
+                    xss_low  = round(rdl or 0, 1)
+                    xss_high = round(rdh or 0, 1)
+                    xss_peak = round(rdp or 0, 1)
                 else:
                     # No power breakdown available — check if HR-derived
                     # An IV activity with no intensity/power field = HR-only XSS
@@ -395,9 +399,9 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 breakdown_sum = xss_low + xss_high + xss_peak
                 if breakdown_sum > 0 and breakdown_sum != xss:
                     factor = xss / breakdown_sum
-                    xss_low  = round(xss_low  * factor)
-                    xss_high = round(xss_high * factor)
-                    xss_peak = max(0, xss - xss_low - xss_high)
+                    xss_low  = round(xss_low  * factor, 1)
+                    xss_high = round(xss_high * factor, 1)
+                    xss_peak = max(0, round(xss - xss_low - xss_high, 1))
 
             days.append({
                 'date':                   date_str,
@@ -406,7 +410,7 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 'session_name':           session_name,
                 'plan_name':              plan_name,
                 'time_str':               time_str,
-                'xss':                    round(xss) if xss else 0,
+                'xss':                    round(xss, 1) if xss else 0,
                 'xss_class':              _xss_badge_class(xss),
                 'xss_low':                xss_low,
                 'xss_high':               xss_high,
@@ -471,10 +475,10 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             'week_id':        f"week{w + 1}",
             'week_label':     week_label,
             'tab_label':      f"{'Last Wk' if w==0 else 'This Wk' if w==1 else 'Next Wk'} · {_week_range_str(week_monday)}",
-            'week_xss':           round(week_xss_total),
-            'week_xss_low':       round(week_xss_low),
-            'week_xss_high':      round(week_xss_high),
-            'week_xss_peak':      round(week_xss_peak),
+            'week_xss':           round(week_xss_total, 1),
+            'week_xss_low':       round(week_xss_low, 1),
+            'week_xss_high':      round(week_xss_high, 1),
+            'week_xss_peak':      round(week_xss_peak, 1),
             'week_has_hr_derived': week_has_hr_derived,
             'days':               days,
             'is_active':          is_this_week,
@@ -489,7 +493,7 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
         ev = tomorrow_plan[0]
         tomorrow_session = {
             'name':     ev.get('name') or 'Training',
-            'xss':      round(ev.get('xss') or 0),
+            'xss':      round(ev.get('xss') or 0, 1),
             'distance': ev.get('distance_km'),
             'time_str': '',
         }

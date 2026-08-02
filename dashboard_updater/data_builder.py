@@ -169,6 +169,11 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     weight       = w.get('weight_kg')
     weight_disp  = f"{weight:.1f}" if weight else '—'
 
+    garmin_hydration = w.get('hydration_ml')
+    garmin_calories  = w.get('calories')
+    hydration_disp   = f"{int(garmin_hydration):,}" if garmin_hydration else None
+    calories_disp    = f"{int(garmin_calories):,}" if garmin_calories else None
+
     # Training Readiness — Garmin TR isn't exposed via IV (its `readiness` field is always
     # null for this account), so derive from sleep score, HRV trend, AND TSB (acute fatigue).
     # TSB must gate the result: a good sleep score can otherwise report HIGH/PRIME even
@@ -238,9 +243,9 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         is_cycling = 'ride' in sport or sport == 'cycling'
         is_primary = is_cycling and _primary_cycling.get(act_date) is a
         if xert_day_xss and is_primary:
-            xss_v = round(xert_day_xss)
+            xss_v = round(max(xert_day_xss, iv_xss), 1)
         else:
-            xss_v = round(iv_xss) if iv_xss else 0
+            xss_v = round(iv_xss, 1) if iv_xss else 0
         act_rows.append({
             'icon':          _sport_icon(a.get('sport_type')),
             'name':          a.get('name') or 'Activity',
@@ -280,7 +285,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
             'max_power': round(best['max_power']) if best.get('max_power') else None,
             'focus':     best.get('focus', ''),
             'distance':  best.get('distance_km'),
-            'xss':       round(best.get('xss') or 0),
+            'xss':       round(best.get('xss') or 0, 1),
             'is_bt':     is_bt,
         }
 
@@ -341,6 +346,8 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
         # Wellness
         'weight_display':   weight_disp,
+        'garmin_hydration': hydration_disp,
+        'garmin_calories':  calories_disp,
         'resting_hr':       resting_hr,
         'sleep_duration':   sleep_str,
         'sleep_badge':      sleep_badge,
