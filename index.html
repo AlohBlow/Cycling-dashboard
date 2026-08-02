@@ -321,16 +321,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     <div class="status-badge">
       <span class="sb-label">Form / TSB</span>
-      <span class="sb-value" style="color:var(--yellow)">-5.2 · Moderate</span>
+      <span class="sb-value" style="color:var(--yellow)">-5.9 · Moderate</span>
     </div>
     <div class="status-badge">
       <span class="sb-label">Updated</span>
       <span class="sb-value">Sun 2 Aug 2026</span>
     </div>
     
-    <div class="alert-pill" style="background:#071f0f;border-color:#16a34a33;color:var(--green)">
-      <span class="ap-icon">✅</span>
-      <span>Readiness: HIGH · Sleep 78</span>
+    <div class="alert-pill" style="background:#1f1507;border-color:#78350f33;color:var(--yellow)">
+      <span class="ap-icon">⚠️</span>
+      <span>Readiness: MODERATE · Sleep 78 · TSB -6</span>
     </div>
     
   </div>
@@ -349,19 +349,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Garmin Connect</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TR: HIGH (Sleep 78) · Sleep: 8h 12m · Resting HR: 43 bpm · Weight: 66.9 kg</td>
+        <td>TR: MODERATE (Sleep 78 · TSB -6) · Sleep: 8h 12m · Resting HR: 43 bpm · Weight: 66.9 kg</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Intervals.icu</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>CTL: 81.5 · ATL: 86.7 · TSB: -5.2 · Zone: Moderate</td>
+        <td>CTL: 81.6 · ATL: 87.5 · TSB: -5.9 · Zone: Moderate</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Xert</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TP: 274W · HIE: 21.7 kJ · PP: 1053W · Status: Very tired</td>
+        <td>TP: 278W · HIE: 21.7 kJ · PP: 1042W · Status: Very tired</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -383,11 +383,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <!-- READINESS & HEALTH -->
 <div class="section-title">Readiness &amp; Health</div>
 <div class="metrics-grid">
-  <div class="metric-card green">
+  <div class="metric-card yellow">
     <div class="mc-label">Training Readiness</div>
-    <div class="mc-value" style="color:var(--green)">HIGH</div>
-    <div class="mc-sub">Sleep 78</div>
-    <span class="mc-badge good">Garmin</span>
+    <div class="mc-value" style="color:var(--yellow)">MODERATE</div>
+    <div class="mc-sub">Sleep 78 · TSB -6</div>
+    <span class="mc-badge med">Garmin</span>
   </div>
   <div class="metric-card purple">
     <div class="mc-label">HRV Status</div>
@@ -421,9 +421,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="chart-card">
     <div class="chart-title">CTL / ATL / TSB — Last 30 Days</div>
     <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 81.5</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 86.7</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) -5.2</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 81.6</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 87.5</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) -5.9</div>
     </div>
     <div class="chart-wrap"><canvas id="formChart"></canvas></div>
     <div class="zone-bar">
@@ -433,18 +433,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="z z-trans" style="flex:1"></div>
     </div>
     <div class="zone-bar-labels">
-      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now -5.2</span><span>Transition</span>
+      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now -5.9</span><span>Transition</span>
     </div>
     <div class="current-marker">
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">81.5</div><div class="cm-lab">CTL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">86.7</div><div class="cm-lab">ATL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">-5.2</div><div class="cm-lab">TSB</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">81.6</div><div class="cm-lab">CTL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">87.5</div><div class="cm-lab">ATL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">-5.9</div><div class="cm-lab">TSB</div></div>
     </div>
   </div>
 
   <div class="activities-card">
     <div class="chart-title">Recent Activities — Last 10</div>
 
+    
+    <div class="activity-row ">
+      <div class="ar-icon">🚶</div>
+      <div>
+        <div class="ar-name">Singapore Walking</div>
+        <div class="ar-date">Sun 2 Aug · 24m</div>
+      </div>
+      <div class="ar-dist">2.0 km</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-rest">6 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
     
     <div class="activity-row ">
       <div class="ar-icon">🚴</div>
@@ -454,7 +466,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       <div class="ar-dist">43.1 km</div>
       <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-mod">121 XSS</span></div>
+      <div><span class="xss-badge xss-mod">125 XSS</span></div>
       <div class="xb-pills"></div>
     </div>
     
@@ -674,18 +686,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="xb-pills"></div>
     </div>
     
-    <div class="activity-row ">
-      <div class="ar-icon">🚶</div>
-      <div>
-        <div class="ar-name">Thalang Walking</div>
-        <div class="ar-date">Mon 27 Jul · 41m</div>
-      </div>
-      <div class="ar-dist">3.1 km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-rest">3 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
 
   </div>
 </div>
@@ -705,8 +705,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         
         <div style="margin-bottom:8px;padding:10px;background:var(--card2);border:1px solid #22c55e33;border-radius:8px">
           <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">COMPLETED ✅</div>
+          <div style="font-size:14px;font-weight:600;color:var(--green)">Singapore Walking</div>
+          <div style="font-size:12px;color:var(--muted2)">2.0 km · 24m · XSS: 6</div>
+        </div>
+      
+    
+      
+        
+        <div style="margin-bottom:8px;padding:10px;background:var(--card2);border:1px solid #22c55e33;border-radius:8px">
+          <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">COMPLETED ✅</div>
           <div style="font-size:14px;font-weight:600;color:var(--green)">Zwift - Xert: SMART - The Rising</div>
-          <div style="font-size:12px;color:var(--muted2)">43.1 km · 2h 13m · XSS: 121</div>
+          <div style="font-size:12px;color:var(--muted2)">43.1 km · 2h 13m · XSS: 125</div>
         </div>
       
     
@@ -746,21 +755,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
       
     
+    
+
+    
+    
+
+    
+    
+    
       
-    
-    
-
-    
-    
-    <div style="margin-bottom:8px;padding:10px;background:var(--card2);border:1px solid #eab30833;border-radius:8px">
-      <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">SCHEDULED ⏳</div>
-      <div style="font-size:14px;font-weight:600;color:var(--yellow)">Generated Workout</div>
-      <div style="font-size:12px;color:var(--muted2)">Target: 124 XSS</div>
-    </div>
-    
-
-    
-    
     
       
     
@@ -771,8 +774,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
           <div style="font-size:13px;font-weight:600">Singapore Walking</div>
           <div style="font-size:12px;color:var(--muted2)">3.3 km · 38m · XSS: 4</div>
         </div>
-      
-    
       
     
       
@@ -828,7 +829,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="tc-header">⚡ Xert Signature</div>
     <div class="xert-sig">
       <div class="xs-item">
-        <div class="xs-val">274</div>
+        <div class="xs-val">278</div>
         <div class="xs-unit">W</div>
         <div class="xs-lab">TP</div>
       </div>
@@ -838,7 +839,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <div class="xs-lab">HIE</div>
       </div>
       <div class="xs-item">
-        <div class="xs-val">1053</div>
+        <div class="xs-val">1042</div>
         <div class="xs-unit">W</div>
         <div class="xs-lab">Peak Power</div>
       </div>
@@ -941,11 +942,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="nf-target">Race weight goal: 66.0 kg · Resting HR: 43 bpm</div>
     <span class="nf-flag ok">✓ At race weight — maintain, don't cut further</span>
   </div>
-  <div class="nf-card">
-    <div class="nf-label">Hydration Today</div>
-    <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
-    <div class="nf-target">Target: 4,000+ ml daily · Log in Garmin Connect app</div>
-    <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No hydration logged today via Garmin sync</span>
+  <div class="nf-card" id="hydration-card">
+    <div class="nf-label">Hydration Today <span style="font-size:9px;color:var(--muted);font-weight:400">manual · resets midnight SGT</span></div>
+    <div id="hydration-display" class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
+    <div class="nf-target">Target: 4,000+ ml daily</div>
+    <div style="display:flex;gap:6px;align-items:center;margin-top:6px">
+      <input id="hydration-input" type="number" min="0" max="10000" step="100"
+        placeholder="ml logged" style="width:90px;padding:3px 6px;background:var(--card2);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;-moz-appearance:textfield">
+      <button onclick="logHydration()" style="font-size:11px;padding:3px 10px;border-radius:4px;border:1px solid #2563eb44;background:#0d1f3c;color:var(--accent);cursor:pointer">Log</button>
+      <button id="hydration-clear" onclick="clearHydration()" style="display:none;font-size:11px;padding:3px 8px;border-radius:4px;border:1px solid #ff444422;background:#1a0000;color:var(--orange);cursor:pointer">✕ Clear</button>
+    </div>
+    <div id="hydration-status" style="font-size:11px;color:var(--muted);margin-top:4px">No Garmin sync · log manually above</div>
   </div>
   <div class="nf-card">
     <div class="nf-label">Calories Today</div>
@@ -1173,15 +1180,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       
       
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🧖 Recovery — Steam Protocol</div>
-        
-        <div class="cal-rec-row">🧖 Steam room 40–45°C · 15 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
-        
-      </div>
-      
     </div>
     
     <div class="cal-day completed">
@@ -1311,13 +1309,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cal-week-header">
     <h3>Birthday Rest 🎂 — Jul 27 – Aug 2</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 752 <span style="font-size:10px;color:var(--muted);font-weight:400">est</span></span>
+      <span class="cal-week-xss">Weekly XSS: 747</span>
       
       <span class="cal-week-xss-bk">
-        <span class="xss-bk xss-bk-low">🔵 716</span>
-        <span class="xss-bk xss-bk-high">🟡 27</span>
+        <span class="xss-bk xss-bk-low">🔵 712</span>
+        <span class="xss-bk xss-bk-high">🟡 26</span>
         <span class="xss-bk xss-bk-peak">🔴 9</span>
-        <span class="xss-bk" style="color:var(--muted);font-weight:400">hr-est</span>
+        
       </span>
       
     </div>
@@ -1327,12 +1325,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="cal-day completed">
       <div class="cal-day-header"><span class="cal-day-num">27</span><span class="cal-day-name">MON</span></div>
       <div class="cal-session-name">Thalang Walking ✅</div>
-      <div class="cal-time">41m · 3.1 km +1 more</div>
-      <span class="cal-xss-badge xss-rest">5 XSS</span>
+      <div class="cal-time">23m · 1.8 km</div>
+      <span class="cal-xss-badge xss-rest">2 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 4</span>
-        <span class="xss-bk xss-bk-high">🟡 1</span>
+        <span class="xss-bk xss-bk-low">🔵 2</span>
+        
         
         <span class="xss-bk" style="color:var(--muted);font-weight:400">est</span>
       </div>
@@ -1353,17 +1351,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         
       </div>
       
-      
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Heavy Day — Dry Sauna Protocol</div>
-        
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
-        
-        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
-        
-      </div>
       
     </div>
     
@@ -1408,17 +1395,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       
       
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🏅 BREAKTHROUGH — Full Dry Sauna Protocol</div>
-        
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×3 rounds</div>
-        
-        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 10 min extended</div>
-        
-      </div>
-      
     </div>
     
     <div class="cal-day completed">
@@ -1434,17 +1410,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         
       </div>
       
-      
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Heavy Day — Dry Sauna Protocol</div>
-        
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
-        
-        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
-        
-      </div>
       
     </div>
     
@@ -1478,13 +1443,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="cal-day today">
       <div class="cal-day-header"><span class="cal-day-num">2</span><span class="cal-day-name">SUN</span></div>
       <div class="cal-session-name">Zwift - Xert: SMART - The Rising ✅</div>
-      <div class="cal-time">2h 13m · 43.1 km</div>
-      <span class="cal-xss-badge xss-mod">121 XSS</span>
+      <div class="cal-time">2h 13m · 43.1 km +1 more</div>
+      <span class="cal-xss-badge xss-mod">119 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 121.0</span>
+        <span class="xss-bk xss-bk-low">🔵 119</span>
         
-        
+        <span class="xss-bk xss-bk-peak">🔴 0.09999999999999432</span>
         
       </div>
       
@@ -1543,17 +1508,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       
       
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
-        
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
-        
-        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
-        
-      </div>
-      
     </div>
     
     <div class="cal-day">
@@ -1585,17 +1539,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         
       </div>
       
-      
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
-        
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
-        
-        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
-        
-      </div>
       
     </div>
     
@@ -1688,20 +1631,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cn-body" id="cn-body-preview">
     
     <p>Block 1 — STATUS SYNTHESIS
-You are balanced but fatiguing: HRV at 35.0ms (−7% vs 7-day avg) signals mild parasympathetic suppression, yet TSB of −5.2 confirms you are genuinely tired from recent load, and CTL has dropped 4.1 points in two weeks, indicating fitness erosion during this overreach phase. Trust the TSB and CTL trend over HRV noise—you need structured recovery before intensity resumes. With 21 days to Stage 3, the window is tight but recoverable.</p><p>Block 2 — SESSION INSIGHT
-Today's Zwift ride (121 XSS, 2h 13m) was appropriately mild: 47% Z2, 50% Z3, zero anaerobic work, 20-min peak of 193W (70% of TP) is conservative and correct for a tired state. AWC discharge of 1.7% is negligible; you preserved glycogen and central nervous system capacity. Xert labels you "Very tired"—this is accurate and reflects CTL drift and cumulative fatigue. No breakthrough pending; focus is on recovery, not intensity.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
-The session landed at 121 XSS against a 124 target—excellent adherence and pacing discipline in a fatigued state. Recovery window closes in 28 hours; tonight's protocol is mandatory. Drink 500–750 mL electrolyte fluid (sodium ≥500mg) over the next 2 hours. Eat 60g carb + 20g protein within 90 min of ride end. Target 8–9 hours sleep tonight. At 19:30 (or 2 hours post-nutrition), execute: (1) Dry sauna 85°C × 3 rounds, 10 min each; (2) 13–14°C pool 4 min between rounds; (3) 4°C cold shock to legs only, 45 sec, after final round; (4) finish in magnesium pool 10 min.</p>
+HRV at 35.0ms is 7% below your 7-day average (37.6ms), signalling mild parasympathetic suppression, but TSB of –5.9 confirms you are still in a training debt and not yet fresh. CTL has declined from 85.6 to 81.6 over two weeks, which is expected in Birthday Rest 🎂 phase but requires careful volume management over the next 21 days to Stage 3. With 19 days to race, you have time to rebuild fitness while protecting recovery quality.</p><p>Block 2 — SESSION INSIGHT
+Today's completed Zwift SMART session delivered 125 XSS with 50% Z3 and 47% Z2 work—a solid aerobic-endurance load. Your 20-min peak of 193W sits at 70% TP, appropriate for recovery-bias intensity; 5-min peak of 213W shows clean threshold power retention. AWC discharge was minimal at 1.7%, confirming anaerobic preservation. Xert flags "Very tired" status, and recovery demand is 28 hours—you'll clear this by late Monday afternoon.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
+You've completed a 2h 13m aerobic session (52% fat, 48% carb) well within Birthday Rest guidelines; now activate recovery. **Tonight protocol:** (1) Dry sauna 80–90°C × 3 rounds, 4–5 min per round. (2) 13–14°C pool immersion 3–5 min between each sauna round (inter-round only). (3) After the final round only: 4°C cold-water shock to legs for 45 seconds. (4) Finish in magnesium pool. **Nutrition:** 1.5g carb/kg + 0.2g protein/kg within 30 min; hydrate 500ml electrolyte before bed. **Sleep target:** 8.5 hours; no screens after 21:30.</p>
     <p id="cn-fade" style="background:linear-gradient(transparent,#1a1d3a);height:24px;margin:0;padding:0"></p>
   </div>
   
   <div class="cn-body" id="cn-body-full" style="display:none">
     
     <p>Block 4 — TOMORROW PREVIEW
-Recovery hours clear at ~06:45 Monday (start 02:13 + 28h buffer). Tomorrow's high-intensity session (93 XSS, 1h 07m) lands hard against residual fatigue—use pre-ride carb loading (80g oats + banana 90 min prior) and 200 mL strong coffee 30 min before start. Cap Z5 work at 3–4 min total; do not chase numbers. Any extra effort today (sauna intensity, cold duration) directly reduces tomorrow's power ceiling by 8–12W.</p><p>Block 5 — RACE TRAJECTORY
-🟡 **Monitor.** CTL −4.1 in 14 days is concerning; projected race-day TSB of +32 to +39 is strong, but fitness base must stabilize this week. Current phase is Birthday Rest (recovery-emphasis microcycle); this week demands threshold work only—zero VO2, zero anaerobic blocks, zero >15 min efforts >280W. Priority #1: halt CTL bleed by executing easy volume (Z1–Z2) and one tempo block (20 min @ 220W LTP) mid-week, then hard taper drop Thu–Fri to land fresh for Stage 1 ITT and Stage 3 hillside attack.</p>
+Today's 28-hour recovery window closes at approximately 14:00 Monday. Tomorrow's High Intensity session (93 XSS, 1h 07m) is scheduled during Birthday Rest phase, so cap all efforts at Z3 ceiling (≤225W sustained); if intensity creeps to Z4/Z5, the session becomes a debit to Stage 3 preparation. Extra effort today directly steals tomorrow's output quality—respect the 28-hour window before any threshold work.</p><p>Block 5 — RACE TRAJECTORY
+🟡 **Monitor.** CTL decline (81.6, –4.9 in 14 days) is within acceptable Birthday Rest range, but projected race-day TSB (+31 to +38) assumes flawless taper execution from now until 23 August. **Priority this week: halt CTL erosion via controlled volume while enforcing 48-hour recovery between quality sessions.** Durability Block phase = zero VO2, zero peak anaerobic—only sustained Z2/Z3 work and threshold holds under 6 min. Stage 3 (110km hilly, attack target) demands a 36+ TSB arrival; you are on track if you execute taper discipline.</p>
   </div>
   <div style="margin-top:8px;text-align:right">
-    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (420 words)</button>
+    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (401 words)</button>
   </div>
   
   
@@ -2093,7 +2036,7 @@ Recovery hours clear at ~06:45 Monday (start 02:13 + 28h buffer). Tomorrow's hig
   </div>
 
   <div class="traj-legend" style="margin-top:10px">
-    <span><span class="traj-legend-dot" style="background:#eab308"></span>Today (CTL 81.5)</span>
+    <span><span class="traj-legend-dot" style="background:#eab308"></span>Today (CTL 81.6)</span>
     <span><span class="traj-legend-dot" style="background:#4f8ef7"></span>Build phases</span>
     <span><span class="traj-legend-dot" style="background:#a855f7"></span>Durability block</span>
     <span><span class="traj-legend-dot" style="background:#4ade80"></span>Peak (Aug 11)</span>
@@ -2159,7 +2102,7 @@ Recovery hours clear at ~06:45 Monday (start 02:13 + 28h buffer). Tomorrow's hig
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Sunday 2 August 2026 at 10:40 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Sunday 2 August 2026 at 16:16 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -2217,6 +2160,46 @@ function applyAlcohol() {
   applyAlcohol();
 })();
 
+// ── Hydration manual entry ──────────────────────────────────────────────────
+function updateHydrationDisplay() {
+  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
+  const storedDate = localStorage.getItem('hydration_date');
+  if (storedDate !== todaySGT) {
+    localStorage.removeItem('hydration_ml');
+    localStorage.setItem('hydration_date', todaySGT);
+  }
+  const ml = parseInt(localStorage.getItem('hydration_ml') || '0', 10);
+  const display = document.getElementById('hydration-display');
+  const status  = document.getElementById('hydration-status');
+  const clearBtn = document.getElementById('hydration-clear');
+  if (!ml) {
+    if (display) { display.innerHTML = '— <span style="font-size:14px">ml</span>'; display.style.color = 'var(--muted)'; }
+    if (status)  status.textContent = 'No Garmin sync · log manually above';
+    if (clearBtn) clearBtn.style.display = 'none';
+    return;
+  }
+  const color = ml >= 4000 ? '#22c55e' : ml >= 2500 ? '#f59e0b' : '#ef4444';
+  if (display) { display.innerHTML = `${ml.toLocaleString()} <span style="font-size:14px">ml</span>`; display.style.color = color; }
+  const pct = Math.round(ml / 4000 * 100);
+  if (status)  status.textContent = `${pct}% of 4,000ml target`;
+  if (clearBtn) clearBtn.style.display = 'inline-block';
+}
+function logHydration() {
+  const input = document.getElementById('hydration-input');
+  const val = parseInt(input ? input.value : '0', 10);
+  if (!val || val <= 0) return;
+  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
+  localStorage.setItem('hydration_ml', val);
+  localStorage.setItem('hydration_date', todaySGT);
+  if (input) input.value = '';
+  updateHydrationDisplay();
+}
+function clearHydration() {
+  localStorage.removeItem('hydration_ml');
+  updateHydrationDisplay();
+}
+updateHydrationDisplay();
+
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -2226,9 +2209,9 @@ function switchTab(id, btn) {
 
 // Live CTL/ATL/TSB data from Intervals.icu — last 14 days
 const labels  = ["Jul 4", "Jul 5", "Jul 6", "Jul 7", "Jul 8", "Jul 9", "Jul 10", "Jul 11", "Jul 12", "Jul 13", "Jul 14", "Jul 15", "Jul 16", "Jul 17", "Jul 18", "Jul 19", "Jul 20", "Jul 21", "Jul 22", "Jul 23", "Jul 24", "Jul 25", "Jul 26", "Jul 27", "Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 1", "Aug 2"];
-const ctlData = [79.9, 80.0, 79.7, 77.9, 78.7, 77.0, 77.1, 79.9, 81.6, 80.7, 81.8, 81.3, 81.4, 81.3, 84.8, 86.4, 85.6, 86.4, 84.4, 83.5, 83.2, 81.6, 80.4, 78.6, 77.5, 77.6, 78.4, 77.6, 81.1, 81.5];
-const atlData = [70.5, 72.3, 71.3, 62.4, 69.0, 60.5, 63.2, 82.1, 91.1, 84.8, 90.5, 86.5, 86.1, 85.4, 104.5, 110.6, 102.9, 105.2, 91.6, 85.2, 83.7, 74.5, 68.5, 60.1, 56.2, 59.4, 66.4, 63.8, 85.4, 86.7];
-const tsbData = [9.4, 7.7, 8.4, 15.5, 9.7, 16.5, 13.9, -2.2, -9.5, -4.1, -8.7, -5.2, -4.7, -4.1, -19.7, -24.2, -17.3, -18.8, -7.2, -1.7, -0.5, 7.1, 11.9, 18.5, 21.3, 18.2, 12.0, 13.8, -4.3, -5.2];
+const ctlData = [79.9, 80.0, 79.7, 77.9, 78.7, 77.0, 77.1, 79.9, 81.6, 80.7, 81.8, 81.3, 81.4, 81.3, 84.8, 86.4, 85.6, 86.4, 84.4, 83.5, 83.2, 81.6, 80.4, 78.6, 77.5, 77.6, 78.4, 77.6, 81.1, 81.6];
+const atlData = [70.5, 72.3, 71.3, 62.4, 69.0, 60.5, 63.2, 82.1, 91.1, 84.8, 90.5, 86.5, 86.1, 85.4, 104.5, 110.6, 102.9, 105.2, 91.6, 85.2, 83.7, 74.5, 68.5, 60.1, 56.2, 59.4, 66.4, 63.8, 85.4, 87.5];
+const tsbData = [9.4, 7.7, 8.4, 15.5, 9.7, 16.5, 13.9, -2.2, -9.5, -4.1, -8.7, -5.2, -4.7, -4.1, -19.7, -24.2, -17.3, -18.8, -7.2, -1.7, -0.5, 7.1, 11.9, 18.5, 21.3, 18.2, 12.0, 13.8, -4.3, -5.9];
 
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
