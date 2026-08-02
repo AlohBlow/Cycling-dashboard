@@ -611,11 +611,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="nf-target">Race weight goal: 66.0 kg · Resting HR: {{ resting_hr }} bpm</div>
     <span class="nf-flag ok">✓ At race weight — maintain, don't cut further</span>
   </div>
-  <div class="nf-card">
-    <div class="nf-label">Hydration Today</div>
-    <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
-    <div class="nf-target">Target: 4,000+ ml daily · Log in Garmin Connect app</div>
-    <span class="nf-flag" style="background:var(--card2);color:var(--muted)">No hydration logged today via Garmin sync</span>
+  <div class="nf-card" id="hydration-card">
+    <div class="nf-label">Hydration Today <span style="font-size:9px;color:var(--muted);font-weight:400">manual · resets midnight SGT</span></div>
+    <div id="hydration-display" class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">ml</span></div>
+    <div class="nf-target">Target: 4,000+ ml daily</div>
+    <div style="display:flex;gap:6px;align-items:center;margin-top:6px">
+      <input id="hydration-input" type="number" min="0" max="10000" step="100"
+        placeholder="ml logged" style="width:90px;padding:3px 6px;background:var(--card2);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;-moz-appearance:textfield">
+      <button onclick="logHydration()" style="font-size:11px;padding:3px 10px;border-radius:4px;border:1px solid #2563eb44;background:#0d1f3c;color:var(--accent);cursor:pointer">Log</button>
+      <button id="hydration-clear" onclick="clearHydration()" style="display:none;font-size:11px;padding:3px 8px;border-radius:4px;border:1px solid #ff444422;background:#1a0000;color:var(--orange);cursor:pointer">✕ Clear</button>
+    </div>
+    <div id="hydration-status" style="font-size:11px;color:var(--muted);margin-top:4px">No Garmin sync · log manually above</div>
   </div>
   <div class="nf-card">
     <div class="nf-label">Calories Today</div>
@@ -1443,6 +1449,46 @@ function applyAlcohol() {
   }
   applyAlcohol();
 })();
+
+// ── Hydration manual entry ──────────────────────────────────────────────────
+function updateHydrationDisplay() {
+  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
+  const storedDate = localStorage.getItem('hydration_date');
+  if (storedDate !== todaySGT) {
+    localStorage.removeItem('hydration_ml');
+    localStorage.setItem('hydration_date', todaySGT);
+  }
+  const ml = parseInt(localStorage.getItem('hydration_ml') || '0', 10);
+  const display = document.getElementById('hydration-display');
+  const status  = document.getElementById('hydration-status');
+  const clearBtn = document.getElementById('hydration-clear');
+  if (!ml) {
+    if (display) { display.innerHTML = '— <span style="font-size:14px">ml</span>'; display.style.color = 'var(--muted)'; }
+    if (status)  status.textContent = 'No Garmin sync · log manually above';
+    if (clearBtn) clearBtn.style.display = 'none';
+    return;
+  }
+  const color = ml >= 4000 ? '#22c55e' : ml >= 2500 ? '#f59e0b' : '#ef4444';
+  if (display) { display.innerHTML = `${ml.toLocaleString()} <span style="font-size:14px">ml</span>`; display.style.color = color; }
+  const pct = Math.round(ml / 4000 * 100);
+  if (status)  status.textContent = `${pct}% of 4,000ml target`;
+  if (clearBtn) clearBtn.style.display = 'inline-block';
+}
+function logHydration() {
+  const input = document.getElementById('hydration-input');
+  const val = parseInt(input ? input.value : '0', 10);
+  if (!val || val <= 0) return;
+  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
+  localStorage.setItem('hydration_ml', val);
+  localStorage.setItem('hydration_date', todaySGT);
+  if (input) input.value = '';
+  updateHydrationDisplay();
+}
+function clearHydration() {
+  localStorage.removeItem('hydration_ml');
+  updateHydrationDisplay();
+}
+updateHydrationDisplay();
 
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));

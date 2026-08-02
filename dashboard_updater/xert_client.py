@@ -111,14 +111,21 @@ def get_athlete_status():
     target_xss = data.get("targetXSS", {})
     raw_status = data.get("status", "")
 
+    log.info(f"Xert signature fields: { {k: round(v, 2) if isinstance(v, float) else v for k, v in sig.items()} }")
+
     status_css_map = {
         "Very fresh": "blue", "Fresh": "green", "Optimal": "green",
         "Tired": "yellow", "Very tired": "red", "Detraining": "grey",
     }
     status_css = next((v for k, v in status_css_map.items() if k.lower() in raw_status.lower()), "grey")
 
+    # Xert uses 'ftp' in the signature; also try 'tp' as fallback.
+    # Take the higher of the two if both present (both should be the same value).
+    _tp_candidates = [v for k in ("ftp", "tp") if isinstance(v := sig.get(k), (int, float))]
+    _tp_raw = max(_tp_candidates) if _tp_candidates else None
+
     return {
-        "tp":  sig.get("ftp"),
+        "tp":  _tp_raw,
         "ltp": sig.get("ltp"),
         "hie": sig.get("hie"),
         "pp":  sig.get("pp"),

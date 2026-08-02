@@ -167,27 +167,32 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     weight       = w.get('weight_kg')
     weight_disp  = f"{weight:.1f}" if weight else '—'
 
-    # Training Readiness — Garmin TR not exposed via IV, so derive from sleep score + HRV.
-    # Uses same primary inputs Garmin uses: sleep quality and HRV recovery trend.
+    # Training Readiness — Garmin TR isn't exposed via IV (its `readiness` field is always
+    # null for this account), so derive from sleep score, HRV trend, AND TSB (acute fatigue).
+    # TSB must gate the result: a good sleep score can otherwise report HIGH/PRIME even
+    # during heavy accumulated fatigue (ATL >> CTL), which contradicts what Garmin's own
+    # algorithm reports since it weighs acute training load heavily.
     _sleep_score = w.get('sleep_score') or 0
-    _hrv_good    = (w.get('hrv') or 0) > 0  # HRV present = at least some signal
-    # hrv_badge_cls set below after _hrv_info(); use sleep + a hrv placeholder for now
-    # (hrv_badge_cls computed already above — but we need it here; compute inline)
     _hrv_latest  = iv_hrv[-1].get('hrv') if iv_hrv else None
     _hrv_avg     = sum(r.get('hrv', 0) for r in iv_hrv) / len(iv_hrv) if iv_hrv else 0
-    _hrv_elevated = _hrv_latest and _hrv_avg and _hrv_latest > _hrv_avg * 1.05
+    _hrv_elevated   = _hrv_latest and _hrv_avg and _hrv_latest > _hrv_avg * 1.05
+    _hrv_suppressed = _hrv_latest and _hrv_avg and _hrv_latest < _hrv_avg * 0.88
 
-    if _sleep_score >= 80 and _hrv_elevated:
+    if tsb_raw <= -15:
+        tr_label, tr_color, tr_badge, tr_card_color = 'LOW',      'red',    'low',  'red'
+    elif tsb_raw <= -5:
+        tr_label, tr_color, tr_badge, tr_card_color = 'MODERATE', 'yellow', 'med',  'yellow'
+    elif _sleep_score >= 80 and _hrv_elevated:
         tr_label, tr_color, tr_badge, tr_card_color = 'PRIME',    'green',  'good', 'green'
     elif _sleep_score >= 75 or _hrv_elevated:
         tr_label, tr_color, tr_badge, tr_card_color = 'HIGH',     'green',  'good', 'green'
-    elif _sleep_score >= 55:
+    elif _sleep_score >= 55 and not _hrv_suppressed:
         tr_label, tr_color, tr_badge, tr_card_color = 'MODERATE', 'yellow', 'med',  'yellow'
     elif _sleep_score > 0:
         tr_label, tr_color, tr_badge, tr_card_color = 'LOW',      'red',    'low',  'red'
     else:
         tr_label, tr_color, tr_badge, tr_card_color = '—',        'muted2', 'med',  'blue'
-    tr_sub = f'Sleep {int(_sleep_score)}' if _sleep_score else 'No data'
+    tr_sub = f'Sleep {int(_sleep_score)} · TSB {tsb_raw:+.0f}' if _sleep_score else 'No data'
 
     # eFTP fallback if Xert not configured
     sport_info = (w.get('sport_info') or [{}])[0] if isinstance(w.get('sport_info'), list) else {}
@@ -280,7 +285,9 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     # ── Xert ─────────────────────────────────────────────────────────────────
     xs = xert_status or {}
     xtp_raw  = xs.get('tp')
-    xtp  = round(xtp_raw) if isinstance(xtp_raw, (int, float)) else (eftp or '—')
+    # Use math.ceil so 276.6 → 277, not 277 → 277 truncated to 276 by banker's rounding
+    import math
+    xtp  = math.ceil(xtp_raw) if isinstance(xtp_raw, (int, float)) else (eftp or '—')
     xhie_raw = xs.get('hie')
     # API returns HIE already in kJ
     xhie = round(xhie_raw, 1) if isinstance(xhie_raw, (int, float)) else '—'
