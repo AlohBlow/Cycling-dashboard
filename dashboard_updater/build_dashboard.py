@@ -89,8 +89,33 @@ def build():
     # Build training planner — Xert calendar (planned + completed) + Intervals.icu fallback
     log.info('Building training planner...')
     xert_cal = api_data.get('xert_calendar', [])
-    planned  = [e for e in xert_cal if not e.get('completed')]
+    _planned_raw = [e for e in xert_cal if not e.get('completed')]
     completed_xert = [e for e in xert_cal if e.get('completed')]
+
+    # Per-date dedup: when a date has both auto-Forecast and explicit Workout events,
+    # prefer Workout (Forecast events are auto-generated load targets, not actual sessions).
+    from collections import defaultdict
+    _pbd: dict = defaultdict(list)
+    for e in _planned_raw:
+        _pbd[(e.get('date') or '')[:10]].append(e)
+    planned = []
+    for d_evs in _pbd.values():
+        has_workout = any(
+            (e.get('exercise_type') or '').lower() not in ('forecast', '')
+            for e in d_evs
+        )
+        for e in d_evs:
+            if has_workout and (e.get('exercise_type') or '').lower() == 'forecast':
+                continue  # skip auto-Forecast when explicit Workout exists
+            planned.append(e)
+    log.info(f"  Planned events after Forecast dedup: {len(planned)} "
+             f"(was {len(_planned_raw)}, dropped {len(_planned_raw)-len(planned)} Forecast)")
+    # Log per-date XSS for verification
+    import itertools
+    for d, evs in itertools.groupby(sorted(planned, key=lambda e: (e.get('date') or '')[:10]),
+                                    key=lambda e: (e.get('date') or '')[:10]):
+        _evs = list(evs)
+        log.info(f"    planned {d}: {[(ev.get('name','?'), ev.get('exercise_type','?'), ev.get('xss',0)) for ev in _evs]}")
 
     # Supplement IV activities with Xert completed events not yet synced to IV.
     # Deduplicate by (date, name) AND by XSS similarity — Garmin and Xert often name

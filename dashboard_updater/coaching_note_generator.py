@@ -14,7 +14,7 @@ def _today_sgt():
 
 log = logging.getLogger(__name__)
 
-RACE_DATE = date(2026, 8, 21)   # Tour de Bintan Stage 1 (primary target Stage 3 = Aug 23)
+RACE_DATE = date(2026, 8, 22)   # Tour de Bintan Stage 1 ITT (primary target Stage 2 = Aug 23 hilly)
 
 
 def _format_hrv_trend(hrv_list):
@@ -138,9 +138,9 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
     # ── Build structured prompt ───────────────────────────────────────────────
     lines = [
         f"You are a data-driven cycling coach writing a daily coaching note for James Loh.",
-        f"James is a competitive cyclist preparing for Tour de Bintan 2026 (3-stage race, Aug 21-23).",
-        f"Stage 1: 15km ITT Thu Aug 21 · Stage 2: 140km rolling Fri Aug 22 · Stage 3: 110km hilly Sat Aug 23 (PRIMARY TARGET — attack and win).",
-        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to Stage 1: {days_to_race}  |  Days to Stage 3 (primary): {days_to_race + 2}",
+        f"James is a competitive cyclist preparing for Tour de Bintan 2026 (3-stage race, Aug 22-24).",
+        f"Stage 1: 15km ITT Fri 22 Aug · Stage 2: 110km hilly Sat 23 Aug (PRIMARY TARGET — attack and win ★) · Stage 3: 140km rolling Sun 24 Aug (conservation stage — protect S2 result).",
+        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to Stage 1 ITT: {days_to_race}  |  Days to Stage 2 hilly (primary): {days_to_race + 1}",
         f"",
         f"=== TRAINING DATA ===",
         f"",
@@ -295,6 +295,10 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         f"Block 5 — RACE TRAJECTORY",
         f"One-line traffic light: 🟢 On track / 🟡 Monitor / 🔴 Flag.",
         f"State CTL trend, projected race-day TSB, and the #1 priority for this week.",
+        f"CRITICAL RACE ORDER: Primary target is S2 Saturday 23 Aug hilly 110km (attack and win). "
+        f"S1 Fri 22 Aug ITT is the opener — smooth pacing only, preserve HIE for S2. "
+        f"S3 Sun 24 Aug rolling 140km is conservation — protect S2 result, Kulai-paced. "
+        f"NEVER reference S3 as the primary target. NEVER call S2 rolling or conservation.",
         f"Current training phase: {current_phase or 'Build'}.",
         f"IMPORTANT: Only prescribe work that matches this phase. "
         f"Durability Block = long sustained efforts, ZERO interval or high/peak XSS work. "
