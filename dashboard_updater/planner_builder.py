@@ -249,20 +249,32 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 def _is_trivial(a):
                     n = (a.get('name') or '').lower()
                     return any(t in n for t in _SKIP) and _act_xss(a) < 15
-                meaningful = [a for a in completed if not _is_trivial(a)]
-                display_list = meaningful if meaningful else completed
+                def _is_smart_companion(a):
+                    # "SMART - Iron Man", "SMART - Opener 3" etc. are Xert companion
+                    # workouts that auto-run alongside main rides. Exclude from XSS sums.
+                    # Don't exclude "Zwift - Xert: SMART - ..." which is the real session.
+                    n = (a.get('name') or '').strip()
+                    import re as _re
+                    return bool(_re.match(r'^smart\s*-\s', n, _re.IGNORECASE))
+
+                # Filter out SMART companions before XSS accounting
+                countable = [a for a in completed if not _is_smart_companion(a)]
+                if not countable:
+                    countable = completed  # safety: if somehow all are companions, keep them
+                meaningful = [a for a in countable if not _is_trivial(a)]
+                display_list = meaningful if meaningful else countable
                 # Sort by XSS descending, pick highest
                 act = sorted(display_list, key=_act_xss, reverse=True)[0]
 
                 session_name = act.get('name', 'Activity')
                 # Use primary XSS when it dominates (≥3x next-highest = Garmin sub-segment detection).
-                # Otherwise sum all activities (e.g. separate AM + PM sessions both matter).
-                if len(completed) > 1:
-                    xss_vals = sorted([_act_xss(a) for a in completed], reverse=True)
+                # Otherwise sum all countable activities (e.g. separate AM + PM sessions both matter).
+                if len(countable) > 1:
+                    xss_vals = sorted([_act_xss(a) for a in countable], reverse=True)
                     if xss_vals[1] > 0 and xss_vals[0] / xss_vals[1] >= 3:
                         xss = _act_xss(act)  # primary session only
                     else:
-                        xss = sum(_act_xss(a) for a in completed)
+                        xss = sum(_act_xss(a) for a in countable)
                 else:
                     xss = _act_xss(act)
                 dist = act.get('distance_km')
