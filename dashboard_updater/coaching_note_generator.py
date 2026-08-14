@@ -237,13 +237,16 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
     # Protocol parameters — absolute, never to be substituted by Claude's defaults
     _protocol_params = (
         "RECOVERY PROTOCOL — MANDATORY SEQUENCE AND PARAMETERS:\n"
-        "  Step 1: Dry sauna 80–90°C × N rounds (NEVER describe this as 40°C — 40°C is a steam room, not a sauna)\n"
+        "  Step 1: Dry sauna 80–90°C · 12 min per round × 2–3 rounds depending on day type\n"
         "  Step 2: 13–14°C pool 3–5 min BETWEEN each sauna round (inter-round cool-down only)\n"
         "  Step 3: 4°C cold shock 30–60 sec legs only — AFTER the FINAL round only, never between rounds\n"
         "  Step 4: Magnesium pool at end\n"
-        "RULES: Never place 4°C cold shock before 13–14°C pool. "
-        "Never describe sauna temperature as 40°C. "
-        "4°C ≠ 13°C. 30 sec ≠ 3 min. Steam room ≠ dry sauna."
+        "CRITICAL RULES:\n"
+        "  - Sauna duration is ALWAYS 12 min per round. NEVER say 4 min, 6 min, or any other duration.\n"
+        "  - Minimum effective heat shock protein response requires 10–12 min per round — never less.\n"
+        "  - Never describe sauna temperature as 40°C — that is a steam room. Dry sauna = 80–90°C always.\n"
+        "  - Never place 4°C cold shock before 13–14°C pool.\n"
+        "  - 4°C ≠ 13°C. 30 sec ≠ 3 min. Steam room ≠ dry sauna."
     )
     _rec_line = (
         f"MANDATORY: The dashboard has prescribed '{today_recovery_title}' for tonight. "
