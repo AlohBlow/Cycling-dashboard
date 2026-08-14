@@ -19,6 +19,14 @@ _MON_S = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',
 
 RACE_DATE = date(2026, 8, 22)
 
+# Hardcoded race stage overrides — Xert calendar entries for race days are unreliable
+# (raw activity IDs, inflated XSS placeholders, stale breakthrough flags).
+_RACE_STAGE_OVERRIDES = {
+    date(2026, 8, 22): {'name': 'S1 ITT — 15km · Bintan',         'xss': 61,  'no_bt': True},
+    date(2026, 8, 23): {'name': 'S2 Hilly ★ — 110km · Bintan',    'xss': 200, 'no_bt': True},
+    date(2026, 8, 24): {'name': 'S3 Rolling — 140km · Bintan',     'xss': 180, 'no_bt': True},
+}
+
 # Phase config: (start_date, end_date_inclusive, label)
 # Weeks not matched fall back to a generic label.
 PHASE_CONFIG = [
@@ -291,9 +299,16 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             elif planned:
                 # Show planned session
                 ev = planned[0]
-                session_name = ev.get('name') or ev.get('description') or 'Training'
+                raw_name = ev.get('name') or ev.get('description') or 'Training'
+                # Strip embedded descriptions Xert sometimes appends after a newline
+                session_name = raw_name.split('\n')[0].strip() or 'Training'
                 # XSS from Xert calendar event (already resolved from placeholder_xss_details)
                 xss = ev.get('xss') or ev.get('load_target') or ev.get('icu_training_load') or 0
+                # Apply race day overrides: raw activity IDs / inflated placeholders / stale BT flags
+                _override = _RACE_STAGE_OVERRIDES.get(day_date)
+                if _override:
+                    session_name = _override['name']
+                    xss = _override['xss']
                 # Duration: Xert events use duration_sec key
                 dur_sec = ev.get('duration_sec') or ev.get('moving_time') or ev.get('duration') or 0
                 dist_km = ev.get('distance_km')
@@ -429,7 +444,7 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 'xss_peak':               xss_peak,
                 'xss_breakdown_estimated': xss_breakdown_estimated,
                 'hr_derived':             hr_derived,
-                'is_breakthrough':        is_breakthrough,
+                'is_breakthrough':        is_breakthrough and day_date not in _RACE_STAGE_OVERRIDES,
                 'awc_pct':               awc_pct,
                 'completed':              completed_flag,
                 'is_today':               day_date == today,
