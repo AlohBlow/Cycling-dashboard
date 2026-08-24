@@ -323,9 +323,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <span class="sb-label">Form / TSB</span>
       <span class="sb-value" style="color:var(--{{ tsb_color }})">{{ tsb_str }} · {{ tsb_zone }}</span>
     </div>
-    <div class="status-badge">
-      <span class="sb-label">Updated</span>
-      <span class="sb-value">{{ generated_date_short }}</span>
+    <div class="status-badge" title="Data synced from Garmin Connect, Xert, and Intervals.icu">
+      <span class="sb-label">Data as of</span>
+      <span class="sb-value">{{ generated_date_short }} · {{ generated_time }}</span>
     </div>
     {% if tr_label != '—' %}
     <div class="alert-pill" style="{% if tr_card_color == 'green' %}background:#071f0f;border-color:#16a34a33;color:var(--green){% elif tr_card_color == 'yellow' %}background:#1f1507;border-color:#78350f33;color:var(--yellow){% else %}background:#1f0707;border-color:#7c1d1d33;color:var(--red){% endif %}">
@@ -390,7 +390,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <span class="mc-badge {{ tr_badge }}">Garmin</span>
   </div>
   <div class="metric-card purple">
-    <div class="mc-label">HRV Status</div>
+    <div class="mc-label">HRV Status <span style="font-size:9px;color:var(--muted2);font-weight:400">Garmin Fenix 8</span></div>
     <div class="mc-value" style="color:var(--{{ hrv_color }})">{{ hrv_status }}</div>
     <div class="mc-sub">HRV: {{ hrv_today }} rMSSD · 7d avg: {{ hrv_7d_avg }}</div>
     <span class="mc-badge {{ hrv_badge_cls }}">{{ hrv_badge_txt }}</span>
@@ -563,6 +563,25 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div style="margin-top:10px;padding:8px;background:var(--card2);border-radius:6px">
       <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--{{ xert_status_color }})">{{ xert_status_label }}</span></div>
     </div>
+    <!-- Signature drift indicator -->
+    <div style="margin-top:8px;padding:8px 10px;background:var(--card2);border-radius:6px;border-left:3px solid var(--{{ sig_drift_color }})">
+      <div style="font-size:10px;color:var(--{{ sig_drift_color }});font-weight:600">SIGNATURE FRESHNESS</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:2px">{{ sig_drift_label }}</div>
+    </div>
+    {% if xert_bt_history %}
+    <div style="margin-top:10px">
+      <div style="font-size:10px;color:var(--muted2);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">🏅 Recent Breakthroughs</div>
+      {% for bt in xert_bt_history[:5] %}
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:var(--card2);border-radius:6px;margin-bottom:4px;border-left:2px solid var(--green)">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text)">{{ bt.name }}</div>
+          <div style="font-size:10px;color:var(--muted2)">{{ bt.date_str }}{% if bt.focus %} · {{ bt.focus }}{% endif %}</div>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--yellow)">{{ bt.xss }} XSS</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
 
   <div class="today-card" id="rec-protocol-card">

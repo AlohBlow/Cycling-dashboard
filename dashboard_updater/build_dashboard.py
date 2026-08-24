@@ -4,6 +4,7 @@ Run directly:  python build_dashboard.py
 Or via:        scheduler.py  (twice daily)
 """
 
+import json
 import logging
 import sys
 import os
@@ -23,6 +24,30 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 PROJECT_ROOT   = Path(__file__).parent.parent
+_EXCLUSIONS_FILE = Path(__file__).parent / 'excluded_activities.json'
+
+
+def _load_exclusions():
+    """Load activity exclusion list from JSON config. Returns (set_of_ids, set_of_dates)."""
+    try:
+        data = json.loads(_EXCLUSIONS_FILE.read_text())
+        return set(str(i) for i in data.get('activity_ids', [])), \
+               set(data.get('dates', []))
+    except Exception:
+        return set(), set()
+
+
+def _apply_exclusions(activities, excluded_ids, excluded_dates):
+    """Remove activities matching excluded IDs or dates from the list."""
+    out = []
+    for a in activities:
+        aid = str(a.get('id') or a.get('activity_id') or '')
+        d   = (a.get('date') or '')[:10]
+        if aid in excluded_ids or d in excluded_dates:
+            log.info(f"  Excluded activity: {a.get('name', '?')} ({d}, id={aid})")
+            continue
+        out.append(a)
+    return out
 TEMPLATE_FILE  = 'cycling-dashboard-template.html'
 OUTPUT_FILE    = PROJECT_ROOT / 'index.html'
 
@@ -85,6 +110,14 @@ def build():
     log.info(f'Build started — {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
     api_data, xert_status = _fetch()
+
+    # Apply activity exclusion list
+    excl_ids, excl_dates = _load_exclusions()
+    if excl_ids or excl_dates:
+        log.info(f'Exclusion list: {len(excl_ids)} IDs, {len(excl_dates)} dates')
+        api_data['activities']        = _apply_exclusions(api_data['activities'],        excl_ids, excl_dates)
+        api_data['strava_activities'] = _apply_exclusions(api_data['strava_activities'], excl_ids, excl_dates)
+        api_data['xert_calendar']     = _apply_exclusions(api_data['xert_calendar'],     excl_ids, excl_dates)
 
     # Build training planner — Xert calendar (planned + completed) + Intervals.icu fallback
     log.info('Building training planner...')

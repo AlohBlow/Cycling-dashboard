@@ -1,0 +1,5 @@
+{
+  "_comment": "Activities to exclude from all calculations (XSS totals, signature, planner). Add by activity_id (string) or date (YYYY-MM-DD).",
+  "activity_ids": [],
+  "dates": []
+}

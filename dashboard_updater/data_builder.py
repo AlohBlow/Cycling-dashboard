@@ -171,6 +171,14 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
     garmin_hydration = w.get('hydration_ml')
     garmin_calories  = w.get('calories')
+    # Garmin returns static placeholder values when no real reading exists.
+    # 2,450 ml and 266 kcal are the known fallback constants — treat them as no-data.
+    _GARMIN_HYD_FALLBACK = 2450
+    _GARMIN_CAL_FALLBACK = 266
+    if garmin_hydration and int(garmin_hydration) == _GARMIN_HYD_FALLBACK:
+        garmin_hydration = None
+    if garmin_calories and int(garmin_calories) == _GARMIN_CAL_FALLBACK:
+        garmin_calories = None
     hydration_disp   = f"{int(garmin_hydration):,}" if garmin_hydration else None
     calories_disp    = f"{int(garmin_calories):,}" if garmin_calories else None
 
@@ -289,6 +297,35 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
             'is_bt':     is_bt,
         }
 
+    # ── Xert breakthrough history ─────────────────────────────────────────────
+    bt_history = []
+    last_bt_date = None
+    for ev in sorted(completed_cycling, key=lambda e: e.get('date', ''), reverse=True):
+        if ev.get('breakthrough'):
+            d = datetime.strptime(ev['date'][:10], '%Y-%m-%d')
+            bt_history.append({
+                'date_str': f"{_DOW_S[d.weekday()]} {d.day} {_MON[d.month]}",
+                'name':     ev.get('name', 'Ride'),
+                'xss':      round(ev.get('xss') or 0, 1),
+                'focus':    ev.get('focus') or '',
+            })
+            if last_bt_date is None:
+                last_bt_date = d.date()
+    days_since_bt = (today - last_bt_date).days if last_bt_date else None
+    # Drift risk: >21 days since last BT → signature may have drifted
+    if days_since_bt is None:
+        sig_drift_color = 'muted'
+        sig_drift_label = 'No recent breakthrough'
+    elif days_since_bt <= 14:
+        sig_drift_color = 'green'
+        sig_drift_label = f'{days_since_bt}d since last breakthrough — signature current'
+    elif days_since_bt <= 28:
+        sig_drift_color = 'yellow'
+        sig_drift_label = f'{days_since_bt}d since last breakthrough — consider a BT effort soon'
+    else:
+        sig_drift_color = 'red'
+        sig_drift_label = f'{days_since_bt}d since last breakthrough — signature may have drifted'
+
     # ── Xert ─────────────────────────────────────────────────────────────────
     xs = xert_status or {}
     xtp_raw  = xs.get('tp')
@@ -387,4 +424,10 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         'strava_activity_count': len(strava_activities or []),
         'strava_last_sync': _fmt_date((strava_activities or [{}])[0].get('date', '')) if strava_activities else '—',
         'strava_riduck_count': sum(1 for a in (strava_activities or []) if a.get('riduck')),
+
+        # Breakthrough history & signature drift
+        'xert_bt_history':   bt_history,
+        'days_since_bt':     days_since_bt,
+        'sig_drift_color':   sig_drift_color,
+        'sig_drift_label':   sig_drift_label,
     }
