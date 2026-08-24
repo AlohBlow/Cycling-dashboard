@@ -301,17 +301,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <!-- HEADER -->
 <div class="dash-header">
   <div class="header-left">
-    <div class="race-pill" style="min-width:70px">
-      <div class="day-num" style="font-size:22px">{{ days_to_s1 }}</div>
-      <div class="day-label" style="font-size:9px">TO S1 ITT</div>
-    </div>
-    <div class="race-pill" style="min-width:70px;background:linear-gradient(135deg,#1a3a0a,#2d6b10);border-color:#4ade80">
-      <div class="day-num" style="font-size:22px">{{ days_to_s2 }}</div>
-      <div class="day-label" style="font-size:9px;color:#86efac">★ TO STAGE 2</div>
+    <div class="race-pill" style="min-width:80px;background:linear-gradient(135deg,#1a3a0a,#2d6b10);border-color:#4ade80">
+      <div class="day-num" style="font-size:22px">{{ days_to_race }}</div>
+      <div class="day-label" style="font-size:9px;color:#86efac">DAYS TO RACE</div>
     </div>
     <div class="header-title">
-      <h1>🚴 James Loh · Tour de Bintan Build</h1>
-      <p>S1 Fri 22 Aug · 15km ITT · 265-275W &nbsp;|&nbsp; <strong style="color:#4ade80">S2 Sat 23 Aug · 110km hilly · attack &amp; win ★</strong> &nbsp;|&nbsp; S3 Sun 24 Aug · 140km rolling · conserve</p>
+      <h1>🚴 James Loh · TdF Singapore Criterium Build</h1>
+      <p>À l'Attaque Masters Crit &nbsp;·&nbsp; <strong style="color:#4ade80">Sun 8 Nov 2026</strong> &nbsp;·&nbsp; Connaught Drive 2.45km &nbsp;·&nbsp; 30min &nbsp;·&nbsp; <span style="color:var(--{{ build_phase_color }})">Phase: {{ build_phase }}</span></p>
     </div>
   </div>
   <div class="header-pills">
@@ -1146,7 +1142,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <!-- RACE STRATEGY -->
-<div class="section-title">Tour de Bintan — Race Strategy</div>
+<div class="section-title">TdF Singapore Criterium — Race Strategy</div>
 <div class="rs-grid">
 
   <!-- STAGE 1 -->
@@ -1212,7 +1208,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <!-- DURABILITY TRACKING -->
-<div class="section-title">Durability Score — Historical &amp; Bintan Targets</div>
+<div class="section-title">Durability Score — Historical &amp; Criterium Targets</div>
 <div class="dur-grid">
 
   <!-- HISTORICAL -->
@@ -1290,7 +1286,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <!-- FITNESS TRAJECTORY -->
-<div class="section-title">Fitness Trajectory — CTL Build to Bintan</div>
+<div class="section-title">Fitness Trajectory — CTL Build to TdF Criterium</div>
 <div class="traj-wrap">
 
   {# Nodes: (date_label, phase_label, ctl_mid, dot_class, bar_color, bar_height_pct) #}
@@ -1371,7 +1367,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 </div>
 
 <!-- SUPPLEMENT PROTOCOL -->
-<div class="section-title">Tour de Bintan — Supplement &amp; Nutrition Protocol</div>
+<div class="section-title">TdF Criterium — Supplement &amp; Nutrition Protocol</div>
 <div class="supp-grid">
 
   <!-- ONGOING -->
@@ -1428,7 +1424,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <!-- FOOTER -->
 <div class="dash-footer">
   Updated: {{ generated_date_long }} at {{ generated_time }} (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
-  Next automated report: daily at 9:00 AM SGT &nbsp;·&nbsp;
+  Next automated report: 6:00 AM &amp; 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
 

@@ -131,12 +131,36 @@ def _build_strava_latest(strava_activities):
 def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
                   xert_calendar=None, strava_activities=None):
     today = _today_sgt()
-    bintan_s1 = date(2026, 8, 22)
-    bintan_s2 = date(2026, 8, 23)
-    bintan_s3 = date(2026, 8, 24)
-    days_to_s1 = max(0, (bintan_s1 - today).days)
-    days_to_s2 = max(0, (bintan_s2 - today).days)
-    days_to_s3 = max(0, (bintan_s3 - today).days)
+    # TdF Singapore Criterium — À l'Attaque Masters, Sun 8 Nov 2026
+    race_date = date(2026, 11, 8)
+    days_to_race = max(0, (race_date - today).days)
+
+    # Build phase (keep legacy Bintan vars at 0 for any residual template refs)
+    days_to_s1 = 0
+    days_to_s2 = 0
+    days_to_s3 = 0
+
+    if today <= date(2026, 9, 7):
+        build_phase = 'Recovery'
+        build_phase_color = 'accent'
+    elif today <= date(2026, 9, 21):
+        build_phase = 'Rebuild · CTL 80+'
+        build_phase_color = 'green'
+    elif today <= date(2026, 10, 5):
+        build_phase = 'Crit-Specific · Sprint Work'
+        build_phase_color = 'yellow'
+    elif today <= date(2026, 10, 12):
+        build_phase = 'Peak'
+        build_phase_color = 'orange'
+    elif today <= date(2026, 10, 19):
+        build_phase = 'Taper'
+        build_phase_color = 'green'
+    elif today >= date(2026, 11, 8):
+        build_phase = 'Race Day'
+        build_phase_color = 'red'
+    else:
+        build_phase = 'Race Week'
+        build_phase_color = 'red'
 
     # ── Fitness (CTL / ATL / TSB) ────────────────────────────────────────────
     cur = iv_fitness[-1] if iv_fitness else {}
@@ -363,10 +387,14 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         'next_report_date':     next_rpt,
         'tomorrow_date_short':  tomorrow_short,
 
-        # Countdown — Tour de Bintan
-        'days_to_s1': days_to_s1,
-        'days_to_s2': days_to_s2,
-        'days_to_s3': days_to_s3,
+        # Countdown — TdF Singapore Criterium
+        'days_to_race':      days_to_race,
+        'build_phase':       build_phase,
+        'build_phase_color': build_phase_color,
+        # Legacy Bintan vars kept at 0 — residual template refs won't break
+        'days_to_s1': 0,
+        'days_to_s2': 0,
+        'days_to_s3': 0,
 
         # Form & Load
         'ctl':       ctl,

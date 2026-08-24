@@ -14,7 +14,7 @@ def _today_sgt():
 
 log = logging.getLogger(__name__)
 
-RACE_DATE = date(2026, 8, 22)   # Tour de Bintan Stage 1 ITT (primary target Stage 2 = Aug 23 hilly)
+RACE_DATE = date(2026, 11, 8)   # TdF Singapore Criterium — À l'Attaque Masters, Connaught Drive 2.45km 30min
 
 
 def _format_hrv_trend(hrv_list):
@@ -138,9 +138,9 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
     # ── Build structured prompt ───────────────────────────────────────────────
     lines = [
         f"You are a data-driven cycling coach writing a daily coaching note for James Loh.",
-        f"James is a competitive cyclist preparing for Tour de Bintan 2026 (3-stage race, Aug 22-24).",
-        f"Stage 1: 15km ITT Fri 22 Aug · Stage 2: 110km hilly Sat 23 Aug (PRIMARY TARGET — attack and win ★) · Stage 3: 140km rolling Sun 24 Aug (conservation stage — protect S2 result).",
-        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to Stage 1 ITT: {days_to_race}  |  Days to Stage 2 hilly (primary): {days_to_race + 1}",
+        f"James is a competitive Masters criterium racer preparing for the TdF Singapore Criterium 2026 — 'À l'Attaque' Masters category, Sun 8 Nov 2026, 30-minute criterium on the 2.45km Connaught Drive circuit.",
+        f"Race profile: flat, technical, punchy — high-speed corners, repeated sprint-out efforts, sharp accelerations. Success requires sustained high power above TP, strong AWC reserve, and tactical positioning.",
+        f"Today: {today.strftime('%A %d %B %Y')}  |  Days to race: {days_to_race}",
         f"",
         f"=== TRAINING DATA ===",
         f"",
@@ -298,10 +298,9 @@ def _generate_via_claude(api_key, ctl, atl, tsb_raw, xert_status, hrv_list, acti
         f"Block 5 — RACE TRAJECTORY",
         f"One-line traffic light: 🟢 On track / 🟡 Monitor / 🔴 Flag.",
         f"State CTL trend, projected race-day TSB, and the #1 priority for this week.",
-        f"CRITICAL RACE ORDER: Primary target is S2 Saturday 23 Aug hilly 110km (attack and win). "
-        f"S1 Fri 22 Aug ITT is the opener — smooth pacing only, preserve HIE for S2. "
-        f"S3 Sun 24 Aug rolling 140km is conservation — protect S2 result, Kulai-paced. "
-        f"NEVER reference S3 as the primary target. NEVER call S2 rolling or conservation.",
+        f"CRITERIUM CONTEXT: Single-race target Sun 8 Nov 2026. Build phases: Recovery (to 7 Sep) → Rebuild CTL 80+ (8–21 Sep) → Crit-specific sprint work (22 Sep–5 Oct) → Peak (6–12 Oct) → Taper (13–19 Oct) → Race (8 Nov). "
+        f"Crit demands: 30 min at 95–105% TP with repeated surges above TP. Train AWC, cornering speed, and repeat-sprint capacity. "
+        f"NEVER reference Tour de Bintan, S1/S2/S3 stages, or the hilly road race in coaching notes.",
         f"Current training phase: {current_phase or 'Build'}.",
         f"IMPORTANT: Only prescribe work that matches this phase. "
         f"Durability Block = long sustained efforts, ZERO interval or high/peak XSS work. "
@@ -457,7 +456,7 @@ def generate_coaching_note(
     else:
         phase = "taper window approaching — quality over volume"
 
-    p4 = f"You're in the {phase}. With {days_to_race} days to Tour de Bintan Stage 1, your CTL of {ctl:.1f} and ATL of {atl:.1f} show consistent work. Stay consistent, recover when needed, and trust your preparation."
+    p4 = f"You're in the {phase}. With {days_to_race} days to the TdF Singapore Criterium, your CTL of {ctl:.1f} and ATL of {atl:.1f} show consistent work. Stay consistent, recover when needed, and trust your preparation."
 
     paragraphs.append(p4)
 

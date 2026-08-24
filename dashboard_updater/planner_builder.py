@@ -17,18 +17,17 @@ _DOW_S = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 _MON_S = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',
           7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}
 
-RACE_DATE = date(2026, 8, 22)
+RACE_DATE = date(2026, 11, 8)   # TdF Singapore Criterium — À l'Attaque Masters
 
-# Hardcoded race stage overrides — Xert calendar entries for race days are unreliable
-# (raw activity IDs, inflated XSS placeholders, stale breakthrough flags).
+# Hardcoded overrides for known race days — prevents Xert placeholder data corrupting display.
 _RACE_STAGE_OVERRIDES = {
-    date(2026, 8, 22): {'name': 'S1 ITT — 15km · Bintan',         'xss': 61,  'no_bt': True},
-    date(2026, 8, 23): {'name': 'S2 Hilly ★ — 110km · Bintan',    'xss': 200, 'no_bt': True},
-    date(2026, 8, 24): {'name': 'S3 Rolling — 140km · Bintan',     'xss': 180, 'no_bt': True},
+    date(2026, 8, 22): {'name': 'S1 ITT — 15km · Bintan (past)',    'xss': 61,  'no_bt': True},
+    date(2026, 8, 23): {'name': 'S2 Hilly ★ — 110km · Bintan (past)', 'xss': 200, 'no_bt': True},
+    date(2026, 8, 24): {'name': 'S3 Rolling — 140km · Bintan (past)', 'xss': 180, 'no_bt': True},
+    date(2026, 11, 8): {'name': 'TdF SG Criterium 🏁 — 30min · Connaught Drive', 'xss': 80, 'no_bt': False},
 }
 
 # Phase config: (start_date, end_date_inclusive, label)
-# Weeks not matched fall back to a generic label.
 PHASE_CONFIG = [
     (date(2026, 6, 29), date(2026, 7,  5), "Recovery Week"),
     (date(2026, 7,  6), date(2026, 7, 12), "Rebuild Week 1"),
@@ -38,7 +37,13 @@ PHASE_CONFIG = [
     (date(2026, 7, 29), date(2026, 8,  4), "Bintan Build"),
     (date(2026, 8,  5), date(2026, 8, 11), "Peak Week"),
     (date(2026, 8, 12), date(2026, 8, 20), "Taper"),
-    (date(2026, 8, 21), date(2026, 8, 23), "🏁 Tour de Bintan"),
+    (date(2026, 8, 21), date(2026, 8, 24), "🏁 Tour de Bintan"),
+    (date(2026, 8, 25), date(2026, 9,  7), "Recovery"),
+    (date(2026, 9,  8), date(2026, 9, 21), "Rebuild · CTL 80+"),
+    (date(2026, 9, 22), date(2026, 10, 5), "Crit-Specific · Sprint Work"),
+    (date(2026, 10, 6), date(2026, 10,12), "Peak"),
+    (date(2026, 10,13), date(2026, 10,19), "Taper"),
+    (date(2026, 11, 2), date(2026, 11, 8), "🏁 TdF Singapore Criterium"),
 ]
 
 def _phase_label(week_monday: date, week_sunday: date) -> str | None:
