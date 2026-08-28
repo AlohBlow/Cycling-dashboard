@@ -1167,53 +1167,65 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
   </div>
 
-  <!-- TARGETS + INSIGHT -->
+  <!-- CRIT DEMAND PROFILE + INSIGHT -->
   <div style="display:flex;flex-direction:column;gap:14px">
     <div class="dur-card">
-      <div class="dur-card-header target-header">🎯 Bintan 2026 — Stage Targets</div>
+      <div class="dur-card-header target-header">🏁 Crit Demand Profile — TdF SG 2026</div>
       <div class="dur-body">
-        {# Max scale = 30 for bar width calc. Historical Day3 cliff = 10.6 shown as ref line at 35% #}
+        {# Live signature: TP={{ xert_tp }}W · HIE={{ xert_hie }}kJ · PP={{ xert_pp }}W #}
+        {# 1. Sustained race-pace NP — target 85–92% of TP #}
+        {% set tp_low  = (xert_tp * 0.85)|int %}
+        {% set tp_high = (xert_tp * 0.92)|int %}
         <div class="dur-target-row">
           <div class="dur-target-label">
-            <span class="dur-target-name">S1 · ITT (15km)</span>
-            <span class="dur-target-range" style="color:var(--muted2)">N/A — time trial</span>
-          </div>
-          <div class="dur-target-bar-bg">
-            <div class="dur-target-bar-fill" style="width:0%;background:#64748b"></div>
-          </div>
-        </div>
-        <div class="dur-target-row">
-          <div class="dur-target-label">
-            <span class="dur-target-name">S2 · Hilly 110km ★</span>
-            <span class="dur-target-range">Target 22–25 <span style="color:#4ade80;font-size:10px">PRIMARY</span></span>
+            <span class="dur-target-name">Sustained NP (30min)</span>
+            <span class="dur-target-range" style="color:#4ade80">{{ tp_low }}–{{ tp_high }}W <span style="font-size:9px;color:var(--muted)">(85–92% TP)</span></span>
           </div>
           <div class="dur-target-bar-bg" style="position:relative">
-            <div class="dur-target-bar-fill" style="width:73%;background:linear-gradient(90deg,#4ade80,#22d3ee)"></div>
-            <div class="dur-target-bar-ref" style="left:35%"></div>
+            <div class="dur-target-bar-fill" style="width:88%;background:linear-gradient(90deg,#4ade80,#22d3ee)"></div>
           </div>
         </div>
+        {# 2. Anaerobic matches — target 8–12 efforts > 150% TP #}
+        {% set wp_thresh = (xert_tp * 1.5)|int %}
         <div class="dur-target-row">
           <div class="dur-target-label">
-            <span class="dur-target-name">S3 · Rolling 140km</span>
-            <span class="dur-target-range" style="color:#fcd34d">Target 16–20</span>
+            <span class="dur-target-name">Anaerobic matches</span>
+            <span class="dur-target-range" style="color:#a855f7">8–12 efforts &gt;{{ wp_thresh }}W</span>
           </div>
           <div class="dur-target-bar-bg" style="position:relative">
-            <div class="dur-target-bar-fill" style="width:60%;background:linear-gradient(90deg,#a855f7,#4ade80)"></div>
-            <div class="dur-target-bar-ref" style="left:35%"></div>
+            <div class="dur-target-bar-fill" style="width:75%;background:linear-gradient(90deg,#a855f7,#4ade80)"></div>
           </div>
         </div>
-        <div style="font-size:10px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:6px">
-          <div style="width:10px;height:2px;background:#ef444488;display:inline-block"></div>
-          Red line = historical Day 3 cliff (10.6) — target is to beat it
+        {# 3. Corner-exit acceleration — target 500–600W repeatable, fade &lt;20% #}
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">Corner-exit bursts</span>
+            <span class="dur-target-range" style="color:#22d3ee">500–600W · 15–20×  <span style="font-size:9px;color:var(--muted)">fade &lt;20%</span></span>
+          </div>
+          <div class="dur-target-bar-bg" style="position:relative">
+            <div class="dur-target-bar-fill" style="width:65%;background:linear-gradient(90deg,#22d3ee,#a855f7)"></div>
+          </div>
+        </div>
+        {# 4. Closing sprint (fatigued) — target ≥600W, benchmark 623W fresh #}
+        <div class="dur-target-row">
+          <div class="dur-target-label">
+            <span class="dur-target-name">Closing sprint (fatigued)</span>
+            <span class="dur-target-range" style="color:#f97316">≥600W final 200m <span style="font-size:9px;color:var(--muted)">(fresh: 623W)</span></span>
+          </div>
+          <div class="dur-target-bar-bg" style="position:relative">
+            <div class="dur-target-bar-fill" style="width:96%;background:linear-gradient(90deg,#f97316,#ef4444)"></div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:8px">
+          Based on live Xert signature: TP {{ xert_tp }}W · HIE {{ xert_hie }}kJ · PP {{ xert_pp }}W
         </div>
       </div>
     </div>
 
     <div class="dur-insight">
-      <strong>Key Insight:</strong> Durability is <strong>intensity-dependent</strong>, not just duration-dependent.<br>
-      Riding aerobically → holds <strong>17–20</strong> · Racing hard → drops to <strong>9–10</strong><br><br>
-      <strong>ITT pacing determines S2 hilly durability.</strong><br>
-      Smooth ITT → arrive at S2 with full HIE → attack the climbs and win.
+      <strong>Crit racing</strong> rewards recovery speed between efforts, not sustained wattage.<br>
+      <strong>HIE recharge rate</strong> — not raw threshold — decides who's still attacking in the final 2 laps.<br><br>
+      Train repeat-sprint capacity and corner-exit power. Threshold work supports the base; crit work wins the race.
     </div>
   </div>
 
