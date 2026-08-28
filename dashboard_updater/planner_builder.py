@@ -379,8 +379,10 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
             awc_pct = None
 
             if xert_src and xert_src.get('xss_low') is not None:
-                # For completed rides, take the higher of IV and Xert total XSS
-                if completed_flag:
+                # For completed rides, only apply Xert's single-event XSS override when
+                # there is exactly ONE activity on the day. With multiple activities the IV
+                # sum is already correct; overriding with one Xert event would undercount.
+                if completed_flag and len(countable) == 1:
                     xert_total = xert_src.get('xss') or 0
                     xss = max(xss, xert_total)
                 xss_low  = round(xert_src.get('xss_low') or 0, 1)

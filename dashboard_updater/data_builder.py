@@ -240,42 +240,35 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     # ── HRV ──────────────────────────────────────────────────────────────────
     hrv_today, hrv_avg, hrv_status, hrv_color, hrv_badge_cls, hrv_badge_txt = _hrv_info(iv_hrv)
 
-    # ── Build Xert XSS lookup by date (use Xert as source of truth for XSS) ──
-    xert_xss_by_date = {}
+    # ── Build Xert XSS lookup per activity (date + normalized name) ──────────
+    # Keyed by (date, name_lower) so each activity gets its OWN Xert XSS,
+    # not an inflated day-total. Avoids assigning the sum of 4 activities to 1.
+    xert_xss_by_activity: dict = {}
     for ev in (xert_calendar or []):
         if not ev.get('completed'):
             continue
         d = ev.get('date', '')[:10]
+        name_key = (ev.get('name') or '').strip().lower()
         xss = ev.get('xss') or 0
         if d and xss:
-            # Sum multiple completed events per day
-            xert_xss_by_date[d] = xert_xss_by_date.get(d, 0) + xss
+            key = (d, name_key)
+            # Keep highest if name appears twice (shouldn't, but defensive)
+            if xss > xert_xss_by_activity.get(key, 0):
+                xert_xss_by_activity[key] = xss
 
     # ── Activities ───────────────────────────────────────────────────────────
     yesterday = today - timedelta(days=1)
 
-    # Pre-compute which cycling activity is "primary" per date (highest IV XSS).
-    # Only the primary activity gets the full Xert day XSS; secondary same-day
-    # rides (e.g. "Shop" errands) keep their own Intervals.icu XSS value.
-    _primary_cycling: dict = {}
-    for a in iv_activities:
-        d    = a.get('date', '')[:10]
-        sport = (a.get('sport_type') or '').lower()
-        if not ('ride' in sport or sport == 'cycling'):
-            continue
-        if d not in _primary_cycling or (a.get('xss') or 0) > (_primary_cycling[d].get('xss') or 0):
-            _primary_cycling[d] = a
-
     act_rows = []
     for a in iv_activities:
         act_date = a.get('date', '')[:10]
-        xert_day_xss = xert_xss_by_date.get(act_date)
         iv_xss = a.get('xss') or 0
-        sport = (a.get('sport_type') or '').lower()
-        is_cycling = 'ride' in sport or sport == 'cycling'
-        is_primary = is_cycling and _primary_cycling.get(act_date) is a
-        if xert_day_xss and is_primary:
-            xss_v = round(max(xert_day_xss, iv_xss), 1)
+        # Look up this specific activity's Xert XSS by name match.
+        # Fall back to IV XSS if no Xert match — never assign day total to one activity.
+        act_name_key = (a.get('name') or '').strip().lower()
+        xert_act_xss = xert_xss_by_activity.get((act_date, act_name_key))
+        if xert_act_xss:
+            xss_v = round(max(xert_act_xss, iv_xss), 1)
         else:
             xss_v = round(iv_xss, 1) if iv_xss else 0
         act_rows.append({

@@ -171,10 +171,13 @@ def build():
         if (ev_date, ev_name) in iv_keys:
             continue
         ev_xss = float(ev.get('xss') or 0)
-        # Skip if an IV activity on the same date has XSS within 30% — same ride, different name
+        # Skip if IV already has a same-name activity for this date (handled above).
+        # XSS-similarity dedup: only apply when exactly ONE IV activity exists on the date —
+        # multiple same-day activities legitimately share similar XSS (e.g. 3 back-to-back
+        # Zwift races all scoring ~25 XSS each). Collapsing them loses real activities.
         same_date_xss = iv_xss_by_date.get(ev_date, [])
-        if ev_xss > 0 and any(
-            abs(x - ev_xss) / max(x, ev_xss) < 0.30
+        if ev_xss > 0 and len(same_date_xss) == 1 and any(
+            abs(x - ev_xss) / max(x, ev_xss) < 0.15  # tighter: 15% tolerance, single-activity days only
             for x in same_date_xss if x > 0
         ):
             continue
