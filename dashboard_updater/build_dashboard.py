@@ -127,9 +127,50 @@ def build():
 
     # Per-date dedup: when a date has both auto-Forecast and explicit Workout events,
     # prefer Workout (Forecast events are auto-generated load targets, not actual sessions).
+    # Also suppress Sunday cycling Forecasts Aug 30–Sep 20: that slot belongs to the
+    # long run (Kiprun 10km build). Resume normal Sunday cycling from Sep 28.
     from collections import defaultdict
+    from datetime import date as _date
+    _RUN_SLOT_SUN_START = _date(2026, 8, 30)
+    _RUN_SLOT_SUN_END   = _date(2026, 9, 20)
+    _CYCLING_TYPES_FC   = {'cycling', 'ride', 'virtualride', 'ebikeride', 'forecast', ''}
+
+    # Generic Xert projection names — auto-generated load targets, not specific sessions
+    _GENERIC_SESSION_NAMES = {
+        'low intensity training', 'high intensity training', 'training',
+        'workout', 'cycling', 'ride', 'rest', 'moderate intensity training',
+        'recovery training', 'endurance training',
+    }
+
+    def _is_run_slot_cycling_projection(ev):
+        """True if this planned event is a cycling projection on a run-slot day and should be suppressed."""
+        ev_date_str = (ev.get('date') or '')[:10]
+        if not ev_date_str:
+            return False
+        try:
+            ev_date = _date.fromisoformat(ev_date_str)
+        except ValueError:
+            return False
+        dow = ev_date.weekday()
+        # Wednesday run slot: permanent from Aug 25
+        is_wed_run_slot = (dow == 2 and ev_date >= _date(2026, 8, 25))
+        # Sunday run slot: Aug 30 – Sep 20
+        is_sun_run_slot = (dow == 6 and _RUN_SLOT_SUN_START <= ev_date <= _RUN_SLOT_SUN_END)
+        if not (is_wed_run_slot or is_sun_run_slot):
+            return False
+        ex_type = (ev.get('exercise_type') or '').lower()
+        # Suppress Forecast/empty AND generic Activity-type projections.
+        # Don't suppress explicitly named sessions (e.g. "CCP630", "IRRT") — those are real plans.
+        if ex_type in ('forecast', ''):
+            return True
+        name = (ev.get('name') or '').strip().lower()
+        return name in _GENERIC_SESSION_NAMES
+
     _pbd: dict = defaultdict(list)
     for e in _planned_raw:
+        if _is_run_slot_cycling_projection(e):
+            log.info(f"  Suppressed cycling projection for run slot: {(e.get('date') or '')[:10]} — {e.get('name','?')}")
+            continue
         _pbd[(e.get('date') or '')[:10]].append(e)
     planned = []
     for d_evs in _pbd.values():

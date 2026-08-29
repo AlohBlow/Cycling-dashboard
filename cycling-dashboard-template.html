@@ -308,6 +308,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="header-title">
       <h1>🚴 James Loh · TdF Singapore Criterium Build</h1>
       <p>À l'Attaque Masters Crit &nbsp;·&nbsp; <strong style="color:#4ade80">Sun 8 Nov 2026</strong> &nbsp;·&nbsp; Connaught Drive 2.45km &nbsp;·&nbsp; 30min &nbsp;·&nbsp; <span style="color:var(--{{ build_phase_color }})">Phase: {{ build_phase }}</span></p>
+      {% if days_to_kiprun > 0 %}<p style="font-size:11px;color:var(--muted);margin-top:2px">🏃 Kiprun 10km (B) · 27 Sept &nbsp;·&nbsp; {{ days_to_kiprun }} days &nbsp;·&nbsp; Wed + Sun run slots active</p>{% endif %}
     </div>
   </div>
   <div class="header-pills">

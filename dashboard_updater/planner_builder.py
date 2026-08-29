@@ -38,13 +38,27 @@ PHASE_CONFIG = [
     (date(2026, 8,  5), date(2026, 8, 11), "Peak Week"),
     (date(2026, 8, 12), date(2026, 8, 20), "Taper"),
     (date(2026, 8, 21), date(2026, 8, 24), "🏁 Tour de Bintan"),
-    (date(2026, 8, 25), date(2026, 9,  7), "Recovery"),
-    (date(2026, 9,  8), date(2026, 9, 21), "Rebuild · CTL 80+"),
-    (date(2026, 9, 22), date(2026, 10, 5), "Crit-Specific · Sprint Work"),
+    (date(2026, 8, 25), date(2026, 9,  7), "Recovery · Kiprun Build"),
+    (date(2026, 9,  8), date(2026, 9, 27), "Rebuild CTL 80+ · Kiprun 🏃"),
+    (date(2026, 9, 28), date(2026, 10, 5), "Crit-Specific · Sprint Work"),
     (date(2026, 10, 6), date(2026, 10,12), "Peak"),
     (date(2026, 10,13), date(2026, 10,19), "Taper"),
     (date(2026, 11, 2), date(2026, 11, 8), "🏁 TdF Singapore Criterium"),
 ]
+
+# Dates where running is the expected session rather than cycling.
+# Wednesday = permanent run slot (indefinitely from Aug 25).
+# Sunday = run slot only through Sep 27 (Kiprun 10km race day).
+KIPRUN_DATE = date(2026, 9, 27)
+
+def _is_run_slot(day_date: date) -> bool:
+    """True if this date is a standing run slot in the weekly template."""
+    dow = day_date.weekday()  # 0=Mon … 6=Sun
+    if dow == 2:  # Wednesday — permanent run slot
+        return day_date >= date(2026, 8, 25)
+    if dow == 6:  # Sunday — run slot only until Kiprun race day
+        return date(2026, 8, 25) <= day_date <= KIPRUN_DATE
+    return False
 
 def _phase_label(week_monday: date, week_sunday: date) -> str | None:
     """Return phase name if this week overlaps a configured phase, else None."""
@@ -325,18 +339,34 @@ def build_planner(iv_events, iv_activities, weeks=3, strava_activities=None, xer
                 completed_flag = False
                 plan_name = session_name
             else:
-                # No data — show rest day or placeholder
-                session_name = "Rest Day" if day_date < today else "—"
+                # No data — show rest day or run-slot placeholder
+                is_run_day = _is_run_slot(day_date)
+                if is_run_day and day_date == KIPRUN_DATE:
+                    session_name = "🏁 Kiprun 10km Race"
+                    time_str = "B-priority · Race Day"
+                elif is_run_day:
+                    dow_name = 'Wednesday' if day_date.weekday() == 2 else 'Sunday'
+                    session_name = f"{'Long Run' if day_date.weekday() == 6 else 'Run'} — {dow_name} slot"
+                    time_str = "Planned" if day_date >= today else ""
+                else:
+                    session_name = "Rest Day" if day_date < today else "—"
+                    time_str = ""
                 xss = 0
-                time_str = ""
                 completed_flag = False
-                plan_name = ""
+                plan_name = session_name if is_run_day else ""
 
             # Determine CSS class for day card
+            is_run_slot_day = _is_run_slot(day_date)
+            # A past day with a logged run counts as completed, not missed
+            has_run = any(
+                (a.get('sport_type') or '').lower() in {'run', 'running', 'trail_run', 'treadmill'}
+                or 'run' in (a.get('name') or '').lower()
+                for a in completed
+            )
             day_classes = ['cal-day']
             if day_date == today:
                 day_classes.append('today')
-            elif day_date < today and completed_flag:
+            elif day_date < today and (completed_flag or (is_run_slot_day and has_run)):
                 day_classes.append('completed')
             elif day_date < today and not completed_flag:
                 day_classes.append('past')

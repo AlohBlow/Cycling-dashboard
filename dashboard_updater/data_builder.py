@@ -134,6 +134,9 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
     # TdF Singapore Criterium — À l'Attaque Masters, Sun 8 Nov 2026
     race_date = date(2026, 11, 8)
     days_to_race = max(0, (race_date - today).days)
+    # Kiprun 10km — B-priority, Sun 27 Sep 2026
+    kiprun_date = date(2026, 9, 27)
+    days_to_kiprun = max(0, (kiprun_date - today).days)
 
     # Build phase (keep legacy Bintan vars at 0 for any residual template refs)
     days_to_s1 = 0
@@ -382,6 +385,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
         # Countdown — TdF Singapore Criterium
         'days_to_race':      days_to_race,
+        'days_to_kiprun':    days_to_kiprun,
         'build_phase':       build_phase,
         'build_phase_color': build_phase_color,
         # Legacy Bintan vars kept at 0 — residual template refs won't break
