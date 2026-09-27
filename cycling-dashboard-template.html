@@ -649,11 +649,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     {% endif %}
   </div>
   <div class="nf-card">
-    <div class="nf-label">Calories Today</div>
+    <div class="nf-label">Calories Today <span style="font-size:9px;color:var(--green);font-weight:400">{% if garmin_calories %}✓ Garmin sync{% endif %}</span></div>
     {% if garmin_calories %}
     <div class="nf-value" style="color:var(--text)">{{ garmin_calories }} <span style="font-size:14px">kcal</span></div>
-    <div class="nf-target">Log nutrition in Garmin Connect or MyFitnessPal</div>
-    <span class="nf-flag" style="background:var(--card2);color:var(--green)">✓ Via Garmin sync</span>
+    <div class="nf-target">{% if garmin_macros %}{{ garmin_macros }}{% else %}Log nutrition in Garmin Connect or MyFitnessPal{% endif %}</div>
+    <span class="nf-flag" style="background:var(--card2);color:var(--green)">✓ Via Garmin sync (MyFitnessPal)</span>
     {% else %}
     <div class="nf-value" style="color:var(--muted)">— <span style="font-size:14px">kcal</span></div>
     <div class="nf-target">Log nutrition in Garmin Connect or MyFitnessPal</div>

@@ -198,8 +198,12 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
 
     garmin_hydration = w.get('hydration_ml')
     garmin_calories  = w.get('calories')
-    # Garmin returns static placeholder values when no real reading exists.
-    # 2,450 ml and 266 kcal are the known fallback constants — treat them as no-data.
+    garmin_carbs     = w.get('carbohydrates_g')
+    garmin_protein   = w.get('protein_g')
+    garmin_fat       = w.get('fat_g')
+    # Garmin has previously returned static placeholder values when no real reading
+    # exists. 2,450 ml and 266 kcal are the known fallback constants — keep treating
+    # them as no-data even now that we're reading the correct live fields.
     _GARMIN_HYD_FALLBACK = 2450
     _GARMIN_CAL_FALLBACK = 266
     if garmin_hydration and int(garmin_hydration) == _GARMIN_HYD_FALLBACK:
@@ -208,6 +212,13 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         garmin_calories = None
     hydration_disp   = f"{int(garmin_hydration):,}" if garmin_hydration else None
     calories_disp    = f"{int(garmin_calories):,}" if garmin_calories else None
+    macros_disp = None
+    if garmin_calories and (garmin_carbs or garmin_protein or garmin_fat):
+        parts = []
+        if garmin_carbs:   parts.append(f"{int(garmin_carbs)}g carbs")
+        if garmin_protein: parts.append(f"{int(garmin_protein)}g protein")
+        if garmin_fat:     parts.append(f"{int(garmin_fat)}g fat")
+        macros_disp = ' · '.join(parts)
 
     # Training Readiness — Garmin TR isn't exposed via IV (its `readiness` field is always
     # null for this account), so derive from sleep score, HRV trend, AND TSB (acute fatigue).
@@ -410,6 +421,7 @@ def build_context(iv_fitness, iv_wellness, iv_activities, iv_hrv, xert_status,
         'weight_display':   weight_disp,
         'garmin_hydration': hydration_disp,
         'garmin_calories':  calories_disp,
+        'garmin_macros':    macros_disp,
         'resting_hr':       resting_hr,
         'sleep_duration':   sleep_str,
         'sleep_badge':      sleep_badge,

@@ -130,9 +130,14 @@ def get_latest_wellness():
     """
     Returns the most recent wellness entry, using the last 14 days for all fields
     except weight — weight uses a 90-day window so a missed sync day doesn't blank it.
+
+    Hydration/nutrition are read from TODAY's row specifically (not the same "most
+    recent HR/sleep/HRV" row) since Garmin's daily hydration/kcal totals accumulate
+    through the day and may populate independently of overnight metrics.
     """
     oldest_14 = (date.today() - timedelta(days=14)).isoformat()
     oldest_90 = (date.today() - timedelta(days=90)).isoformat()
+    today_str = date.today().isoformat()
 
     rows_14 = _get(f"/athlete/{INTERVALS_ATHLETE_ID}/wellness", {"oldest": oldest_14})
 
@@ -159,6 +164,11 @@ def get_latest_wellness():
     if not base and weight is None:
         return {}
 
+    # Hydration/kcal/macros come from TODAY's row specifically — these are Garmin
+    # daily-summary totals (hydration logged in Garmin Connect, kcal rolled up from
+    # MyFitnessPal via Garmin), distinct from overnight HR/sleep/HRV.
+    today_row = next((r for r in rows_14 if r.get("id") == today_str), {})
+
     return {
         "date":                 base.get("id"),
         "weight_kg":            weight,
@@ -168,8 +178,9 @@ def get_latest_wellness():
         "hrv":                  base.get("hrv"),
         "sport_info":           base.get("sportInfo", []),
         "training_readiness":   base.get("garminTrainingReadiness") or base.get("trainingReadiness"),
-        "hydration_ml":         base.get("hydration"),
-        "hydration_target_ml":  base.get("hydrationTarget"),
-        "calories":             base.get("calories"),
-        "calories_target":      base.get("caloriesTarget"),
+        "hydration_ml":         today_row.get("hydrationVolume"),
+        "calories":             today_row.get("kcalConsumed"),
+        "carbohydrates_g":      today_row.get("carbohydrates"),
+        "protein_g":            today_row.get("protein"),
+        "fat_g":                today_row.get("fatTotal"),
     }
