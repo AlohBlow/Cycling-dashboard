@@ -322,7 +322,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     <div class="status-badge" title="Data synced from Garmin Connect, Xert, and Intervals.icu">
       <span class="sb-label">Data as of</span>
-      <span class="sb-value">Sun 4 Oct 2026 · 11:22 SGT</span>
+      <span class="sb-value">Sun 4 Oct 2026 · 11:32 SGT</span>
     </div>
     
     <div class="alert-pill" style="background:#071f0f;border-color:#16a34a33;color:var(--green)">
@@ -879,7 +879,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="today-card" id="rec-protocol-card">
     <div class="tc-header">
       🌡️ Recovery Protocol Tonight
-      <button id="alcohol-toggle" onclick="toggleAlcohol()" style="margin-left:auto;font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid #eab30833;background:#1f1507;color:#fcd34d;cursor:pointer;font-weight:600;letter-spacing:0.03em">🍺 Alcohol tonight</button>
     </div>
     
     
@@ -940,11 +939,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     <div class="rec-block">
       <div class="rp-title" id="rec-title-normal">🧖 Recovery — Steam Protocol</div>
-      <div id="rec-title-alcohol" style="display:none" class="rp-title">⬇️ Downgraded — Alcohol Consumed</div>
       
-      <div id="alcohol-note" style="display:none;margin-top:8px;padding:8px 10px;background:#1f1507;border:1px solid #eab30833;border-radius:6px;font-size:11px;color:#fcd34d">
-        ⬇️ Protocol downgraded: cold shock removed · reduce sauna reps by 1 · prioritise sleep over protocol
-      </div>
     </div>
   </div>
 
@@ -1638,20 +1633,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cn-body" id="cn-body-preview">
     
     <p>Block 1 — STATUS SYNTHESIS
-HRV dipped to 36.0ms today (−4% vs 7-day avg) after a volatile 3-day swing (40→43→36), signalling incomplete parasympathetic recovery despite TSB of −2.0 indicating fresh fatigue status. CTL has declined from 72.3 to 70.6 over two weeks, which is concerning 35 days out from race day. Trust the HRV signal over TSB here—nervous system is lagging despite low acute fatigue—and prioritize sleep and parasympathetic loading tonight.</p><p>Block 2 — SESSION INSIGHT
-Bedok Run delivered 64.5 XSS in 47 minutes with a balanced 55/44 fat-carb split and zero anaerobic matches; the 20-min peak of 189W sat at only 69% TP, confirming a steady-state aerobic session rather than intensity. Five-minute peak of 197W reinforces Z2/Z3 distribution (49%+49%), which is appropriate for crit-specific sprint work phase but shows AWC barely touched (2.0% discharge). Xert flags "very tired" status despite moderate load, corroborating the HRV dip and CTL decline.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
-Today's completed Bedok Run was an efficient aerobic maintenance ride—low intensity, solid energy distribution, and low central fatigue—requiring 13 hours recovery before tomorrow's high-intensity block. Tonight: consume 1.2g carb/kg + 0.3g protein/kg within 90 min post-ride, hydrate to pale urine (minimum 600ml), and target 8.5 hours sleep with no screens after 21:30. Recovery protocol: dry sauna 80–90°C for 12 min (Round 1), then 13–14°C pool immersion 4 min, then dry sauna 80–90°C for 12 min (Round 2), then 13–14°C pool immersion 3 min, then 4°C cold shock to legs only for 45 sec, finish in magnesium pool for 8 min.</p>
+You are balanced on the edge of freshness: TSB at −2.0 signals residual fatigue, but HRV at 36.0ms is only 4% below your 7-day mean and shows no alarm pattern, suggesting central nervous system recovery is intact. CTL has dipped 1.7 points over two weeks (72.3 → 70.6), which is acceptable given you are 35 days out in the Crit-Specific Sprint Work phase, not yet in peak build. Trust the HRV signal over TSB here—you can handle intensity tomorrow.</p><p>Block 2 — SESSION INSIGHT
+Today's Bedok Run was aerobic base work: 49% Z3, 49% Z2, minimal anaerobic discharge (0.1 matches, 2.0% AWC). Your 20-minute peak power of 189W sits at 69% TP, a sustainable threshold-lite ceiling for a run-focused session. Recovery hours required were 13h, which clears by early tomorrow evening. Xert marks you "Very tired," but that reflects accumulated session load, not a power or readiness crisis—this is phase-appropriate fatigue.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
+Bedok Run delivered 64.5 XSS at low-intensity dominance (Z1+Z2 = 51%)—exactly right for an active-recovery Sunday before tomorrow's planned high-intensity block. Tonight, execute this mandatory sequence: *Sauna Round 1* — dry sauna 80–90°C for 12 minutes; *Cool-down* — 13–14°C pool 3–5 minutes; *Sauna Round 2* — dry sauna 80–90°C for 12 minutes; *Final shock* — 4°C cold shock to legs only, 30–60 seconds; *Finish* — magnesium pool. Hydration: 750ml electrolyte drink + 500ml water tonight, 500ml upon waking. Target 8h sleep. No caffeine after 14:00.</p>
     <p id="cn-fade" style="background:linear-gradient(transparent,#1a1d3a);height:24px;margin:0;padding:0"></p>
   </div>
   
   <div class="cn-body" id="cn-body-full" style="display:none">
     
     <p>Block 4 — TOMORROW PREVIEW
-Today's 13-hour recovery clears at 20:47 tomorrow evening; the planned high-intensity session (37 min, 38 XSS target) begins fresh at 06:00 if scheduled at dawn. Ceiling: stay below 285W (104% TP) for the main block, and do not exceed 40 matches in Xert anaerobic—this preserves AWC for Friday/Saturday crit-specific work. Today's moderate load (64.5 XSS) leaves 58.5 XSS buffer for tomorrow's planned intensity, so execution headroom is adequate if HRV stabilizes by 06:00.</p><p>Block 5 — RACE TRAJECTORY
-🟡 Monitor—CTL momentum is negative (−1.7 in 14 days), and parasympathetic tone is suppressed despite adequate TSB, requiring immediate focus. Projected race-day TSB of +21 to +28 is ideal for peak form on 8 Nov, but only if CTL floor stabilizes at 70+ and HRV recovers by midweek. Priority this week: halt CTL decline by executing sprint-work sessions at prescribed intensity (no more than 5×2min repeats at 110% TP), restore HRV through 9-hour sleep minimum and sauna/cold exposure, and validate AWC > 22kJ by Thu 10 Oct.</p>
+Recovery clears at approximately 20:00 tonight (13h from 07:00 session end). Tomorrow's High Intensity Training targets 38.0 XSS in 37 minutes—this is a sprint-work block aligned to Crit-Specific phase demands (repeated short surges, AWC engagement). Hold HR ceiling at Z4 max unless the session prescription demands peaks; do not exceed 95% TP sustained outside the prescribed intervals. Every watt above plan today is a watt stolen from tomorrow's quality.</p><p>Block 5 — RACE TRAJECTORY
+🟡 Monitor. CTL trend (−1.7 pts) is gentle but requires arrest this week; projected race-day TSB of +21 to +28 is excellent. Your priority this week: execute three crit-specific sprint sessions (Tue, Wed, Thu) to rebuild CTL to 72+ and lock repeat-power repeatability at 110–120% TP, the cornerstone of your 30-minute À l'Attaque criterium on 8 Nov.</p>
   </div>
   <div style="margin-top:8px;text-align:right">
-    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (428 words)</button>
+    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (385 words)</button>
   </div>
   
   
@@ -2001,7 +1996,7 @@ Today's 13-hour recovery clears at 20:47 tomorrow evening; the planned high-inte
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Sunday 4 October 2026 at 11:22 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Sunday 4 October 2026 at 11:32 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: 6:00 AM &amp; 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -2025,39 +2020,8 @@ function toggleCoachNote() {
   }
 }
 
-function toggleAlcohol() {
-  const active = localStorage.getItem('alcohol_tonight') === '1';
-  const next = active ? '0' : '1';
-  localStorage.setItem('alcohol_tonight', next);
-  applyAlcohol();
-}
-function applyAlcohol() {
-  const active = localStorage.getItem('alcohol_tonight') === '1';
-  const btn = document.getElementById('alcohol-toggle');
-  const note = document.getElementById('alcohol-note');
-  const titleNormal = document.getElementById('rec-title-normal');
-  const titleAlcohol = document.getElementById('rec-title-alcohol');
-  if (btn) {
-    btn.style.background = active ? '#2d1f00' : '#1f1507';
-    btn.style.borderColor = active ? '#f59e0b99' : '#eab30833';
-    btn.textContent = active ? '🍺 Alcohol tonight ✓' : '🍺 Alcohol tonight';
-  }
-  // Hide cold shock rows and show downgrade note
-  document.querySelectorAll('.cold-shock-row').forEach(r => r.style.display = active ? 'none' : '');
-  if (note) note.style.display = active ? 'block' : 'none';
-  if (titleNormal) titleNormal.style.display = active ? 'none' : 'block';
-  if (titleAlcohol) titleAlcohol.style.display = active ? 'block' : 'none';
-}
-// Apply on load; auto-reset at midnight SGT
-(function() {
-  const stored = localStorage.getItem('alcohol_tonight_date');
-  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
-  if (stored !== todaySGT) {
-    localStorage.removeItem('alcohol_tonight');
-    localStorage.setItem('alcohol_tonight_date', todaySGT);
-  }
-  applyAlcohol();
-})();
+// Clear any leftover alcohol-toggle state from earlier versions
+try { localStorage.removeItem('alcohol_tonight'); localStorage.removeItem('alcohol_tonight_date'); } catch (e) {}
 
 // ── Hydration manual entry ──────────────────────────────────────────────────
 function updateHydrationDisplay() {
