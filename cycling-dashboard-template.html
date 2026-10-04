@@ -584,7 +584,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="today-card" id="rec-protocol-card">
     <div class="tc-header">
       🌡️ Recovery Protocol Tonight
-      <button id="alcohol-toggle" onclick="toggleAlcohol()" style="margin-left:auto;font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid #eab30833;background:#1f1507;color:#fcd34d;cursor:pointer;font-weight:600;letter-spacing:0.03em">🍺 Alcohol tonight</button>
     </div>
     {# Look up today's recovery from the planner (avoids re-computing) #}
     {% set today_rec = namespace(found=false, icon='🧖', title='Recovery — Steam Protocol', blocks=[], tier='recovery') %}
@@ -601,18 +600,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     {% endfor %}
     <div class="rec-block">
       <div class="rp-title" id="rec-title-normal">{{ today_rec.icon }} {{ today_rec.title }}</div>
-      <div id="rec-title-alcohol" style="display:none" class="rp-title">⬇️ Downgraded — Alcohol Consumed</div>
       {% for block_icon, block_text in today_rec.blocks %}
-      <div class="rp-row{% if '4°C' in block_text %} cold-shock-row{% endif %}">
+      <div class="rp-row">
         <div class="rp-icon">{{ block_icon }}</div>
         <div>
           <div class="rp-name">{{ block_text }}</div>
         </div>
       </div>
       {% endfor %}
-      <div id="alcohol-note" style="display:none;margin-top:8px;padding:8px 10px;background:#1f1507;border:1px solid #eab30833;border-radius:6px;font-size:11px;color:#fcd34d">
-        ⬇️ Protocol downgraded: cold shock removed · reduce sauna reps by 1 · prioritise sleep over protocol
-      </div>
     </div>
   </div>
 
@@ -1339,39 +1334,8 @@ function toggleCoachNote() {
   }
 }
 
-function toggleAlcohol() {
-  const active = localStorage.getItem('alcohol_tonight') === '1';
-  const next = active ? '0' : '1';
-  localStorage.setItem('alcohol_tonight', next);
-  applyAlcohol();
-}
-function applyAlcohol() {
-  const active = localStorage.getItem('alcohol_tonight') === '1';
-  const btn = document.getElementById('alcohol-toggle');
-  const note = document.getElementById('alcohol-note');
-  const titleNormal = document.getElementById('rec-title-normal');
-  const titleAlcohol = document.getElementById('rec-title-alcohol');
-  if (btn) {
-    btn.style.background = active ? '#2d1f00' : '#1f1507';
-    btn.style.borderColor = active ? '#f59e0b99' : '#eab30833';
-    btn.textContent = active ? '🍺 Alcohol tonight ✓' : '🍺 Alcohol tonight';
-  }
-  // Hide cold shock rows and show downgrade note
-  document.querySelectorAll('.cold-shock-row').forEach(r => r.style.display = active ? 'none' : '');
-  if (note) note.style.display = active ? 'block' : 'none';
-  if (titleNormal) titleNormal.style.display = active ? 'none' : 'block';
-  if (titleAlcohol) titleAlcohol.style.display = active ? 'block' : 'none';
-}
-// Apply on load; auto-reset at midnight SGT
-(function() {
-  const stored = localStorage.getItem('alcohol_tonight_date');
-  const todaySGT = new Date(Date.now() + 8*3600000).toISOString().slice(0,10);
-  if (stored !== todaySGT) {
-    localStorage.removeItem('alcohol_tonight');
-    localStorage.setItem('alcohol_tonight_date', todaySGT);
-  }
-  applyAlcohol();
-})();
+// Clear any leftover alcohol-toggle state from earlier versions
+try { localStorage.removeItem('alcohol_tonight'); localStorage.removeItem('alcohol_tonight_date'); } catch (e) {}
 
 // ── Hydration manual entry ──────────────────────────────────────────────────
 function updateHydrationDisplay() {
