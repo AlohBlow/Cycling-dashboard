@@ -314,20 +314,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="header-pills">
     <div class="status-badge">
       <span class="sb-label">Training Status</span>
-      <span class="sb-value" style="color:var(--green)">Fresh</span>
+      <span class="sb-value" style="color:var(--yellow)">Very tired</span>
     </div>
     <div class="status-badge">
       <span class="sb-label">Form / TSB</span>
-      <span class="sb-value" style="color:var(--accent)">+0.0 · Fresh</span>
+      <span class="sb-value" style="color:var(--yellow)">-0.3 · Moderate</span>
     </div>
     <div class="status-badge" title="Data synced from Garmin Connect, Xert, and Intervals.icu">
       <span class="sb-label">Data as of</span>
-      <span class="sb-value">Mon 5 Oct 2026 · 08:00 SGT</span>
+      <span class="sb-value">Mon 5 Oct 2026 · 10:46 SGT</span>
     </div>
     
     <div class="alert-pill" style="background:#071f0f;border-color:#16a34a33;color:var(--green)">
       <span class="ap-icon">✅</span>
-      <span>Readiness: PRIME · Sleep 87 · TSB +0</span>
+      <span>Readiness: PRIME · Sleep 87 · TSB -0</span>
     </div>
     
   </div>
@@ -346,19 +346,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Garmin Connect</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TR: PRIME (Sleep 87 · TSB +0) · Sleep: 8h 03m · Resting HR: 38 bpm · Weight: 67.7 kg</td>
+        <td>TR: PRIME (Sleep 87 · TSB -0) · Sleep: 8h 03m · Resting HR: 38 bpm · Weight: 67.7 kg</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Intervals.icu</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>CTL: 70.3 · ATL: 70.3 · TSB: +0.0 · Zone: Fresh</td>
+        <td>CTL: 70.4 · ATL: 70.7 · TSB: -0.3 · Zone: Moderate</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Xert</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TP: 281W · HIE: 21.7 kJ · PP: 1022W · Status: Fresh</td>
+        <td>TP: 275W · HIE: 21.1 kJ · PP: 1014W · Status: Very tired</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -383,7 +383,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="metric-card green">
     <div class="mc-label">Training Readiness</div>
     <div class="mc-value" style="color:var(--green)">PRIME</div>
-    <div class="mc-sub">Sleep 87 · TSB +0</div>
+    <div class="mc-sub">Sleep 87 · TSB -0</div>
     <span class="mc-badge good">Garmin</span>
   </div>
   <div class="metric-card purple">
@@ -418,9 +418,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="chart-card">
     <div class="chart-title">CTL / ATL / TSB — Last 30 Days</div>
     <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 70.3</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 70.3</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) +0.0</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 70.4</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 70.7</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) -0.3</div>
     </div>
     <div class="chart-wrap"><canvas id="formChart"></canvas></div>
     <div class="zone-bar">
@@ -430,18 +430,30 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="z z-trans" style="flex:1"></div>
     </div>
     <div class="zone-bar-labels">
-      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now +0.0</span><span>Transition</span>
+      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now -0.3</span><span>Transition</span>
     </div>
     <div class="current-marker">
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">70.3</div><div class="cm-lab">CTL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">70.3</div><div class="cm-lab">ATL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">+0.0</div><div class="cm-lab">TSB</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent)">70.4</div><div class="cm-lab">CTL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">70.7</div><div class="cm-lab">ATL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">-0.3</div><div class="cm-lab">TSB</div></div>
     </div>
   </div>
 
   <div class="activities-card">
     <div class="chart-title">Recent Activities — Last 10</div>
 
+    
+    <div class="activity-row ">
+      <div class="ar-icon">🚶</div>
+      <div>
+        <div class="ar-name">Easy Pure Endurance Activity</div>
+        <div class="ar-date">Mon 5 Oct · 29m</div>
+      </div>
+      <div class="ar-dist">2.4 km</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-rest">6.0 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
     
     <div class="activity-row ">
       <div class="ar-icon">🚴</div>
@@ -671,18 +683,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="xb-pills"></div>
     </div>
     
-    <div class="activity-row ">
-      <div class="ar-icon">⚡</div>
-      <div>
-        <div class="ar-name">Active Recovery - 40</div>
-        <div class="ar-date">Tue 29 Sep · 40m</div>
-      </div>
-      <div class="ar-dist">—</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-rest">26.7 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
 
   </div>
 </div>
@@ -697,6 +697,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     
     
+    
+      
+        
+        <div style="margin-bottom:8px;padding:10px;background:var(--card2);border:1px solid #22c55e33;border-radius:8px">
+          <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">COMPLETED ✅</div>
+          <div style="font-size:14px;font-weight:600;color:var(--green)">Easy Pure Endurance Activity</div>
+          <div style="font-size:12px;color:var(--muted2)">2.4 km · 29m · XSS: 6.0</div>
+        </div>
+      
     
       
         
@@ -743,15 +752,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
       
     
+    
+
+    
+    
+
+    
+    
+    
       
-    
-    
-
-    
-    
-
-    
-    
     
       
     
@@ -762,8 +771,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
           <div style="font-size:13px;font-weight:600">Shop</div>
           <div style="font-size:12px;color:var(--muted2)">3.2 km · 13m · XSS: 6.8</div>
         </div>
-      
-    
       
     
       
@@ -819,17 +826,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="tc-header">⚡ Xert Signature</div>
     <div class="xert-sig">
       <div class="xs-item">
-        <div class="xs-val">281</div>
+        <div class="xs-val">275</div>
         <div class="xs-unit">W</div>
         <div class="xs-lab">TP</div>
       </div>
       <div class="xs-item">
-        <div class="xs-val">21.7</div>
+        <div class="xs-val">21.1</div>
         <div class="xs-unit">kJ</div>
         <div class="xs-lab">HIE</div>
       </div>
       <div class="xs-item">
-        <div class="xs-val">1022</div>
+        <div class="xs-val">1014</div>
         <div class="xs-unit">W</div>
         <div class="xs-lab">Peak Power</div>
       </div>
@@ -845,7 +852,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     
     <div style="margin-top:10px;padding:8px;background:var(--card2);border-radius:6px">
-      <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--green)">Fresh</span></div>
+      <div style="font-size:11px;color:var(--muted2)">Training Status: <span style="color:var(--yellow)">Very tired</span></div>
     </div>
     <!-- Signature drift indicator -->
     <div style="margin-top:8px;padding:8px 10px;background:var(--card2);border-radius:6px;border-left:3px solid var(--muted)">
@@ -1188,7 +1195,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="cal-day completed">
       <div class="cal-day-header"><span class="cal-day-num">29</span><span class="cal-day-name">TUE</span></div>
       <div class="cal-session-name">Zwift - SMART - Lucy in the Sky with Diamonds ✅</div>
-      <div class="cal-time">1h 24m · 37.5 km +2 more</div>
+      <div class="cal-time">1h 24m · 37.5 km +1 more</div>
       <span class="cal-xss-badge xss-easy">84.5 XSS</span>
       
       <div class="cal-xss-breakdown">
@@ -1312,13 +1319,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cal-week-header">
     <h3>Crit-Specific · Sprint Work — Oct 5–11</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 735.9 <span style="font-size:10px;color:var(--muted);font-weight:400">est</span></span>
+      <span class="cal-week-xss">Weekly XSS: 735.9</span>
       
       <span class="cal-week-xss-bk">
-        <span class="xss-bk xss-bk-low">🔵 702.7</span>
-        <span class="xss-bk xss-bk-high">🟡 24.5</span>
-        <span class="xss-bk xss-bk-peak">🔴 8.7</span>
-        <span class="xss-bk" style="color:var(--muted);font-weight:400">hr-est</span>
+        <span class="xss-bk xss-bk-low">🔵 701.7</span>
+        <span class="xss-bk xss-bk-high">🟡 25.2</span>
+        <span class="xss-bk xss-bk-peak">🔴 9.0</span>
+        
       </span>
       
     </div>
@@ -1328,13 +1335,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="cal-day today">
       <div class="cal-day-header"><span class="cal-day-num">5</span><span class="cal-day-name">MON</span></div>
       <div class="cal-session-name">Zwift - Xert: After Midnight ✅</div>
-      <div class="cal-time">1h 09m · 38.5 km</div>
+      <div class="cal-time">1h 09m · 38.5 km +1 more</div>
       <span class="cal-xss-badge xss-easy">67.1 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 67.1</span>
-        
-        
+        <span class="xss-bk xss-bk-low">🔵 66.1</span>
+        <span class="xss-bk xss-bk-high">🟡 0.7</span>
+        <span class="xss-bk xss-bk-peak">🔴 0.3</span>
         
       </div>
       
@@ -1640,20 +1647,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cn-body" id="cn-body-preview">
     
     <p>Block 1 — STATUS SYNTHESIS
-HRV is balanced at 43.0ms (+5% vs 7-day avg), confirming readiness despite a flat TSB of +0.0; trust HRV signal here—you are Fresh per Xert. CTL has drifted slightly downward (70.3 vs 70.7 two weeks ago) with 34 days to race, requiring immediate attention to stabilize fitness before the taper window opens on 13 October. TSB will climb to +23–30 by race day if taper executes cleanly, but the CTL decay must reverse this week.</p><p>Block 2 — SESSION INSIGHT
-Today's After Midnight ride logged 67.1 XSS over 1h 09m with a balanced 55/45 fat-carb split; power stayed predominantly Z2–Z3 (58%+35%), a controlled aerobic session with minimal anaerobic stress (only 1.1 matches, 20.3% AWC discharge). Your 20-min peak of 190W was 68% of TP—deliberately conservative—and recovery requirement is 16 hours, clearing by ~23:00 tonight. Xert status remains Fresh, indicating headroom for the IRRT Nicoll loops tomorrow without breakthrough risk.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
-The completed session was low-intensity base work as intended; you stayed disciplined in the power bands and preserved AWC for tomorrow's harder effort. Tonight's recovery protocol: consume 1.2g carbs + 0.3g protein per kg body weight within 30 min, hydrate to pale urine by bedtime, and target 8–9 hours sleep. Follow mandatory sequence: (1) dry sauna 80–90°C, 12 min × 2 rounds; (2) 13–14°C pool 3–5 min between rounds; (3) 4°C cold shock 30–60 sec legs only after the final round; (4) finish with magnesium pool. This drives heat shock protein synthesis and parasympathetic reset ahead of tomorrow's intensity.</p>
+HRV today at 43.0ms is +5% above your 7-day average and signals balanced autonomic recovery; TSB at −0.3 confirms you're still slightly fatigued but trainable, making HRV the more reliable indicator of readiness. CTL has drifted down 0.3 points over two weeks (70.7→70.4), which is acceptable given crit-specific sprint work phase, but needs stabilization before peak block begins. You have 34 days to race and remain on trajectory for a +23 to +30 TSB taper start by mid-October.</p><p>Block 2 — SESSION INSIGHT
+Today's After Midnight ride delivered 67.1 XSS with a conservative power distribution: 58% Z2, 35% Z3, only 4% Z4—appropriate for a "very tired" status tag despite solid aerobic base work. Your 20-min peak power of 190W sits at 69% TP (274W), which is well-controlled and suggests you're respecting fatigue signals rather than forcing threshold work when depleted. AWC discharge of only 20.3% and 1.1 anaerobic matches confirms this was a recovery-tilted session; 16 hours recovery window clears you by late morning tomorrow.</p><p>Block 3 — TODAY'S STATUS & EVENING PROTOCOL
+Your completed session was appropriately paced for fatigue state—solid Z2/Z3 aerobic work with minimal anaerobic stress keeps you ready for tomorrow's IRRT progression. Tonight: consume 1.2g carb/kg + 0.3g protein/kg within 90 min post-ride (estimate 85g carb + 20g protein for your mass); hydrate to pale urine; target 8–9 hours sleep. Recovery protocol: Dry sauna 80–90°C, 12 min × 2 rounds with 13–14°C pool immersion (3–5 min) between rounds; finish with 4°C cold shock 30–60 sec legs-only, then magnesium pool.</p>
     <p id="cn-fade" style="background:linear-gradient(transparent,#1a1d3a);height:24px;margin:0;padding:0"></p>
   </div>
   
   <div class="cn-body" id="cn-body-full" style="display:none">
     
     <p>Block 4 — TOMORROW PREVIEW
-Recovery clears by 23:00 tonight (16h protocol from ~07:00 session start); IRRT Nicoll loops begin fresh tomorrow. Target XSS is 87.6 over 1h 58m—this is crit-specific sprint work in the Crit-Specific phase, so expect 4–6 anaerobic efforts (repeats/attacks) mixed within threshold blocks; cap HR at 185 bpm on recovery sections to preserve freshness. Every extra joule today debits tomorrow's capacity to hit the target intensity cleanly.</p><p>Block 5 — RACE TRAJECTORY
-🟡 Monitor. CTL decay (70.3 vs peak trajectory of 80+) must reverse by 12 October or taper will enter underdone; projected race-day TSB of +23–30 is optimal, but insufficient fitness base will blunt peak power when it matters. Priority this week: execute the crit-specific sprint block flawlessly (Nicoll loops tomorrow + two more intense sessions by 12 Oct) to arrest CTL drift and lock in repeat-sprint capacity before the 13 October taper window opens. À l'Attaque on 8 November demands 95–105% TP sustained + explosions above PP; build that now.</p>
+Your 16-hour recovery window from today's 1h 09m session clears at ~5pm tonight; tomorrow's IRRT Nicoll loops (87.6 XSS, 1h 58m) begins fresh with full glycogen and nervous system reset. This is a crit-specific sprint-work session—expect 95–105% TP surges with 2–4 min recovery repeats; hold HR ceiling at 90% max if any session extension creeps in, as today's cumulative load (67.1 XSS) already taxes your CTL buffer. Any additional effort today directly compresses tomorrow's quality, so nail tonight's sleep window.</p><p>Block 5 — RACE TRAJECTORY
+🟡 **Monitor**—CTL soft decline (−0.3) and tight TSB (−0.3) signal you're in crit-specific work but must arrest the fitness drift this week. Projected race-day TSB of +23 to +30 remains strong if taper executes perfectly from 13 October onward. **Priority #1: stabilize CTL at 70.4+ through peak block (6–12 Oct) with 1–2 high-quality crit-specific intervals weekly, then protect fatigue base during taper to maximize race-day form.** Your 34-day runway is tight; every XSS decision this week compounds into your peak window.</p>
   </div>
   <div style="margin-top:8px;text-align:right">
-    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (427 words)</button>
+    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (429 words)</button>
   </div>
   
   
@@ -1720,7 +1727,7 @@ Recovery clears by 23:00 tonight (16h protocol from ~07:00 session start); IRRT 
         <div class="dur-target-row">
           <div class="dur-target-label">
             <span class="dur-target-name">Sustained NP (30min)</span>
-            <span class="dur-target-range" style="color:#4ade80">238–258W <span style="font-size:9px;color:var(--muted)">(85–92% TP)</span></span>
+            <span class="dur-target-range" style="color:#4ade80">233–253W <span style="font-size:9px;color:var(--muted)">(85–92% TP)</span></span>
           </div>
           <div class="dur-target-bar-bg" style="position:relative">
             <div class="dur-target-bar-fill" style="width:88%;background:linear-gradient(90deg,#4ade80,#22d3ee)"></div>
@@ -1731,7 +1738,7 @@ Recovery clears by 23:00 tonight (16h protocol from ~07:00 session start); IRRT 
         <div class="dur-target-row">
           <div class="dur-target-label">
             <span class="dur-target-name">Anaerobic matches</span>
-            <span class="dur-target-range" style="color:#a855f7">8–12 efforts &gt;421W</span>
+            <span class="dur-target-range" style="color:#a855f7">8–12 efforts &gt;412W</span>
           </div>
           <div class="dur-target-bar-bg" style="position:relative">
             <div class="dur-target-bar-fill" style="width:75%;background:linear-gradient(90deg,#a855f7,#4ade80)"></div>
@@ -1758,7 +1765,7 @@ Recovery clears by 23:00 tonight (16h protocol from ~07:00 session start); IRRT 
           </div>
         </div>
         <div style="font-size:10px;color:var(--muted);margin-top:8px">
-          Based on live Xert signature: TP 281W · HIE 21.7kJ · PP 1022W
+          Based on live Xert signature: TP 275W · HIE 21.1kJ · PP 1014W
         </div>
       </div>
     </div>
@@ -1992,7 +1999,7 @@ Recovery clears by 23:00 tonight (16h protocol from ~07:00 session start); IRRT 
   </div>
 
   <div class="traj-legend" style="margin-top:10px">
-    <span><span class="traj-legend-dot" style="background:#eab308"></span>Today (CTL 70.3)</span>
+    <span><span class="traj-legend-dot" style="background:#eab308"></span>Today (CTL 70.4)</span>
     <span><span class="traj-legend-dot" style="background:#4f8ef7"></span>Build phases</span>
     <span><span class="traj-legend-dot" style="background:#a855f7"></span>Durability block</span>
     <span><span class="traj-legend-dot" style="background:#4ade80"></span>Peak (Aug 11)</span>
@@ -2003,7 +2010,7 @@ Recovery clears by 23:00 tonight (16h protocol from ~07:00 session start); IRRT 
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Monday 5 October 2026 at 08:00 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Monday 5 October 2026 at 10:46 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: 6:00 AM &amp; 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -2079,9 +2086,9 @@ function switchTab(id, btn) {
 
 // Live CTL/ATL/TSB data from Intervals.icu — last 14 days
 const labels  = ["Sep 6", "Sep 7", "Sep 8", "Sep 9", "Sep 10", "Sep 11", "Sep 12", "Sep 13", "Sep 14", "Sep 15", "Sep 16", "Sep 17", "Sep 18", "Sep 19", "Sep 20", "Sep 21", "Sep 22", "Sep 23", "Sep 24", "Sep 25", "Sep 26", "Sep 27", "Sep 28", "Sep 29", "Sep 30", "Oct 1", "Oct 2", "Oct 3", "Oct 4", "Oct 5"];
-const ctlData = [82.4, 80.8, 79.0, 78.4, 77.5, 76.0, 76.0, 76.9, 76.0, 75.2, 73.5, 74.6, 74.4, 75.5, 73.9, 72.3, 70.7, 70.4, 69.8, 68.6, 68.3, 69.8, 69.6, 69.8, 69.3, 67.8, 67.0, 70.0, 70.7, 70.3];
-const atlData = [87.5, 78.1, 68.2, 66.3, 62.6, 56.4, 58.6, 66.2, 62.6, 59.5, 52.2, 61.5, 62.1, 69.9, 61.6, 53.8, 47.4, 48.7, 48.3, 44.2, 45.9, 57.5, 57.8, 60.5, 59.1, 51.8, 49.4, 68.6, 73.0, 70.3];
-const tsbData = [-5.1, 2.7, 10.8, 12.1, 14.9, 19.6, 17.4, 10.7, 13.4, 15.7, 21.3, 13.1, 12.3, 5.6, 12.3, 18.5, 23.3, 21.7, 21.5, 24.4, 22.4, 12.3, 11.8, 9.3, 10.2, 16.0, 17.6, 1.4, -2.3, 0.0];
+const ctlData = [82.4, 80.8, 79.0, 78.4, 77.5, 76.0, 76.0, 76.9, 76.0, 75.2, 73.5, 74.6, 74.4, 75.5, 73.9, 72.3, 70.7, 70.4, 69.8, 68.6, 68.3, 69.8, 69.6, 69.8, 69.3, 67.8, 67.0, 70.0, 70.7, 70.4];
+const atlData = [87.5, 78.1, 68.2, 66.3, 62.6, 56.4, 58.6, 66.2, 62.6, 59.5, 52.2, 61.5, 62.1, 69.9, 61.6, 53.8, 47.4, 48.7, 48.3, 44.2, 45.9, 57.5, 57.8, 60.5, 59.1, 51.8, 49.4, 68.6, 73.0, 70.7];
+const tsbData = [-5.1, 2.7, 10.8, 12.1, 14.9, 19.6, 17.4, 10.7, 13.4, 15.7, 21.3, 13.1, 12.3, 5.6, 12.3, 18.5, 23.3, 21.7, 21.5, 24.4, 22.4, 12.3, 11.8, 9.3, 10.2, 16.0, 17.6, 1.4, -2.3, -0.3];
 
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
