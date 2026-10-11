@@ -302,7 +302,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <div class="dash-header">
   <div class="header-left">
     <div class="race-pill" style="min-width:80px;background:linear-gradient(135deg,#1a3a0a,#2d6b10);border-color:#4ade80">
-      <div class="day-num" style="font-size:22px">29</div>
+      <div class="day-num" style="font-size:22px">28</div>
       <div class="day-label" style="font-size:9px;color:#86efac">DAYS TO RACE</div>
     </div>
     <div class="header-title">
@@ -318,16 +318,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     <div class="status-badge">
       <span class="sb-label">Form / TSB</span>
-      <span class="sb-value" style="color:var(--yellow)">+23.2 · Transition</span>
+      <span class="sb-value" style="color:var(--yellow)">+21.3 · Transition</span>
     </div>
     <div class="status-badge" title="Data synced from Garmin Connect, Xert, and Intervals.icu">
       <span class="sb-label">Data as of</span>
-      <span class="sb-value">Sat 10 Oct 2026 · 08:01 SGT</span>
+      <span class="sb-value">Sun 11 Oct 2026 · 08:00 SGT</span>
     </div>
     
     <div class="alert-pill" style="background:#071f0f;border-color:#16a34a33;color:var(--green)">
       <span class="ap-icon">✅</span>
-      <span>Readiness: PRIME · Sleep 85 · TSB +23</span>
+      <span>Readiness: PRIME · Sleep 83 · TSB +21</span>
     </div>
     
   </div>
@@ -346,13 +346,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Garmin Connect</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>TR: PRIME (Sleep 85 · TSB +23) · Sleep: 8h 24m · Resting HR: 35 bpm · Weight: 68.5 kg</td>
+        <td>TR: PRIME (Sleep 83 · TSB +21) · Sleep: 7h 30m · Resting HR: 37 bpm · Weight: 68.5 kg</td>
         <td>Today</td>
       </tr>
       <tr>
         <td><strong>Intervals.icu</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>CTL: 64.2 · ATL: 41.0 · TSB: +23.2 · Zone: Transition</td>
+        <td>CTL: 64.2 · ATL: 42.9 · TSB: +21.3 · Zone: Transition</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -364,7 +364,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <tr>
         <td><strong>Strava</strong></td>
         <td><span class="status-dot live"></span>Live</td>
-        <td>7 rides synced · Riduck AI on 7 · Last: Tue 6 Oct</td>
+        <td>7 rides synced · Riduck AI on 7 · Last: Sat 10 Oct</td>
         <td>Today</td>
       </tr>
       <tr>
@@ -383,20 +383,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="metric-card green">
     <div class="mc-label">Training Readiness</div>
     <div class="mc-value" style="color:var(--green)">PRIME</div>
-    <div class="mc-sub">Sleep 85 · TSB +23</div>
+    <div class="mc-sub">Sleep 83 · TSB +21</div>
     <span class="mc-badge good">Garmin</span>
   </div>
   <div class="metric-card purple">
     <div class="mc-label">HRV Status <span style="font-size:9px;color:var(--muted2);font-weight:400">Garmin Fenix 8</span></div>
     <div class="mc-value" style="color:var(--green)">Elevated</div>
-    <div class="mc-sub">HRV: 66.0 rMSSD · 7d avg: 45.2</div>
+    <div class="mc-sub">HRV: 53.0 rMSSD · 7d avg: 46.5</div>
     <span class="mc-badge good">Above 7d Average ↑</span>
   </div>
   <div class="metric-card blue">
     <div class="mc-label">Sleep Last Night</div>
-    <div class="mc-value" style="color:var(--accent)">8h 24m</div>
+    <div class="mc-value" style="color:var(--accent)">7h 30m</div>
     <div class="mc-sub">Score from Garmin</div>
-    <span class="mc-badge high">85 Sleep Score</span>
+    <span class="mc-badge high">83 Sleep Score</span>
   </div>
   <div class="metric-card yellow">
     <div class="mc-label">Body Battery</div>
@@ -419,8 +419,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="chart-title">CTL / ATL / TSB — Last 30 Days</div>
     <div class="chart-legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>CTL (Fitness) 64.2</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 41.0</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) +23.2</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>ATL (Fatigue) 42.9</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>TSB (Form) +21.3</div>
     </div>
     <div class="chart-wrap"><canvas id="formChart"></canvas></div>
     <div class="zone-bar">
@@ -430,18 +430,66 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="z z-trans" style="flex:1"></div>
     </div>
     <div class="zone-bar-labels">
-      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now +23.2</span><span>Transition</span>
+      <span>High Risk</span><span>Optimal</span><span>Fresh ◄ Now +21.3</span><span>Transition</span>
     </div>
     <div class="current-marker">
       <div class="cm-item"><div class="cm-val" style="color:var(--accent)">64.2</div><div class="cm-lab">CTL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">41.0</div><div class="cm-lab">ATL</div></div>
-      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">+23.2</div><div class="cm-lab">TSB</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--accent2)">42.9</div><div class="cm-lab">ATL</div></div>
+      <div class="cm-item"><div class="cm-val" style="color:var(--yellow)">+21.3</div><div class="cm-lab">TSB</div></div>
     </div>
   </div>
 
   <div class="activities-card">
     <div class="chart-title">Recent Activities — Last 10</div>
 
+    
+    <div class="activity-row ">
+      <div class="ar-icon">🚶</div>
+      <div>
+        <div class="ar-name">Singapore Walking</div>
+        <div class="ar-date">Sat 10 Oct · 12m</div>
+      </div>
+      <div class="ar-dist">0.9 km</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-mega">158.2 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
+    
+    <div class="activity-row ">
+      <div class="ar-icon">🚴</div>
+      <div>
+        <div class="ar-name">Zwift - Xert: SMART - Lucy in the Sky with Diamonds</div>
+        <div class="ar-date">Sat 10 Oct · 49m</div>
+      </div>
+      <div class="ar-dist">28.2 km</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-easy">46.8 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
+    
+    <div class="activity-row ">
+      <div class="ar-icon">🚴</div>
+      <div>
+        <div class="ar-name">Zwift - SMART - Lucy in the Sky with Diamonds</div>
+        <div class="ar-date">Sat 10 Oct · 36m</div>
+      </div>
+      <div class="ar-dist">20.5 km</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-easy">35.2 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
+    
+    <div class="activity-row ">
+      <div class="ar-icon">⚡</div>
+      <div>
+        <div class="ar-name">SMART - Where The Streets Have No Name</div>
+        <div class="ar-date">Sat 10 Oct · 46m</div>
+      </div>
+      <div class="ar-dist">—</div>
+      <div class="ar-pwr">—</div>
+      <div><span class="xss-badge xss-easy">55.9 XSS</span></div>
+      <div class="xb-pills"></div>
+    </div>
     
     <div class="activity-row ">
       <div class="ar-icon">🚶</div>
@@ -635,54 +683,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="xb-pills"></div>
     </div>
     
-    <div class="activity-row ">
-      <div class="ar-icon">🏃</div>
-      <div>
-        <div class="ar-name">Bedok Run</div>
-        <div class="ar-date">Sun 4 Oct · 47m</div>
-      </div>
-      <div class="ar-dist">10.1 km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-easy">64.5 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
-    <div class="activity-row ">
-      <div class="ar-icon">🚴</div>
-      <div>
-        <div class="ar-name">Zwift - Xert: SMART - The Rising</div>
-        <div class="ar-date">Sun 4 Oct · 59m</div>
-      </div>
-      <div class="ar-dist">32.4 km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-easy">56.8 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
-    <div class="activity-row ">
-      <div class="ar-icon">⚡</div>
-      <div>
-        <div class="ar-name">Easy Pure Endurance Activity</div>
-        <div class="ar-date">Sun 4 Oct · 0m</div>
-      </div>
-      <div class="ar-dist">0.4 km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-rest">0.7 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
-    <div class="activity-row ">
-      <div class="ar-icon">🚶</div>
-      <div>
-        <div class="ar-name">Singapore Walking</div>
-        <div class="ar-date">Sat 3 Oct · 47m</div>
-      </div>
-      <div class="ar-dist">3.6 km</div>
-      <div class="ar-pwr">—</div>
-      <div><span class="xss-badge xss-rest">8.9 XSS</span></div>
-      <div class="xb-pills"></div>
-    </div>
-    
 
   </div>
 </div>
@@ -692,7 +692,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <div class="today-recovery-grid">
 
   <div class="today-card">
-    <div class="tc-header">📋 Training Today <span class="tc-badge">Sat 10 Oct 2026</span></div>
+    <div class="tc-header">📋 Training Today <span class="tc-badge">Sun 11 Oct 2026</span></div>
 
     
     
@@ -756,7 +756,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <div style="margin-top:0;padding:10px;background:var(--card2);border:1px solid var(--border);border-radius:8px;margin-bottom:8px">
           <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">YESTERDAY ✅</div>
           <div style="font-size:13px;font-weight:600">Singapore Walking</div>
-          <div style="font-size:12px;color:var(--muted2)">4.0 km · 44m · XSS: 4</div>
+          <div style="font-size:12px;color:var(--muted2)">0.9 km · 12m · XSS: 158.2</div>
         </div>
       
     
@@ -801,13 +801,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 
     
     <div style="margin-top:8px;padding:10px;background:var(--card2);border:1px solid var(--border);border-radius:8px">
-      <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">TOMORROW · SUN 11 OCT</div>
+      <div style="font-size:11px;color:var(--muted2);margin-bottom:3px">TOMORROW · MON 12 OCT</div>
       
-        <div style="font-size:13px;font-weight:600;color:var(--text)">Low Intensity Training</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">High Intensity Training</div>
         <div style="font-size:11px;color:var(--muted2);margin-top:2px">
-          XSS 125.3
+          XSS 82.4
           
-           · 1h 53m
+           · 1h 09m
         </div>
       
     </div>
@@ -834,11 +834,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     </div>
     
     <div style="margin-top:12px;background:#1a150033;border:1px solid #eab30844;border-radius:8px;padding:10px">
-      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">⚡ RECENT BEST: IRRT Nicoll Loops (Tue 6 Oct)</div>
+      <div style="font-size:11px;color:var(--yellow);font-weight:600;margin-bottom:4px">⚡ RECENT BEST: Zwift - Xert: SMART - Lucy in the Sky with Diamonds (Sat 10 Oct)</div>
       <div style="font-size:11px;color:var(--muted2)">
-        Max HR: 183 BPM · 
-        Max Power: 860W · 
-        Focus: Puncheur · 41.3 km
+        Max HR: 144 BPM · 
+        Max Power: 239W · 
+        Focus: Endurance · 28.2 km
       </div>
     </div>
     
@@ -888,13 +888,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         
       
         
-          
-          
-          
-          
-          
-        
       
+        
+          
+          
+          
+          
+          
         
       
     
@@ -915,7 +915,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       
     
     <div class="rec-block">
-      <div class="rp-title" id="rec-title-normal">🔥 Heavy Day — Dry Sauna Protocol</div>
+      <div class="rp-title" id="rec-title-normal">🔥 Moderate Day Protocol</div>
       
       <div class="rp-row">
         <div class="rp-icon">🔥</div>
@@ -949,7 +949,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="nf-card">
     <div class="nf-label">Weight Today</div>
     <div class="nf-value" style="color:var(--green)">68.5 <span style="font-size:14px">kg</span></div>
-    <div class="nf-target">Race weight goal: 66.0 kg · Resting HR: 35 bpm</div>
+    <div class="nf-target">Race weight goal: 66.0 kg · Resting HR: 37 bpm</div>
     <span class="nf-flag ok">✓ At race weight — maintain, don't cut further</span>
   </div>
   <div class="nf-card" id="hydration-card">
@@ -987,106 +987,39 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="card">
       <div class="card-title">⚡ Power Zone Distribution</div>
       <div style="font-size:11px;color:var(--muted2);margin-bottom:12px">
-        IRRT Nicoll Loops · Tue 6 Oct
+        Zwift - SMART - Lucy in the Sky with Diamonds · Sat 10 Oct
       </div>
       
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <span style="font-size:11px;color:var(--muted);width:20px">Z1</span>
         <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:32%;height:100%;background:#64748b;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">32%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z2</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:20%;height:100%;background:#3b82f6;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">20%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z3</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:10%;height:100%;background:#22c55e;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">10%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z4</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:9%;height:100%;background:#eab308;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">9%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z5</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:8%;height:100%;background:#f97316;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">8%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z6</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:10%;height:100%;background:#ef4444;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">10%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z7</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
-          <div style="width:11%;height:100%;background:#a855f7;border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">11%</span>
-      </div>
-      
-      
-      <div style="font-size:11px;font-weight:600;color:var(--muted);margin:12px 0 8px">HR ZONES</div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z1</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:21%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">21%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z2</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:28%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">28%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z3</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:25%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">25%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z4</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:23%;height:100%;background:var(--muted);border-radius:3px"></div>
-        </div>
-        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">23%</span>
-      </div>
-      
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:11px;color:var(--muted);width:20px">Z5</span>
-        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden">
-          <div style="width:4%;height:100%;background:var(--muted);border-radius:3px"></div>
+          <div style="width:4%;height:100%;background:#64748b;border-radius:3px"></div>
         </div>
         <span style="font-size:11px;color:var(--text);width:28px;text-align:right">4%</span>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:11px;color:var(--muted);width:20px">Z2</span>
+        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:39%;height:100%;background:#3b82f6;border-radius:3px"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">39%</span>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:11px;color:var(--muted);width:20px">Z3</span>
+        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:55%;height:100%;background:#22c55e;border-radius:3px"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">55%</span>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:11px;color:var(--muted);width:20px">Z4</span>
+        <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:2%;height:100%;background:#eab308;border-radius:3px"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text);width:28px;text-align:right">2%</span>
       </div>
       
       
@@ -1097,21 +1030,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="card-title">🔥 Anaerobic Work</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
         <div class="stat-block">
-          <div class="stat-val" style="color:var(--orange)">12.7</div>
+          <div class="stat-val" style="color:var(--orange)">—</div>
           <div class="stat-lbl">Matches Burned</div>
         </div>
         <div class="stat-block">
-          <div class="stat-val" style="color:var(--red)">54.7%</div>
+          <div class="stat-val" style="color:var(--red)">—</div>
           <div class="stat-lbl">AWC Discharged</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
         <div class="stat-block">
-          <div class="stat-val">103.2</div>
+          <div class="stat-val">—</div>
           <div class="stat-lbl">AWC Energy kJ</div>
         </div>
         <div class="stat-block">
-          <div class="stat-val" style="color:var(--accent2)">20h</div>
+          <div class="stat-val" style="color:var(--accent2)">9h</div>
           <div class="stat-lbl">Recovery Time</div>
         </div>
       </div>
@@ -1120,14 +1053,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         
         <div class="stat-block">
-          <div class="stat-val" style="color:var(--accent)">239W</div>
+          <div class="stat-val" style="color:var(--accent)">197W</div>
           <div class="stat-lbl">5 min</div>
         </div>
         
         
         <div class="stat-block">
-          <div class="stat-val" style="color:var(--accent)">206W
-            <span style="font-size:12px;color:var(--muted2)">(87% TP)</span>
+          <div class="stat-val" style="color:var(--accent)">193W
+            <span style="font-size:12px;color:var(--muted2)">(81% TP)</span>
           </div>
           <div class="stat-lbl">20 min</div>
         </div>
@@ -1141,37 +1074,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       <div class="card-title">🚀 Energy Metabolism</div>
       
       <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
-        <span style="color:var(--yellow)">🟡 Fat 42.1%</span>
-        <span style="color:var(--accent2)">🔵 Carb 57.9%</span>
+        <span style="color:var(--yellow)">🟡 Fat 53.1%</span>
+        <span style="color:var(--accent2)">🔵 Carb 46.9%</span>
       </div>
       <div style="background:var(--bg3);border-radius:4px;height:10px;overflow:hidden;margin-bottom:16px">
-        <div style="width:42.1%;height:100%;background:var(--yellow);display:inline-block;border-radius:4px 0 0 4px"></div>
-        <div style="width:57.9%;height:100%;background:var(--accent2);display:inline-block;border-radius:0 4px 4px 0"></div>
+        <div style="width:53.1%;height:100%;background:var(--yellow);display:inline-block;border-radius:4px 0 0 4px"></div>
+        <div style="width:46.9%;height:100%;background:var(--accent2);display:inline-block;border-radius:0 4px 4px 0"></div>
       </div>
       
-      
-      <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px">XSS BREAKDOWN</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
-        <div style="background:#1e3a5f;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--accent)">66.0</div>
-          <div style="font-size:10px;color:var(--muted2)">LOW XSS</div>
-        </div>
-        <div style="background:#2d3b2a;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--green)">6.2</div>
-          <div style="font-size:10px;color:var(--muted2)">HIGH XSS</div>
-        </div>
-        <div style="background:#3b2020;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:16px;font-weight:700;color:var(--red)">2.6</div>
-          <div style="font-size:10px;color:var(--muted2)">PEAK XSS</div>
-        </div>
-      </div>
       
       <div style="background:var(--bg3);border-radius:8px;padding:10px">
-        <div style="font-size:14px;font-weight:600;color:var(--green)">IRRT Nicoll Loops</div>
+        <div style="font-size:14px;font-weight:600;color:var(--green)">Zwift - SMART - Lucy in the Sky with Diamonds</div>
         <div style="font-size:12px;color:var(--muted2);margin-top:2px">
-          1h 16m
-           · 41.3 km
-           · <span style="color:var(--orange)">75 XSS</span>
+          37m
+           · 20.5 km
+          
         </div>
       </div>
     </div>
@@ -1199,12 +1116,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cal-week-header">
     <h3>Last Week — Sep 28 – Oct 4</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 612.0 <span style="font-size:10px;color:var(--muted);font-weight:400">est</span></span>
+      <span class="cal-week-xss">Weekly XSS: 503.5 <span style="font-size:10px;color:var(--muted);font-weight:400">est</span></span>
       
       <span class="cal-week-xss-bk">
-        <span class="xss-bk xss-bk-low">🔵 597.8</span>
-        <span class="xss-bk xss-bk-high">🟡 10.6</span>
-        <span class="xss-bk xss-bk-peak">🔴 3.6</span>
+        <span class="xss-bk xss-bk-low">🔵 503.5</span>
+        
+        
         <span class="xss-bk" style="color:var(--muted);font-weight:400">hr-est</span>
       </span>
       
@@ -1305,24 +1222,26 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     <div class="cal-day completed">
       <div class="cal-day-header"><span class="cal-day-num">3</span><span class="cal-day-name">SAT</span></div>
-      <div class="cal-session-name">Singapore Walking ✅</div>
-      <div class="cal-time">47m · 3.6 km</div>
+      <div class="cal-session-name">IRRT Sat ✅</div>
+      <div class="cal-time">3h 45m · 127.6 km</div>
       <span class="cal-xss-badge xss-mega">208.9 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 194.7</span>
-        <span class="xss-bk xss-bk-high">🟡 10.6</span>
-        <span class="xss-bk xss-bk-peak">🔴 3.6</span>
+        <span class="xss-bk xss-bk-low">🔵 208.9</span>
+        
+        
         
       </div>
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">😴 Rest Day</div>
+        <div class="cal-recovery-title">🔥 Heavy Day — Dry Sauna Protocol</div>
         
-        <div class="cal-rec-row">🧖 Steam only — or skip entirely if fatigued</div>
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
         
-        <div class="cal-rec-row">💊 Magnesium pool 10min if available</div>
+        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
       
@@ -1330,12 +1249,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     <div class="cal-day completed">
       <div class="cal-day-header"><span class="cal-day-num">4</span><span class="cal-day-name">SUN</span></div>
-      <div class="cal-session-name">Zwift - Xert: SMART - The Rising ✅</div>
-      <div class="cal-time">59m · 32.4 km +4 more</div>
-      <span class="cal-xss-badge xss-mod">115.5 XSS</span>
+      <div class="cal-session-name">Singapore Walking ✅</div>
+      <div class="cal-time">23m · 0.4 km +1 more</div>
+      <span class="cal-xss-badge xss-rest">7 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 115.5</span>
+        <span class="xss-bk xss-bk-low">🔵 7.0</span>
         
         
         
@@ -1353,12 +1272,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cal-week-header">
     <h3>Crit-Specific · Sprint Work — Oct 5–11</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 671.1</span>
+      <span class="cal-week-xss">Weekly XSS: 498.1</span>
       
       <span class="cal-week-xss-bk">
-        <span class="xss-bk xss-bk-low">🔵 647.7</span>
-        <span class="xss-bk xss-bk-high">🟡 16.9</span>
-        <span class="xss-bk xss-bk-peak">🔴 6.5</span>
+        <span class="xss-bk xss-bk-low">🔵 456.1</span>
+        <span class="xss-bk xss-bk-high">🟡 31.1</span>
+        <span class="xss-bk xss-bk-peak">🔴 10.9</span>
         
       </span>
       
@@ -1395,6 +1314,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         
       </div>
       
+      
+      <div class="cal-recovery">
+        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
+        
+        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
+        
+        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
+        
+        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
+        
+      </div>
       
     </div>
     
@@ -1444,35 +1374,40 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
       </div>
       
       
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Heavy Day — Dry Sauna Protocol</div>
-        
-        <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
-        
-        <div class="cal-rec-row">❄️ 4°C cold shock · 30–60 sec legs only · after final round</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
+    </div>
+    
+    <div class="cal-day completed">
+      <div class="cal-day-header"><span class="cal-day-num">10</span><span class="cal-day-name">SAT</span></div>
+      <div class="cal-session-name">Zwift - Xert: SMART - Lucy in the Sky with Diamonds ✅</div>
+      <div class="cal-time">49m · 28.2 km +3 more</div>
+      <span class="cal-xss-badge xss-easy">83.0 XSS</span>
+      
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 68.5</span>
+        <span class="xss-bk xss-bk-high">🟡 11.0</span>
+        <span class="xss-bk xss-bk-peak">🔴 3.5</span>
         
       </div>
+      
       
     </div>
     
     <div class="cal-day today">
-      <div class="cal-day-header"><span class="cal-day-num">10</span><span class="cal-day-name">SAT</span></div>
-      <div class="cal-session-name">High Intensity Training</div>
-      <div class="cal-time">4h 30m</div>
-      <span class="cal-xss-badge xss-mega">242.2 XSS</span>
+      <div class="cal-day-header"><span class="cal-day-num">11</span><span class="cal-day-name">SUN</span></div>
+      <div class="cal-session-name">SMART - Raining Blood</div>
+      <div class="cal-time">0h 55m</div>
+      <span class="cal-xss-badge xss-mod">111.5 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 232.3</span>
-        <span class="xss-bk xss-bk-high">🟡 7.5</span>
-        <span class="xss-bk xss-bk-peak">🔴 2.4</span>
+        <span class="xss-bk xss-bk-low">🔵 97.5</span>
+        <span class="xss-bk xss-bk-high">🟡 10.7</span>
+        <span class="xss-bk xss-bk-peak">🔴 3.3</span>
         
       </div>
       
       
       <div class="cal-recovery">
-        <div class="cal-recovery-title">🔥 Heavy Day — Dry Sauna Protocol</div>
+        <div class="cal-recovery-title">🔥 Moderate Day Protocol</div>
         
         <div class="cal-rec-row">🔥 Dry sauna 80–90°C · 12 min  →  13–14°C pool 3–5 min  ×2 rounds</div>
         
@@ -1481,22 +1416,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
         <div class="cal-rec-row">💊 Magnesium pool · 8 min</div>
         
       </div>
-      
-    </div>
-    
-    <div class="cal-day">
-      <div class="cal-day-header"><span class="cal-day-num">11</span><span class="cal-day-name">SUN</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">1h 53m</div>
-      <span class="cal-xss-badge xss-mod">125.3 XSS</span>
-      
-      <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 125.3</span>
-        
-        
-        
-      </div>
-      
       
     </div>
     
@@ -1509,12 +1428,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cal-week-header">
     <h3>Peak — Oct 12–18</h3>
     <div class="cal-week-xss-row">
-      <span class="cal-week-xss">Weekly XSS: 704.2</span>
+      <span class="cal-week-xss">Weekly XSS: 782.8</span>
       
       <span class="cal-week-xss-bk">
-        <span class="xss-bk xss-bk-low">🔵 704.2</span>
-        
-        
+        <span class="xss-bk xss-bk-low">🔵 748.4</span>
+        <span class="xss-bk xss-bk-high">🟡 26.7</span>
+        <span class="xss-bk xss-bk-peak">🔴 7.7</span>
         
       </span>
       
@@ -1524,14 +1443,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     <div class="cal-day">
       <div class="cal-day-header"><span class="cal-day-num">12</span><span class="cal-day-name">MON</span></div>
-      <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">1h 15m</div>
-      <span class="cal-xss-badge xss-easy">82.5 XSS</span>
+      <div class="cal-session-name">High Intensity Training</div>
+      <div class="cal-time">1h 09m</div>
+      <span class="cal-xss-badge xss-easy">82.4 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 82.5</span>
-        
-        
+        <span class="xss-bk xss-bk-low">🔵 66.5</span>
+        <span class="xss-bk xss-bk-high">🟡 12.6</span>
+        <span class="xss-bk xss-bk-peak">🔴 3.3</span>
         
       </div>
       
@@ -1574,30 +1493,28 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     
     <div class="cal-day">
       <div class="cal-day-header"><span class="cal-day-num">15</span><span class="cal-day-name">THU</span></div>
-      <div class="cal-session-name">Rest</div>
-      <div class="cal-time">Planned</div>
+      <div class="cal-session-name">High Intensity Training</div>
+      <div class="cal-time">1h 13m</div>
+      <span class="cal-xss-badge xss-easy">86.6 XSS</span>
       
-      
-      
-      <div class="cal-recovery">
-        <div class="cal-recovery-title">😴 Rest Day</div>
-        
-        <div class="cal-rec-row">🧖 Steam only — or skip entirely if fatigued</div>
-        
-        <div class="cal-rec-row">💊 Magnesium pool 10min if available</div>
+      <div class="cal-xss-breakdown">
+        <span class="xss-bk xss-bk-low">🔵 68.1</span>
+        <span class="xss-bk xss-bk-high">🟡 14.1</span>
+        <span class="xss-bk xss-bk-peak">🔴 4.4</span>
         
       </div>
+      
       
     </div>
     
     <div class="cal-day">
       <div class="cal-day-header"><span class="cal-day-num">16</span><span class="cal-day-name">FRI</span></div>
       <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">1h 30m</div>
-      <span class="cal-xss-badge xss-easy">99 XSS</span>
+      <div class="cal-time">1h 28m</div>
+      <span class="cal-xss-badge xss-easy">97.0 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 99</span>
+        <span class="xss-bk xss-bk-low">🔵 97.0</span>
         
         
         
@@ -1620,11 +1537,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="cal-day">
       <div class="cal-day-header"><span class="cal-day-num">17</span><span class="cal-day-name">SAT</span></div>
       <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">4h 00m</div>
-      <span class="cal-xss-badge xss-mega">264 XSS</span>
+      <div class="cal-time">3h 55m</div>
+      <span class="cal-xss-badge xss-mega">258.7 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 264</span>
+        <span class="xss-bk xss-bk-low">🔵 258.7</span>
         
         
         
@@ -1647,11 +1564,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
     <div class="cal-day">
       <div class="cal-day-header"><span class="cal-day-num">18</span><span class="cal-day-name">SUN</span></div>
       <div class="cal-session-name">Low Intensity Training</div>
-      <div class="cal-time">1h 55m</div>
-      <span class="cal-xss-badge xss-mod">126.7 XSS</span>
+      <div class="cal-time">1h 54m</div>
+      <span class="cal-xss-badge xss-mod">126.1 XSS</span>
       
       <div class="cal-xss-breakdown">
-        <span class="xss-bk xss-bk-low">🔵 126.7</span>
+        <span class="xss-bk xss-bk-low">🔵 126.1</span>
         
         
         
@@ -1671,7 +1588,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
 <!-- COACHING NOTE -->
 <div class="section-title">Coaching Note</div>
 <div class="coaching-note">
-  <div class="cn-header">💬 Coach Assessment — Saturday 10 October 2026</div>
+  <div class="cn-header">💬 Coach Assessment — Sunday 11 October 2026</div>
   
   
   
@@ -1679,20 +1596,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,Bl
   <div class="cn-body" id="cn-body-preview">
     
     <p>Block 1 — STATUS SYNTHESIS
-HRV is elevated at 66.0ms (+46% vs 7-day avg), signalling strong parasympathetic recovery and readiness, while TSB is fresh at +23.2 and trending toward peak (+30 to +37 race-day projection). CTL has declined 5.6 points over two weeks (69.8 → 64.2), which is concerning 29 days out but consistent with intentional pre-taper load management. Trust the HRV signal and TSB: you are fresh and primed for targeted crit-specific work today.</p><p>Block 2 — SESSION INSIGHT
-Yesterday's 40-minute active recovery (XSS 26.7) kept intensity low and appropriate, with zones well-distributed (Z1 32%, Z2 20%) and AWC discharge moderate at 54.7%. Your 20-minute sustained power was 206W (76% of TP 272W), which is solid for active recovery; 5-minute peak of 239W shows anaerobic reserves intact. Recovery clock reads 20 hours from session start, clearing mid-morning tomorrow; Xert status is Fresh with no breakthrough imminent, giving you room to charge today without burnout risk.</p><p>Block 3 — TODAY'S PRESCRIPTION
-Execute a Heavy Day — Dry Sauna Protocol tonight. During riding: target 242 XSS via a mix of Z4–Z5 work (cornering speed and repeat-sprint preparation); hold TP ceiling at 272W, HR ceiling 168bpm, cadence 95–105rpm. Abort if HR exceeds 168bpm for more than 90 seconds. Post-ride sauna protocol: Dry sauna 80–90°C for 12 minutes (round 1), 13–14°C pool immersion 3–5 minutes, dry sauna 12 minutes (round 2), 13–14°C pool 3–5 minutes, then 4°C cold shock 30–60 seconds (legs only, final round only), finish with magnesium pool soak.</p>
+HRV elevated at 53.0ms (+14% above rolling average) signals strong parasympathetic recovery, but the 3-day trend (59→66→53) shows volatility that warrants monitoring. TSB at +21.3 confirms fresh legs; CTL has dropped 5.4 points in two weeks (69.6→64.2), a concerning decay with 28 days to race. Trust TSB for today's workout capacity, but prioritize CTL rebuild over the next two weeks to hit race-day fitness targets.</p><p>Block 2 — SESSION INSIGHT
+Yesterday's walking session (158.2 XSS, 12 min) was predominantly Zone 3 (55%), with 20-min peak power at 193W (71% TP)—well below threshold, indicating active recovery intent. Five-minute power of 197W confirms low ANaerobicCapacity draw; 9-hour recovery window is now complete. Xert status "Fresh" and remaining XSS budget of 117 today allows moderate-intensity work without breakthrough risk, but do not chase peak power—preserve AWC for tomorrow's high-intensity session.</p><p>Block 3 — TODAY'S PRESCRIPTION
+Execute a Moderate Day Protocol session: 60-minute ride, Z2–Z3 blend, ceiling 195W (72% TP), HR cap 155 bpm. Target 85–95 XSS to stay within today's 117-unit budget. Cadence 88–94 rpm on flats; abort if HR exceeds 160 bpm for more than 90 seconds. Post-ride, execute Moderate Day Recovery Protocol: dry sauna 80–90°C for 12 minutes, cool to 13–14°C pool for 4 minutes, repeat sauna 12 minutes, final 4°C cold shock to legs only (45 seconds), then magnesium pool. Hydration status adequate; fuel with 40g carbs + 15g protein within 30 minutes.</p>
     <p id="cn-fade" style="background:linear-gradient(transparent,#1a1d3a);height:24px;margin:0;padding:0"></p>
   </div>
   
   <div class="cn-body" id="cn-body-full" style="display:none">
     
     <p>Block 4 — TOMORROW PREVIEW
-Recovery window closes ~11:00 tomorrow; begin Low Intensity Training (125.3 XSS, 1h 53m) after that clearance. Hold power strictly under LTP (220W), HR under 145bpm—today's heavy sauna load and today's TP work directly debit tomorrow's aerobic quality if you carry fatigue. Every watt above zone 2 today costs you fresh legs for tomorrow's durability block; discipline the intensity ceiling now to guarantee tomorrow's volume.</p><p>Block 5 — RACE TRAJECTORY
-🟢 On track. CTL decline is managed taper positioning (64.2 is sufficient for 30-min crit at 95–105% TP with repeated surges); projected race-day TSB +30 to +37 is peak-ready. Priority this week: lock in repeat-sprint capacity via crit-specific Z4–Z5 work (today), execute pristine recovery protocol, and hold volume low (tomorrow's easy 125 XSS), setting the stage for a controlled 13–19 Oct taper into 8 Nov race-day fitness.</p>
+Today's recovery window clears at approximately 19:00 (session + 9-hour buffer). Tomorrow's High Intensity Training (82.4 XSS, 1h 09m) demands pre-session glycogen saturation and peak alertness; any excess effort today directly reduces tomorrow's repeat-sprint quality and power ceiling. Hold power ≤195W today to preserve AWC fully; tomorrow's session requires 3–4 efforts at ≥95% TP with <2 min recovery between surges. Do not compromise tomorrow's intensity for today's ego.</p><p>Block 5 — RACE TRAJECTORY
+🟡 Monitor — CTL decay (−5.4 in 14 days) is off-trajectory for peak crit fitness; projected race-day TSB (+30 to +37) is strong, but base fitness must stabilize immediately. Rebuild CTL to 72+ by 31 October (18 days) via consistent Crit-Specific Sprint Work sessions; if CTL continues to drop, taper effectiveness will suffer. Priority this week: three hard sessions (High Intensity, repeat 400m efforts, cornering drills) + two moderate recovery days to arrest fitness loss and lock in AWC peak by 19 October.</p>
   </div>
   <div style="margin-top:8px;text-align:right">
-    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (389 words)</button>
+    <button id="cn-toggle" onclick="toggleCoachNote()" style="background:none;border:1px solid #2563eb44;border-radius:6px;padding:4px 14px;font-size:11px;color:var(--accent);cursor:pointer">Show full note ↓ (399 words)</button>
   </div>
   
   
@@ -2042,7 +1959,7 @@ Recovery window closes ~11:00 tomorrow; begin Low Intensity Training (125.3 XSS,
 
 <!-- FOOTER -->
 <div class="dash-footer">
-  Updated: Saturday 10 October 2026 at 08:01 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
+  Updated: Sunday 11 October 2026 at 08:00 SGT (live data from Garmin Connect + Xert + Intervals.icu) &nbsp;·&nbsp;
   Next automated report: 6:00 AM &amp; 9:00 AM SGT &nbsp;·&nbsp;
   <a href="https://cycling-dashboard-jl.netlify.app" target="_blank">cycling-dashboard-jl.netlify.app</a>
 </div>
@@ -2117,10 +2034,10 @@ function switchTab(id, btn) {
 }
 
 // Live CTL/ATL/TSB data from Intervals.icu — last 14 days
-const labels  = ["Sep 11", "Sep 12", "Sep 13", "Sep 14", "Sep 15", "Sep 16", "Sep 17", "Sep 18", "Sep 19", "Sep 20", "Sep 21", "Sep 22", "Sep 23", "Sep 24", "Sep 25", "Sep 26", "Sep 27", "Sep 28", "Sep 29", "Sep 30", "Oct 1", "Oct 2", "Oct 3", "Oct 4", "Oct 5", "Oct 6", "Oct 7", "Oct 8", "Oct 9", "Oct 10"];
-const ctlData = [76.0, 76.0, 76.9, 76.0, 75.2, 73.5, 74.6, 74.4, 75.5, 73.9, 72.3, 70.7, 70.4, 69.8, 68.6, 68.3, 69.8, 69.6, 69.8, 69.3, 67.8, 67.0, 70.0, 70.7, 70.4, 70.4, 68.9, 67.3, 65.8, 64.2];
-const atlData = [56.4, 58.6, 66.2, 62.6, 59.5, 52.2, 61.5, 62.1, 69.9, 61.6, 53.8, 47.4, 48.7, 48.3, 44.2, 45.9, 57.5, 57.8, 60.5, 59.1, 51.8, 49.4, 68.6, 73.0, 70.7, 71.0, 62.1, 54.0, 47.3, 41.0];
-const tsbData = [19.6, 17.4, 10.7, 13.4, 15.7, 21.3, 13.1, 12.3, 5.6, 12.3, 18.5, 23.3, 21.7, 21.5, 24.4, 22.4, 12.3, 11.8, 9.3, 10.2, 16.0, 17.6, 1.4, -2.3, -0.3, -0.6, 6.8, 13.3, 18.5, 23.2];
+const labels  = ["Sep 12", "Sep 13", "Sep 14", "Sep 15", "Sep 16", "Sep 17", "Sep 18", "Sep 19", "Sep 20", "Sep 21", "Sep 22", "Sep 23", "Sep 24", "Sep 25", "Sep 26", "Sep 27", "Sep 28", "Sep 29", "Sep 30", "Oct 1", "Oct 2", "Oct 3", "Oct 4", "Oct 5", "Oct 6", "Oct 7", "Oct 8", "Oct 9", "Oct 10", "Oct 11"];
+const ctlData = [76.0, 76.9, 76.0, 75.2, 73.5, 74.6, 74.4, 75.5, 73.9, 72.3, 70.7, 70.4, 69.8, 68.6, 68.3, 69.8, 69.6, 69.8, 69.3, 67.8, 67.0, 70.0, 70.7, 70.4, 70.4, 68.9, 67.3, 65.8, 65.7, 64.2];
+const atlData = [58.6, 66.2, 62.6, 59.5, 52.2, 61.5, 62.1, 69.9, 61.6, 53.8, 47.4, 48.7, 48.3, 44.2, 45.9, 57.5, 57.8, 60.5, 59.1, 51.8, 49.4, 68.6, 73.0, 70.7, 71.0, 62.1, 54.0, 47.3, 49.5, 42.9];
+const tsbData = [17.4, 10.7, 13.4, 15.7, 21.3, 13.1, 12.3, 5.6, 12.3, 18.5, 23.3, 21.7, 21.5, 24.4, 22.4, 12.3, 11.8, 9.3, 10.2, 16.0, 17.6, 1.4, -2.3, -0.3, -0.6, 6.8, 13.3, 18.5, 16.2, 21.3];
 
 const ctx = document.getElementById('formChart').getContext('2d');
 new Chart(ctx, {
